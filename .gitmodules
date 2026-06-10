@@ -1,0 +1,3 @@
+[submodule "build2-toolchain"]
+	path = build2-toolchain
+	url = https://github.com/build2/build2-toolchain.git

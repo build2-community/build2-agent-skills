@@ -1,0 +1,33 @@
+# build2 Ecosystem -- AI Reference
+
+> Structured, AI-consumable reference for the build2 C/C++ toolchain: build
+> system (b), package manager (bpkg), and project manager (bdep).
+
+## Start here
+
+- [INDEX.md](INDEX.md): Ecosystem overview, full command lookup tables, and navigation links to all reference files. Read this first.
+- [GLOSSARY.md](GLOSSARY.md): Cross-tool terminology.
+
+## Tool references
+
+- [b/README.md](b/README.md): Build system driver -- buildspec syntax, meta-operations, operations, key options.
+- [b/b.md](b/b.md): Full b option reference.
+- [bpkg/README.md](bpkg/README.md): Package manager -- key concepts, all commands, typical workflows.
+- [bdep/README.md](bdep/README.md): Project dependency manager -- key concepts, all commands, typical workflows.
+- [bx/README.md](bx/README.md): Shell script and task runner reference.
+
+## Guides
+
+- [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md): End-to-end guide for packaging third-party C/C++ libraries for cppget.org.
+- [guides/build2-manual-summary.md](guides/build2-manual-summary.md): build2 build system manual -- intro, tutorial, and core concepts.
+- [guides/build2-modules-cc.md](guides/build2-modules-cc.md): cc/cxx module reference (compile, link, install options).
+- [guides/build2-modules-core.md](guides/build2-modules-core.md): Core modules reference (config, dist, install, test, etc.).
+- [guides/build2-project-config.md](guides/build2-project-config.md): Project configuration system.
+- [guides/build2-targets-variables.md](guides/build2-targets-variables.md): Target types and variable reference.
+- [guides/testscript-summary.md](guides/testscript-summary.md): Testscript language reference.
+- [guides/kconfig-summary.md](guides/kconfig-summary.md): kconfig module for feature selection.
+- [guides/install-bootstrap.md](guides/install-bootstrap.md): Installing and bootstrapping the toolchain.
+
+## Raw source
+
+- [build2-toolchain/](build2-toolchain/): Git submodule containing the upstream .cli source files. Run init-docs.sh to extract them to .docs/.
