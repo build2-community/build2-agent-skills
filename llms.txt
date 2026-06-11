@@ -43,6 +43,10 @@
 
 - [scripts/verify-install.sh](scripts/verify-install.sh): Verify build2 toolchain installation.
 - [scripts/new-package.sh](scripts/new-package.sh): Scaffold a new bpkg package directory.
+- [scripts/probe-compiler.sh](scripts/probe-compiler.sh): Scan PATH for C++ compilers; print family, target triplet, and version.
+- [scripts/check-manifest.sh](scripts/check-manifest.sh): Validate a bpkg manifest for required and recommended fields.
+- [scripts/run-tests.sh](scripts/run-tests.sh): Run bpkg test --all in a bpkg configuration directory.
+- [scripts/show-project-info.sh](scripts/show-project-info.sh): Display b info output in a labeled, consistent format.
 
 ## Raw source
 

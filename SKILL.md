@@ -47,6 +47,10 @@ use the table below to jump directly to the relevant file.
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Install or bootstrap the toolchain | [guides/install-bootstrap.md](guides/install-bootstrap.md) |
 | Verify toolchain is installed | [scripts/verify-install.sh](scripts/verify-install.sh) |
+| Find a C++ compiler for config.cxx= | [scripts/probe-compiler.sh](scripts/probe-compiler.sh) |
+| Validate a package manifest file | [scripts/check-manifest.sh](scripts/check-manifest.sh) |
+| Run tests in a bpkg configuration | [scripts/run-tests.sh](scripts/run-tests.sh) |
+| Inspect project name/version/roots | [scripts/show-project-info.sh](scripts/show-project-info.sh) |
 | Troubleshoot errors | [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md) |
 | Practical recipes by topic | [HOWTO/README.md](HOWTO/README.md) |
 | Terminology reference | [GLOSSARY.md](GLOSSARY.md) |
