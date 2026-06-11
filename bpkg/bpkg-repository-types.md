@@ -119,6 +119,6 @@ The `file://` protocol has the same fetch minimization support as `git://` and i
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-rep-add](bpkg-rep-add.md)
 - [bpkg-common-options](bpkg-common-options.md)

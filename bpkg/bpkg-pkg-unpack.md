@@ -46,4 +46,4 @@ The following `pkg-unpack` command options cannot be specified in the default op
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)

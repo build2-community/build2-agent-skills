@@ -61,5 +61,5 @@ The load order is traced at verbosity level 3 (`-V`).
 
 ## See Also
 
-- [bdep SUMMARY](SUMMARY.md)
+- [bdep README](README.md)
 - [bdep-common-options](bdep-common-options.md)

@@ -23,5 +23,5 @@ bpkg-help.options
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-default-options-files](bpkg-default-options-files.md)

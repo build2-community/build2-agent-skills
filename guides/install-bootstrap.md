@@ -709,8 +709,8 @@ Executables installed are `b` (build system), `bpkg` (package manager), and
 
 ## See Also
 
-- [b SUMMARY](../b/SUMMARY.md)
-- [bpkg SUMMARY](../bpkg/SUMMARY.md)
+- [b README](../b/README.md)
+- [bpkg README](../bpkg/README.md)
 - [`verify-install.sh`](../scripts/verify-install.sh) -- verify toolchain installation
 - Download page: https://build2.org/download.xhtml
 - Package repository: https://pkg.cppget.org/1/alpha

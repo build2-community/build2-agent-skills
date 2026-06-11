@@ -234,7 +234,7 @@ already being performed.
 
 ## See Also
 
-- [bdep SUMMARY](SUMMARY.md)
+- [bdep README](README.md)
 - [bdep-init](bdep-init.md)
 - [bdep-config](bdep-config.md)
 - [bdep-projects-configs](bdep-projects-configs.md)

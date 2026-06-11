@@ -295,5 +295,5 @@ depends: libbar ^1.0.0 ? ($config.hello.libfoo_cache)
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-pkg-build](bpkg-pkg-build.md)

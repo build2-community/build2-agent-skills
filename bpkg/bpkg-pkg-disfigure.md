@@ -38,4 +38,4 @@ The following `pkg-disfigure` command options cannot be specified in the default
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)

@@ -61,5 +61,5 @@ The load order is traced at verbosity level 3 (`-V`).
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-common-options](bpkg-common-options.md)

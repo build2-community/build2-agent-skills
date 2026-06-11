@@ -445,5 +445,5 @@ skeleton when the package list manifest is created.
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [packaging guide](../guides/packaging-guide-summary.md)

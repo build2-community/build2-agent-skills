@@ -215,7 +215,7 @@ bpkg-pkg-build.options
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-argument-grouping](bpkg-argument-grouping.md)
 - [bpkg-pkg-status](bpkg-pkg-status.md)
 - [bpkg-pkg-drop](bpkg-pkg-drop.md)

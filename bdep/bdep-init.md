@@ -197,7 +197,7 @@ files:
 
 ## See Also
 
-- [bdep SUMMARY](SUMMARY.md)
+- [bdep README](README.md)
 - [bdep-config](bdep-config.md)
 - [bdep-sync](bdep-sync.md)
 - [bdep-projects-configs](bdep-projects-configs.md)

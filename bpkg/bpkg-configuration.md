@@ -23,5 +23,5 @@ Each command's DEFAULT OPTIONS FILES section lists any such restrictions.
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-cfg-create](bpkg-cfg-create.md)

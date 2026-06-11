@@ -133,6 +133,6 @@ Note that for `openssl` versions prior to `3.0.0` `bpkg` uses the `rsautl` comma
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-rep-add](bpkg-rep-add.md)
 - [bpkg-rep-create](bpkg-rep-create.md)

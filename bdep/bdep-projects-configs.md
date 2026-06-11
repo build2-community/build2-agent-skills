@@ -69,6 +69,6 @@ directory therefore shows the status across all default configurations.
 
 ## See Also
 
-- [bdep SUMMARY](SUMMARY.md)
+- [bdep README](README.md)
 - [bdep-config](bdep-config.md)
 - [bdep-init](bdep-init.md)

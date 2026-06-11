@@ -38,6 +38,30 @@
 
 - [HOWTO/README.md](HOWTO/README.md): Practical recipes indexed by topic.
 - [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md): Common error messages and resolutions for b, bpkg, and bdep.
+- [HOWTO/alias-targets.md](HOWTO/alias-targets.md): PHONY-equivalent targets using alias{}.
+- [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md): Which compile/link options belong in a buildfile.
+- [HOWTO/config-independent-build-graph.md](HOWTO/config-independent-build-graph.md): Keeping the build graph configuration-independent.
+- [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md): Resolving "already updated but [not] for install" errors.
+- [HOWTO/generated-headers.md](HOWTO/generated-headers.md): Auto-generated C/C++ headers.
+- [HOWTO/disable-shared-lib-per-platform.md](HOWTO/disable-shared-lib-per-platform.md): Disabling the shared library variant per platform.
+- [HOWTO/header-only-library.md](HOWTO/header-only-library.md): Binless (header-only) libraries.
+- [HOWTO/library-provides-main.md](HOWTO/library-provides-main.md): Library that provides main().
+- [HOWTO/link-pthread.md](HOWTO/link-pthread.md): Linking pthread.
+- [HOWTO/link-system-library.md](HOWTO/link-system-library.md): Linking system libraries (-lm, -ldl, advapi32.lib).
+- [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md): Making library components optional.
+- [HOWTO/target-metadata.md](HOWTO/target-metadata.md): Exporting metadata with executables and libraries.
+- [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md): Correctly using assert() in tests.
+- [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md): Sanitizing misbehaving tests with Testscript.
+- [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md): Tests with extra dependencies (separate test package).
+- [HOWTO/convert-source-to-utf8.md](HOWTO/convert-source-to-utf8.md): Converting source file encoding to UTF-8.
+- [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects.
+- [HOWTO/package-version-non-semver.md](HOWTO/package-version-non-semver.md): Projects that don't use semantic versioning.
+- [HOWTO/package-version-none.md](HOWTO/package-version-none.md): Projects with no version at all.
+- [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md): Managing debug/release/sanitize configurations with bdep.
+- [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md): Setting up a cross-compilation configuration with target triplets.
+- [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md): Typical CI pipeline using bdep update/test.
+- [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md): Porting a CMake project to build2 buildfiles.
+- [HOWTO/toolchain-dev-setup.md](HOWTO/toolchain-dev-setup.md): Setting up build2 for toolchain development.
 
 ## Scripts
 
@@ -51,3 +75,4 @@
 ## Raw source
 
 - [build2-toolchain/](build2-toolchain/): Git submodule containing the upstream .cli source files. Run init-docs.sh to extract them to .docs/.
+- [build2-howto/](build2-howto/): Git submodule containing the upstream HOWTO entries. Run init-docs.sh to extract them to .docs/HOWTO/.

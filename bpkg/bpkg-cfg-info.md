@@ -75,7 +75,7 @@ options files:
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-cfg-create](bpkg-cfg-create.md)
 - [bpkg-cfg-link](bpkg-cfg-link.md)
 - [bpkg-cfg-unlink](bpkg-cfg-unlink.md)

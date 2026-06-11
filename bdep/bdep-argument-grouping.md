@@ -61,6 +61,6 @@ To pass a group separator verbatim as an argument, escape it with `\`:
 
 ## See Also
 
-- [bdep SUMMARY](SUMMARY.md)
+- [bdep README](README.md)
 - [bdep-sync](bdep-sync.md)
 - [bdep-init](bdep-init.md)

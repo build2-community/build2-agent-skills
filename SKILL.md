@@ -46,6 +46,10 @@ use the table below to jump directly to the relevant file.
 | Write testscripts | [guides/testscript-summary.md](guides/testscript-summary.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Install or bootstrap the toolchain | [guides/install-bootstrap.md](guides/install-bootstrap.md) |
+| Use .in template preprocessing or bash module | [guides/build2-modules-misc.md](guides/build2-modules-misc.md) |
+| Set up cross-compilation with target triplets | [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md) |
+| Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
+| Scaffold a new bpkg package directory | [scripts/new-package.sh](scripts/new-package.sh) |
 | Verify toolchain is installed | [scripts/verify-install.sh](scripts/verify-install.sh) |
 | Find a C++ compiler for config.cxx= | [scripts/probe-compiler.sh](scripts/probe-compiler.sh) |
 | Validate a package manifest file | [scripts/check-manifest.sh](scripts/check-manifest.sh) |

@@ -120,5 +120,5 @@ level 3 (`-V`).
 
 ## See Also
 
-- [bx SUMMARY](SUMMARY.md)
+- [bx README](README.md)
 - [INDEX](../INDEX.md)

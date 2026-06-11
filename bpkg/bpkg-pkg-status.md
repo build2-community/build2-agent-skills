@@ -253,7 +253,7 @@ options files:
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-pkg-build](bpkg-pkg-build.md)
 - [bpkg-pkg-purge](bpkg-pkg-purge.md)
 - [bpkg-common-options](bpkg-common-options.md)

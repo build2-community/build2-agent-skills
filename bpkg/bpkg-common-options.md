@@ -93,4 +93,4 @@ note "inherits common options" and link here rather than repeating them.
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)

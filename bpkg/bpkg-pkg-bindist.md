@@ -302,7 +302,7 @@ The following option cannot be specified in default options files:
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-pkg-install](bpkg-pkg-install.md)
 - [bpkg-pkg-build](bpkg-pkg-build.md)
 - [bpkg-common-options](bpkg-common-options.md)

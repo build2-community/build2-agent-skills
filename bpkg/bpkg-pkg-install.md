@@ -66,6 +66,6 @@ options files:
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [`install-bootstrap`](../guides/install-bootstrap.md) -- system-wide toolchain installation
 - [`for-install-conflicts`](../HOWTO/for-install-conflicts.md) -- resolving for-install build conflicts

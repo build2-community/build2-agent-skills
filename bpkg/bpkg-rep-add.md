@@ -41,4 +41,4 @@ The following `rep-add` command options cannot be specified in the default optio
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)

@@ -54,7 +54,7 @@ options files:
 
 ## See Also
 
-- [bdep SUMMARY](SUMMARY.md)
+- [bdep README](README.md)
 - [bdep-init](bdep-init.md)
 - [bdep-projects-configs](bdep-projects-configs.md)
 - [bdep-default-options-files](bdep-default-options-files.md)

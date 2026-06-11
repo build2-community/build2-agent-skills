@@ -49,4 +49,4 @@ The following `pkg-drop` command options cannot be specified in the default opti
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)

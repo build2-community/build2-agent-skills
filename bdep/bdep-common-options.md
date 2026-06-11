@@ -71,4 +71,4 @@ The following common option cannot be specified in default options files:
 
 ## See Also
 
-- [bdep SUMMARY](SUMMARY.md)
+- [bdep README](README.md)

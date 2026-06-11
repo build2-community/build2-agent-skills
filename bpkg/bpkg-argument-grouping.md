@@ -61,5 +61,5 @@ To pass a group separator verbatim as an argument, escape it with `\`:
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-pkg-build](bpkg-pkg-build.md)

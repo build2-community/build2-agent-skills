@@ -51,7 +51,7 @@ options files:
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)
 - [bpkg-cfg-create](bpkg-cfg-create.md)
 - [bpkg-cfg-info](bpkg-cfg-info.md)
 - [bpkg-cfg-link](bpkg-cfg-link.md)

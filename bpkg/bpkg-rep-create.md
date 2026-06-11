@@ -37,4 +37,4 @@ The following `rep-create` command options cannot be specified in the remote def
 
 ## See Also
 
-- [bpkg SUMMARY](SUMMARY.md)
+- [bpkg README](README.md)

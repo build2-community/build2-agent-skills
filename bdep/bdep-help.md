@@ -23,5 +23,5 @@ bdep-help.options
 
 ## See Also
 
-- [bdep SUMMARY](SUMMARY.md)
+- [bdep README](README.md)
 - [bdep-default-options-files](bdep-default-options-files.md)
