@@ -172,5 +172,6 @@ See [bx reference](bx/bx.md) for the full option list.
 - [autoconf module](guides/build2-modules-autoconf.md)
 - [autoconf: project-specific checks](guides/build2-autoconf-project-checks.md)
 - [autoconf: buildfile integration](guides/build2-autoconf-buildfile.md)
+- [autoconf: contributing builtin checks](guides/build2-autoconf-contributing-checks.md)
 - [kconfig module](guides/kconfig-summary.md)
 - [install and bootstrap](guides/install-bootstrap.md)

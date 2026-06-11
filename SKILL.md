@@ -49,6 +49,7 @@ use the table below to jump directly to the relevant file.
 | Use .in template preprocessing or bash module | [guides/build2-modules-misc.md](guides/build2-modules-misc.md) |
 | Process config.h.in / config.h.cmake / config.h.meson | [guides/build2-modules-autoconf.md](guides/build2-modules-autoconf.md) |
 | Add project-specific autoconf checks | [guides/build2-autoconf-project-checks.md](guides/build2-autoconf-project-checks.md) |
+| Contribute a check to the autoconf builtin catalog | [guides/build2-autoconf-contributing-checks.md](guides/build2-autoconf-contributing-checks.md) |
 | Use autoconf check results in buildfiles | [guides/build2-autoconf-buildfile.md](guides/build2-autoconf-buildfile.md) |
 | Set up cross-compilation with target triplets | [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md) |
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |

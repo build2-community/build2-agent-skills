@@ -159,4 +159,5 @@ an incorrect assumption from an incorrect implementation.
 
 - [libbuild2-autoconf module reference](build2-modules-autoconf.md) -- flavors, variables, builtin checks, custom substitutions
 - [Buildfile integration](build2-autoconf-buildfile.md) -- communicating check results to buildfiles
+- [Contributing builtin checks](build2-autoconf-contributing-checks.md) -- stylistic guidelines and PR format for upstreaming a check
 - [Builtin checks catalog](https://github.com/build2/libbuild2-autoconf/tree/master/libbuild2-autoconf/libbuild2/autoconf/checks/)
