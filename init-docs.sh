@@ -48,6 +48,16 @@ find "$TOOLCHAIN" -name '*.cli' \
     cp "$src" "$dst"
   done
 
+find "$TOOLCHAIN" -name '*.md' \
+  ! -path '*/tests/*'          \
+  ! -path '*/test/*'           \
+  | while IFS= read -r src; do
+    rel="${src#$TOOLCHAIN/}"
+    dst="$OUTPUT/$rel"
+    mkdir -p "$(dirname "$dst")"
+    cp "$src" "$dst"
+  done
+
 find "$HOWTO" -name '*.md' \
   | while IFS= read -r src; do
     rel="${src#$HOWTO/}"
@@ -75,8 +85,10 @@ if [ -f "$AUTOCONF/libbuild2-autoconf-tests/README.md" ]; then
 fi
 
 cli_count=$(find "$OUTPUT" -name '*.cli' | wc -l)
+toolchain_md_count=$(find "$OUTPUT" -name '*.md' ! -path "$OUTPUT/HOWTO/*" ! -path "$OUTPUT/libbuild2-autoconf/*" | wc -l)
 md_count=$(find "$OUTPUT/HOWTO" -name '*.md' | wc -l)
 h_count=$(find "$ac_dst/checks" -name '*.h' | wc -l)
 echo "Extracted $cli_count .cli files to $OUTPUT/"
+echo "Extracted $toolchain_md_count .md files from $TOOLCHAIN to $OUTPUT/"
 echo "Extracted $md_count .md files to $OUTPUT/HOWTO/"
 echo "Extracted $h_count autoconf check headers to $OUTPUT/libbuild2-autoconf/checks/"
