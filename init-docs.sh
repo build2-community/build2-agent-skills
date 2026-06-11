@@ -1,27 +1,39 @@
 #!/bin/sh
-# Initialize build2-toolchain submodule and extract .cli source docs to .docs/
+# Initialize submodules and extract docs to .docs/
 #
-# Run once after cloning, or after updating the submodule, to populate .docs/.
-# .docs/ is git-ignored; the submodule is the authoritative source.
+# Run once after cloning, or after updating a submodule, to populate .docs/.
+# .docs/ is git-ignored; the submodules are the authoritative source.
 
 set -e
 
-SUBMODULE=build2-toolchain
+TOOLCHAIN=build2-toolchain
+HOWTO=build2-howto
 OUTPUT=.docs
 
-git submodule update --init --recursive -- "$SUBMODULE"
+git submodule update --init --recursive -- "$TOOLCHAIN"
+git submodule update --init -- "$HOWTO"
 
 rm -rf "$OUTPUT"
 
-find "$SUBMODULE" -name '*.cli' \
-  ! -path '*/tests/*'          \
-  ! -path '*/test/*'           \
+find "$TOOLCHAIN" -name '*.cli' \
+  ! -path '*/tests/*'           \
+  ! -path '*/test/*'            \
   | while IFS= read -r src; do
-    rel="${src#$SUBMODULE/}"
+    rel="${src#$TOOLCHAIN/}"
     dst="$OUTPUT/$rel"
     mkdir -p "$(dirname "$dst")"
     cp "$src" "$dst"
   done
 
-count=$(find "$OUTPUT" -name '*.cli' | wc -l)
-echo "Extracted $count .cli files to $OUTPUT/"
+find "$HOWTO" -name '*.md' \
+  | while IFS= read -r src; do
+    rel="${src#$HOWTO/}"
+    dst="$OUTPUT/HOWTO/$rel"
+    mkdir -p "$(dirname "$dst")"
+    cp "$src" "$dst"
+  done
+
+cli_count=$(find "$OUTPUT" -name '*.cli' | wc -l)
+md_count=$(find "$OUTPUT/HOWTO" -name '*.md' | wc -l)
+echo "Extracted $cli_count .cli files to $OUTPUT/"
+echo "Extracted $md_count .md files to $OUTPUT/HOWTO/"
