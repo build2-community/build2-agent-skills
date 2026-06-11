@@ -19,3 +19,9 @@ int main ()
 
 The "include last" rule matters: other headers you include before `<cassert>`
 should still see `NDEBUG` with its normal effect.
+
+## See Also
+
+- [sanitize-tests.md](./sanitize-tests.md) -- sanitizing misbehaving test execution
+- [testscript-summary.md](../guides/testscript-summary.md) -- Testscript language reference
+- [build2 core modules: test](../guides/build2-modules-core.md)

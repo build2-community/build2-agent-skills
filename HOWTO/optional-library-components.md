@@ -32,3 +32,9 @@ to gate optional components:
 The same `config` variable approach can also create a "single package,
 multiple libraries" arrangement -- see `libasio` and `libevent` on
 `cppget.org` for real examples.
+
+## See Also
+
+- [build2 core modules: config](../guides/build2-modules-core.md) -- config variables and persistence
+- [build2-modules-bin.md](../guides/build2-modules-bin.md) -- lib/liba/libs target types
+- [target-metadata.md](./target-metadata.md)

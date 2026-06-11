@@ -56,3 +56,10 @@ $ bdep ci -d libhello
 ```
 
 See [`bdep-ci`](../bdep/bdep-ci.md) for options.
+
+## See Also
+
+- [testscript-summary.md](../guides/testscript-summary.md) -- Testscript reference
+- [bdep-new.md](../bdep/bdep-new.md) -- creating new packages (test-only package layout)
+- [packaging-guide-testing.md](../guides/packaging-guide-testing.md) -- testing packages end-to-end
+- [bdep-ci.md](../bdep/bdep-ci.md)

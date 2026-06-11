@@ -46,3 +46,9 @@ version: +2-20210824
 The `+2-` prefix denotes the second epoch (default epoch is `1`). Use epoch
 `0` when you know the current scheme is temporary and upstream versioning
 is imminent.
+
+## See Also
+
+- [bpkg manifest reference](../bpkg/bpkg-manifest-reference.md) -- version field and epoch syntax
+- [build2 version module](../guides/build2-module-version.md) -- version variables and snapshot versioning
+- [package-version-non-semver.md](./package-version-non-semver.md)

@@ -42,3 +42,9 @@ not targets, which is why they work as `b test: exe{image}`. Adding a new
 operation requires a build system module written in C++ and is only warranted
 for SDK vendors or similar cases. For project-level scripting,
 [bx](../bx/README.md) is the simpler alternative.
+
+## See Also
+
+- [build2 intro concepts](../guides/build2-intro-concepts.md) -- targets, operations, and meta-operations
+- [build2 targets and variables](../guides/build2-targets-variables.md) -- target type reference
+- [bx README](../bx/README.md) -- task runner for project-level scripting

@@ -37,3 +37,8 @@ directly. The
 section of the packaging guide covers the available approaches: manual copy
 with `.orig`/`.patch` files, a `sed`-based ad hoc recipe, or the C
 preprocessor trick.
+
+## See Also
+
+- [packaging-guide-summary.md](../guides/packaging-guide-summary.md) -- handling upstream source deviations
+- [packaging-guide-testing.md](../guides/packaging-guide-testing.md) -- testing third-party packages

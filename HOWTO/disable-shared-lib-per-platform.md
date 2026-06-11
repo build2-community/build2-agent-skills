@@ -51,3 +51,8 @@ if ($($out_root/libhello/ cxx.target.class) == 'windows')
 
 export $out_root/libhello/$import.target
 ```
+
+## See Also
+
+- [build2-modules-bin.md](../guides/build2-modules-bin.md) -- liba, libs, lib target types
+- [build2-modules-cc.md](../guides/build2-modules-cc.md) -- toolchain detection and target class

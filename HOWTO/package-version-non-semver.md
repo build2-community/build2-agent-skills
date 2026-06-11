@@ -63,3 +63,11 @@ $ bdep publish --forward --section=stable
 
 The `--section` must be explicit because it cannot be deduced from a
 non-semver version.
+
+## See Also
+
+- [bpkg manifest reference](../bpkg/bpkg-manifest-reference.md) -- version field syntax
+- [build2 version module](../guides/build2-module-version.md) -- version format and snapshot handling
+- [package-version-none.md](./package-version-none.md)
+- [bdep-release.md](../bdep/bdep-release.md)
+- [bdep-publish.md](../bdep/bdep-publish.md)

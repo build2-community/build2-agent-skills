@@ -43,3 +43,8 @@ build configuration for installation where the executable does not need to be
 run (for example, by caching its output). See the
 [CLI compiler](https://github.com/codesynthesis-com/cli) for a real-world
 example of this pattern.
+
+## See Also
+
+- [build2 core modules: install](../guides/build2-modules-core.md) -- install layout and operations
+- [troubleshooting.md](./troubleshooting.md) -- common error messages and fixes

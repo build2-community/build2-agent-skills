@@ -85,3 +85,8 @@ import libs = libmytest%lib{mytest-main}
 b -v tests/basics/exe{driver}
 b -v tests/basics/exe{driver} config.bin.exe.lib=static
 ```
+
+## See Also
+
+- [build2-modules-bin.md](../guides/build2-modules-bin.md) -- lib, liba, libs, exe target types
+- [build2-modules-cc.md](../guides/build2-modules-cc.md) -- bin.lib, loptions variables

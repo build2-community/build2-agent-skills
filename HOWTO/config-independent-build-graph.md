@@ -86,3 +86,9 @@ if $config.hello.develop
   $lex -o $path($>) $path($<[0])
 }}
 ```
+
+## See Also
+
+- [build2 buildfile language](../guides/build2-buildfile-language.md) -- conditional and loop directives
+- [build2 directives, name patterns, attributes](../guides/build2-directives-patterns.md)
+- [build2 core modules: config](../guides/build2-modules-core.md)

@@ -31,6 +31,7 @@ use the table below to jump directly to the relevant file.
 |---|---|
 | Write or read a buildfile | [guides/build2-intro-concepts.md](guides/build2-intro-concepts.md) |
 | Buildfile language syntax (if/loop/switch/patterns) | [guides/build2-buildfile-language.md](guides/build2-buildfile-language.md) |
+| Buildfile directives, name patterns, and attributes | [guides/build2-directives-patterns.md](guides/build2-directives-patterns.md) |
 | Library projects, target importation, subprojects | [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md) |
 | C/C++ compile and link options, module support | [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md) |
 | C-common variables, DLL export, compilation database | [guides/build2-modules-cc.md](guides/build2-modules-cc.md) |
@@ -44,13 +45,19 @@ use the table below to jump directly to the relevant file.
 | Publish a package | [bdep/bdep-publish.md](bdep/bdep-publish.md) |
 | Release a new version | [bdep/bdep-release.md](bdep/bdep-release.md) |
 | Write testscripts | [guides/testscript-summary.md](guides/testscript-summary.md) |
+| Testscript commands, redirections, regex, cleanup, builtins | [guides/testscript-commands.md](guides/testscript-commands.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
+| Test and publish a third-party package | [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md) |
 | Install or bootstrap the toolchain | [guides/install-bootstrap.md](guides/install-bootstrap.md) |
+| Install toolchain from repository (step 3) | [guides/install-toolchain.md](guides/install-toolchain.md) |
+| Upgrade an installed toolchain (dirty or staged) | [guides/install-upgrade.md](guides/install-upgrade.md) |
 | Use .in template preprocessing or bash module | [guides/build2-modules-misc.md](guides/build2-modules-misc.md) |
+| version module: variables, snapshot versions, version headers | [guides/build2-module-version.md](guides/build2-module-version.md) |
 | Process config.h.in / config.h.cmake / config.h.meson | [guides/build2-modules-autoconf.md](guides/build2-modules-autoconf.md) |
 | Add project-specific autoconf checks | [guides/build2-autoconf-project-checks.md](guides/build2-autoconf-project-checks.md) |
 | Contribute a check to the autoconf builtin catalog | [guides/build2-autoconf-contributing-checks.md](guides/build2-autoconf-contributing-checks.md) |
 | Use autoconf check results in buildfiles | [guides/build2-autoconf-buildfile.md](guides/build2-autoconf-buildfile.md) |
+| kconfig: build system integration and examples | [guides/kconfig-integration.md](guides/kconfig-integration.md) |
 | Set up cross-compilation with target triplets | [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md) |
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
 | Scaffold a new bpkg package directory | [scripts/new-package.sh](scripts/new-package.sh) |

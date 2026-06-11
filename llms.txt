@@ -19,24 +19,31 @@
 
 ## Guides
 
-- [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md): End-to-end guide for packaging third-party C/C++ libraries for cppget.org.
+- [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md): Third-party packaging guide -- concepts, workflow checklist, and steps 1-7 (repository setup through installation configuration).
+- [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md): Third-party packaging -- steps 8-10: writing tests, CI validation, releasing and publishing to cppget.org, common pitfalls.
 - [guides/build2-intro-concepts.md](guides/build2-intro-concepts.md): build2 concepts -- targets, scopes, modules, variables, operations.
 - [guides/build2-buildfile-language.md](guides/build2-buildfile-language.md): Buildfile language reference -- syntax, directives, conditions, loops, out-of-source builds.
+- [guides/build2-directives-patterns.md](guides/build2-directives-patterns.md): Buildfile directives (define, using, import, include, source, if/for/while, assert, run, dump) plus name wildcard patterns and target/variable attributes.
 - [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md): Advanced projects -- importation, library metadata, testing, installation, subprojects, diagnostics.
 - [guides/build2-modules-bin.md](guides/build2-modules-bin.md): bin module -- binary target type hierarchy (lib, liba, libs, exe, obj, bmi).
 - [guides/build2-modules-cc.md](guides/build2-modules-cc.md): cc module -- C-common infrastructure, DLL export, compilation database, toolchain detection.
 - [guides/build2-modules-c.md](guides/build2-modules-c.md): c module -- C compilation, Objective-C, assembler.
 - [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md): cxx module -- C++ compilation, C++20 modules, cross-compilation, options reference.
-- [guides/build2-modules-core.md](guides/build2-modules-core.md): Core modules reference (config, dist, install, test, etc.).
+- [guides/build2-modules-core.md](guides/build2-modules-core.md): Core modules reference -- config (hermetic builds), test (config.test, runners), install (layout, filtering, relocation).
+- [guides/build2-module-version.md](guides/build2-module-version.md): version module -- version variables, integer encoding, snapshot versions, version header generation from .in templates.
 - [guides/build2-project-config.md](guides/build2-project-config.md): Project configuration system.
 - [guides/build2-targets-variables.md](guides/build2-targets-variables.md): Target types and variable reference.
-- [guides/testscript-summary.md](guides/testscript-summary.md): Testscript language reference.
+- [guides/testscript-summary.md](guides/testscript-summary.md): Testscript language reference -- integration, execution model, lexical structure, test/group scopes, commands.
+- [guides/testscript-commands.md](guides/testscript-commands.md): Testscript variables, redirections, here-documents, output regex, cleanup, builtins table, and common patterns.
 - [guides/build2-modules-autoconf.md](guides/build2-modules-autoconf.md): autoconf module -- processing config.h.in/cmake/meson files with builtin and project checks.
 - [guides/build2-autoconf-project-checks.md](guides/build2-autoconf-project-checks.md): autoconf module -- authoring project-specific checks in build/autoconf/checks/.
 - [guides/build2-autoconf-buildfile.md](guides/build2-autoconf-buildfile.md): autoconf module -- communicating check results to buildfiles via c.predefs.
 - [guides/build2-autoconf-contributing-checks.md](guides/build2-autoconf-contributing-checks.md): autoconf module -- stylistic guidelines and PR format for contributing checks to the builtin catalog.
-- [guides/kconfig-summary.md](guides/kconfig-summary.md): kconfig module for feature selection.
-- [guides/install-bootstrap.md](guides/install-bootstrap.md): Installing and bootstrapping the toolchain.
+- [guides/kconfig-summary.md](guides/kconfig-summary.md): kconfig module -- overview, enabling, and full Kconfig language reference (config entries, dependencies, menus, choices).
+- [guides/kconfig-integration.md](guides/kconfig-integration.md): kconfig build system integration -- loading files, generated config, module variables, and complete worked example.
+- [guides/install-bootstrap.md](guides/install-bootstrap.md): Installing and bootstrapping -- prerequisites, pre-built packages, and bootstrap steps 1-2 (all platforms).
+- [guides/install-toolchain.md](guides/install-toolchain.md): Toolchain install step 3 -- stage, create bpkg configuration, install from repository, add modules, clean.
+- [guides/install-upgrade.md](guides/install-upgrade.md): Upgrading an installed toolchain -- dirty upgrade (patch), staged upgrade (minor/major), recreating the bpkg configuration, default paths.
 
 ## HOWTO
 

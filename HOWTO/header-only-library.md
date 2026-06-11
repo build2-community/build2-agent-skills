@@ -50,3 +50,9 @@ lib{pthread-meta}: c.export.libs = -pthread
 
 The `rule_hint` attribute is required because without sources or headers
 build2 cannot infer which rule to use.
+
+## See Also
+
+- [build2-modules-bin.md](../guides/build2-modules-bin.md) -- lib, liba, libs target types
+- [link-system-library.md](./link-system-library.md) -- linking system libraries in export options
+- [packaging-guide-summary.md](../guides/packaging-guide-summary.md)

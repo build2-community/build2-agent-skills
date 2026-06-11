@@ -55,3 +55,10 @@ The user may have pre-populated them via `config.*` counterparts.
 
 Use `-pthread` in `*.libs`, not `-lpthread`. See
 [link-pthread](./link-pthread.md) for details.
+
+## See Also
+
+- [build2-modules-cc.md](../guides/build2-modules-cc.md) -- C-common variables and option groups
+- [build2-modules-cxx.md](../guides/build2-modules-cxx.md) -- C++ compilation options reference
+- [link-pthread.md](./link-pthread.md)
+- [link-system-library.md](./link-system-library.md)

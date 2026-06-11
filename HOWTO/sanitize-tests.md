@@ -57,3 +57,9 @@ Combined with wildcard cleanup (disabling auto-cleanup on the symlink since
 ln --no-cleanup -s $src_base/test.config ./ ;
 $* 1>&2 2>| &***
 ```
+
+## See Also
+
+- [assert-in-tests.md](./assert-in-tests.md) -- correctly using assert() in tests
+- [testscript-summary.md](../guides/testscript-summary.md) -- Testscript language reference
+- [testscript-commands.md](../guides/testscript-commands.md) -- Testscript commands and redirections

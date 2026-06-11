@@ -43,3 +43,9 @@ it via export options:
 ```
 config.cxx="g++ -pthread"
 ```
+
+## See Also
+
+- [build2-modules-cc.md](../guides/build2-modules-cc.md) -- *.libs variables and link options
+- [link-system-library.md](./link-system-library.md)
+- [buildfile-compile-options.md](./buildfile-compile-options.md)
