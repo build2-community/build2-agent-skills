@@ -48,6 +48,7 @@ use the table below to jump directly to the relevant file.
 | Testscript commands, redirections, regex, cleanup, builtins | [guides/testscript-commands.md](guides/testscript-commands.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Test and publish a third-party package | [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md) |
+| Review a third-party package submission | [guides/packaging-guide-review.md](guides/packaging-guide-review.md) |
 | Install or bootstrap the toolchain | [guides/install-bootstrap.md](guides/install-bootstrap.md) |
 | Install toolchain from repository (step 3) | [guides/install-toolchain.md](guides/install-toolchain.md) |
 | Upgrade an installed toolchain (dirty or staged) | [guides/install-upgrade.md](guides/install-upgrade.md) |

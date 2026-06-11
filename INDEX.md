@@ -173,6 +173,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [testscript: commands, redirections, and builtins](guides/testscript-commands.md)
 - [packaging guide: setup through installation](guides/packaging-guide-summary.md)
 - [packaging guide: testing and publishing](guides/packaging-guide-testing.md)
+- [packaging guide: review process and checklist](guides/packaging-guide-review.md)
 - [autoconf module](guides/build2-modules-autoconf.md)
 - [autoconf: project-specific checks](guides/build2-autoconf-project-checks.md)
 - [autoconf: buildfile integration](guides/build2-autoconf-buildfile.md)

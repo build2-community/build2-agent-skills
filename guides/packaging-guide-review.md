@@ -1,0 +1,441 @@
+# build2 Packaging Review Guide
+
+This document covers the complete package review process for
+`cppget.org`: who reviews, when, how to conduct each type of review,
+the full initial-submission checklist, and the required outcome formats.
+
+See also [packaging-guide-summary.md](packaging-guide-summary.md) and
+[packaging-guide-testing.md](packaging-guide-testing.md) for the packaging
+workflow that precedes a review submission.
+
+---
+
+## Overview
+
+Package submissions must be reviewed by someone knowledgeable in `build2`
+and experienced in packaging third-party software before a package can be
+moved from the `testing` to the `stable` section of `cppget.org`. This
+applies to initial submissions, new versions, and new revisions.
+
+At this stage `cppget.org` primarily contains third-party packages, so
+reviews focus exclusively on the build and packaging support, ignoring
+upstream source code quality, documentation, etc.
+
+---
+
+## Package Transition Policy
+
+Submissions are made with `bdep publish` and land in `queue.cppget.org`.
+The destination section is chosen automatically by `bdep-publish` based on
+version: alpha semver goes to `alpha`, beta to `beta`, everything else
+(including non-semver) to `testing`.
+
+If the package builds successfully in at least one configuration on
+`queue.cppget.org`, it is migrated to the matching section of `cppget.org`.
+
+A package in `alpha` or `beta` is at its final destination without further
+automatic promotion. A package in `testing` waits there (at least one week)
+and is then promoted to `stable` only when both of the following are true:
+
+- At least one positive review by an experienced `build2` user.
+- No serious issues reported from further testing.
+
+A package with no reviews stays in `testing` indefinitely. A package with
+a blocking negative review stays in `testing` until a revision addresses the
+issues and passes review. In severe cases (e.g., security vulnerability with
+no forthcoming fix) the package may be dropped.
+
+If a package has both positive and negative reviews, the `build2` core team
+reconciles them. Packages in `alpha`/`beta` can also receive negative reviews
+and may be dropped in severe cases.
+
+A package that is no longer maintained may be moved to the `legacy` section.
+
+---
+
+## Finding Packages to Review
+
+Use the
+[cppget.org Advanced Package Search](https://cppget.org/?advanced-search)
+filtering for unreviewed packages in the `testing` section. A natural starting
+point is packages you already use in your own projects.
+
+Check whether someone else has already opened a review issue before starting,
+to avoid duplicate effort (though multiple reviews are not forbidden).
+
+---
+
+## Reviewing an Initial Submission
+
+An initial review is the most thorough: every aspect of the package must be
+checked from scratch using the checklist below.
+
+### Step 1: Create review issue
+
+Open an issue on the package repository with this title:
+
+```
+Review of the `X.Y.Z` version (initial package submission)
+```
+
+Copy and paste the contents of the
+[Initial Review Checklist](#initial-review-checklist) as the issue
+description (including both NOTE lines at the top), then create the issue.
+
+### Step 2: Create review pull request
+
+GitHub only supports code reviews inside a pull request. Create a dummy draft
+PR whose sole purpose is to host code review comments:
+
+1. Clone the package repository:
+
+   ```
+   git clone --recurse-submodules --shallow-submodules \
+     git@github.com:build2-packaging/<repo>.git
+   cd <repo>
+   ```
+
+2. Verify the first commit is the canonical `Initialize package repository`
+   commit from `bdep new` (nothing else must be in it):
+
+   ```
+   git log -p "$(git rev-list --all | tail -1)"
+   ```
+
+3. Create and push the review branch starting from that first commit:
+
+   ```
+   git branch review-X.Y.Z "$(git rev-list --all | tail -1)"
+   git push origin review-X.Y.Z
+   ```
+
+4. Open the GitHub link printed by the push, set `base:` to `review-X.Y.Z`
+   and `compare:` to `master`/`main`.
+
+5. Set the PR title to:
+
+   ```
+   Dummy draft pull request for version `X.Y.Z` review (do not merge)
+   ```
+
+6. In the PR description link to the review issue: `See review issue #<N>.`
+
+7. Select **Create draft pull request** and submit.
+
+This PR must never be merged. Its value is that subsequent revision commits
+from the author are automatically included, making re-review straightforward.
+
+### Step 3: Go through the checklist
+
+Work through the [Initial Review Checklist](#initial-review-checklist) in the
+issue, ticking off each item.
+
+**Blocking issue**: prevents the review from passing and must be fixed in a
+revision. Blocking criteria: high severity or impact, affects a large
+proportion of users, is a conceptual error (e.g., wrong compile options in
+`buildfiles`), or cannot be fixed later without breaking backwards
+compatibility. When in doubt, discuss with other reviewers.
+
+**Non-blocking issue**: does not fail the review but should be addressed in
+a revision or the next version.
+
+**Note**: a general observation worth sharing with the author.
+
+Post issues and notes either as code review comments in the PR (best when
+pointing at a specific code fragment) or in the outcome comment (best for
+general observations).
+
+### Step 4: Add outcome comment
+
+See [Outcome Comment Format](#outcome-comment-format).
+
+### Step 5a: Finish a successful review
+
+1. Edit the issue description: remove the first NOTE line that says the review
+   is in progress.
+2. Close (do not merge) the review PR.
+3. If there are no non-blocking issues, also close the review issue. Leave it
+   open if non-blocking issues exist (as a reminder for the next version).
+4. Send the notification email (see [Notification Email](#notification-email)).
+
+### Step 5b: Continue an unsuccessful review
+
+1. Send the notification email (see [Notification Email](#notification-email)).
+2. Wait for the author to address blocking issues and publish a revision.
+3. Watch for questions in the review issue and code review comments.
+4. Once the revision is published, re-review the relevant changes: confirm
+   blocking issues are resolved and check for new blocking issues.
+5. Return to Step 4 and add a new outcome comment. If all blocking issues are
+   resolved with no new ones, the outcome is successful. Otherwise continue
+   the cycle.
+
+---
+
+## Reviewing a New Version
+
+A new version review varies by the extent of packaging changes since the
+base (previously reviewed) version. Three alternatives:
+
+1. **No substantial changes and no issues**: skip the review issue entirely.
+   Go directly to [Notification Email](#notification-email) and omit the
+   outcome link.
+
+2. **No substantial changes but there are issues**: create a review issue
+   with the title `Review of the \`X.Y.Z\` version`. Skip the checklist.
+   Put feedback directly in the issue description. Creating a PR is optional
+   (use the base version's release commit as the starting commit if you do).
+
+3. **Substantial changes**: use the full initial submission procedure
+   including the checklist.
+
+To determine which alternative applies, compare the base version tag with the
+new version tag on GitHub. Because upstream source comes from a `git`
+submodule, the diff is conveniently limited to build and packaging support:
+
+```
+https://github.com/build2-packaging/<project>/compare/v1.2.0...v1.3.0
+```
+
+Pay special attention to backwards compatibility at the build level: renaming
+exported targets or configuration variables is a breaking change even if
+upstream's own API is stable.
+
+If a PR for the upgrade was reviewed and merged by the package author, that
+review counts as the package review. The author can send the notification
+email using the PR URL as the outcome link.
+
+Unsuccessful reviews follow the same cycle as for initial submissions.
+
+---
+
+## Reviewing a New Revision
+
+The procedure for a new revision is the same as for a new version. In
+addition, verify:
+
+- Changes are limited to bug fixes in `buildfiles`, `manifest`, etc.
+- Upstream source code fixes are limited to critical bugs backported from
+  upstream.
+- The revision is strictly backwards-compatible with the version it replaces.
+- No major structural changes (source layout, exported target names, config
+  variable names) are present.
+
+---
+
+## Initial Review Checklist
+
+This is the authoritative checklist. Copy the entire block below (including
+both NOTE lines) into the review issue description when starting an initial
+submission review.
+
+Source: `.docs/doc/packaging-initial-review-checklist.md`
+
+---
+
+**NOTE**: this review is in progress and a comment with the outcome will be
+added once it's complete.
+
+**NOTE**: the items in this checklist should only be checked off by the
+person doing the review. The author of the package may indicate the
+completion of any outstanding items in comments.
+
+- [ ] Repository in the [build2-packaging organization][build2-packaging]
+      if third-party package.
+- [ ] Repository/project/package names consistent with upstream,
+      [Debian][debian-pkgs]
+      (see [repository name][rep-name], [package name][pkg-name]).
+- [ ] If library without `lib` prefix, no clashes with executable names
+      (see [package name][pkg-name]).
+- [ ] Uses git submodule and symlinks for upstream, submodule at correct
+      release commit
+      (see [upstream submodule][upstream-submodule],
+      [upstream symlinks][upstream-symlink]).
+- [ ] Follows upstream layout (within reason)
+      (see [package layout][upstream-layout]).
+- [ ] [Does not bundle dependencies][dont-bundle-deps].
+- [ ] Package archive sizes are not excessive and don't contain unnecessary
+      files.
+
+- [ ] `manifest`: `name`/`project`/`version` values make sense.
+- [ ] `manifest`: [`summary`][manifest-summary] value follows guidelines.
+- [ ] `manifest`: [`license`][manifest-license] value is SPDX, matches
+      upstream license(s).
+- [ ] `manifest`: [`depends`][manifest-depends] values make sense, have
+      corresponding [buildfile imports][manifest-depends-import].
+
+- [ ] `build/bootstrap.build`: makes sense (project name, modules;
+      see [project-wide build system files][build-wide]).
+- [ ] `build/root.build`:   makes sense (`cxx.std=latest`).
+- [ ] `build/export.build`: makes sense.
+
+- [ ] Header/Source `buildfile`: [bdep-new generated][use-bdep-new].
+- [ ] Header `buildfile`: [overall makes sense][hdr-build].
+- [ ] Header `buildfile`: headers installed into library subdirectory or
+      include library name
+      ([background][bad-header-inclusion]).
+- [ ] Source `buildfile`: [overall makes sense][src-build].
+- [ ] Source `buildfile`:
+      [library is not header-only if upstream supports compiled][header-only].
+- [ ] Source `buildfile`:
+      [doesn't use or export undesirable options][compile-options].
+
+- [ ] Root `buildfile`: [overall makes sense][root-build].
+- [ ] Root `buildfile`: includes upstream `LICENSE` file (or equivalent).
+- [ ] Root `buildfile`: [doesn't build main targets][root-main-targets].
+
+- [ ] Doesn't violate any other [What Not to Do][not-to-do] points without
+      good reason.
+
+- [ ] Above `buildfile` checks applied to tests/examples/etc
+      subprojects/packages.
+- [ ] If smoke test, [makes sense][test-smoke] (includes public header,
+      calls non-inline function).
+
+- [ ] `PACKAGE-README.md`: [makes sense][pkg-readme].
+
+- [ ] Above checks applied to all packages.
+
+- [ ] Repository `README.md`: [makes sense][rep-readme].
+
+- [ ] Release is tagged and pushed to `git` repository.
+
+[build2-packaging]: https://github.com/build2-packaging/
+[upstream-layout]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#dont-change-upstream
+[debian-pkgs]: https://packages.debian.org/
+[rep-name]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-repo-name
+[pkg-name]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-package-name
+[upstream-submodule]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-repo-submodule
+[upstream-symlink]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-fill-source
+[dont-bundle-deps]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#dont-bundle
+[not-to-do]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#dont-do
+[manifest-license]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-root-manifest-license
+[manifest-summary]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-root-manifest-summary
+[manifest-depends]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-fill-depend
+[manifest-depends-import]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-adjust-build-src-source-dep
+[build-wide]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-adjust-build-wide
+[use-bdep-new]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#dont-from-scratch
+[compile-options]: https://github.com/build2/HOWTO/blob/master/entries/compile-options-in-buildfile.md
+[header-only]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#dont-header-only
+[bad-header-inclusion]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#howto-bad-inclusion-practice
+[hdr-build]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-adjust-build-src-header
+[src-build]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-adjust-build-src-source
+[root-build]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-root-buildfile
+[root-main-targets]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#dont-main-target-root-buildfile
+[test-smoke]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-test-smoke-adjust
+[pkg-readme]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-root-package-readme
+[rep-readme]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-repo-readme
+
+---
+
+## Outcome Comment Format
+
+### Successful review
+
+Start the comment with:
+
+```
+@<AUTHOR> Thank you for your submission! This version has passed the
+review. Below you will find a list of non-blocking issues and notes
+that have been identified during review. You can address the issues
+with a revision if you wish or, alternatively, in the next version.
+```
+
+Omit the second and third sentences if there are no issues or notes.
+
+### Unsuccessful review
+
+Start the comment with:
+
+```
+@<AUTHOR> Thank you for your submission! Unfortunately there are
+blocking issues and this version has failed the review. The list
+of blocking issues is provided below. Please consider addressing
+them (as well as the non-blocking issues, if you wish) in a
+revision and publishing it to continue this review.
+```
+
+Omit the last sentence if there are no non-blocking issues.
+
+### Issue and note list
+
+Continue the comment with (omit empty sections):
+
+```
+Blocking issues:
+
+...
+
+Non-blocking issues:
+
+...
+
+Notes:
+
+...
+```
+
+If issues or notes are captured as code review comments in the PR, reference
+the PR number. For example:
+
+```
+Blocking issues:
+
+* A number of blocking issues described in the code review: #<NUM>
+
+Non-blocking issues:
+
+* A number of non-blocking issues described in the code review: #<NUM>
+
+Notes:
+
+* There is a file in Debian named ftest. It is not an executable
+  installed in a PATH location so having this library named without
+  the lib prefix is technically allowed, though not ideal. Consider
+  following the packaging guide recommendation and using the lib prefix.
+```
+
+---
+
+## Notification Email
+
+Send an email to `review@cppget.org` for both successful and unsuccessful
+outcomes. Requirements:
+
+- `From`: your real name (the review is a statement of oversight).
+- `Subject`: `Review <PROJECT> <VERSION>` where `<PROJECT>` is the project
+  name and `<VERSION>` is the reviewed version. All packages in a
+  multi-package project must be reviewed together in a single email.
+- Body: list of packages reviewed, review outcome (`pass` or `fail`), and a
+  link to the outcome comment in the review issue.
+
+Example:
+
+```
+From: John Doe <john@example.org>
+Subject: Review spdlog 1.14.1+2
+
+Packages reviewed:
+
+spdlog
+spdlog-tests
+spdlog-bench
+
+Review outcome: fail
+
+Outcome link:
+
+https://github.com/build2-packaging/spdlog/issues/1#issuecomment-123
+```
+
+For a successful review of a new revision or version with no issues or notes,
+there may be no review issue. In that case the outcome link may be omitted.
+
+---
+
+## See Also
+
+- [packaging-guide-summary.md](packaging-guide-summary.md) -- concepts, workflow, and steps 1-7
+- [packaging-guide-testing.md](packaging-guide-testing.md) -- steps 8-10: tests, CI, release, publish
+- [build2-modules-core.md](build2-modules-core.md) -- config, test, install modules
+- [HOWTO/sanitize-tests.md](../HOWTO/sanitize-tests.md) -- handling misbehaving upstream tests
+- [HOWTO/tests-extra-dependencies.md](../HOWTO/tests-extra-dependencies.md) -- separate test packages
