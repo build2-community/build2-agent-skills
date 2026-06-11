@@ -4,3 +4,6 @@
 [submodule "build2-howto"]
 	path = build2-howto
 	url = https://github.com/build2/HOWTO
+[submodule "libbuild2-autoconf"]
+	path = libbuild2-autoconf
+	url = https://github.com/build2/libbuild2-autoconf.git

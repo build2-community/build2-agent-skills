@@ -31,6 +31,9 @@
 - [guides/build2-project-config.md](guides/build2-project-config.md): Project configuration system.
 - [guides/build2-targets-variables.md](guides/build2-targets-variables.md): Target types and variable reference.
 - [guides/testscript-summary.md](guides/testscript-summary.md): Testscript language reference.
+- [guides/build2-modules-autoconf.md](guides/build2-modules-autoconf.md): autoconf module -- processing config.h.in/cmake/meson files with builtin and project checks.
+- [guides/build2-autoconf-project-checks.md](guides/build2-autoconf-project-checks.md): autoconf module -- authoring project-specific checks in build/autoconf/checks/.
+- [guides/build2-autoconf-buildfile.md](guides/build2-autoconf-buildfile.md): autoconf module -- communicating check results to buildfiles via c.predefs.
 - [guides/kconfig-summary.md](guides/kconfig-summary.md): kconfig module for feature selection.
 - [guides/install-bootstrap.md](guides/install-bootstrap.md): Installing and bootstrapping the toolchain.
 

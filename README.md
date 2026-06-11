@@ -11,11 +11,14 @@ sources listed below and organised according to the
 |--------|------|
 | [`build2/build2-toolchain`](https://github.com/build2/build2-toolchain) submodule | `.cli` source files; authoritative for all option descriptions, command synopses, and concept documentation |
 | [`build2/build2-howto`](https://github.com/build2/build2-howto) submodule | HOWTO entries; authoritative for all recipe content |
+| [`build2/libbuild2-autoconf`](https://github.com/build2/libbuild2-autoconf) submodule | Autoconf emulation module; authoritative for builtin check catalog and module README |
 | [Agent Skills specification](https://github.com/anthropics/skills) | Governs the entry-point contract (`SKILL.md`), YAML frontmatter schema, progressive-disclosure model, and file-focus guidance applied throughout |
 | [NVIDIA/skills](https://github.com/NVIDIA/skills) | Reference implementation closest in structure to this repository; used as a concrete model for the troubleshooting catalog, "When to use" hints, and per-command "See also" sections |
 
-Content in `b/`, `bx/`, `bpkg/`, `bdep/`, and `guides/` is derived from
-`build2-toolchain`. Content in `HOWTO/` is derived from `build2-howto`. Do
+Content in `b/`, `bx/`, `bpkg/`, `bdep/`, and `guides/` (except
+`build2-modules-autoconf.md`) is derived from `build2-toolchain`. Content in
+`HOWTO/` is derived from `build2-howto`. The builtin check catalog in
+`.docs/libbuild2-autoconf/checks/` is derived from `libbuild2-autoconf`. Do
 not edit derived content directly. Patch the upstream submodule instead, then
 re-run `./init-docs.sh false` to regenerate `.docs/`.
 
@@ -36,6 +39,7 @@ re-run `./init-docs.sh false` to regenerate `.docs/`.
 | `scripts/` | Utility shell scripts for AI-assisted and manual workflows |
 | `build2-toolchain/` | Git submodule: upstream `.cli` source files |
 | `build2-howto/` | Git submodule: upstream HOWTO entries |
+| `libbuild2-autoconf/` | Git submodule: upstream autoconf module source and checks |
 | `.docs/` | Generated output of `init-docs.sh` (git-ignored) |
 
 ## Structural guidelines

@@ -336,3 +336,4 @@ function say_hello () { hello_say_hello "$@"; }
 
 - [build2 manual summary](build2-intro-concepts.md)
 - [build2 core modules](build2-modules-core.md)
+- [libbuild2-autoconf module](build2-modules-autoconf.md) -- autoconf/cmake/meson config.h processing built on top of `in`

@@ -55,6 +55,23 @@ the `update` and `install` phases.
 **Fix:** See [`for-install-conflicts`](./for-install-conflicts.md) for the
 complete resolution strategies.
 
+### `error: multiple rules matching ... <target>`
+
+**Cause:** Two `in`-based rules both match the same target. This typically
+happens when both `version` and `autoconf` are loaded: `version.in` and
+`autoconf.in` each register a rule for `.in` prerequisites, and a target
+such as `hxx{version}` can satisfy both.
+
+**Fix:** Add a `rule_hint` attribute to each ambiguous target:
+
+```
+[rule_hint=version.in]  hxx{version}: in{version}
+[rule_hint=autoconf.in] h{config}:    in{config}
+```
+
+See [`build2-modules-autoconf`](../guides/build2-modules-autoconf.md#disambiguating-the-versionin-and-autoconfin-rules)
+for details.
+
 ### `error: <file>: unable to map <name> to a project`
 
 **Cause:** An `import` directive references a project that is not a subproject

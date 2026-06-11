@@ -169,5 +169,8 @@ See [bx reference](bx/bx.md) for the full option list.
 - [build2 manual: misc modules](guides/build2-modules-misc.md)
 - [testscript reference](guides/testscript-summary.md)
 - [packaging guide](guides/packaging-guide-summary.md)
+- [autoconf module](guides/build2-modules-autoconf.md)
+- [autoconf: project-specific checks](guides/build2-autoconf-project-checks.md)
+- [autoconf: buildfile integration](guides/build2-autoconf-buildfile.md)
 - [kconfig module](guides/kconfig-summary.md)
 - [install and bootstrap](guides/install-bootstrap.md)
