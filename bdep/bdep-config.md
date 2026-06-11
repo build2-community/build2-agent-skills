@@ -33,7 +33,7 @@ Note: also see [common options](bdep-common-options.md).
 
 ### add and create
 
-The `add` subcommand adds an existing [bpkg(1)](../bpkg/bpkg.md) build
+The `add` subcommand adds an existing [bpkg(1)](../bpkg/README.md) build
 configuration in directory _cfg-dir_ to the project's build configuration set.
 The `create` subcommand creates a new configuration in directory _cfg-dir_ by
 executing the [bpkg-cfg-create(1)](../bpkg/bpkg-cfg-create.md) command and

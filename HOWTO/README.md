@@ -13,6 +13,7 @@ Condensed, AI-indexed versions of the
 | [for-install-conflicts.md](./for-install-conflicts.md) | Resolving "already updated but [not] for install" errors |
 | [generated-headers.md](./generated-headers.md) | Auto-generated C/C++ headers |
 | [disable-shared-lib-per-platform.md](./disable-shared-lib-per-platform.md) | Disabling the shared library variant per platform |
+| [update-for-test-install.md](./update-for-test-install.md) | Building only what is needed for test or install |
 
 ## Libraries
 
@@ -56,6 +57,12 @@ Condensed, AI-indexed versions of the
 | File | Topic |
 |------|-------|
 | [migrate-from-cmake.md](./migrate-from-cmake.md) | Porting a CMake project to build2 buildfiles |
+
+## bx scripts and tasks
+
+| File | Topic |
+|------|-------|
+| [bx-script.md](./bx-script.md) | Running `.bx` scripts and tasks with bx |
 
 ## Toolchain development
 

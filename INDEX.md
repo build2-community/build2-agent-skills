@@ -146,8 +146,8 @@ See [bx reference](bx/bx.md) for the full option list.
 - [b full reference](b/b.md)
 - [bx README](bx/README.md) -- shell script and task runner
 - [bx full reference](bx/bx.md)
-- [bpkg README](bpkg/README.md) -- bpkg overview and command table
-- [bdep README](bdep/README.md) -- bdep overview and command table
+- [bpkg reference](bpkg/README.md) -- bpkg overview, workflows, command table, and per-command index
+- [bdep reference](bdep/README.md) -- bdep overview, workflows, command table, and per-command index
 
 ### HOWTO
 
