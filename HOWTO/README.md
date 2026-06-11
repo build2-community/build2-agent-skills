@@ -1,0 +1,49 @@
+# build2 HOWTO
+
+Condensed, AI-indexed versions of the
+[upstream HOWTO entries](../build2-howto/entries/).
+
+## Build system
+
+| File | Topic |
+|------|-------|
+| [alias-targets.md](./alias-targets.md) | PHONY-equivalent targets using `alias{}` |
+| [buildfile-compile-options.md](./buildfile-compile-options.md) | Which compile/link options belong in a buildfile |
+| [config-independent-build-graph.md](./config-independent-build-graph.md) | Keeping the build graph configuration-independent |
+| [for-install-conflicts.md](./for-install-conflicts.md) | Resolving "already updated but [not] for install" errors |
+| [generated-headers.md](./generated-headers.md) | Auto-generated C/C++ headers |
+| [disable-shared-lib-per-platform.md](./disable-shared-lib-per-platform.md) | Disabling the shared library variant per platform |
+
+## Libraries
+
+| File | Topic |
+|------|-------|
+| [header-only-library.md](./header-only-library.md) | Binless (header-only) libraries |
+| [library-provides-main.md](./library-provides-main.md) | Library that provides `main()` |
+| [link-pthread.md](./link-pthread.md) | Linking `pthread` |
+| [link-system-library.md](./link-system-library.md) | Linking system libraries (`-lm`, `-ldl`, `advapi32.lib`) |
+| [optional-library-components.md](./optional-library-components.md) | Making library components optional |
+| [target-metadata.md](./target-metadata.md) | Exporting metadata with executables and libraries |
+
+## Testing
+
+| File | Topic |
+|------|-------|
+| [assert-in-tests.md](./assert-in-tests.md) | Correctly using `assert()` in tests |
+| [sanitize-tests.md](./sanitize-tests.md) | Sanitizing misbehaving tests with Testscript |
+| [tests-extra-dependencies.md](./tests-extra-dependencies.md) | Tests with extra dependencies (separate test package) |
+
+## Packaging third-party projects
+
+| File | Topic |
+|------|-------|
+| [convert-source-to-utf8.md](./convert-source-to-utf8.md) | Converting source file encoding to UTF-8 |
+| [package-naming.md](./package-naming.md) | Naming packages for third-party projects |
+| [package-version-non-semver.md](./package-version-non-semver.md) | Projects that don't use semantic versioning |
+| [package-version-none.md](./package-version-none.md) | Projects with no version at all |
+
+## Toolchain development
+
+| File | Topic |
+|------|-------|
+| [toolchain-dev-setup.md](./toolchain-dev-setup.md) | Setting up build2 for toolchain development |

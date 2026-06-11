@@ -149,6 +149,10 @@ See [bx reference](bx/bx.md) for the full option list.
 - [bpkg README](bpkg/README.md) -- bpkg overview and command table
 - [bdep README](bdep/README.md) -- bdep overview and command table
 
+### HOWTO
+
+- [HOWTO index](HOWTO/README.md) -- practical recipes indexed by topic
+
 ### Guides
 
 - [Glossary](GLOSSARY.md)
