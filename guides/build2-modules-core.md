@@ -411,6 +411,14 @@ h{*}:      install = include/libhello/
 h{config}: install = include_arch/libhello/
 ```
 
+See [third-party-private-headers](../HOWTO/third-party-private-headers.md) for
+when to use `include_arch` versus `install = false` for generated config headers
+in third-party packaging, and for `cxx.pkgconfig.include` when `include_arch`
+diverges from `include` on multi-arch systems.
+
+```
+```
+
 ---
 
 ## version module
@@ -616,3 +624,4 @@ depends: libprint ^2.3.0
 - [build2 manual summary](build2-intro-concepts.md)
 - [build2 cc modules](build2-modules-cc.md)
 - [build2 miscellaneous modules](build2-modules-misc.md)
+- [third-party-private-headers](../HOWTO/third-party-private-headers.md) -- `include_arch` and private header installation patterns in third-party packaging

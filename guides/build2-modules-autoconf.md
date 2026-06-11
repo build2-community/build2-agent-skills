@@ -403,6 +403,7 @@ become optional in most cases.
 - [`migrate-from-cmake`](../HOWTO/migrate-from-cmake.md) -- porting CMake projects
 - [`build2-project-config`](build2-project-config.md) -- expectation-based configuration
 - [Builtin checks catalog][checks]
+- [`third-party-private-headers`](../HOWTO/third-party-private-headers.md) -- using `c.predefs` and `-D` flags to avoid a generated config header in third-party packaging
 
 [checks]: https://github.com/build2/libbuild2-autoconf/tree/master/libbuild2-autoconf/libbuild2/autoconf/checks/
 [proj-config]: https://build2.org/build2/doc/build2-build-system-manual.xhtml#proj-config

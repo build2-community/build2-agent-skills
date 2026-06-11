@@ -143,3 +143,7 @@ directory that blocks the system search path:
      clean = ($src_root != $out_root)
    }
    ```
+
+## See Also
+
+- [third-party-private-headers](./third-party-private-headers.md) -- generated config headers and private header sharing in third-party packaging contexts, including `include_arch` installation and capability detection via `-D` flags

@@ -648,3 +648,4 @@ upstream version.
 - [bdep-ci](../bdep/bdep-ci.md)
 - [bdep-release](../bdep/bdep-release.md)
 - [bdep-publish](../bdep/bdep-publish.md)
+- [third-party-private-headers](../HOWTO/third-party-private-headers.md) -- private header sharing, generated config headers, thunk headers, and symlinks in third-party packages

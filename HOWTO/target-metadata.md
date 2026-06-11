@@ -144,3 +144,7 @@ exe{hello}:
   hello.fancy = [bool] $config.hello.fancy
 }
 ```
+
+## See Also
+
+- [third-party-private-headers](./third-party-private-headers.md) -- applying the `[path, null]` / `.for_install` metadata pattern to share generated file paths (config headers, data archives) across packages in a multi-package repository

@@ -41,6 +41,7 @@ Condensed, AI-indexed versions of the
 | [package-naming.md](./package-naming.md) | Naming packages for third-party projects |
 | [package-version-non-semver.md](./package-version-non-semver.md) | Projects that don't use semantic versioning |
 | [package-version-none.md](./package-version-none.md) | Projects with no version at all |
+| [third-party-private-headers.md](./third-party-private-headers.md) | Private implementation headers and generated config headers shared across internal targets |
 
 ## Build configurations
 
