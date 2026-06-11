@@ -1,5 +1,9 @@
 # bdep -- Project Dependency Manager
 
+_Use for: day-to-day project workflow -- creating projects, initializing
+configurations, syncing manifests/lockfiles, running tests across
+configurations, releasing and publishing packages._
+
 ## Overview
 
 `bdep` is the build2 project dependency manager. Where `bpkg` manages individual

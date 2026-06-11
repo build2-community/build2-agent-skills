@@ -1,6 +1,6 @@
 # Config-Independent Build Graph
 
-The [build graph](../guides/build2-manual-summary.md#the-build-graph)
+The [build graph](../guides/build2-intro-concepts.md#the-build-graph)
 (all target-prerequisite relationships) must be configuration-independent:
 it must not vary by compiler, platform, or project configuration. The `dist`
 module relies on this to produce identical source distributions regardless of

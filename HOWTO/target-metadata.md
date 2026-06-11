@@ -9,8 +9,8 @@ for passing build-time metadata (configuration flags, asset paths, etc.) from
 a library or executable to its consumers.
 
 For background on target importation see
-[target importation](../guides/build2-manual-summary.md#target-importation)
-and the [library metadata protocol](../guides/build2-manual-summary.md#library-metadata-protocol).
+[target importation](../guides/build2-projects-advanced.md#target-importation)
+and the [library metadata protocol](../guides/build2-projects-advanced.md#library-metadata-protocol).
 
 ## Development-build case
 

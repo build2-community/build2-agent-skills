@@ -428,3 +428,6 @@ fail, a dummy `you@example.org` email is used.
 - [bdep SUMMARY](SUMMARY.md)
 - [bdep-init](bdep-init.md)
 - [bdep-default-options-files](bdep-default-options-files.md)
+- [`header-only-library`](../HOWTO/header-only-library.md) -- binless (header-only) libraries
+- [`library-provides-main`](../HOWTO/library-provides-main.md) -- library that provides main()
+- [`optional-library-components`](../HOWTO/optional-library-components.md) -- making library components optional

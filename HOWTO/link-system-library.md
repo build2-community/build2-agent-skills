@@ -2,7 +2,7 @@
 
 System libraries (`-lm`, `-ldl`, `advapi32.lib`, `ws2_32.lib`, etc.) are not
 importable targets. List them in the appropriate
-[`*.libs` variable](../guides/build2-modules-cc.md#system-library-dependencies-and-pkg-config-integration)
+[`*.libs` variable](../guides/build2-modules-cxx.md#system-library-dependencies-and-pkg-config-integration)
 instead:
 
 ```
@@ -22,8 +22,8 @@ if ($cxx.target.class == 'windows')
 
 If the system library is an interface dependency of your library (i.e.,
 consumers also need to link it), list it in
-[`*.export.libs`](../guides/build2-modules-cc.md#export-options-propagated-to-consumers-of-a-library)
-as well. See [library projects](../guides/build2-manual-summary.md#library-projects)
+[`*.export.libs`](../guides/build2-modules-cxx.md#export-options-propagated-to-consumers-of-a-library)
+as well. See [library projects](../guides/build2-projects-advanced.md#library-projects)
 for background on interface vs implementation dependencies:
 
 ```

@@ -2,7 +2,7 @@
 
 In build2 a header-only library is a _binless_ static or shared library -- not
 a separate kind of target. See
-[`lib{}`, `liba{}`, `libs{}`](../guides/build2-modules-cc.md#lib-liba-libs)
+[`lib{}`, `liba{}`, `libs{}`](../guides/build2-modules-bin.md#lib-liba-libs)
 for the full type hierarchy.
 
 A library becomes binless when it has no source file prerequisites:
@@ -22,7 +22,7 @@ $ bdep new -l c++ -t lib,binless libhello
 Binless libraries that depend on a system library (e.g., `-lm` or
 [`-pthread`](./link-pthread.md)) must list it in both `*.export.libs` *and*
 `*.libs`. The `*.libs` entry is needed when linking the static variant of
-the binless library. See [library projects](../guides/build2-manual-summary.md#library-projects)
+the binless library. See [library projects](../guides/build2-projects-advanced.md#library-projects)
 for background on export vs build-time dependencies:
 
 ```

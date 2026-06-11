@@ -416,5 +416,5 @@ negotiates configuration across dependents. Follow these additional rules:
 
 ## See Also
 
-- [build2 manual summary](build2-manual-summary.md)
+- [build2 manual summary](build2-intro-concepts.md)
 - [build2 modules cc](build2-modules-cc.md)

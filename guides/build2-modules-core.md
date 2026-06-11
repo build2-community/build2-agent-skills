@@ -613,6 +613,6 @@ depends: libprint ^2.3.0
 
 ## See Also
 
-- [build2 manual summary](build2-manual-summary.md)
+- [build2 manual summary](build2-intro-concepts.md)
 - [build2 cc modules](build2-modules-cc.md)
 - [build2 miscellaneous modules](build2-modules-misc.md)

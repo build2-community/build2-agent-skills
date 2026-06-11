@@ -1,5 +1,8 @@
 # bx -- Shell Script and Task Runner
 
+_Use for: running .bx scripts and named tasks; portable automation that
+replaces shell scripts in a build2 project._
+
 ## Overview
 
 `bx` is the build2 shell script and task runner. It executes portable `.bx`

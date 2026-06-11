@@ -334,5 +334,5 @@ function say_hello () { hello_say_hello "$@"; }
 
 ## See Also
 
-- [build2 manual summary](build2-manual-summary.md)
+- [build2 manual summary](build2-intro-concepts.md)
 - [build2 core modules](build2-modules-core.md)

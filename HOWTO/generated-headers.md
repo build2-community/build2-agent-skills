@@ -34,7 +34,7 @@ wrong results in four situations:
 
 Pre-generation (the default) avoids cases 1 and 2. Cases 3 and 4 require
 the [dummy header technique](#dummy-header-technique) or a distinct inclusion
-scheme (see [project structure](../guides/build2-manual-summary.md#buildfiles-and-project-structure)).
+scheme (see [project structure](../guides/build2-intro-concepts.md#buildfiles-and-project-structure)).
 
 A generated header is safe without pre-generation only when all three
 conditions hold: it is not a "macro header", it is included with a name
@@ -63,7 +63,7 @@ exe{hello}:   cxx{common hello}   hxx{config}
 exe{goodbye}: cxx{common goodbye} hxx{config}
 ```
 
-Fix 2: use a [utility library](../guides/build2-modules-cc.md#libul-libue-libua-libus)
+Fix 2: use a [utility library](../guides/build2-modules-bin.md#libul-libue-libua-libus)
 to create an explicit dependency path:
 
 ```

@@ -1,7 +1,7 @@
 # Compile and Link Options in Buildfiles
 
 Not all options from an upstream build system belong in a build2
-[buildfile](../guides/build2-manual-summary.md#buildfiles-and-project-structure).
+[buildfile](../guides/build2-intro-concepts.md#buildfiles-and-project-structure).
 An option is appropriate only if it has purely local effect. The general rule:
 do not specify options that could prevent the user from controlling overall
 build characteristics, require changes in dependent projects, or interfere with
@@ -39,7 +39,7 @@ the build system itself.
 ## Export options
 
 The rules for
-[`*.export.poptions` and `*.export.loptions`](../guides/build2-modules-cc.md#export-options-propagated-to-consumers-of-a-library)
+[`*.export.poptions` and `*.export.loptions`](../guides/build2-modules-cxx.md#export-options-propagated-to-consumers-of-a-library)
 are stricter still: do not impose any settings on consumers beyond what
 concerns your library's own interface. In particular, do not disable warnings
 or set standard library feature macros in export options. Note there are no
@@ -48,7 +48,7 @@ or set standard library feature macros in export options. Note there are no
 ## Always append, never assign
 
 Use `+=` or `=+` for
-[build-time option variables](../guides/build2-modules-cc.md#build-time-options-affect-this-targets-compilationlinking).
+[build-time option variables](../guides/build2-modules-cxx.md#build-time-options-affect-this-targets-compilationlinking).
 The user may have pre-populated them via `config.*` counterparts.
 
 ## pthread

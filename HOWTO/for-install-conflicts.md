@@ -3,7 +3,7 @@
 ## What the error means
 
 build2 can build targets slightly differently depending on whether they are
-being built for [installation](../guides/build2-manual-summary.md#installation)
+being built for [installation](../guides/build2-projects-advanced.md#installation)
 (`install` operation) or for development (`update`). On POSIX, shared
 libraries and executables are re-linked without `rpath` for install. Projects
 can also customise the for-install build explicitly via the `for_install`

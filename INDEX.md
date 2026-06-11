@@ -156,11 +156,16 @@ See [bx reference](bx/bx.md) for the full option list.
 ### Guides
 
 - [Glossary](GLOSSARY.md)
-- [build2 manual: intro and tutorial](guides/build2-manual-summary.md)
+- [build2 concepts: targets, scopes, modules, variables](guides/build2-intro-concepts.md)
+- [build2 buildfile language reference](guides/build2-buildfile-language.md)
+- [build2 advanced projects: importation, libraries, testing, installation](guides/build2-projects-advanced.md)
 - [build2 manual: project configuration](guides/build2-project-config.md)
 - [build2 manual: targets and variables](guides/build2-targets-variables.md)
 - [build2 manual: core modules](guides/build2-modules-core.md)
-- [build2 manual: cc/cxx modules](guides/build2-modules-cc.md)
+- [build2 modules: bin target types](guides/build2-modules-bin.md)
+- [build2 modules: cc C-common infrastructure](guides/build2-modules-cc.md)
+- [build2 modules: c compilation](guides/build2-modules-c.md)
+- [build2 modules: cxx C++ compilation](guides/build2-modules-cxx.md)
 - [build2 manual: misc modules](guides/build2-modules-misc.md)
 - [testscript reference](guides/testscript-summary.md)
 - [packaging guide](guides/packaging-guide-summary.md)

@@ -37,7 +37,7 @@ $ b do{upload}
 ## Operations vs alias targets
 
 Built-in actions like `update`, `test`, and `install` are
-[operations](../guides/build2-manual-summary.md#operations-and-meta-operations),
+[operations](../guides/build2-intro-concepts.md#operations-and-meta-operations),
 not targets, which is why they work as `b test: exe{image}`. Adding a new
 operation requires a build system module written in C++ and is only warranted
 for SDK vendors or similar cases. For project-level scripting,

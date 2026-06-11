@@ -1,5 +1,8 @@
 ﻿# b -- Build System Driver
 
+_Use for: invoking builds, running tests, installing targets, writing and
+debugging buildfiles, configuring out-of-source builds._
+
 ## Overview
 
 `b` is the build system driver for the build2 toolchain. It reads `buildfile`
@@ -250,3 +253,12 @@ $ b info: libfoo/,json
 
 - [b full reference](b.md)
 - [bx reference](../bx/bx.md) -- shell script and task runner
+
+## See also
+
+- [`alias-targets`](../HOWTO/alias-targets.md) -- PHONY-equivalent targets using `alias{}`
+- [`buildfile-compile-options`](../HOWTO/buildfile-compile-options.md) -- which compile/link options belong in a buildfile
+- [`generated-headers`](../HOWTO/generated-headers.md) -- auto-generated C/C++ headers
+- [`config-independent-build-graph`](../HOWTO/config-independent-build-graph.md) -- keeping the build graph configuration-independent
+- [`target-metadata`](../HOWTO/target-metadata.md) -- exporting metadata with executables and libraries
+- [`build2-buildfile-language`](../guides/build2-buildfile-language.md) -- full buildfile language syntax reference

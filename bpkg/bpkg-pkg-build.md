@@ -222,3 +222,8 @@ bpkg-pkg-build.options
 - [bpkg-pkg-checkout](bpkg-pkg-checkout.md)
 - [bpkg-rep-fetch](bpkg-rep-fetch.md)
 - [bpkg-cfg-create](bpkg-cfg-create.md)
+
+## See also
+
+- [`config-independent-build-graph`](../HOWTO/config-independent-build-graph.md) -- keeping the build graph configuration-independent
+- [`for-install-conflicts`](../HOWTO/for-install-conflicts.md) -- resolving "already updated but [not] for install" errors

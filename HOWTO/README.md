@@ -42,8 +42,28 @@ Condensed, AI-indexed versions of the
 | [package-version-non-semver.md](./package-version-non-semver.md) | Projects that don't use semantic versioning |
 | [package-version-none.md](./package-version-none.md) | Projects with no version at all |
 
+## Build configurations
+
+| File | Topic |
+|------|-------|
+| [multiple-configurations.md](./multiple-configurations.md) | Managing debug/release/sanitize configurations with bdep |
+| [cross-compilation.md](./cross-compilation.md) | Setting up a cross-compilation configuration with target triplets |
+| [ci-cd-setup.md](./ci-cd-setup.md) | Typical CI pipeline using bdep update/test |
+
+## Migrating to build2
+
+| File | Topic |
+|------|-------|
+| [migrate-from-cmake.md](./migrate-from-cmake.md) | Porting a CMake project to build2 buildfiles |
+
 ## Toolchain development
 
 | File | Topic |
 |------|-------|
 | [toolchain-dev-setup.md](./toolchain-dev-setup.md) | Setting up build2 for toolchain development |
+
+## Troubleshooting
+
+| File | Topic |
+|------|-------|
+| [troubleshooting.md](./troubleshooting.md) | Common error messages and resolutions for b, bpkg, and bdep |

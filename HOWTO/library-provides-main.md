@@ -7,8 +7,8 @@ this is done with a static library linked in "whole archive" mode. Shared
 libraries providing `main()` are not recommended due to platform-specific
 complications.
 
-See [`lib{}`, `liba{}`, `libs{}`](../guides/build2-modules-cc.md#lib-liba-libs)
-and [`libul{}`, `libue{}`, `libua{}`, `libus{}`](../guides/build2-modules-cc.md#libul-libue-libua-libus)
+See [`lib{}`, `liba{}`, `libs{}`](../guides/build2-modules-bin.md#lib-liba-libs)
+and [`libul{}`, `libue{}`, `libua{}`, `libus{}`](../guides/build2-modules-bin.md#libul-libue-libua-libus)
 for the relevant target types.
 
 ## Simple approach (always links static lib{mytest})

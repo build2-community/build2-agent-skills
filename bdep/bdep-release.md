@@ -116,3 +116,5 @@ options files:
 ## See Also
 
 - [bdep SUMMARY](SUMMARY.md)
+- [`package-version-non-semver`](../HOWTO/package-version-non-semver.md) -- projects that don't use semantic versioning
+- [`package-version-none`](../HOWTO/package-version-none.md) -- projects with no version at all

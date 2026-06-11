@@ -1,7 +1,7 @@
 # Disabling the Shared Library Variant per Platform
 
 The preferred approach is to let the user control which library variant to
-build via [`config.bin.lib`](../guides/build2-manual-summary.md#static-vs-shared-library-control).
+build via [`config.bin.lib`](../guides/build2-projects-advanced.md#static-vs-shared-library-control).
 Only fall back to overriding it when upstream genuinely cannot produce a
 shared library on a given platform.
 

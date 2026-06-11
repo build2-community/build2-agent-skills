@@ -1,7 +1,7 @@
 # Linking pthread
 
 For modern pthread-based targets (Linux, FreeBSD, macOS, MinGW) add `-pthread`
-to [`*.libs`](../guides/build2-modules-cc.md#build-time-options-affect-this-targets-compilationlinking),
+to [`*.libs`](../guides/build2-modules-cxx.md#build-time-options-affect-this-targets-compilationlinking),
 not `-lpthread`. The compiler translates `-pthread` to nothing on platforms
 where `pthread` is already part of `libc` (macOS, Linux with glibc >= 2.34):
 
@@ -13,7 +13,7 @@ if ($cxx.target.system != 'win32-msvc')
 If the `pthread` API or C++11 threading types (`<thread>`, `<mutex>`,
 `<condition_variable>`, `<future>`) appear in the library's public interface
 (inline or template functions), also add `-pthread` to
-[`*.export.libs`](../guides/build2-modules-cc.md#export-options-propagated-to-consumers-of-a-library):
+[`*.export.libs`](../guides/build2-modules-cxx.md#export-options-propagated-to-consumers-of-a-library):
 
 ```
 if ($cxx.target.system != 'win32-msvc')

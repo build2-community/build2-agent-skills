@@ -203,3 +203,4 @@ files:
 - [bdep-projects-configs](bdep-projects-configs.md)
 - [bdep-argument-grouping](bdep-argument-grouping.md)
 - [bdep-default-options-files](bdep-default-options-files.md)
+- [`toolchain-dev-setup`](../HOWTO/toolchain-dev-setup.md) -- setting up build2 for toolchain development

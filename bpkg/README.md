@@ -1,5 +1,9 @@
 # bpkg -- Package Manager
 
+_Use for: creating build configurations, adding or removing package
+dependencies, resolving version conflicts, building/installing/publishing
+packages._
+
 ## Overview
 
 `bpkg` is the `build2` package dependency manager. It manipulates build

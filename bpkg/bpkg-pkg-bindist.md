@@ -306,3 +306,4 @@ The following option cannot be specified in default options files:
 - [bpkg-pkg-install](bpkg-pkg-install.md)
 - [bpkg-pkg-build](bpkg-pkg-build.md)
 - [bpkg-common-options](bpkg-common-options.md)
+- [`packaging-guide-summary`](../guides/packaging-guide-summary.md) -- end-to-end packaging guide including publish steps

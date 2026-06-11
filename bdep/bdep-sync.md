@@ -240,3 +240,4 @@ already being performed.
 - [bdep-projects-configs](bdep-projects-configs.md)
 - [bdep-argument-grouping](bdep-argument-grouping.md)
 - [bdep-default-options-files](bdep-default-options-files.md)
+- [`build2-project-config`](../guides/build2-project-config.md) -- project configuration system

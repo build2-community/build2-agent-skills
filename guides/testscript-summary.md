@@ -596,4 +596,4 @@ $* -c $conf 'Jane' >'Hello, Jane!'
 
 ## See Also
 
-- [build2 manual summary](build2-manual-summary.md)
+- [build2 manual summary](build2-projects-advanced.md)
