@@ -4,9 +4,9 @@
 #
 # Usage: scripts/probe-compiler.sh
 #
-# Checks: g++, clang++, c++, and version-suffixed variants (g++-12 through
-# g++-15, clang++-14 through clang++-18). Exits 0 if at least one compiler
-# is found, 1 if none are found.
+# Checks: g++, clang++, c++, version-suffixed variants (g++-12 through
+# g++-15, clang++-14 through clang++-18), and cl (MSVC). Exits 0 if at
+# least one compiler is found, 1 if none are found.
 
 set -e
 
@@ -28,6 +28,18 @@ probe () {
   printf '%-20s %-8s %-24s %s\n' "$compiler" "$family" "$triplet" "$verline"
 }
 
+probe_cl () {
+  if ! command -v cl.exe >/dev/null 2>&1; then
+    return
+  fi
+  found=true
+  # cl.exe prints its banner to stderr on invocation with no arguments.
+  verline=$(cl.exe 2>&1 | head -1)
+  # Extract target architecture from "... for x64", "... for ARM64", etc.
+  arch=$(printf '%s\n' "$verline" | sed 's/.*for //')
+  printf '%-20s %-8s %-24s %s\n' cl.exe msvc "$arch" "$verline"
+}
+
 printf '%-20s %-8s %-24s %s\n' COMPILER FAMILY TARGET VERSION
 printf '%-20s %-8s %-24s %s\n' '--------------------' '--------' '------------------------' '-------'
 
@@ -43,6 +55,7 @@ probe clang++-15
 probe clang++-16
 probe clang++-17
 probe clang++-18
+probe_cl
 
 if [ "$found" = false ]; then
   echo "No C++ compilers found on PATH." >&2
