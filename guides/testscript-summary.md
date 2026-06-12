@@ -317,6 +317,136 @@ $* 2>&1   # merge stderr into stdout
 
 ---
 
+## Style Guide
+
+### Testing philosophy
+
+The primary goal of testing in build2 is not to exhaustively test every
+possible situation. The aim is to keep tests comprehensible and maintainable
+in the long run.
+
+Don't try to test every possible combination. This striving quickly leads to
+hundreds of tests that are only slight variations of each other. Sometimes
+combination tests are useful, but generally keep things simple and test one
+thing at a time. Real-world usage uncovers far more interesting interactions
+(which must become regression tests) than you would think of in advance.
+
+Don't confuse combination tests with corner case tests. For each test you
+should have a clear understanding of what logic in the code you are testing.
+If you don't have evidence of why two features might not work together, don't
+add a test for it just for good measure.
+
+A practical approach: look at the diff of changes you want to commit and
+ensure you have at least one test exercising each happy (non-error) logic
+branch. For important code, do the same for unhappy logic branches.
+
+Keep testing in mind during implementation. When tempted to add a small
+special case to make the result nicer, remember you will also have to test it.
+
+Prefer functional tests over unit tests when the functionality is well exposed
+through the program's interface. If unit-testing a complex piece of
+functionality, consider designing a concise textual mini-format for input and
+output rather than constructing test data programmatically.
+
+### Documentation conventions
+
+Each test should at minimum include an explicit id that adequately summarizes
+what it tests. Add a summary or details for more complex tests. Failure tests
+usually warrant this.
+
+Use the leading description for multi-line tests:
+
+```
+: multi-name
+:
+$* 'John' 'Jane' >>EOO
+Hello, John!
+Hello, Jane!
+EOO
+```
+
+A description with all three components (id, summary, details):
+
+```
+: multi-name
+: Test multiple name arguments
+:
+: This test makes sure we properly handle multiple names passed as
+: separate command line arguments.
+:
+$* 'John' 'Jane' >>EOO
+Hello, John!
+Hello, Jane!
+EOO
+```
+
+### Formatting guidelines
+
+Separate multi-line tests with blank lines. Place larger tests into explicit
+test scopes for better visual separation, especially when the test body
+contains blank lines (for example, in here-document fragments). The
+description goes before the scope. Here-documents are indented inside the
+scope:
+
+```
+: multi-name
+:
+{
+  $* 'John' 'Jane' >>EOO
+  Hello, John!
+
+  Hello, Jane!
+
+  EOO
+}
+```
+
+One-line tests may use the trailing description, which must be the test id.
+Within a block of one-liners (no blank line between them), align the ids:
+
+```
+$* John >'Hi, John!'       : custom-john
+$* World >'Hello, World!'  : custom-world
+```
+
+You may use multiple spaces between the end of the command line and the
+trailing description. Don't try to align ids across blocks -- this is a
+maintenance burden.
+
+### Grouping
+
+If multiple tests belong together and their ids share a common prefix,
+consider placing them in an explicit group scope. Use the shared prefix as
+the group id and omit it from the individual test ids. Give the group a
+summary:
+
+```
+: custom
+: Test custom greetings
+:
+{{
+  $* John >'Hi, John!'       : john
+  $* World >'Hello, World!'  : world
+}}
+```
+
+Don't repeat the testscript filename in group or test ids. If the tests live
+in `greeting.testscript`, using `custom-greeting` as the group id is
+unnecessarily repetitive because the id path would become
+`greeting/custom-greeting/john`.
+
+### Quoting
+
+Quote values that are strings as opposed to options, file names, paths
+(unless they contain spaces), integers, or booleans. Use single quotes unless
+you need expansions or single quotes inside. Unlike Bash, you do not need to
+quote variable expansions to preserve whitespace:
+
+```
+arg = 'Hello   Spaces'
+echo $arg              # Hello   Spaces
+```
+
 ## See Also
 
 - [testscript-commands.md](testscript-commands.md) -- variables, redirections, regex, cleanup, builtins, patterns

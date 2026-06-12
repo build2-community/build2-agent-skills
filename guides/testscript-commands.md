@@ -209,7 +209,8 @@ To run a system utility instead of a builtin, prefix the name with `^`.
 | `rm` | `rm [-r] [-f] <path>...` | Remove files or directories. `-r` for directories, `-f` to suppress errors. |
 | `rmdir` | `rmdir [-f] <dir>...` | Remove empty directories. `-f` suppresses errors. |
 | `sed` | `sed [-n] [-i] (-e <script>)... [<file>]` | Stream editor. Supports `s/regex/replacement/flags` only. ECMAScript regex flavor. Flags: `g`, `p`, `i`. Replacement extras: `\N`, `\u`, `\l`, `\U`, `\L`, `\n`. |
-| `set` | `set [-e] [-n|-w] <var> [<attr>]` | Set a variable from stdin. `-n` split at newlines, `-w` split at whitespace. Pseudo-builtin; must be last in pipe. |
+| `set` | `set [-e] [-n|-w] <var> [<attr>]` | Set a variable from stdin. `-e` exact match (no trailing newline stripping), `-n` split at newlines, `-w` split at whitespace. Pseudo-builtin. Must be last in pipe. |
+| `for` | `for [-e] [-n\|-w] <var> [<attr>]` | Iterate over stdin values, executing the body for each. `-e` exact match, `-n` split at newlines (default), `-w` split at whitespace. Pseudo-builtin. Must be last in pipe. |
 | `sha256sum` | `sha256sum [-b|-t] [--sum-only] <file>...` | Compute SHA256 checksums. `--sum-only` prints only the hash. |
 | `sleep` | `sleep <seconds>` | Pause execution for at least the specified number of seconds. |
 | `test` | `test -f|-d <path>` | Test whether path is a regular file (`-f`) or directory (`-d`). |
@@ -217,6 +218,98 @@ To run a system utility instead of a builtin, prefix the name with `^`.
 | `touch` | `touch [--no-cleanup] [--after <ref>] <file>...` | Update timestamps or create files. `--after` keeps touching until mtime is after ref. |
 | `true` | `true` | Exit with code 0. |
 | `xxh64sum` | `xxh64sum [-b|-t] [--sum-only] <file>...` | Compute XXH64 checksums (fast, non-cryptographic). Same interface as `sha256sum`. |
+
+---
+
+## Pseudo-builtin Details
+
+### set
+
+`set` reads stdin and assigns the result to a variable. It must be the last
+command in a pipeline.
+
+```
+cat file.txt | set content
+$* | set -n lines [strings]
+```
+
+| Option | Description |
+|---|---|
+| **-e**, **--exact** | Do not strip the trailing newline from the input. By default the final newline is removed before assignment. |
+| **-n**, **--newline** | Split input at newlines and store as a list. |
+| **-w**, **--whitespace** | Split input at whitespace runs and store as a list. |
+
+`-n` and `-w` are mutually exclusive. When neither is given the full input
+(after newline stripping unless **-e**) is stored as a single string.
+
+### for
+
+`for` reads stdin and executes its body once per value. It must be the last
+command in a pipeline.
+
+```
+echo "a b c" | for -w item
+{
+  echo $item
+}
+```
+
+| Option | Description |
+|---|---|
+| **-e**, **--exact** | Do not strip the trailing newline from the last value. |
+| **-n**, **--newline** | Split input at newlines (default behaviour). |
+| **-w**, **--whitespace** | Split input at whitespace runs. |
+
+`-n` and `-w` are mutually exclusive.
+
+### depdb
+
+`depdb` is a pseudo-builtin available only inside ad-hoc build rules (in
+build scripts, not in testscripts). It manages the dependency database for
+dynamic dependency extraction. The primary sub-command is `depdb --dyndep`.
+
+```
+depdb --dyndep [<options>] [--file <path>]
+```
+
+`depdb --dyndep` reads dependency information from stdin (or from the file
+given by **--file**) and registers the discovered prerequisites and/or
+dynamic targets with the build system. The sub-command must appear before
+any command that produces the dependency output.
+
+Two dependency formats are supported via **--format**:
+
+- `make` (default): standard make dependency syntax
+  `<target>...: [<prerequisite>...]`. In non-byproduct mode a relative
+  prerequisite path is treated as non-existent (to-be-generated).
+- `lines`: one prerequisite (or target) per line. In non-byproduct mode a
+  line with a leading space denotes a non-existent prerequisite. If
+  **--dyn-target** is also given, the target list comes first, separated
+  from the prerequisite list by a blank line.
+
+**Prerequisite options:**
+
+| Option | Type | Description |
+|---|---|---|
+| **--file** | `path` | Read dependency info from this file instead of stdin. |
+| **--format** | `string` | Dependency format: `make` (default) or `lines`. |
+| **--what** | `string` | Label for the prerequisite kind used in diagnostics, e.g., `header`. |
+| **-I**, **--include-path** | `dir_path...` | Search paths for generated (not-yet-existing) prerequisites. |
+| **--default-type** | `string` | Default prerequisite target type when the type cannot be derived from the file extension. |
+| **--adhoc** | flag | Register dynamically discovered prerequisites as ad hoc so they are excluded from `$<` (normal mode only). |
+| **--cwd** | `dir_path` | Working directory used to complete relative paths of prerequisites (byproduct mode, `lines` format, existing paths only). |
+| **--drop-cycles** | flag | Silently drop prerequisites that are also targets. Use only when such cycles are known to be harmless. |
+
+**Byproduct and dynamic-target options:**
+
+| Option | Type | Description |
+|---|---|---|
+| **--byproduct** | flag | Must be the first option. Switches to byproduct mode where dependency info is recorded after the command runs rather than before. |
+| **--dyn-target** | flag | Must be the first option (or follow **--byproduct**). Enable dynamic target extraction. Discovered targets are added as ad hoc group members. Not available in byproduct mode. |
+| **--target-what** | `string` | Label for the target kind used in diagnostics, e.g., `source`. |
+| **--target-default-type** | `string` | Default target type when the type cannot be derived from extension. |
+| **--target-extension-type** | `string=string` | Extension-to-type mapping in `<ext>=<type>` form (e.g., `h=hxx`). Checked before automatic extension mapping. Resolves extension ambiguities. Repeatable. |
+| **--target-cwd** | `dir_path` | Working directory used to complete relative paths of discovered targets. |
 
 ---
 
@@ -288,3 +381,4 @@ $* -c $conf 'Jane' >'Hello, Jane!'
 - [testscript-summary.md](testscript-summary.md) -- integration, execution model, lexical structure, scope syntax
 - [build2 core modules: test](build2-modules-core.md)
 - [build2 projects advanced: testing](build2-projects-advanced.md)
+- [build2 buildfile language reference](build2-buildfile-language.md) -- ad-hoc rules and build scripts where `depdb` is used

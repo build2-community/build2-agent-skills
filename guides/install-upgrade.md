@@ -14,6 +14,13 @@ set is guaranteed not to change.
 
 Use the **staged upgrade** when the MAJOR or MINOR version changes.
 
+> **Note:** The upgrade procedures below do not cover upgrading the `baseutils`
+> or `mingw` packages on Windows. Because any straightforward upgrade sequence
+> would leave either the old toolchain using the new utilities or the new
+> toolchain using the old ones, use the bootstrap process to upgrade those
+> components instead. See [install-bootstrap.md](install-bootstrap.md) for
+> details.
+
 ## Dirty Upgrade
 
 ```
@@ -77,6 +84,12 @@ $ bpkg install                        \
   --all
 ```
 
+If you added a custom prefix or suffix to the toolchain executable names with
+`config.bin.exe.prefix` and/or `config.bin.exe.suffix` during the original
+installation, add `config.bin.exe.prefix=[null]` and/or
+`config.bin.exe.suffix=[null]` to suppress them for the staged executables.
+Apply the same suppression when uninstalling the staged build in step 5.
+
 **Step 3 -- test the staged toolchain:**
 
 ```
@@ -116,22 +129,41 @@ If the `bpkg` configuration was lost but the toolchain is still installed:
 
 ```
 # UNIX
-$ bpkg create                   \
-  cc                             \
-  config.config.hermetic=true    \
-  config.cxx=g++                 \
-  config.cc.coptions=-O3         \
-  config.bin.lib=shared          \
+$ bpkg create                    \
+  cc                              \
+  config.config.hermetic=true     \
+  config.cxx=g++                  \
+  config.cc.coptions=-O3          \
+  config.bin.lib=shared           \
   config.bin.rpath=/usr/local/lib \
   config.install.root=/usr/local  \
+  config.install.private=build2   \
   config.install.sudo=sudo
 
-# Windows MSVC
+# Windows MSVC (from the Visual Studio x64 Native Tools Command Prompt)
 > bpkg create               ^
   cc                         ^
   config.config.hermetic=true ^
   config.cxx=cl               ^
   config.cc.coptions=/O2      ^
+  config.bin.lib=shared       ^
+  config.install.root=C:\build2
+
+# Windows Clang (from a suitable command prompt)
+> bpkg create                  ^
+  cc                            ^
+  config.config.hermetic=true   ^
+  "config.cxx=clang++ -m64"     ^
+  config.cc.coptions=-O2        ^
+  config.bin.lib=shared         ^
+  config.install.root=C:\build2
+
+# Windows MinGW
+> bpkg create               ^
+  cc                         ^
+  config.config.hermetic=true ^
+  config.cxx=g++              ^
+  config.cc.coptions=-O3      ^
   config.bin.lib=shared       ^
   config.install.root=C:\build2
 ```

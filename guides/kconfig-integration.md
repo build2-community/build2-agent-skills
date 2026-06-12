@@ -200,6 +200,213 @@ CONFIG_GREETING="Hi"
 ```
 
 
+## External Kconfig Macro Variables
+
+The `kconfig` module lets buildfile variables drive textual substitution inside
+`Kconfig` definition files. Any variable named `Kconfig.<NAME>` (capital K) set
+in `root.build` before `using kconfig` is passed into the Kconfig macro
+language as `$(NAME)`.
+
+`bool` values are automatically converted: Buildfile `true` becomes Kconfig `y`
+and `false` becomes `n`. All other types are converted to their string
+representation.
+
+The only variable that the module defines automatically is `SRC_ROOT`, which
+equals `src_root` in buildfiles. It is used to form absolute paths in `source`
+directives.
+
+A common use-case is platform-conditional options. Remove the assignment from
+`Kconfig` and instead set it from `root.build`:
+
+```
+# build/root.build
+using cxx
+
+Kconfig.ENABLE_FANCY = ($cxx.target.class != 'windows')
+
+using kconfig
+```
+
+```
+# build/Kconfig
+config FANCY
+      bool "Fancy options"
+      depends on $(ENABLE_FANCY)
+```
+
+This makes the `FANCY` option unavailable for selection on Windows without
+requiring a post-configure check.
+
+A macro substitution that references a name not set in the `Kconfig` file and
+not provided via a `Kconfig.*` buildfile variable is an error, so every
+variable used in `$(...)` substitutions must be defined in one of the two
+places.
+
+Limit external variables to controlling option and menu availability. Using
+them to alter prompts, default values, or expressions creates definitions that
+are hard to reason about and may surprise users.
+
+
+## Macro Language
+
+The Kconfig macro language is a two-layer system modelled on `make`. The bottom
+layer performs plain textual substitution on the raw text of the `Kconfig`
+file. The result of that substitution is then parsed as Kconfig definitions by
+the top layer.
+
+### Simple and recursively-expanding variables
+
+Assignments use `:=` for simple variables and `=` for recursively-expanding
+variables, the same distinction as in `make`:
+
+- A simple variable (`NAME := value`) is expanded once at the point of
+  assignment. All `$(...)` references on the right-hand side are resolved
+  immediately.
+- A recursively-expanding variable (`NAME = value`) stores the right-hand side
+  verbatim and expands it each time `$(NAME)` is referenced elsewhere.
+
+For most uses a simple variable is the right choice and avoids unexpected
+re-expansion.
+
+### Substitution scope and lookup order
+
+When `$(NAME)` is encountered, the macro language looks up `NAME` in the
+following order:
+
+1. Macro variable assignments at the top of the current `Kconfig` file.
+2. `Kconfig.*` buildfile variables (via the module).
+3. The built-in `SRC_ROOT`.
+
+An undefined reference is an error.
+
+### All references are always expanded
+
+Because substitution is a flat textual pass over the whole file, every
+`$(NAME)` is expanded regardless of whether the surrounding Kconfig expression
+would ever evaluate to true at configuration time. For example:
+
+```
+config GREETING
+      string "Custom greeting"
+      default $(DEFAULT_GREETING_IO) if IO
+      default $(DEFAULT_GREETING)    if !IO
+```
+
+Both `DEFAULT_GREETING_IO` and `DEFAULT_GREETING` must be defined even though
+only one branch will be used.
+
+Kconfig keywords cannot themselves be the result of a macro substitution, and
+substitutions cannot span multiple Kconfig tokens.
+
+### The `shell` function
+
+The Kconfig macro language inherits a `shell` function from the Linux kernel
+build system. Its use is not recommended in `build2` projects: it introduces
+portability issues and poor performance because it forks a shell process during
+configuration parsing.
+
+
+## Modularity Support
+
+The `tristate` type extends `bool` with a third state, `m`, that represents
+"built as a module". It is purpose-built for the Linux kernel modular driver
+model and should only be used when that semantics genuinely applies.
+
+### The `modules` attribute
+
+One `bool` option in the project must be designated as the global modules gate
+by adding the `modules` attribute. When that option is `n`, all `tristate`
+options behave as `bool` and the `m` state is unavailable. When it is `y`, the
+`m` state becomes selectable.
+
+```
+config MODULES
+      bool "Modules support"
+      modules
+
+config IO
+      tristate "IO support"
+```
+
+To enable modules unconditionally, make the gate option prompt-less with a `y`
+default:
+
+```
+config MODULES
+      bool
+      default y
+      modules
+```
+
+Only one option per configuration may carry the `modules` attribute.
+
+### Buildfile mapping
+
+`tristate` maps to the `string` Buildfile type with three possible values:
+`true`, `false`, and `module`. Use equality comparisons in buildfiles to
+distinguish all three states.
+
+### `tristate` in choices
+
+A `choice` block whose options are `tristate` allows the user to select at most
+one option as `y` but any number as `m` (when modules are enabled). This is the
+only context where multiple choice options can be active simultaneously.
+
+```
+choice
+      prompt "Name fallback"
+
+config NAME_ASK
+      tristate "Ask for name"
+
+config NAME_DEF
+      tristate "Use default name"
+
+endchoice
+```
+
+### Expressions and `m`
+
+In expressions (`depends on`, `if`, etc.) the value `m` is treated as `y` when
+modules are enabled and as `n` otherwise.
+
+
+## Backwards Compatibility
+
+Kconfig is designed to reuse old configurations across project versions. When a
+full `config.kconfig` from an older release is loaded against a newer `Kconfig`
+definition, options absent from the old file are treated as newly-defined and
+receive their defaults. Options present in the old file but no longer in the
+definition are silently dropped.
+
+Users may also keep minimal default configurations produced with
+`kconfig-conf --savedefconfig`. These files contain only values that differ
+from the Kconfig defaults, so they are more resilient to definition changes
+than a full `config.kconfig`.
+
+### Changes that are generally safe
+
+- Adding new options.
+- Removing or renaming existing options (the old value is dropped).
+- Moving options between menus or reorganising the menu hierarchy.
+- Changing `depends on` constraints or `visible if` expressions.
+- Changing prompt text or help text.
+
+### Changes to avoid
+
+- Changing the type of an existing option. An old value of the wrong type
+  produces an invalid configuration.
+- Changing the default value or `range` of an existing option. Users who rely
+  on the previous default or range will see unexpected behaviour after reload.
+- Removing an option from a non-optional `choice` that has no `default`
+  attribute. If the removed option was the previously selected one, the choice
+  becomes invalid.
+
+When a breaking change is unavoidable, document it prominently in the release
+notes and provide migration instructions, for example a replacement default
+configuration file that users can load with `config.kconfig="new-def <file>"`.
+
+
 ## See Also
 
 - [kconfig-summary.md](kconfig-summary.md) -- Kconfig language reference

@@ -299,6 +299,81 @@ The following variables are set automatically by the build system core.
 | `config.cxx.libs` | Extra C++ link libraries |
 | `config.import.<project>` | Import override for a project |
 
+## Built-in Function Families
+
+Functions in build2 are organised into families, such as `$string.*()` for
+string manipulation or `$regex.*()` for regular expressions. Most functions
+are pure. Impure functions (for example `$builtin.getenv()`) are explicitly
+documented as such.
+
+Every function can always be called with its full family-qualified name. Some
+families additionally allow unqualified calls when the argument type makes the
+family unambiguous. Functions in the `$regex.*()` family are an exception: they
+must always be called with the full `$regex.` prefix.
+
+| Family | Purpose | Qualification |
+|---|---|---|
+| `$builtin.*()` | Fundamental build2 functions | optional |
+| `$string.*()` | String manipulation | optional |
+| `$integer.*()` | Integer arithmetic | optional |
+| `$bool.*()` | Boolean operations | optional |
+| `$path.*()` | Filesystem path manipulation | optional |
+| `$name.*()` | Target and prerequisite names | optional |
+| `$target.*()` | Operate on actual targets | optional |
+| `$regex.*()` | ECMAScript regex match and substitution | **required** |
+| `$json.*()` | JSON, JSON5, and JSON5E values | optional |
+| `$process.*()` | Process operations | optional |
+| `$filesystem.*()` | Filesystem operations | optional |
+| `$project_name.*()` | `project_name` type | optional |
+| `$process_path.*()` | `process_path` and `process_path_ex` types | optional |
+| `$target_triplet.*()` | `cpu-vendor-os` target triplets | optional |
+
+### $regex.*() family
+
+The `$regex.*()` family provides comprehensive regular expression matching
+and substitution. The supported flavor is ECMAScript (ECMA-262-based C++11
+regular expressions). The `match_not_null` flag is in effect unless the string
+being matched is empty.
+
+In the format string argument (`fmt`), the standard ECMAScript escape sequences
+(`$1`, `$2`, `$&`, etc.) are supported and extended with a subset of Perl
+escape sequences: `\n`, `\u`, `\l`, `\U`, `\L`, `\E`, `\1` ... `\9`, and `\\`.
+
+Functions in this family must always be called fully qualified:
+
+```
+if $regex.match($name, '(.+)-(.+)')
+  ...
+```
+
+### $json.*() family
+
+The `$json.*()` family operates on the `json`, `json_array`, and `json_object`
+types, which represent JSON, JSON5, or JSON5E values. Objects can be
+constructed from a quoted literal or using the `name@value` syntax:
+
+```
+j = [json] '{
+  one   : 1,
+  two   : "abc",
+  three : {x:1, y:-1}
+}'
+
+# Alternative construction syntax for the same value.
+#j = [json] one@1 two@abc three@([json] x@1 y@-1)
+
+for m: $j
+{
+  n = $member_name($m)
+  v = $member_value($m)
+
+  info $n $value_type($v) $v
+}
+```
+
+> Note: detailed per-function signatures for all families are a work in
+> progress in the upstream build2 documentation.
+
 ## Built-in Functions
 
 Functions are organised into families. All functions can be called with the

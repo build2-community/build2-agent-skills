@@ -198,6 +198,202 @@ To uninstall a local installation:
 $ b uninstall: build2/ bpkg/ bdep/ libbuild2-*/
 ```
 
+## Windows Clang Variant
+
+These steps replace the MSVC (`config.cxx=cl`) commands in the sections above
+when using Clang on Windows. Phases 1 and 2 are identical to the MSVC path
+except for the compiler flag.
+
+If you are using Clang bundled with MSVC and it is not already on `PATH`,
+start the "x64 Native Tools Command Prompt" and add the Llvm `bin\` directory:
+
+```
+> set "PATH=C:\build2\bin;%VCINSTALLDIR%Tools\Llvm\bin;%PATH%"
+> where clang++
+```
+
+If you are using a standalone Clang installation that is already on `PATH`,
+verify it is found and continue from the same command prompt used for
+bootstrapping:
+
+```
+> where clang++
+```
+
+**Stage** -- build with shared libraries, install with the `-stage` suffix
+(back in `build2-toolchain-X.Y.Z\`):
+
+```
+> build2\b\b-boot configure                   ^
+  config.build2_toolchain.build.readonly=true ^
+  "config.cxx=clang++ -m64"                   ^
+  config.bin.lib=shared                       ^
+  config.bin.suffix=-stage                    ^
+  config.install.root=C:\build2               ^
+  config.install.data_root=root\stage
+
+> build2\b\b-boot install: build2\ bpkg\
+```
+
+**Install** -- create a `bpkg` configuration and install from the repository
+(back in `build2-build\`):
+
+```
+> md build2-toolchain-X.Y
+> cd build2-toolchain-X.Y
+
+> bpkg-stage create             ^
+  cc                            ^
+  config.config.hermetic=true   ^
+  "config.cxx=clang++ -m64"     ^
+  config.cc.coptions=-O2        ^
+  config.bin.lib=shared         ^
+  config.install.root=C:\build2
+
+> bpkg-stage add https://pkg.cppget.org/1/alpha
+> bpkg-stage fetch
+> bpkg-stage build --for install build2 bpkg bdep
+> bpkg-stage install --all
+```
+
+Install the standard build system modules:
+
+```
+> bpkg build --for install libbuild2-autoconf libbuild2-kconfig
+> bpkg install !config.install.scope=project ^
+  --all-pattern=libbuild2-*
+```
+
+Verify module installation:
+
+```
+> b noop: ..\build2-toolchain-X.Y.Z\tests\libbuild2-*\
+```
+
+**Local (offline) installation** -- replace the stage configure and install
+commands with:
+
+```
+> build2\b\b-boot configure                   ^
+  config.build2_toolchain.build.readonly=true ^
+  config.config.hermetic=true                 ^
+  "config.cxx=clang++ -m64"                   ^
+  config.cc.coptions=-O2                      ^
+  config.bin.lib=shared                       ^
+  config.install.root=C:\build2
+
+> build2\b\b-boot install: build2\ bpkg\ bdep\
+> b install: !config.install.scope=project libbuild2-*\
+```
+
+To uninstall a local installation:
+
+```
+> b uninstall: build2\ bpkg\ bdep\ libbuild2-*\
+```
+
+**Clean** -- uninstall the staged tools (back in `build2-toolchain-X.Y.Z\`):
+
+```
+> cd ..\build2-toolchain-X.Y.Z
+> b uninstall: build2\ bpkg\
+```
+
+## Windows MinGW Variant
+
+These steps replace the MSVC (`config.cxx=cl`) commands in the sections above
+when using MinGW (GCC) on Windows.
+
+If you are using your own MinGW distribution (not the `build2-mingw` package),
+the resulting `build2` binaries may require several DLLs. Copy the following
+files from your MinGW `bin\` directory into `C:\build2\bin\` (the `*` in the
+last name is typically `dw2-1`, `seh-1`, or `sjlj-1`):
+
+```
+libwinpthread-1.dll
+libstdc++-6.dll
+libgcc_s_*.dll
+```
+
+**Stage** -- build with shared libraries, install with the `-stage` suffix
+(back in `build2-toolchain-X.Y.Z\`):
+
+```
+> build2\b\b-boot configure                   ^
+  config.build2_toolchain.build.readonly=true ^
+  config.cxx=g++                              ^
+  config.bin.lib=shared                       ^
+  config.bin.suffix=-stage                    ^
+  config.install.root=C:\build2               ^
+  config.install.data_root=root\stage
+
+> build2\b\b-boot install: build2\ bpkg\
+```
+
+**Install** -- create a `bpkg` configuration and install from the repository
+(back in `build2-build\`):
+
+```
+> md build2-toolchain-X.Y
+> cd build2-toolchain-X.Y
+
+> bpkg-stage create             ^
+  cc                            ^
+  config.config.hermetic=true   ^
+  config.cxx=g++                ^
+  config.cc.coptions=-O3        ^
+  config.bin.lib=shared         ^
+  config.install.root=C:\build2
+
+> bpkg-stage add https://pkg.cppget.org/1/alpha
+> bpkg-stage fetch
+> bpkg-stage build --for install build2 bpkg bdep
+> bpkg-stage install --all
+```
+
+Install the standard build system modules:
+
+```
+> bpkg build --for install libbuild2-autoconf libbuild2-kconfig
+> bpkg install !config.install.scope=project ^
+  --all-pattern=libbuild2-*
+```
+
+Verify module installation:
+
+```
+> b noop: ..\build2-toolchain-X.Y.Z\tests\libbuild2-*\
+```
+
+**Local (offline) installation** -- replace the stage configure and install
+commands with:
+
+```
+> build2\b\b-boot configure                   ^
+  config.build2_toolchain.build.readonly=true ^
+  config.config.hermetic=true                 ^
+  config.cxx=g++                              ^
+  config.cc.coptions=-O3                      ^
+  config.bin.lib=shared                       ^
+  config.install.root=C:\build2
+
+> build2\b\b-boot install: build2\ bpkg\ bdep\
+> b install: !config.install.scope=project libbuild2-*\
+```
+
+To uninstall a local installation:
+
+```
+> b uninstall: build2\ bpkg\ bdep\ libbuild2-*\
+```
+
+**Clean** -- uninstall the staged tools (back in `build2-toolchain-X.Y.Z\`):
+
+```
+> cd ..\build2-toolchain-X.Y.Z
+> b uninstall: build2\ bpkg\
+```
+
 ## See Also
 
 - [install-bootstrap.md](install-bootstrap.md) -- prerequisites and bootstrap steps 1-2
