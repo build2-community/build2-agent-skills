@@ -226,3 +226,12 @@ bpkg drop foo
 - [Default options files](bpkg-default-options-files.md)
 - [Repository types](bpkg-repository-types.md)
 - [Repository signing](bpkg-repository-signing.md)
+
+## See Also
+
+- [`bdep README`](../bdep/README.md) -- project dependency manager that orchestrates bpkg
+- [`bpkg-dependency-negotiation`](bpkg-dependency-negotiation.md) -- how version constraints are resolved across the dependency graph
+- [`bpkg-manifest-reference`](bpkg-manifest-reference.md) -- manifest file format and all supported fields
+- [`packaging-guide-summary`](../guides/packaging-guide-summary.md) -- end-to-end guide for packaging a third-party library
+- [`multiple-configurations`](../HOWTO/multiple-configurations.md) -- managing debug/release/sanitize configurations with bdep
+- [`troubleshooting`](../HOWTO/troubleshooting.md) -- common bpkg error messages and resolutions

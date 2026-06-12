@@ -203,3 +203,12 @@ path.
 - [Projects and configurations](bdep-projects-configs.md)
 - [Default options files](bdep-default-options-files.md)
 - [Argument grouping](bdep-argument-grouping.md)
+
+## See Also
+
+- [`bpkg README`](../bpkg/README.md) -- package manager that bdep delegates to for dependency management
+- [`bdep-projects-configs`](bdep-projects-configs.md) -- specifying projects and configurations on the command line
+- [`multiple-configurations`](../HOWTO/multiple-configurations.md) -- managing debug/release/sanitize configurations with bdep
+- [`ci-cd-setup`](../HOWTO/ci-cd-setup.md) -- typical CI pipeline using bdep update/test
+- [`toolchain-dev-setup`](../HOWTO/toolchain-dev-setup.md) -- setting up build2 for toolchain development
+- [`troubleshooting`](../HOWTO/troubleshooting.md) -- common bdep error messages and resolutions

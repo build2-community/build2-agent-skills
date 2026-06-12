@@ -15,7 +15,60 @@
 - [b/README.md](b/README.md): Build system driver -- buildspec syntax, meta-operations, operations, key options.
 - [b/b.md](b/b.md): Full b option reference.
 - [bpkg/README.md](bpkg/README.md): Package manager -- key concepts, all commands, typical workflows.
+- [bpkg/bpkg-cfg-create.md](bpkg/bpkg-cfg-create.md): bpkg-cfg-create -- create bpkg configuration.
+- [bpkg/bpkg-cfg-info.md](bpkg/bpkg-cfg-info.md): bpkg-cfg-info -- print configuration information.
+- [bpkg/bpkg-cfg-link.md](bpkg/bpkg-cfg-link.md): bpkg-cfg-link -- link configuration.
+- [bpkg/bpkg-cfg-unlink.md](bpkg/bpkg-cfg-unlink.md): bpkg-cfg-unlink -- unlink configuration.
+- [bpkg/bpkg-rep-add.md](bpkg/bpkg-rep-add.md): bpkg-rep-add -- add repository to configuration.
+- [bpkg/bpkg-rep-remove.md](bpkg/bpkg-rep-remove.md): bpkg-rep-remove -- remove repository from configuration.
+- [bpkg/bpkg-rep-list.md](bpkg/bpkg-rep-list.md): bpkg-rep-list -- list repositories in configuration.
+- [bpkg/bpkg-rep-info.md](bpkg/bpkg-rep-info.md): bpkg-rep-info -- print repository information.
+- [bpkg/bpkg-rep-fetch.md](bpkg/bpkg-rep-fetch.md): bpkg-rep-fetch -- fetch list of available packages from repositories.
+- [bpkg/bpkg-rep-create.md](bpkg/bpkg-rep-create.md): bpkg-rep-create -- create repository from a directory of package archives.
+- [bpkg/bpkg-pkg-build.md](bpkg/bpkg-pkg-build.md): bpkg-pkg-build -- build packages (fetch, configure, compile in one step).
+- [bpkg/bpkg-pkg-drop.md](bpkg/bpkg-pkg-drop.md): bpkg-pkg-drop -- drop package and its unused dependencies.
+- [bpkg/bpkg-pkg-status.md](bpkg/bpkg-pkg-status.md): bpkg-pkg-status -- print status of one or more packages.
+- [bpkg/bpkg-pkg-fetch.md](bpkg/bpkg-pkg-fetch.md): bpkg-pkg-fetch -- fetch package archive into the configuration.
+- [bpkg/bpkg-pkg-unpack.md](bpkg/bpkg-pkg-unpack.md): bpkg-pkg-unpack -- unpack a fetched package archive.
+- [bpkg/bpkg-pkg-checkout.md](bpkg/bpkg-pkg-checkout.md): bpkg-pkg-checkout -- check out package version from version control.
+- [bpkg/bpkg-pkg-configure.md](bpkg/bpkg-pkg-configure.md): bpkg-pkg-configure -- configure an unpacked package.
+- [bpkg/bpkg-pkg-disfigure.md](bpkg/bpkg-pkg-disfigure.md): bpkg-pkg-disfigure -- disfigure (unconfigure) a configured package.
+- [bpkg/bpkg-pkg-update.md](bpkg/bpkg-pkg-update.md): bpkg-pkg-update -- update (recompile) a configured package.
+- [bpkg/bpkg-pkg-test.md](bpkg/bpkg-pkg-test.md): bpkg-pkg-test -- run the test suite of a configured package.
+- [bpkg/bpkg-pkg-clean.md](bpkg/bpkg-pkg-clean.md): bpkg-pkg-clean -- clean build artifacts of a configured package.
+- [bpkg/bpkg-pkg-install.md](bpkg/bpkg-pkg-install.md): bpkg-pkg-install -- install a built package to the configured install root.
+- [bpkg/bpkg-pkg-uninstall.md](bpkg/bpkg-pkg-uninstall.md): bpkg-pkg-uninstall -- uninstall a previously installed package.
+- [bpkg/bpkg-pkg-purge.md](bpkg/bpkg-pkg-purge.md): bpkg-pkg-purge -- remove a package that was fetched or unpacked but not configured.
+- [bpkg/bpkg-pkg-verify.md](bpkg/bpkg-pkg-verify.md): bpkg-pkg-verify -- verify the integrity and structure of a package archive.
+- [bpkg/bpkg-pkg-bindist.md](bpkg/bpkg-pkg-bindist.md): bpkg-pkg-bindist -- generate a binary distribution package (deb, rpm, etc.).
+- [bpkg/bpkg-manifest-reference.md](bpkg/bpkg-manifest-reference.md): bpkg package manifest reference -- all manifest fields, types, and constraints.
+- [bpkg/bpkg-dependency-negotiation.md](bpkg/bpkg-dependency-negotiation.md): bpkg dependency configuration negotiation -- how multi-package version constraints are resolved.
+- [bpkg/bpkg-repository-types.md](bpkg/bpkg-repository-types.md): bpkg-repository-types -- archive, directory, and git repository types, structure, and URLs.
+- [bpkg/bpkg-repository-signing.md](bpkg/bpkg-repository-signing.md): bpkg-repository-signing -- how to sign a repository and how signatures are verified.
+- [bpkg/bpkg-argument-grouping.md](bpkg/bpkg-argument-grouping.md): bpkg-argument-grouping -- argument grouping facility for per-package option sets.
+- [bpkg/bpkg-default-options-files.md](bpkg/bpkg-default-options-files.md): bpkg-default-options-files -- how and where default options files are loaded.
+- [bpkg/bpkg-configuration.md](bpkg/bpkg-configuration.md): bpkg-configuration -- configuration directory option shared across commands.
+- [bpkg/bpkg-common-options.md](bpkg/bpkg-common-options.md): bpkg common options -- options shared across every bpkg command.
+- [bpkg/bpkg-help.md](bpkg/bpkg-help.md): bpkg-help -- show help for a command or help topic.
 - [bdep/README.md](bdep/README.md): Project dependency manager -- key concepts, all commands, typical workflows.
+- [bdep/bdep-new.md](bdep/bdep-new.md): bdep-new -- create and initialize a new project.
+- [bdep/bdep-init.md](bdep/bdep-init.md): bdep-init -- initialize project in build configurations.
+- [bdep/bdep-deinit.md](bdep/bdep-deinit.md): bdep-deinit -- deinitialize project in build configurations.
+- [bdep/bdep-sync.md](bdep/bdep-sync.md): bdep-sync -- synchronize project and build configurations.
+- [bdep/bdep-fetch.md](bdep/bdep-fetch.md): bdep-fetch -- fetch list of available project dependencies.
+- [bdep/bdep-update.md](bdep/bdep-update.md): bdep-update -- update (build) project in build configurations.
+- [bdep/bdep-test.md](bdep/bdep-test.md): bdep-test -- test project in build configurations.
+- [bdep/bdep-clean.md](bdep/bdep-clean.md): bdep-clean -- clean project in build configurations.
+- [bdep/bdep-status.md](bdep/bdep-status.md): bdep-status -- print status of project and/or its dependencies.
+- [bdep/bdep-ci.md](bdep/bdep-ci.md): bdep-ci -- submit project test request to CI server.
+- [bdep/bdep-release.md](bdep/bdep-release.md): bdep-release -- manage project version during release.
+- [bdep/bdep-publish.md](bdep/bdep-publish.md): bdep-publish -- publish project to archive repository.
+- [bdep/bdep-config.md](bdep/bdep-config.md): bdep-config -- manage project build configurations (add, create, list, move, rename, remove).
+- [bdep/bdep-projects-configs.md](bdep/bdep-projects-configs.md): bdep-projects-configs -- specifying projects and configurations on the command line.
+- [bdep/bdep-argument-grouping.md](bdep/bdep-argument-grouping.md): bdep-argument-grouping -- argument grouping facility for passing options to subtools.
+- [bdep/bdep-default-options-files.md](bdep/bdep-default-options-files.md): bdep-default-options-files -- specifying default options via files.
+- [bdep/bdep-common-options.md](bdep/bdep-common-options.md): bdep common options -- options shared across every bdep command.
+- [bdep/bdep-help.md](bdep/bdep-help.md): bdep-help -- show help for a command or help topic.
 - [bx/README.md](bx/README.md): Shell script and task runner reference.
 - [bx/bx.md](bx/bx.md): Full bx option reference.
 - [brep/README.md](brep/README.md): Repository web interface -- key concepts, all commands, typical deployment workflows.

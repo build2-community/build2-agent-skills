@@ -75,3 +75,9 @@ Condensed, AI-indexed versions of the
 | File | Topic |
 |------|-------|
 | [troubleshooting.md](./troubleshooting.md) | Common error messages and resolutions for b, bpkg, and bdep |
+
+## See Also
+
+- [`INDEX.md`](../INDEX.md) -- full command index and navigation across all tools
+- [`SKILL.md`](../SKILL.md) -- when-to-use table for direct lookup by task
+- [`GLOSSARY.md`](../GLOSSARY.md) -- cross-tool terminology definitions

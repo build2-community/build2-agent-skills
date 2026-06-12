@@ -4,10 +4,6 @@ This document covers the complete package review process for
 `cppget.org`: who reviews, when, how to conduct each type of review,
 the full initial-submission checklist, and the required outcome formats.
 
-See also [packaging-guide-summary.md](packaging-guide-summary.md) and
-[packaging-guide-testing.md](packaging-guide-testing.md) for the packaging
-workflow that precedes a review submission.
-
 ---
 
 ## Overview

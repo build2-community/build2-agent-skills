@@ -174,10 +174,6 @@ its internal version header: `h{version}: in{version} $src_root/manifest`,
 with the comment "The version file is an internal one (it is only included from
 `pg_config.h`) so we don't distribute nor install it".
 
-See also [generated-headers](./generated-headers.md) for pre-generation
-ordering and the dummy header technique.
-
-
 ## Generated config header (installed as part of the public API)
 
 Some config headers contain architecture-specific information (pointer sizes,
@@ -316,3 +312,11 @@ metadata variable pointing to the generated header; the consumer branches on
 null (in-tree import) vs. non-null (installed file path). See
 [target-metadata](./target-metadata.md) for the full protocol, including how
 `.for_install` interacts with `install.resolve`.
+
+## See Also
+
+- [`generated-headers`](./generated-headers.md) -- pre-generation ordering and the dummy header technique
+- [`target-metadata`](./target-metadata.md) -- exporting metadata from executables and libraries across packages
+- [`packaging-guide-summary`](../guides/packaging-guide-summary.md) -- full third-party packaging workflow and buildfile scaffold
+- [`build2-modules-misc`](../guides/build2-modules-misc.md) -- in module for .in template preprocessing
+- [`build2-modules-autoconf`](../guides/build2-modules-autoconf.md) -- autoconf module for capability detection via c.predefs

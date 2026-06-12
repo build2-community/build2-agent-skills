@@ -38,4 +38,9 @@ For a [binless (header-only) library](./header-only-library.md) you still need
 `*.libs` in addition to `*.export.libs` because `*.libs` is used when linking
 the static variant of the binless library.
 
-See also [link-pthread](./link-pthread.md) for the special case of `-pthread`.
+## See Also
+
+- [`link-pthread`](./link-pthread.md) -- special case: linking pthread portably
+- [`header-only-library`](./header-only-library.md) -- binless library dependency considerations for *.libs
+- [`build2-modules-cxx`](../guides/build2-modules-cxx.md) -- cxx.libs, cxx.export.libs, and pkg-config integration
+- [`build2-projects-advanced`](../guides/build2-projects-advanced.md) -- library interface vs implementation dependencies

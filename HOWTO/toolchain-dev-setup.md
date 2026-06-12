@@ -4,9 +4,6 @@ The build2 toolchain is self-hosted: it is built with itself. There is no
 simple `git clone && bdep init` path. Use the `bootstrap` script from the
 [`etc`](https://git.build2.org/cgit/etc/tree/) repository.
 
-See also the [install and bootstrap guide](../guides/install-bootstrap.md)
-for end-user installation.
-
 ## Prerequisites
 
 1. Install the latest staged toolchain into a temporary location:
@@ -85,3 +82,10 @@ breaking the running toolchain mid-upgrade:
 ```
 $ cd ~/work/build2 && etc/upgrade
 ```
+
+## See Also
+
+- [`install-bootstrap`](../guides/install-bootstrap.md) -- end-user installation and bootstrap steps 1-2
+- [`install-toolchain`](../guides/install-toolchain.md) -- toolchain install step 3 from a package repository
+- [`install-upgrade`](../guides/install-upgrade.md) -- upgrading an installed toolchain (dirty or staged)
+- [`bdep README`](../bdep/README.md) -- bdep commands used during day-to-day toolchain development

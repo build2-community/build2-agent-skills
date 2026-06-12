@@ -122,6 +122,26 @@ metadata).
 
 **Fix:** Create a configuration first: `bpkg create -d <dir> cc config.cxx=g++`.
 
+### `<manifest>:<line>:<col>: error: no package name specified`
+
+**Cause:** The `manifest` file does not contain a `name:` field, or the file
+is completely absent from the package root.
+
+**Fix:** Add `name: <package-name>` as the first field in `manifest`. See
+[`bpkg-manifest-reference`](../bpkg/bpkg-manifest-reference.md) for the
+required fields: `name`, `version`, `summary`, `license`.
+
+### `<manifest>:<line>:<col>: error: unknown name '<field>' in package manifest`
+
+**Cause:** The manifest contains a field name that is not recognised by the
+manifest parser. Common causes: a typo in a field name, a field that was
+removed in a newer format version, or a custom field added without the
+`x-` vendor prefix.
+
+**Fix:** Check the spelling against the field list in
+[`bpkg-manifest-reference`](../bpkg/bpkg-manifest-reference.md). Private
+(non-standard) fields must start with `x-` to be accepted by the parser.
+
 ---
 
 ## bdep errors
@@ -158,6 +178,28 @@ malformed.
 **Fix:** Check the `manifest` file exists and follows the format documented
 in [`bpkg-manifest-reference`](../bpkg/bpkg-manifest-reference.md). Required
 fields: `name`, `version`, `summary`, `license`.
+
+---
+
+## bx errors
+
+### `error: task running not yet implemented`
+
+**Cause:** `bx` was invoked with a task name (a bare word that is not a path
+and does not end in `.bx`). Task execution is not yet implemented in the
+current toolchain release.
+
+**Fix:** Use script execution instead: create a `.bx` script file and invoke
+it as `bx ./script.bx`. See [`bx-script`](./bx-script.md) for the script
+syntax and usage.
+
+### `error: invalid script path '<path>'`
+
+**Cause:** The path passed as a script argument is syntactically invalid on
+the host operating system.
+
+**Fix:** Verify the path contains only valid characters and no null bytes.
+Prefer simple relative paths such as `./configure.bx`.
 
 ---
 

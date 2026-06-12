@@ -33,3 +33,11 @@ both of the following hold:
 1. The upstream project does not provide an executable with the same name.
 2. No well-known project provides an executable with the same name (verified
    against the Debian package repository).
+
+## See Also
+
+- [`packaging-guide-summary`](../guides/packaging-guide-summary.md) -- full packaging workflow including package structure decisions
+- [`bpkg-package-name-version`](../guides/bpkg-package-name-version.md) -- package name rules, version format, and constraint syntax
+- [`bdep-new`](../bdep/bdep-new.md) -- creating multi-package project repositories
+- [`package-version-non-semver`](./package-version-non-semver.md) -- handling upstream projects that don't use semantic versioning
+- [`package-version-none`](./package-version-none.md) -- handling upstream projects with no version

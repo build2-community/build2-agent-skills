@@ -35,9 +35,17 @@ use the table below to jump directly to the relevant file.
 | Buildfile language syntax (if/loop/switch/patterns) | [guides/build2-buildfile-language.md](guides/build2-buildfile-language.md) |
 | Buildfile directives, name patterns, and attributes | [guides/build2-directives-patterns.md](guides/build2-directives-patterns.md) |
 | Library projects, target importation, subprojects | [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md) |
+| Create a PHONY-equivalent (alias{}) target | [HOWTO/alias-targets.md](HOWTO/alias-targets.md) |
+| Which compile/link options belong in a buildfile | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
+| Port a CMake project to build2 buildfiles | [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md) |
 | C/C++ compile and link options, module support | [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md) |
 | C-common variables, DLL export, compilation database | [guides/build2-modules-cc.md](guides/build2-modules-cc.md) |
 | bin/liba/libs/exe target types | [guides/build2-modules-bin.md](guides/build2-modules-bin.md) |
+| Create a header-only (binless) library | [HOWTO/header-only-library.md](HOWTO/header-only-library.md) |
+| Link pthread | [HOWTO/link-pthread.md](HOWTO/link-pthread.md) |
+| Link a system library (-lm, -ldl, advapi32.lib) | [HOWTO/link-system-library.md](HOWTO/link-system-library.md) |
+| Make library components optional | [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md) |
+| Use auto-generated C/C++ headers | [HOWTO/generated-headers.md](HOWTO/generated-headers.md) |
 | Add/remove packages, resolve version conflicts | [bpkg/README.md](bpkg/README.md) |
 | Build a package, upgrade, or patch | [bpkg/bpkg-pkg-build.md](bpkg/bpkg-pkg-build.md) |
 | Create a bpkg configuration | [bpkg/bpkg-cfg-create.md](bpkg/bpkg-cfg-create.md) |
@@ -68,6 +76,7 @@ use the table below to jump directly to the relevant file.
 | kconfig: build system integration and examples | [guides/kconfig-integration.md](guides/kconfig-integration.md) |
 | Set up cross-compilation with target triplets | [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md) |
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
+| Set up a CI/CD pipeline for a build2 project | [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md) |
 | Scaffold a new bpkg package directory | [scripts/new-package.sh](scripts/new-package.sh) |
 | Run .bx scripts or named tasks | [bx/bx.md](bx/bx.md) |
 | Get started with .bx scripts (practical walkthrough) | [HOWTO/bx-script.md](HOWTO/bx-script.md) |

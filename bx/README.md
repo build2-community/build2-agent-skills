@@ -41,3 +41,8 @@ $ bx -- --release
 ## Navigation
 
 - [bx full reference](bx.md) -- all options, exit status, environment
+
+## See Also
+
+- [`bx-script`](../HOWTO/bx-script.md) -- practical walkthrough of .bx scripts and named task definitions
+- [`b README`](../b/README.md) -- build system driver that bx scripts may invoke
