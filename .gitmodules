@@ -1,12 +1,12 @@
 [submodule "build2-toolchain"]
-	path = build2-toolchain
+	path = .submodules/build2-toolchain
 	url = https://github.com/build2/build2-toolchain.git
 [submodule "build2-howto"]
-	path = build2-howto
+	path = .submodules/build2-howto
 	url = https://github.com/build2/HOWTO
 [submodule "libbuild2-autoconf"]
-	path = libbuild2-autoconf
+	path = .submodules/libbuild2-autoconf
 	url = https://github.com/build2/libbuild2-autoconf.git
 [submodule "build2-brep"]
-	path = build2-brep
+	path = .submodules/build2-brep
 	url = https://github.com/build2/brep

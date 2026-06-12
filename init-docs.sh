@@ -21,10 +21,10 @@ if [ "$#" -ne 1 ] || { [ "$1" != 'true' ] && [ "$1" != 'false' ]; }; then
 fi
 
 UPGRADE="$1"
-TOOLCHAIN=build2-toolchain
-HOWTO=build2-howto
-AUTOCONF=libbuild2-autoconf
-BREP=build2-brep
+TOOLCHAIN=.submodules/build2-toolchain
+HOWTO=.submodules/build2-howto
+AUTOCONF=.submodules/libbuild2-autoconf
+BREP=.submodules/build2-brep
 OUTPUT=.docs
 
 git submodule update --init --recursive -- "$TOOLCHAIN"

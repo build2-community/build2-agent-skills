@@ -95,5 +95,6 @@
 
 ## Raw source
 
-- [build2-toolchain/](build2-toolchain/): Git submodule containing the upstream .cli source files. Run init-docs.sh to extract them to .docs/.
-- [build2-howto/](build2-howto/): Git submodule containing the upstream HOWTO entries. Run init-docs.sh to extract them to .docs/HOWTO/.
+- [.submodules/build2-toolchain/](.submodules/build2-toolchain/): Git submodule containing the upstream .cli source files. Run init-docs.sh to extract them to .docs/.
+- [.submodules/build2-howto/](.submodules/build2-howto/): Git submodule containing the upstream HOWTO entries. Run init-docs.sh to extract them to .docs/HOWTO/.
+- [.submodules/build2-brep/](.submodules/build2-brep/): Git submodule containing the upstream brep source files. Run init-docs.sh to extract them to .docs/brep/.
