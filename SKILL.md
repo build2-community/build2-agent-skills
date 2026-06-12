@@ -47,11 +47,13 @@ use the table below to jump directly to the relevant file.
 | Release a new version | [bdep/bdep-release.md](bdep/bdep-release.md) |
 | Write testscripts | [guides/testscript-summary.md](guides/testscript-summary.md) |
 | Testscript commands, redirections, regex, cleanup, builtins | [guides/testscript-commands.md](guides/testscript-commands.md) |
+| Build only what is needed for test or install | [HOWTO/update-for-test-install.md](HOWTO/update-for-test-install.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Test and publish a third-party package | [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md) |
 | Review a third-party package submission | [guides/packaging-guide-review.md](guides/packaging-guide-review.md) |
 | Packaging version management (new revision, new version) | [guides/packaging-guide-version-management.md](guides/packaging-guide-version-management.md) |
 | Packaging antipatterns, what not to do | [guides/packaging-guide-antipatterns.md](guides/packaging-guide-antipatterns.md) |
+| Handle private headers when packaging a third-party project | [HOWTO/third-party-private-headers.md](HOWTO/third-party-private-headers.md) |
 | bpkg package name rules, version format, constraint syntax | [guides/bpkg-package-name-version.md](guides/bpkg-package-name-version.md) |
 | Install or bootstrap the toolchain | [guides/install-bootstrap.md](guides/install-bootstrap.md) |
 | Install toolchain from repository (step 3) | [guides/install-toolchain.md](guides/install-toolchain.md) |
@@ -67,6 +69,7 @@ use the table below to jump directly to the relevant file.
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
 | Scaffold a new bpkg package directory | [scripts/new-package.sh](scripts/new-package.sh) |
 | Run .bx scripts or named tasks | [bx/bx.md](bx/bx.md) |
+| Get started with .bx scripts (practical walkthrough) | [HOWTO/bx-script.md](HOWTO/bx-script.md) |
 | Verify toolchain is installed | [scripts/verify-install.sh](scripts/verify-install.sh) |
 | Find a C++ compiler for config.cxx= | [scripts/probe-compiler.sh](scripts/probe-compiler.sh) |
 | Validate a package manifest file | [scripts/check-manifest.sh](scripts/check-manifest.sh) |

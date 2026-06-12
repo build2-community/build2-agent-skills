@@ -65,6 +65,7 @@
 - [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md): Resolving "already updated but [not] for install" errors.
 - [HOWTO/generated-headers.md](HOWTO/generated-headers.md): Auto-generated C/C++ headers.
 - [HOWTO/disable-shared-lib-per-platform.md](HOWTO/disable-shared-lib-per-platform.md): Disabling the shared library variant per platform.
+- [HOWTO/update-for-test-install.md](HOWTO/update-for-test-install.md): Building only what is needed for test or install (update-for-test / update-for-install operations).
 - [HOWTO/header-only-library.md](HOWTO/header-only-library.md): Binless (header-only) libraries.
 - [HOWTO/library-provides-main.md](HOWTO/library-provides-main.md): Library that provides main().
 - [HOWTO/link-pthread.md](HOWTO/link-pthread.md): Linking pthread.
@@ -78,11 +79,13 @@
 - [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects.
 - [HOWTO/package-version-non-semver.md](HOWTO/package-version-non-semver.md): Projects that don't use semantic versioning.
 - [HOWTO/package-version-none.md](HOWTO/package-version-none.md): Projects with no version at all.
+- [HOWTO/third-party-private-headers.md](HOWTO/third-party-private-headers.md): Private implementation headers and generated config headers shared across internal targets in third-party packages.
 - [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md): Managing debug/release/sanitize configurations with bdep.
 - [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md): Setting up a cross-compilation configuration with target triplets.
 - [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md): Typical CI pipeline using bdep update/test.
 - [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md): Porting a CMake project to build2 buildfiles.
 - [HOWTO/toolchain-dev-setup.md](HOWTO/toolchain-dev-setup.md): Setting up build2 for toolchain development.
+- [HOWTO/bx-script.md](HOWTO/bx-script.md): Running .bx scripts and tasks with bx -- portable scripts and named task definitions.
 
 ## Scripts
 
