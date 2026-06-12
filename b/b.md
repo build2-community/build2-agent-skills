@@ -216,7 +216,7 @@ Parameters:
 | `--trace-execute` | `<target>` | | Trace rule execution for the specified target. Primarily for troubleshooting. Repeatable. |
 | `--no-column` | | | Don't print column numbers in diagnostics. |
 | `--no-line` | | | Don't print line and column numbers in diagnostics. |
-| `--buildfile` | `<path>` | `buildfile` | Alternative buildfile to read. Use `-` to read from `stdin`. Affects only files read during buildspec processing, not `source`/`include` directives. Primarily for testing. |
+| `--buildfile` | `<path>` | `buildfile` or `build2file` | Alternative buildfile to read. Use `-` to read from `stdin`. Affects only files read during buildspec processing, not `source`/`include` directives. Primarily for testing. |
 | `--config-guess` | `<path>` | | Path to `config.guess` script for guessing host machine triplet. If not specified, the target `b` was built for is used as the host. |
 | `--config-sub` | `<path>` | | Path to `config.sub` script for canonicalizing machine triplets. If not specified, built-in canonicalization is used. |
 | `--pager` | `<path>` | `less` | Pager program for long text output. Empty string disables the pager. Falls back to `less` if not specified, or no pager if `less` is unavailable. |

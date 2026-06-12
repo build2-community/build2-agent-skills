@@ -373,8 +373,6 @@ compiler mode options when they affect the compiler identity or target.
 | Variable | Purpose |
 |---|---|
 | `cxx.export.poptions` | Preprocessor options consumers need |
-| `cxx.export.coptions` | Compiler options consumers need |
-| `cxx.export.loptions` | Linker options consumers need |
 | `cxx.export.libs` | Libraries consumers need to link |
 
 Typical library `buildfile` pattern:

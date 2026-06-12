@@ -19,7 +19,7 @@ or the target name does not match any pattern.
 - Verify the target type suffix matches the `extension` variable setting.
 - Check that the file actually exists in the source directory.
 
-### `error: unknown module <name>`
+### `error: unknown build system module <name>`
 
 **Cause:** The module name is misspelled, or the module is not part of the
 build2 toolchain installed on this system.
@@ -45,7 +45,7 @@ directly. bpkg configurations must be managed with `bpkg` or `bdep`.
 **Fix:** Run `b` from within a package source directory inside the
 configuration, or use `bdep update` / `bdep test`.
 
-### `error: already updated <target> but not for install`
+### `error: incompatible <target> build`
 
 **Cause:** A target was built for development (`update`) and then a
 second pass attempts to build it for installation, which requires different
@@ -72,7 +72,7 @@ such as `hxx{version}` can satisfy both.
 See [`build2-modules-autoconf`](../guides/build2-modules-autoconf.md#disambiguating-the-versionin-and-autoconfin-rules)
 for details.
 
-### `error: <file>: unable to map <name> to a project`
+### `error: unable to import target <target>`
 
 **Cause:** An `import` directive references a project that is not a subproject
 of the current project, not in the amalgamation chain, and `config.import.<name>`
@@ -88,7 +88,7 @@ b configure: hello/ config.import.libhello=libhello/
 
 ## bpkg errors
 
-### `error: package <name> not found in <repository>`
+### `error: package <name> is not found in <repository>`
 
 **Cause:** The package name is misspelled, the repository does not contain
 that package, or `rep-fetch` has not been run after adding the repository.
@@ -115,7 +115,7 @@ for how build2 resolves multi-package constraints. To diagnose, run
 `bpkg build --plan` to see the proposed resolution plan. A manual version
 override may be needed: `bpkg build <name>/<version>`.
 
-### `error: no build2 configuration in <dir>`
+### `error: <dir> does not look like a bpkg configuration directory`
 
 **Cause:** The directory is not a bpkg configuration (missing `.bpkg/`
 metadata).
@@ -146,7 +146,7 @@ removed in a newer format version, or a custom field added without the
 
 ## bdep errors
 
-### `error: project <dir> is not initialized`
+### `error: package <name> is not initialized in any default configuration(s)`
 
 **Cause:** `bdep init` has not been run for this project.
 
@@ -154,7 +154,7 @@ removed in a newer format version, or a custom field added without the
 bpkg configuration, or `bdep init --empty` to create a configuration
 alongside the project.
 
-### `error: no build configurations`
+### `error: no existing configurations`
 
 **Cause:** There are no bpkg configurations associated with this project.
 
