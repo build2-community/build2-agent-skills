@@ -35,6 +35,7 @@ operations (update, test, clean) that operate across multiple configurations.
 | build2 | `bx`   | Shell script and task runner  |
 | bpkg   | `bpkg` | Package dependency manager    |
 | bdep   | `bdep` | Project dependency manager    |
+| brep   | `brep-load` et al. | Package repository web interface |
 
 
 ## Command Index
@@ -138,6 +139,16 @@ See [bx reference](bx/bx.md) for the full option list.
 | help     | Show help for a command or help topic                |
 
 
+### brep commands
+
+| Command       | Purpose                                              |
+|---------------|------------------------------------------------------|
+| brep-load     | Load repositories into package database              |
+| brep-clean    | Delete expired builds or archive/delete tenants      |
+| brep-migrate  | Create, migrate, or drop database schemas            |
+| brep-monitor  | Report delayed package builds to stderr              |
+
+
 ## Navigation
 
 ### Reference files
@@ -148,6 +159,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [bx full reference](bx/bx.md)
 - [bpkg reference](bpkg/README.md) -- bpkg overview, workflows, command table, and per-command index
 - [bdep reference](bdep/README.md) -- bdep overview, workflows, command table, and per-command index
+- [brep reference](brep/README.md) -- brep overview, commands, deployment workflows, and per-command index
 
 ### HOWTO
 

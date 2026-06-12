@@ -16,6 +16,12 @@
 - [bpkg/README.md](bpkg/README.md): Package manager -- key concepts, all commands, typical workflows.
 - [bdep/README.md](bdep/README.md): Project dependency manager -- key concepts, all commands, typical workflows.
 - [bx/README.md](bx/README.md): Shell script and task runner reference.
+- [brep/README.md](brep/README.md): Repository web interface -- key concepts, all commands, typical deployment workflows.
+- [brep/brep-load.md](brep/brep-load.md): brep-load -- load repositories and package metadata into the package database.
+- [brep/brep-clean.md](brep/brep-clean.md): brep-clean -- delete expired build records or expire/archive tenants.
+- [brep/brep-migrate.md](brep/brep-migrate.md): brep-migrate -- create, migrate, or drop the package or build database schema.
+- [brep/brep-monitor.md](brep/brep-monitor.md): brep-monitor -- detect and report delayed package builds.
+- [brep/brep-request-handling.md](brep/brep-request-handling.md): brep request handling -- package submission, CI request, build artifact upload, and GitHub CI integration protocols.
 
 ## Guides
 

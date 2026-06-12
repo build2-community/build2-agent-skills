@@ -1,0 +1,281 @@
+# brep -- Request Handling Protocols
+
+The `brep` web module processes inbound HTTP requests for package submission,
+CI (continuous integration) requests, and build artifact uploads. For each
+request type, `brep` handles reception and basic validation, then delegates
+policy decisions to a configurable **handler program**.
+
+---
+
+## Handler Program Contract
+
+A handler program is an executable invoked by `brep` as part of the HTTP
+request. It receives the absolute path to a request directory as its last
+argument (preceded by any arguments from the corresponding
+`*-handler-argument` configuration option). The handler must:
+
+- Write a result manifest to `stdout`.
+- Exit with status zero. A non-zero exit status is treated as an internal
+  error.
+- Log diagnostics to `stderr` (brep records this).
+
+The handler assumes ownership of the request directory and may move or remove
+it. If the directory still exists after the handler exits, `brep` decides its
+fate based on the result manifest status:
+
+| Result status | Directory fate |
+|---------------|----------------|
+| [200-399] | Left in place or removed per handler decision |
+| [400-499] (client error) | Removed by `brep` |
+| [500-599] (server error) | Renamed to `<name>.fail.<n>` for investigation |
+| Abnormal exit or timeout | Renamed to `<name>.fail.<n>` for investigation |
+
+If no handler is configured, `brep` implies a `200` success response.
+
+**Result manifest format (all request types):**
+```
+status: <http-code>
+message: <string>
+[reference]: <string>
+```
+
+The `status` value is returned as the HTTP response code. `reference` must be
+present on success and should uniquely identify the request (for example, the
+abbreviated checksum or request UUID).
+
+---
+
+## Package Submission
+
+HTTP `POST` with `multipart/form-data`. `brep` validates and stores the upload,
+then invokes the submission handler to apply the repository's acceptance policy.
+
+**Processing steps:**
+1. Verify the payload does not exceed `submit-max-size`.
+2. Verify the required `archive` and `sha256sum` parameters are present.
+3. Verify any additional parameters are valid manifest name/value pairs.
+4. Check for a duplicate submission (keyed on the 12-character abbreviated
+   checksum of the archive).
+5. Save the archive to a temporary directory and verify its checksum.
+6. Save `request.manifest` into the temporary directory.
+7. Atomically rename the temporary directory to `submit-data/<abbrev-checksum>`.
+   If the target already exists, this is a duplicate submission.
+8. Invoke the handler (`submit-handler`) if configured.
+9. Send submission email (`submit-email`) if configured.
+10. Respond to the client with the result manifest.
+
+**Required parameters:**
+
+| Parameter | Description |
+|-----------|-------------|
+| `archive` | Package archive file |
+| `sha256sum` | 64-character SHA256 checksum of the archive (binary mode) |
+
+Additional parameters must be valid manifest name/value pairs and are included
+verbatim in `request.manifest`.
+
+**Request manifest:**
+```
+archive: <name>
+sha256sum: <sum>
+timestamp: <YYYY-MM-DDThh:mm:ssZ>
+[simulate]: <outcome>
+[client-ip]: <string>
+[user-agent]: <string>
+```
+
+**Simulation.** If the `simulate` parameter is present, `brep` simulates the
+specified outcome without performing any externally visible actions (no email,
+no publish). Pre-defined values: `duplicate-archive`, `success`,
+`internal-error-text`, `internal-error-html`. The handler must handle at least
+`success` and may define additional values.
+
+---
+
+## CI Requests
+
+HTTP `GET` or `POST` with `application/x-www-form-urlencoded` or
+`multipart/form-data`. `brep` validates the parameters, creates a request
+directory, and invokes the CI handler.
+
+**Processing steps:**
+1. Verify `repository` and optional `package` parameters.
+2. Verify the optional `overrides` parameter.
+3. Verify additional parameters are valid manifest name/value pairs.
+4. Generate a UUID and create a directory in `ci-data/<uuid>`.
+5. Save `request.manifest` into the directory.
+6. Save `overrides.manifest` into the directory if overrides were uploaded.
+7. Invoke the handler (`ci-handler`) if configured.
+8. Send CI email (`ci-email`) if configured.
+9. Respond to the client with the result manifest.
+
+**Parameters:**
+
+| Parameter | Description |
+|-----------|-------------|
+| `repository` | Remote `bpkg` repository URL containing packages to test |
+| `package` (optional, repeatable) | `<name>` or `<name>/<version>` to limit scope; if omitted, all packages in the repository are tested |
+| `overrides` (optional) | CI overrides manifest upload |
+
+**Request manifest:**
+```
+id: <uuid>
+repository: <url>
+[package]: <name>[/<version>]   (repeatable)
+[interactive]: <breakpoint>
+[simulate]: <outcome>
+timestamp: <YYYY-MM-DDThh:mm:ssZ>
+[client-ip]: <string>
+[user-agent]: <string>
+[service-id]: <string>
+[service-type]: <string>
+[service-data]: <string>
+[service-action]: start | load
+```
+
+The `service-*` fields are used when `brep` acts as a backend for a
+third-party CI service. `service-action: start` means all required information
+is available and the handler is called immediately. `service-action: load`
+means the CI task was created earlier without calling the handler, and the
+handler is now being called with the gathered information.
+
+### CI Overrides Manifest
+
+The overrides manifest is a package manifest fragment applied to all packages
+being tested. It can override the following value groups (overriding a group
+resets all values in that group before applying the new values):
+
+```
+build-email  build-warning-email  build-error-email
+builds  build-include  build-exclude
+*-builds  *-build-include  *-build-exclude
+*-build-config
+```
+
+The `*-build-config` override adds a new named build configuration if it does
+not exist, or updates the arguments of an existing one. Build constraint
+overrides for a newly added configuration must follow the corresponding
+`*-build-config` override.
+
+Common and configuration-specific build constraint overrides are mutually
+exclusive within a single overrides manifest: if common constraints are
+overridden, all configuration-specific constraints are removed; if any
+configuration-specific constraints are overridden, remaining configurations
+have their build constraints reset to `builds: none`.
+
+**Simulation.** Pre-defined values: `success`, `internal-error-text`,
+`internal-error-html`. The handler must handle at least `success`.
+
+**Interactive mode.** If the `interactive` parameter is present, the CI
+service provides execution environment login information and stops builds at
+the specified breakpoint. Pre-defined breakpoints: `error`, `warning`.
+
+---
+
+## Build Artifact Upload
+
+HTTP `POST` with `multipart/form-data`. Used by automated build bots to upload
+archives of files generated as a byproduct of package builds.
+
+The upload type is specified in the URL query component (`?upload=<type>`).
+Each upload type has its own size limit (`upload-max-size`) and optional
+handler (`upload-handler`).
+
+**Processing steps:**
+1. Determine upload type from the `upload` query parameter.
+2. Verify payload does not exceed `upload-max-size` for this type.
+3. Verify required parameters are present; verify `challenge` if agent
+   authentication is configured.
+4. Verify additional parameters are valid manifest name/value pairs.
+5. Resolve the `session` parameter to the corresponding package build.
+6. Authenticate the build bot agent (if configured).
+7. Generate a UUID and create a directory in `upload-data/<uuid>`.
+8. Save the archive and verify its checksum.
+9. Save `request.manifest` into the directory.
+10. Invoke the handler (`upload-handler`) if configured.
+11. Send upload email (`upload-email`) if configured.
+12. Respond to the client with the result manifest.
+
+**Required parameters:**
+
+| Parameter | Description |
+|-----------|-------------|
+| `session` | Build session identifier (resolved to package build information) |
+| `instance` | Build bot instance name |
+| `archive` | Build artifacts archive file |
+| `sha256sum` | 64-character SHA256 checksum of the archive (binary mode) |
+| `challenge` | Agent authentication challenge (required when agent authentication is configured) |
+
+**Request manifest:**
+```
+id: <uuid>
+session: <session-id>
+instance: <name>
+archive: <name>
+sha256sum: <sum>
+timestamp: <YYYY-MM-DDThh:mm:ssZ>
+
+name: <name>
+version: <version>
+project: <name>
+target-config: <name>
+package-config: <name>
+target: <target-triplet>
+[tenant]: <tenant-id>
+toolchain-name: <name>
+toolchain-version: <standard-version>
+repository-name: <canonical-name>
+machine-name: <name>
+machine-summary: <text>
+```
+
+---
+
+## GitHub CI Integration
+
+The `brep` CI module can integrate with GitHub's check runs API, allowing
+CI results to appear directly on commits and pull requests.
+
+### How it works
+
+GitHub notifies `brep` of repository events (branch pushes, pull requests)
+via webhooks. `brep` starts CI jobs and reports their progress and results
+back to GitHub as check runs, grouped under a `CONCLUSION` check suite.
+
+### Head sharing limitation
+
+GitHub associates CI results with the HEAD commit, not the merge commit. This
+means:
+
+- A branch push and a pull request sharing the same HEAD commit share a
+  single CI result.
+- If the PR's base branch moves after the CI result is computed, the result
+  is not invalidated automatically.
+
+To mitigate this, enable the **"Require branches to be up to date before
+merging"** branch protection rule together with the `CONCLUSION` check as a
+required status check. This prevents merging a PR whose HEAD is behind the
+base branch.
+
+### Setup
+
+1. Install the build2 CI GitHub App from the GitHub Marketplace into the
+   account owning the repository.
+2. In account settings under "Applications", configure the App's repository
+   access.
+3. Enable branch protection on the target branch(es):
+   - **Classic rule:** "Require status checks to pass" + "Require branches to
+     be up to date" + `CONCLUSION` as required check.
+   - **Ruleset:** Same requirements under "Require status checks to pass".
+
+The `CONCLUSION` check link also provides a force-rebuild option for cases
+where the CI gets stuck with builds in a queued or building state.
+
+---
+
+## See Also
+
+- [brep README](README.md)
+- [brep-load](brep-load.md) -- populate the package database
+- [bdep-ci](../bdep/bdep-ci.md) -- submit a CI request from a bdep project
+- [bdep-publish](../bdep/bdep-publish.md) -- publish a package via the submission protocol

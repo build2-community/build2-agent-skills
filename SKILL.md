@@ -3,17 +3,18 @@ name: build2
 description: >
   Use when building, testing, packaging, or managing dependencies for C/C++
   projects with the build2 toolchain. Covers the build system driver (b),
-  package manager (bpkg), project dependency manager (bdep), and task runner
-  (bx). Activate for: writing or reading buildfiles, diagnosing build errors,
-  resolving package dependency conflicts, packaging a library for cppget.org,
-  setting up build configurations, configuring installations, authoring
-  testscripts, or running any b/bpkg/bdep/bx command.
+  package manager (bpkg), project dependency manager (bdep), task runner (bx),
+  and repository web interface (brep). Activate for: writing or reading
+  buildfiles, diagnosing build errors, resolving package dependency conflicts,
+  packaging a library for cppget.org, setting up build configurations,
+  configuring installations, authoring testscripts, hosting package
+  repositories, or running any b/bpkg/bdep/bx/brep-* command.
 license: MIT
 compatibility: build2 toolchain 0.17+; Linux, macOS, FreeBSD, Windows (MSVC/Clang/GCC)
 metadata:
   author: build2-docs contributors
   generated-from: build2-toolchain .cli sources
-  tools: b bpkg bdep bx
+  tools: b bpkg bdep bx brep
 ---
 
 # build2 Skill
@@ -70,6 +71,14 @@ use the table below to jump directly to the relevant file.
 | Validate a package manifest file | [scripts/check-manifest.sh](scripts/check-manifest.sh) |
 | Run tests in a bpkg configuration | [scripts/run-tests.sh](scripts/run-tests.sh) |
 | Inspect project name/version/roots | [scripts/show-project-info.sh](scripts/show-project-info.sh) |
+| Deploy a brep package repository web interface | [brep/README.md](brep/README.md) |
+| Load repository data into brep | [brep/brep-load.md](brep/brep-load.md) |
+| Expire old builds or archive tenants in brep | [brep/brep-clean.md](brep/brep-clean.md) |
+| Set up or migrate brep databases | [brep/brep-migrate.md](brep/brep-migrate.md) |
+| Monitor brep build infrastructure for delays | [brep/brep-monitor.md](brep/brep-monitor.md) |
+| Implement a package submission or CI handler | [brep/brep-request-handling.md](brep/brep-request-handling.md) |
+| Understand the brep package submission protocol | [brep/brep-request-handling.md](brep/brep-request-handling.md) |
+| Understand the brep CI request protocol | [brep/brep-request-handling.md](brep/brep-request-handling.md) |
 | Troubleshoot errors | [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md) |
 | Practical recipes by topic | [HOWTO/README.md](HOWTO/README.md) |
 | Terminology reference | [GLOSSARY.md](GLOSSARY.md) |
@@ -82,6 +91,7 @@ use the table below to jump directly to the relevant file.
 | `bpkg` | Package manager: manages packages in a build configuration | adding dependencies, publishing |
 | `bdep` | Project dependency manager: syncs manifests with configurations | day-to-day project workflow |
 | `bx` | Task runner: runs `.bx` scripts or named tasks | automation, scripted tasks |
+| `brep-load` et al. | Repository web interface: hosts packages, handles CI and submission | deploying or operating a package repository |
 
 ## Most common invocations
 

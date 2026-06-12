@@ -24,7 +24,7 @@ UPGRADE="$1"
 TOOLCHAIN=build2-toolchain
 HOWTO=build2-howto
 AUTOCONF=libbuild2-autoconf
-BREP=brep
+BREP=build2-brep
 OUTPUT=.docs
 
 git submodule update --init --recursive -- "$TOOLCHAIN"
