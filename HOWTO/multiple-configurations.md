@@ -62,7 +62,7 @@ $ bdep config remove @san
 $ bdep status
 ```
 
-## See also
+## See Also
 
 - [`bdep-config`](../bdep/bdep-config.md) -- full bdep config command reference
 - [`bdep-init`](../bdep/bdep-init.md) -- initializing a project in configurations

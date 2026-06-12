@@ -136,7 +136,7 @@ brep-monitor --report-timeout 86400 /etc/brep/brep.conf build2/0.17
 - [brep-request-handling](brep-request-handling.md) -- package submission, CI
   request, build artifact upload, and GitHub CI integration protocols
 
-## See also
+## See Also
 
 - [bpkg reference](../bpkg/README.md) -- `bpkg` is used internally by `brep-load`
 - [bdep-ci](../bdep/bdep-ci.md) -- submit a CI request from a project

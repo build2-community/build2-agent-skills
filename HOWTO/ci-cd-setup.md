@@ -64,7 +64,7 @@ To avoid recreating configurations on every run, cache the bpkg configuration
 directory. The directory contains `build/` output and fetched package archives.
 Include the build2 version in the cache key to invalidate on upgrades.
 
-## See also
+## See Also
 
 - [`bdep-ci`](../bdep/bdep-ci.md) -- submitting to a remote CI server
 - [`install-bootstrap`](../guides/install-bootstrap.md) -- installing the build2 toolchain

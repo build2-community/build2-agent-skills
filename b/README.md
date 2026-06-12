@@ -254,7 +254,7 @@ $ b info: libfoo/,json
 - [b full reference](b.md)
 - [bx reference](../bx/bx.md) -- shell script and task runner
 
-## See also
+## See Also
 
 - [`alias-targets`](../HOWTO/alias-targets.md) -- PHONY-equivalent targets using `alias{}`
 - [`buildfile-compile-options`](../HOWTO/buildfile-compile-options.md) -- which compile/link options belong in a buildfile

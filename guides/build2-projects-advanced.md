@@ -265,7 +265,7 @@ dump exe{hello}       # Dump specific target
 info $(obj{main}: cxx.poptions)  # Print target-specific variable
 ```
 
-## See also
+## See Also
 
 - [`build2-intro-concepts.md`](build2-intro-concepts.md) -- foundational concepts: targets, scopes, modules, variables
 - [`build2-buildfile-language.md`](build2-buildfile-language.md) -- language syntax reference

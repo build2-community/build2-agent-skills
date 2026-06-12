@@ -123,7 +123,7 @@ hxx{*}:
 }
 ```
 
-## See also
+## See Also
 
 - [`build2-intro-concepts`](../guides/build2-intro-concepts.md) -- foundational concepts
 - [`build2-buildfile-language`](../guides/build2-buildfile-language.md) -- full buildfile syntax

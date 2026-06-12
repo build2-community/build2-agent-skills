@@ -58,3 +58,6 @@ options files:
 ## See Also
 
 - [bpkg README](README.md)
+- [`sanitize-tests`](../HOWTO/sanitize-tests.md) -- sanitizing misbehaving tests with Testscript
+- [`assert-in-tests`](../HOWTO/assert-in-tests.md) -- correctly using assert() in tests
+- [`tests-extra-dependencies`](../HOWTO/tests-extra-dependencies.md) -- tests with extra dependencies (separate test package)

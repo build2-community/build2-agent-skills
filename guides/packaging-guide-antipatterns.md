@@ -409,7 +409,7 @@ exe{foo}: c{main}: include = adhoc  # Included in main-build2.c.
 ```
 
 
-## See also
+## See Also
 
 - [packaging-guide-summary.md](packaging-guide-summary.md)
 - [packaging-guide-testing.md](packaging-guide-testing.md)

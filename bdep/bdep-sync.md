@@ -241,3 +241,5 @@ already being performed.
 - [bdep-argument-grouping](bdep-argument-grouping.md)
 - [bdep-default-options-files](bdep-default-options-files.md)
 - [`build2-project-config`](../guides/build2-project-config.md) -- project configuration system
+- [`multiple-configurations`](../HOWTO/multiple-configurations.md) -- managing debug/release/sanitize configurations with bdep
+- [`troubleshooting`](../HOWTO/troubleshooting.md) -- resolving sync failures and common bdep errors

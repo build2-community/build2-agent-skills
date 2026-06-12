@@ -117,3 +117,5 @@ options files:
 - [bpkg README](README.md)
 - [bpkg-cfg-link](bpkg-cfg-link.md)
 - [bpkg-cfg-info](bpkg-cfg-info.md)
+- [`multiple-configurations`](../HOWTO/multiple-configurations.md) -- managing debug/release/sanitize configurations
+- [`cross-compilation`](../HOWTO/cross-compilation.md) -- setting up a cross-compilation configuration with target triplets

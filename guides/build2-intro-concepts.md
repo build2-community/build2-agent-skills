@@ -336,7 +336,7 @@ Module-provided meta-operations:
 - `dist` -- prepare source distribution
 - `create` -- create a build configuration directory
 
-## See also
+## See Also
 
 - [`build2-buildfile-language.md`](build2-buildfile-language.md) -- minimal example, invoking b, full buildfile language reference
 - [`build2-projects-advanced.md`](build2-projects-advanced.md) -- target importation, library projects, testing, installation

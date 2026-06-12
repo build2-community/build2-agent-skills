@@ -422,7 +422,7 @@ For build2-built libraries, `pkg-config` files (`pc{}`, `pca{}`, `pcs{}`) are
 generated and installed automatically with the appropriate `Cflags`, `Libs`,
 and custom `cxx.*` variables for C++ modules support.
 
-## See also
+## See Also
 
 - [`build2-modules-cc.md`](build2-modules-cc.md) -- cc module: C-common infrastructure, DLL export, compilation database
 - [`build2-modules-c.md`](build2-modules-c.md) -- c module: C-specific compilation

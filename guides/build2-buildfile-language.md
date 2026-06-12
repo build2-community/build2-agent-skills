@@ -339,7 +339,7 @@ z = "C:\\Program Files"        # Double quote: expansion performed
 cxx.poptions =+ "-I$out_root" "-I$src_root"   # Untyped concat (required for -I)
 ```
 
-## See also
+## See Also
 
 - [`build2-intro-concepts.md`](build2-intro-concepts.md) -- targets, scopes, modules, variables, operations
 - [`build2-projects-advanced.md`](build2-projects-advanced.md) -- target importation, library projects, subprojects

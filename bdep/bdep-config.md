@@ -255,3 +255,5 @@ options files:
 
 - [bdep README](README.md)
 - [`multiple-configurations`](../HOWTO/multiple-configurations.md) -- managing debug/release/sanitize configurations with bdep config
+- [`cross-compilation`](../HOWTO/cross-compilation.md) -- setting up a cross-compilation configuration with target triplets
+- [`toolchain-dev-setup`](../HOWTO/toolchain-dev-setup.md) -- setting up build2 for toolchain development

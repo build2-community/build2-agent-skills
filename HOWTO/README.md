@@ -74,7 +74,7 @@ Condensed, AI-indexed versions of the
 
 | File | Topic |
 |------|-------|
-| [troubleshooting.md](./troubleshooting.md) | Common error messages and resolutions for b, bpkg, and bdep |
+| [troubleshooting.md](./troubleshooting.md) | Common error messages and resolutions for b, bpkg, bdep, bx, and brep |
 
 ## See Also
 

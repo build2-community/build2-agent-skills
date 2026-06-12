@@ -50,7 +50,7 @@ rpath) and for-development. The pre-operations `update-for-test` and
 `update-for-install` request the correct flavour without the side effects of
 running tests or writing files into the install root.
 
-## See also
+## See Also
 
 - [b README](../b/README.md) -- operations table and buildspec syntax
 - [for-install-conflicts](./for-install-conflicts.md) -- resolving errors when both flavours are required simultaneously

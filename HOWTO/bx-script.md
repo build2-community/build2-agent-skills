@@ -51,7 +51,7 @@ $ bx format
 $ bx lint --fix
 ```
 
-## See also
+## See Also
 
 - [bx README](../bx/README.md) -- overview and usage patterns
 - [bx full reference](../bx/bx.md) -- all options, exit status, environment

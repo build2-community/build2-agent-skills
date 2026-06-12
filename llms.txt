@@ -114,7 +114,7 @@
 ## HOWTO
 
 - [HOWTO/README.md](HOWTO/README.md): Practical recipes indexed by topic.
-- [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md): Common error messages and resolutions for b, bpkg, and bdep.
+- [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md): Common error messages and resolutions for b, bpkg, bdep, bx, and brep.
 - [HOWTO/alias-targets.md](HOWTO/alias-targets.md): PHONY-equivalent targets using alias{}.
 - [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md): Which compile/link options belong in a buildfile.
 - [HOWTO/config-independent-build-graph.md](HOWTO/config-independent-build-graph.md): Keeping the build graph configuration-independent.

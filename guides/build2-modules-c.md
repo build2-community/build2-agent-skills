@@ -152,7 +152,7 @@ using c.predefs
 [rule_hint=c.predefs] h{predefs}:
 ```
 
-## See also
+## See Also
 
 - [`build2-modules-cc.md`](build2-modules-cc.md) -- cc module: C-common infrastructure, DLL export, toolchain detection
 - [`build2-modules-bin.md`](build2-modules-bin.md) -- bin module: binary target type hierarchy

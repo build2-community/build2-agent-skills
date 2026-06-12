@@ -203,6 +203,64 @@ Prefer simple relative paths such as `./configure.bx`.
 
 ---
 
+## brep errors
+
+### `error: database schema is too old`
+
+**Cause:** The schema version in the database predates the oldest version
+`brep-migrate` can migrate from. This typically happens after a large version
+jump.
+
+**Fix:** Drop the database completely and recreate it. Use
+`brep-migrate --drop package && brep-migrate package` (and likewise for
+`build`), or drop the database directly with `psql` and then rerun
+`brep-migrate package`. All previously loaded data will be lost.
+
+### `error: database schema is too new`
+
+**Cause:** The database was created or last migrated by a newer version of
+`brep` than the one currently installed.
+
+**Fix:** Upgrade the `brep` installation to match the database version, or
+recreate the database with `brep-migrate --drop package && brep-migrate package`.
+
+### `error: database schema requires migration`
+
+**Cause:** The `--drop` or `--recreate` option was passed to `brep-migrate` but
+the schema is at an older version. These destructive options refuse to proceed
+on an unmigrated schema.
+
+**Fix:** Either run `brep-migrate package` first to migrate the schema, then
+rerun with `--drop` or `--recreate`, or drop the database manually with `psql`
+and then run `brep-migrate package`.
+
+### `error: no database schema specified`
+
+**Cause:** `brep-migrate` was invoked without a positional schema argument.
+
+**Fix:** Pass either `package` or `build` as the argument:
+`brep-migrate package` or `brep-migrate build`.
+
+### `error: unable to fetch manifests for <repo>`
+
+**Cause:** `brep-load` could not fetch the package manifest from the specified
+repository. The repository may be unreachable or the URL may be wrong.
+
+**Fix:** Verify the repository URL is correct and accessible. Check the
+`base` repository location in the `brep-load` configuration file.
+
+### `error: can't resolve <dep> for the package <name>`
+
+**Cause:** `brep-load` found a dependency in a package manifest that cannot be
+resolved to any package in the configured repositories. Typically means the
+repository is inconsistent or a prerequisite repository is missing.
+
+**Fix:** Add the prerequisite repository to the configuration or check the
+package manifest for invalid dependency declarations. The `info` line printed
+with the error identifies which repository appears broken.
+
+---
+
 ## Compiler and linker errors surfaced by b
 
 ### Missing DLL export macro (`__declspec(dllexport)` / `__declspec(dllimport)`)
@@ -221,8 +279,11 @@ a binless library is linked, `*.libs` is required.
 **Fix:** List the system library in both `*.libs` and `*.export.libs`. See
 [`header-only-library`](./header-only-library.md#system-library-dependencies).
 
-## See also
+## See Also
 
 - [`for-install-conflicts`](./for-install-conflicts.md) -- detailed for-install conflict resolution
 - [`bpkg-dependency-negotiation`](../bpkg/bpkg-dependency-negotiation.md) -- how dependency version constraints are resolved
 - [`build2-modules-cc`](../guides/build2-modules-cc.md) -- cc module reference
+- [`bx`](../bx/bx.md) -- full bx option and script reference
+- [`bx-script`](./bx-script.md) -- getting started with .bx scripts
+- [`bpkg-manifest-reference`](../bpkg/bpkg-manifest-reference.md) -- all manifest fields, types, and constraints

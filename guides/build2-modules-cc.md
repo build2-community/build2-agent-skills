@@ -451,7 +451,7 @@ alternative:
 > b "config.cxx=cl /MT"
 ```
 
-## See also
+## See Also
 
 - [`build2-modules-bin.md`](build2-modules-bin.md) -- bin module: binary target type hierarchy
 - [`build2-modules-c.md`](build2-modules-c.md) -- c module: C-specific compilation

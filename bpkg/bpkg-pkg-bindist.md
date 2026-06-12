@@ -307,3 +307,6 @@ The following option cannot be specified in default options files:
 - [bpkg-pkg-build](bpkg-pkg-build.md)
 - [bpkg-common-options](bpkg-common-options.md)
 - [`packaging-guide-summary`](../guides/packaging-guide-summary.md) -- end-to-end packaging guide including publish steps
+- [`packaging-guide-testing`](../guides/packaging-guide-testing.md) -- testing and publishing to cppget.org
+- [`packaging-guide-version-management`](../guides/packaging-guide-version-management.md) -- new revision and version bump workflows
+- [`packaging-guide-review`](../guides/packaging-guide-review.md) -- review checklist and process

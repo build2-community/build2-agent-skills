@@ -204,3 +204,5 @@ files:
 - [bdep-argument-grouping](bdep-argument-grouping.md)
 - [bdep-default-options-files](bdep-default-options-files.md)
 - [`toolchain-dev-setup`](../HOWTO/toolchain-dev-setup.md) -- setting up build2 for toolchain development
+- [`multiple-configurations`](../HOWTO/multiple-configurations.md) -- managing debug/release/sanitize configurations with bdep
+- [`cross-compilation`](../HOWTO/cross-compilation.md) -- setting up a cross-compilation configuration with target triplets

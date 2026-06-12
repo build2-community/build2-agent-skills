@@ -38,6 +38,7 @@ use the table below to jump directly to the relevant file.
 | Create a PHONY-equivalent (alias{}) target | [HOWTO/alias-targets.md](HOWTO/alias-targets.md) |
 | Which compile/link options belong in a buildfile | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
 | Port a CMake project to build2 buildfiles | [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md) |
+| Keep the build graph configuration-independent | [HOWTO/config-independent-build-graph.md](HOWTO/config-independent-build-graph.md) |
 | C/C++ compile and link options, module support | [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md) |
 | C-common variables, DLL export, compilation database | [guides/build2-modules-cc.md](guides/build2-modules-cc.md) |
 | bin/liba/libs/exe target types | [guides/build2-modules-bin.md](guides/build2-modules-bin.md) |
@@ -46,6 +47,9 @@ use the table below to jump directly to the relevant file.
 | Link a system library (-lm, -ldl, advapi32.lib) | [HOWTO/link-system-library.md](HOWTO/link-system-library.md) |
 | Make library components optional | [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md) |
 | Use auto-generated C/C++ headers | [HOWTO/generated-headers.md](HOWTO/generated-headers.md) |
+| Create a library that provides main() | [HOWTO/library-provides-main.md](HOWTO/library-provides-main.md) |
+| Disable shared library variant per platform | [HOWTO/disable-shared-lib-per-platform.md](HOWTO/disable-shared-lib-per-platform.md) |
+| Export metadata from executables or libraries | [HOWTO/target-metadata.md](HOWTO/target-metadata.md) |
 | Add/remove packages, resolve version conflicts | [bpkg/README.md](bpkg/README.md) |
 | Build a package, upgrade, or patch | [bpkg/bpkg-pkg-build.md](bpkg/bpkg-pkg-build.md) |
 | Create a bpkg configuration | [bpkg/bpkg-cfg-create.md](bpkg/bpkg-cfg-create.md) |
@@ -56,7 +60,11 @@ use the table below to jump directly to the relevant file.
 | Release a new version | [bdep/bdep-release.md](bdep/bdep-release.md) |
 | Write testscripts | [guides/testscript-summary.md](guides/testscript-summary.md) |
 | Testscript commands, redirections, regex, cleanup, builtins | [guides/testscript-commands.md](guides/testscript-commands.md) |
+| Sanitize misbehaving tests with Testscript | [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md) |
+| Use assert() correctly in tests | [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md) |
+| Tests with extra dependencies (separate test package) | [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md) |
 | Build only what is needed for test or install | [HOWTO/update-for-test-install.md](HOWTO/update-for-test-install.md) |
+| Resolve "already updated but [not] for install" conflicts | [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Test and publish a third-party package | [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md) |
 | Review a third-party package submission | [guides/packaging-guide-review.md](guides/packaging-guide-review.md) |
@@ -77,6 +85,7 @@ use the table below to jump directly to the relevant file.
 | Set up cross-compilation with target triplets | [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md) |
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
 | Set up a CI/CD pipeline for a build2 project | [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md) |
+| Set up build2 for toolchain development | [HOWTO/toolchain-dev-setup.md](HOWTO/toolchain-dev-setup.md) |
 | Scaffold a new bpkg package directory | [scripts/new-package.sh](scripts/new-package.sh) |
 | Run .bx scripts or named tasks | [bx/bx.md](bx/bx.md) |
 | Get started with .bx scripts (practical walkthrough) | [HOWTO/bx-script.md](HOWTO/bx-script.md) |

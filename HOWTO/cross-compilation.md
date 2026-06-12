@@ -64,7 +64,7 @@ if ($cxx.target.system == 'mingw32')
 Never use `build.host.*` for target platform detection; always use
 `cxx.target.*`.
 
-## See also
+## See Also
 
 - [`build2-modules-cxx`](../guides/build2-modules-cxx.md#cross-compilation-and-target-configuration) -- target triplet variables and cross-compilation reference
 - [`build2-modules-cxx`](../guides/build2-modules-cxx.md#system-library-dependencies-and-pkg-config-integration) -- pkg-config sysroot rewriting

@@ -431,3 +431,4 @@ fail, a dummy `you@example.org` email is used.
 - [`header-only-library`](../HOWTO/header-only-library.md) -- binless (header-only) libraries
 - [`library-provides-main`](../HOWTO/library-provides-main.md) -- library that provides main()
 - [`optional-library-components`](../HOWTO/optional-library-components.md) -- making library components optional
+- [`package-naming`](../HOWTO/package-naming.md) -- naming packages for third-party projects

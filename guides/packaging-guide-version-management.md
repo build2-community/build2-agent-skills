@@ -333,7 +333,7 @@ delete it, rewrite its history, etc.).
 > rename it to `release-series/2`.
 
 
-## See also
+## See Also
 
 - [packaging-guide-summary.md](packaging-guide-summary.md)
 - [packaging-guide-testing.md](packaging-guide-testing.md)

@@ -92,7 +92,7 @@ They follow the same pattern as `bmi*{}`.
 The `def{}` target type represents Windows module definition files and has the
 fixed default extension `.def`.
 
-## See also
+## See Also
 
 - [`build2-modules-cc.md`](build2-modules-cc.md) -- cc module: C-common config, DLL export, compilation database
 - [`build2-modules-c.md`](build2-modules-c.md) -- c module: C-specific compilation
