@@ -1,7 +1,7 @@
 # build2 HOWTO
 
 Condensed, AI-indexed versions of the
-[upstream HOWTO entries](../build2-howto/entries/).
+[upstream HOWTO entries](../.submodules/build2-howto/entries/).
 
 ## Build system
 

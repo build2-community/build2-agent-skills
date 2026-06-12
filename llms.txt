@@ -1,7 +1,8 @@
 # build2 Ecosystem -- AI Reference
 
 > Structured, AI-consumable reference for the build2 C/C++ toolchain: build
-> system (b), package manager (bpkg), and project manager (bdep).
+> system (b), package manager (bpkg), project manager (bdep), task runner
+> (bx), and repository web interface (brep).
 
 ## Start here
 

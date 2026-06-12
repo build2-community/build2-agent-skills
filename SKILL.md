@@ -20,8 +20,9 @@ metadata:
 # build2 Skill
 
 build2 is an integrated C/C++ build toolchain combining a build system (`b`),
-package manager (`bpkg`), and project dependency manager (`bdep`). This skill
-provides structured reference documentation for all four tools.
+package manager (`bpkg`), project dependency manager (`bdep`), task runner
+(`bx`), and repository web interface (`brep`). This skill provides structured
+reference documentation for all five tools.
 
 Start with [INDEX.md](INDEX.md) for the full command index and navigation, or
 use the table below to jump directly to the relevant file.
