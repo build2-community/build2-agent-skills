@@ -41,6 +41,7 @@
 - [guides/build2-modules-c.md](guides/build2-modules-c.md): c module -- C compilation, Objective-C, assembler.
 - [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md): cxx module -- C++ compilation, C++20 modules, cross-compilation, options reference.
 - [guides/build2-modules-core.md](guides/build2-modules-core.md): Core modules reference -- config (hermetic builds), test (config.test, runners), install (layout, filtering, relocation).
+- [guides/build2-modules-misc.md](guides/build2-modules-misc.md): in and bash modules -- .in template preprocessing, substitution symbols, .sh.in bash scripts.
 - [guides/build2-module-version.md](guides/build2-module-version.md): version module -- version variables, integer encoding, snapshot versions, version header generation from .in templates.
 - [guides/build2-project-config.md](guides/build2-project-config.md): Project configuration system.
 - [guides/build2-targets-variables.md](guides/build2-targets-variables.md): Target types and variable reference.
