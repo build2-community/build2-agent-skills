@@ -5,7 +5,7 @@
 # Usage: scripts/probe-compiler.sh
 #
 # Checks: g++, clang++, c++, version-suffixed variants (g++-12 through
-# g++-15, clang++-14 through clang++-18), and cl (MSVC). Exits 0 if at
+# g++-15, clang++-14 through clang++-20), and cl (MSVC). Exits 0 if at
 # least one compiler is found, 1 if none are found.
 
 set -e
@@ -55,6 +55,8 @@ probe clang++-15
 probe clang++-16
 probe clang++-17
 probe clang++-18
+probe clang++-19
+probe clang++-20
 probe_cl
 
 if [ "$found" = false ]; then

@@ -13,7 +13,7 @@ license: MIT
 compatibility: build2 toolchain 0.17+; Linux, macOS, FreeBSD, Windows (MSVC/Clang/GCC)
 metadata:
   author: build2-docs contributors
-  generated-from: build2-toolchain .cli sources
+  generated-from: build2-toolchain, build2-howto, build2-brep, libbuild2-autoconf
   tools: b bpkg bdep bx brep
 ---
 

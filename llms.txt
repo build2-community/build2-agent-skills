@@ -17,6 +17,7 @@
 - [bpkg/README.md](bpkg/README.md): Package manager -- key concepts, all commands, typical workflows.
 - [bdep/README.md](bdep/README.md): Project dependency manager -- key concepts, all commands, typical workflows.
 - [bx/README.md](bx/README.md): Shell script and task runner reference.
+- [bx/bx.md](bx/bx.md): Full bx option reference.
 - [brep/README.md](brep/README.md): Repository web interface -- key concepts, all commands, typical deployment workflows.
 - [brep/brep-load.md](brep/brep-load.md): brep-load -- load repositories and package metadata into the package database.
 - [brep/brep-clean.md](brep/brep-clean.md): brep-clean -- delete expired build records or expire/archive tenants.
@@ -100,6 +101,7 @@
 
 ## Raw source
 
-- [.submodules/build2-toolchain/](.submodules/build2-toolchain/): Git submodule containing the upstream .cli source files. Run init-docs.sh to extract them to .docs/.
+- [.submodules/build2-toolchain/](.submodules/build2-toolchain/): Git submodule containing the upstream .cli and .md source files. Run init-docs.sh to extract them to .docs/.
 - [.submodules/build2-howto/](.submodules/build2-howto/): Git submodule containing the upstream HOWTO entries. Run init-docs.sh to extract them to .docs/HOWTO/.
 - [.submodules/build2-brep/](.submodules/build2-brep/): Git submodule containing the upstream brep source files. Run init-docs.sh to extract them to .docs/brep/.
+- [.submodules/libbuild2-autoconf/](.submodules/libbuild2-autoconf/): Git submodule containing the libbuild2-autoconf source and builtin check catalog. Run init-docs.sh to extract checks to .docs/libbuild2-autoconf/checks/.

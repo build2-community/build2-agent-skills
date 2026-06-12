@@ -9,7 +9,7 @@ sources listed below and organised according to the
 
 | Source | Role |
 |--------|------|
-| [`build2/build2-toolchain`](https://github.com/build2/build2-toolchain) submodule | `.cli` source files; authoritative for all option descriptions, command synopses, and concept documentation |
+| [`build2/build2-toolchain`](https://github.com/build2/build2-toolchain) submodule | `.cli` and `.md` source files; authoritative for all option descriptions, command synopses, and concept documentation |
 | [`build2/build2-howto`](https://github.com/build2/build2-howto) submodule | HOWTO entries; authoritative for all recipe content |
 | [`build2/libbuild2-autoconf`](https://github.com/build2/libbuild2-autoconf) submodule | Autoconf emulation module; authoritative for builtin check catalog and module README |
 | [`build2/brep`](https://github.com/build2/brep) submodule | Repository web interface; authoritative for brep utility option descriptions and request handling protocols |
@@ -30,6 +30,8 @@ regenerate `.docs/`.
 |------|----------|
 | `SKILL.md` | Skill entry point: YAML frontmatter and when-to-use table |
 | `INDEX.md` | Ecosystem overview, full command lookup tables, all navigation links |
+| `AGENTS.md` | Symlink to `INDEX.md`; entry point for AI agents that look for `AGENTS.md` by convention (e.g. GitHub Copilot Workspace). |
+| `CLAUDE.md` | Symlink to `INDEX.md`; entry point for Claude Code. |
 | `GLOSSARY.md` | Cross-tool terminology |
 | `llms.txt` | Flat file index for LLM/AI consumption |
 | `b/` | `b` build system driver -- summary and full option reference |
@@ -40,10 +42,10 @@ regenerate `.docs/`.
 | `guides/` | Condensed, topic-scoped guides derived from the large upstream manuals |
 | `HOWTO/` | Practical recipes indexed by topic |
 | `scripts/` | Utility shell scripts for AI-assisted and manual workflows |
-| `.submodules/build2-toolchain/` | Git submodule: upstream `.cli` source files |
+| `.submodules/build2-toolchain/` | Git submodule: upstream `.cli` and `.md` source files |
 | `.submodules/build2-howto/` | Git submodule: upstream HOWTO entries |
 | `.submodules/libbuild2-autoconf/` | Git submodule: upstream autoconf module source and checks |
-| `.submodules/build2-brep/` | Git submodule: upstream brep source and `.cli` files |
+| `.submodules/build2-brep/` | Git submodule: upstream brep source (`.cli`, `.md`, and `.in` files) |
 | `.docs/` | Generated output of `init-docs.sh` (git-ignored) |
 
 ## Structural guidelines
@@ -79,8 +81,8 @@ independently addressable, split it along natural topic boundaries.
 
 ### Indexes
 
-`SKILL.md` (when-to-use table) and `llms.txt` (Scripts section) must be
-updated whenever a file is added, removed, or renamed. These are the two
+`SKILL.md` (when-to-use table) and `llms.txt` (the relevant section for the
+file type added) must be updated whenever a file is added, removed, or renamed. These are the two
 indexes agents use to navigate. `INDEX.md` and `HOWTO/README.md` have their
 own navigation tables and must be kept in sync as well.
 
