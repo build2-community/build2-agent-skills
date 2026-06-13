@@ -178,14 +178,14 @@ Unconditionally fail the build with a diagnostic message:
 fail "unsupported platform: $cxx.target.class"
 ```
 
-### `info`, `warn`, `error`
+### `info`, `warn`, `fail`
 
-Print a diagnostic message. `error` fails the build after printing.
+Print a diagnostic message. `fail` fails the build after printing.
 
 ```
 info "building for $cxx.target"
 warn "config.foo is deprecated"
-error "required value missing"
+fail "required value missing"
 ```
 
 ### `print`
@@ -322,8 +322,8 @@ lib{hello}: cxx{hello-io}: include = $config.libhello.io
 exe{hello}: cxx{hello-linux}: include = ($cxx.target.class == 'linux')
 ```
 
-The `noinstall` attribute (or the `install` variable set to `false`) prevents
-a prerequisite from being installed:
+The `install` variable set to `false` prevents a prerequisite from being
+installed:
 
 ```
 hxx{config}: in{config}

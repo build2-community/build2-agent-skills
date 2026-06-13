@@ -32,7 +32,7 @@ $ bdep clean         # clean in all configurations
 ```
 $ bdep update @gcc            # only the gcc config
 $ bdep test @san              # only the sanitizer config
-$ bdep build @clang           # alias for bdep update @clang
+$ bdep update @clang          # only the clang config
 ```
 
 ## Adding a release configuration

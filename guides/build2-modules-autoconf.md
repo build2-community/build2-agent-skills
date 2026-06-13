@@ -108,8 +108,8 @@ Each recognized template line (`#undef`, `#cmakedefine`, `#mesondefine`)
 triggers a lookup for the name it references. The module looks up the name
 in the following order, stopping at the first match:
 
-1. Custom buildfile variables set on the target (see below).
-2. `autoconf.substitutions` key-value pairs.
+1. `autoconf.substitutions` key-value pairs.
+2. Custom buildfile variables set on the target (see below).
 3. Project checks in `build/autoconf/checks/` (project catalog).
 4. Builtin checks in the module's `libbuild2/autoconf/checks/` catalog.
 

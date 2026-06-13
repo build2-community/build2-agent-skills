@@ -129,7 +129,7 @@ If the `bpkg` configuration was lost but the toolchain is still installed:
 
 ```
 # UNIX
-$ bpkg create                    \
+$ bpkg-stage create                    \
   cc                              \
   config.config.hermetic=true     \
   config.cxx=g++                  \
@@ -141,7 +141,7 @@ $ bpkg create                    \
   config.install.sudo=sudo
 
 # Windows MSVC (from the Visual Studio x64 Native Tools Command Prompt)
-> bpkg create               ^
+> bpkg-stage create               ^
   cc                         ^
   config.config.hermetic=true ^
   config.cxx=cl               ^
@@ -150,7 +150,7 @@ $ bpkg create                    \
   config.install.root=C:\build2
 
 # Windows Clang (from a suitable command prompt)
-> bpkg create                  ^
+> bpkg-stage create                  ^
   cc                            ^
   config.config.hermetic=true   ^
   "config.cxx=clang++ -m64"     ^
@@ -159,7 +159,7 @@ $ bpkg create                    \
   config.install.root=C:\build2
 
 # Windows MinGW
-> bpkg create               ^
+> bpkg-stage create               ^
   cc                         ^
   config.config.hermetic=true ^
   config.cxx=g++              ^

@@ -38,7 +38,7 @@ steps:
   - name: Initialize
     run: |
       bdep init --empty
-      bdep config create -d ../build @ci cc config.cxx=g++
+      bdep config create ../build @ci cc config.cxx=g++
       bdep init @ci
   - name: Update and test
     run: |

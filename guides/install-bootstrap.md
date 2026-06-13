@@ -222,7 +222,7 @@ $ b/b-boot --version
 Parallel alternative using GNU make:
 
 ```
-$ make -f bootstrap.gmake -j8 CXX=g++ CXXFLAGS=-w
+$ make -f bootstrap.gmake -j 8 CXX=g++ CXXFLAGS=-w
 $ b/b-boot --version
 ```
 
