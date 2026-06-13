@@ -290,7 +290,7 @@ The following variables are set automatically by the build system core.
 
 | Variable | Description |
 |---|---|
-| `config.src_root` | Source root recorded for an out-of-source build |
+| `src_root` | Source root recorded for an out-of-source build |
 | `config.cxx` | C++ compiler executable (set by `config.cxx=...` on command line) |
 | `config.cxx.coptions` | C++ compile options |
 | `config.cxx.poptions` | C++ preprocessor options |

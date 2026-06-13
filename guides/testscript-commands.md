@@ -55,7 +55,6 @@ immediately precede the operator with no whitespace.
 
 - `:` -- suppress the automatically-added terminating newline.
 - `/` -- translate `/` to the target platform directory separator.
-- `~` -- the string is a regex (must start with an introducer character).
 
 ### Output redirects
 
@@ -210,7 +209,7 @@ To run a system utility instead of a builtin, prefix the name with `^`.
 | `rmdir` | `rmdir [-f] <dir>...` | Remove empty directories. `-f` suppresses errors. |
 | `sed` | `sed [-n] [-i] (-e <script>)... [<file>]` | Stream editor. Supports `s/regex/replacement/flags` only. ECMAScript regex flavor. Flags: `g`, `p`, `i`. Replacement extras: `\N`, `\u`, `\l`, `\U`, `\L`, `\n`. |
 | `set` | `set [-e] [-n|-w] <var> [<attr>]` | Set a variable from stdin. `-e` exact match (no trailing newline stripping), `-n` split at newlines, `-w` split at whitespace. Pseudo-builtin. Must be last in pipe. |
-| `for` | `for [-e] [-n\|-w] <var> [<attr>]` | Iterate over stdin values, executing the body for each. `-e` exact match, `-n` split at newlines (default), `-w` split at whitespace. Pseudo-builtin. Must be last in pipe. |
+| `for` | `for [-e] [-n\|-w] <var> [<attr>]` | Iterate over stdin values, executing the body for each. `-e` exact match, `-n` split at newlines, `-w` split at whitespace (default). Pseudo-builtin. Must be last in pipe. |
 | `sha256sum` | `sha256sum [-b|-t] [--sum-only] <file>...` | Compute SHA256 checksums. `--sum-only` prints only the hash. |
 | `sleep` | `sleep <seconds>` | Pause execution for at least the specified number of seconds. |
 | `test` | `test -f|-d <path>` | Test whether path is a regular file (`-f`) or directory (`-d`). |
@@ -257,8 +256,8 @@ echo "a b c" | for -w item
 | Option | Description |
 |---|---|
 | **-e**, **--exact** | Do not strip the trailing newline from the last value. |
-| **-n**, **--newline** | Split input at newlines (default behaviour). |
-| **-w**, **--whitespace** | Split input at whitespace runs. |
+| **-n**, **--newline** | Split input at newlines. |
+| **-w**, **--whitespace** | Split input at whitespace runs (default). |
 
 `-n` and `-w` are mutually exclusive.
 
