@@ -151,6 +151,7 @@
 - [scripts/check-manifest.sh](scripts/check-manifest.sh): Validate a bpkg manifest for required and recommended fields.
 - [scripts/run-tests.sh](scripts/run-tests.sh): Run bpkg test --all in a bpkg configuration directory.
 - [scripts/show-project-info.sh](scripts/show-project-info.sh): Display b info output in a labeled, consistent format.
+- [scripts/check-links.sh](scripts/check-links.sh): Validate all relative Markdown links in checked-in files.
 
 ## Raw source
 

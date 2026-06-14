@@ -94,6 +94,7 @@ use the table below to jump directly to the relevant file.
 | Validate a package manifest file | [scripts/check-manifest.sh](scripts/check-manifest.sh) |
 | Run tests in a bpkg configuration | [scripts/run-tests.sh](scripts/run-tests.sh) |
 | Inspect project name/version/roots | [scripts/show-project-info.sh](scripts/show-project-info.sh) |
+| Check for broken links in documentation | [scripts/check-links.sh](scripts/check-links.sh) |
 | Deploy a brep package repository web interface | [brep/README.md](brep/README.md) |
 | Load repository data into brep | [brep/brep-load.md](brep/brep-load.md) |
 | Expire old builds or archive tenants in brep | [brep/brep-clean.md](brep/brep-clean.md) |
