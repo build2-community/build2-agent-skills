@@ -270,7 +270,7 @@ Clause semantics:
 | `accept (<expr>)` | Condition expression that must evaluate to `true` for the negotiated config to be accepted. Required when `prefer` is used. |
 | `reflect { ... }` | Buildfile fragment setting the **dependent's** own config vars for use in subsequent `depends` values or at build time. |
 
-In `prefer`/`reflect` you set the **dependency's** config vars. In `reflect`
+In `require`/`prefer` you set the **dependency's** config vars. In `reflect`
 you set the **dependent's** config vars.
 
 ### `constrains`
