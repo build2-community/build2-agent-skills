@@ -206,9 +206,17 @@ See [bx reference](bx/bx.md) for the full option list.
 
 - [AI tests index](ai-tests/README.md) -- test query format description and file index
 - [AI tests: b](ai-tests/b.md) -- sanity queries for the b build system driver
+- [AI tests: bx](ai-tests/bx.md) -- sanity queries for the bx script and task runner
 - [AI tests: bpkg](ai-tests/bpkg.md) -- sanity queries for the bpkg package manager
+- [AI tests: bpkg (advanced)](ai-tests/bpkg-advanced.md) -- queries for pkg-build, pkg-status, pkg-bindist, brep-load
 - [AI tests: bdep](ai-tests/bdep.md) -- sanity queries for the bdep project manager
+- [AI tests: bdep (advanced)](ai-tests/bdep-advanced.md) -- queries for bdep config, release, publish
 - [AI tests: brep](ai-tests/brep.md) -- sanity queries for the brep repository interface
 - [AI tests: manifest](ai-tests/manifest.md) -- sanity queries for the package manifest format
 - [AI tests: testscript](ai-tests/testscript.md) -- sanity queries for the testscript language
 - [AI tests: version](ai-tests/version.md) -- sanity queries for the package version format
+- [AI tests: buildfile](ai-tests/buildfile.md) -- queries for buildfile language and directives
+- [AI tests: modules-bin](ai-tests/modules-bin.md) -- queries for binary target types
+- [AI tests: modules-cc-cxx](ai-tests/modules-cc-cxx.md) -- queries for C/C++ compilation modules
+- [AI tests: packaging](ai-tests/packaging.md) -- queries for third-party packaging workflow
+- [AI tests: HOWTO](ai-tests/howto.md) -- queries for practical HOWTO recipes

@@ -57,9 +57,17 @@ correctly, or it was not.
 | File | Section |
 |------|---------|
 | [b.md](b.md) | `b` -- build system driver |
+| [bx.md](bx.md) | `bx` -- shell script and task runner |
 | [bpkg.md](bpkg.md) | `bpkg` -- package dependency manager |
+| [bpkg-advanced.md](bpkg-advanced.md) | `bpkg` -- pkg-build, pkg-status, pkg-bindist, brep-load |
 | [bdep.md](bdep.md) | `bdep` -- project dependency manager |
+| [bdep-advanced.md](bdep-advanced.md) | `bdep` -- config, release, publish |
 | [brep.md](brep.md) | `brep` -- package repository web interface |
 | [manifest.md](manifest.md) | Package manifest format |
 | [testscript.md](testscript.md) | Testscript language |
 | [version.md](version.md) | Package version format |
+| [buildfile.md](buildfile.md) | Buildfile language and directives |
+| [modules-bin.md](modules-bin.md) | Binary target types (bin module) |
+| [modules-cc-cxx.md](modules-cc-cxx.md) | C/C++ compilation modules (cc, cxx, c, in) |
+| [packaging.md](packaging.md) | Third-party packaging workflow |
+| [howto.md](howto.md) | Practical HOWTO recipes |

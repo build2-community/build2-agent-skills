@@ -160,12 +160,20 @@
 
 - [ai-tests/README.md](ai-tests/README.md): AI test query format description and file index -- format spec, key-facts structure, and per-section file listing.
 - [ai-tests/b.md](ai-tests/b.md): Sanity queries for the b build system driver -- default buildspec, meta-operations, configure output path, update-for-test, multi-operation invocation, JSON info.
+- [ai-tests/bx.md](ai-tests/bx.md): Sanity queries for the bx script and task runner -- invocation modes, verbosity levels, portable shebang, default task argument passing, pager suppression.
 - [ai-tests/bpkg.md](ai-tests/bpkg.md): Sanity queries for bpkg -- configuration types and defaults, cfg-create alias, C++ configuration creation, private host config, pkg-build alias, rep-fetch.
+- [ai-tests/bpkg-advanced.md](ai-tests/bpkg-advanced.md): Advanced bpkg queries -- dependency vs. held packages, sys: scheme, pkg-bindist formats, pkg-status words, brep-load exit codes, bdep release modes.
 - [ai-tests/bdep.md](ai-tests/bdep.md): Sanity queries for bdep -- project types, default type, language/type flags, binless library, init --empty, sync purpose.
+- [ai-tests/bdep-advanced.md](ai-tests/bdep-advanced.md): Advanced bdep queries -- config add shortcut, default/forwarded designation, bdep publish control URL, publisher environment variables, release version type flags.
 - [ai-tests/brep.md](ai-tests/brep.md): Sanity queries for brep -- two PostgreSQL databases, schema initialization, loadtab, brep-monitor stderr output, brep-clean.
 - [ai-tests/manifest.md](ai-tests/manifest.md): Sanity queries for the package manifest format -- required fields, format version, $ in depends, topics limit, build-time dependency marker, builds default.
 - [ai-tests/testscript.md](ai-tests/testscript.md): Sanity queries for the testscript language -- filename convention, target association, config.test filter, output=keep, stderr redirect, test.target.
 - [ai-tests/version.md](ai-tests/version.md): Sanity queries for the package version format -- full grammar, epoch purpose and default, pre-release examples, sort order, pre-release ordering.
+- [ai-tests/buildfile.md](ai-tests/buildfile.md): Queries for buildfile language and directives -- assignment operators, scope variables, wildcard patterns, include vs source, import, define.
+- [ai-tests/modules-bin.md](ai-tests/modules-bin.md): Queries for binary target types -- object file types, utility library types, C++20 BMI types, bin.lib values, shared library versioning.
+- [ai-tests/modules-cc-cxx.md](ai-tests/modules-cc-cxx.md): Queries for C/C++ compilation modules -- cc option variables, compiler family IDs, cxx/c target types and extensions, in module substitution modes.
+- [ai-tests/packaging.md](ai-tests/packaging.md): Queries for third-party packaging workflow -- repo layout, project scaffold, interface vs. implementation deps, revision workflow, publish defaults, build2-control branch.
+- [ai-tests/howto.md](ai-tests/howto.md): Queries for practical HOWTO recipes -- alias targets, compile option operators, system library linking, package naming, assert in tests, optional components.
 
 ## Raw source
 
