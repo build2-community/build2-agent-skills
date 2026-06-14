@@ -201,3 +201,14 @@ See [bx reference](bx/bx.md) for the full option list.
 - [install and bootstrap (steps 1-2)](guides/install-bootstrap.md)
 - [install: step 3 from repository](guides/install-toolchain.md)
 - [install: upgrade](guides/install-upgrade.md)
+
+### AI tests
+
+- [AI tests index](ai-tests/README.md) -- test query format description and file index
+- [AI tests: b](ai-tests/b.md) -- sanity queries for the b build system driver
+- [AI tests: bpkg](ai-tests/bpkg.md) -- sanity queries for the bpkg package manager
+- [AI tests: bdep](ai-tests/bdep.md) -- sanity queries for the bdep project manager
+- [AI tests: brep](ai-tests/brep.md) -- sanity queries for the brep repository interface
+- [AI tests: manifest](ai-tests/manifest.md) -- sanity queries for the package manifest format
+- [AI tests: testscript](ai-tests/testscript.md) -- sanity queries for the testscript language
+- [AI tests: version](ai-tests/version.md) -- sanity queries for the package version format
