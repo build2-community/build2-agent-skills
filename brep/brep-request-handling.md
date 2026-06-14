@@ -27,8 +27,8 @@ fate based on the result manifest status:
 |---------------|----------------|
 | [200-399] | Left in place or removed per handler decision |
 | [400-499] (client error) | Removed by `brep` |
-| [500-599] (server error) | Renamed to `<name>.fail.<n>` for investigation |
-| Abnormal exit or timeout | Renamed to `<name>.fail.<n>` for investigation |
+| [500-599] (server error) | Renamed to `<name>.fail` for investigation |
+| Abnormal exit or timeout | Renamed to `<name>.fail` for investigation |
 
 If no handler is configured, `brep` implies a `200` success response.
 
