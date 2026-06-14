@@ -13,6 +13,7 @@ sources listed below and organised according to the
 | [`build2/build2-howto`](https://github.com/build2/build2-howto) submodule | HOWTO entries; authoritative for all recipe content |
 | [`build2/libbuild2-autoconf`](https://github.com/build2/libbuild2-autoconf) submodule | Autoconf emulation module; authoritative for builtin check catalog and module README |
 | [`build2/brep`](https://github.com/build2/brep) submodule | Repository web interface; authoritative for brep utility option descriptions and request handling protocols |
+| [`build2/libbuild2-hello`](https://github.com/build2/libbuild2-hello) submodule | Reference custom module implementation; authoritative for the module API pattern, development workflow, and bootstrap module guidance |
 | [Agent Skills specification](https://github.com/anthropics/skills) | Governs the entry-point contract (`SKILL.md`), YAML frontmatter schema, progressive-disclosure model, and file-focus guidance applied throughout |
 | [NVIDIA/skills](https://github.com/NVIDIA/skills) | Reference implementation closest in structure to this repository; used as a concrete model for the troubleshooting catalog, "When to use" hints, and per-command "See also" sections |
 
@@ -46,6 +47,7 @@ regenerate `.docs/`.
 | `.submodules/build2-howto/` | Git submodule: upstream HOWTO entries |
 | `.submodules/libbuild2-autoconf/` | Git submodule: upstream autoconf module source and checks |
 | `.submodules/build2-brep/` | Git submodule: upstream brep source (`.cli`, `.md`, and `.in` files) |
+| `.submodules/libbuild2-hello/` | Git submodule: reference custom module source (libbuild2-hello) |
 | `.docs/` | Generated output of `init-docs.sh` (git-ignored) |
 
 ## Structural guidelines

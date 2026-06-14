@@ -25,18 +25,21 @@ TOOLCHAIN=.submodules/build2-toolchain
 HOWTO=.submodules/build2-howto
 AUTOCONF=.submodules/libbuild2-autoconf
 BREP=.submodules/build2-brep
+HELLO=.submodules/libbuild2-hello
 OUTPUT=.docs
 
 git submodule update --init --recursive -- "$TOOLCHAIN"
 git submodule update --init -- "$HOWTO"
 git submodule update --init -- "$AUTOCONF"
 git submodule update --init -- "$BREP"
+git submodule update --init -- "$HELLO"
 
 if [ "$UPGRADE" = 'true' ]; then
   git submodule update --remote --recursive -- "$TOOLCHAIN"
   git submodule update --remote -- "$HOWTO"
   git submodule update --remote -- "$AUTOCONF"
   git submodule update --remote -- "$BREP"
+  git submodule update --remote -- "$HELLO"
 fi
 
 rm -rf "$OUTPUT"
@@ -87,6 +90,23 @@ if [ -f "$AUTOCONF/libbuild2-autoconf-tests/README.md" ]; then
   cp "$AUTOCONF/libbuild2-autoconf-tests/README.md" "$ac_dst/tests-README.md"
 fi
 
+# Extract libbuild2-hello: README and module source files.
+# The source files (init.cxx, init.hxx, export.hxx) are the authoritative
+# reference for the module API patterns documented in guides/.
+hello_src="$HELLO/libbuild2-hello"
+hello_dst="$OUTPUT/libbuild2-hello"
+mkdir -p "$hello_dst"
+
+cp "$HELLO/README.md" "$hello_dst/README.md"
+
+find "$hello_src" \( -name '*.hxx' -o -name '*.cxx' \) \
+  | while IFS= read -r src; do
+    rel="${src#$hello_src/}"
+    dst="$hello_dst/$rel"
+    mkdir -p "$(dirname "$dst")"
+    cp "$src" "$dst"
+  done
+
 # Extract brep: .cli files and .md files, excluding test directories.
 brep_dst="$OUTPUT/brep"
 mkdir -p "$brep_dst"
@@ -123,14 +143,16 @@ find "$BREP" -name '*.in'     \
   done
 
 cli_count=$(find "$OUTPUT" -name '*.cli' | wc -l)
-toolchain_md_count=$(find "$OUTPUT" -name '*.md' ! -path "$OUTPUT/HOWTO/*" ! -path "$OUTPUT/libbuild2-autoconf/*" ! -path "$OUTPUT/brep/*" | wc -l)
+toolchain_md_count=$(find "$OUTPUT" -name '*.md' ! -path "$OUTPUT/HOWTO/*" ! -path "$OUTPUT/libbuild2-autoconf/*" ! -path "$OUTPUT/brep/*" ! -path "$OUTPUT/libbuild2-hello/*" | wc -l)
 md_count=$(find "$OUTPUT/HOWTO" -name '*.md' | wc -l)
 h_count=$(find "$ac_dst/checks" -name '*.h' | wc -l)
 brep_cli_count=$(find "$brep_dst" -name '*.cli' | wc -l)
 brep_md_count=$(find "$brep_dst" -name '*.md' | wc -l)
 brep_in_count=$(find "$brep_dst" -name '*.in' ! -name '*.hxx.in' | wc -l)
+hello_src_count=$(find "$hello_dst" \( -name '*.hxx' -o -name '*.cxx' \) | wc -l)
 echo "Extracted $cli_count .cli files to $OUTPUT/ (includes brep)"
 echo "Extracted $toolchain_md_count .md files from $TOOLCHAIN to $OUTPUT/"
 echo "Extracted $md_count .md files to $OUTPUT/HOWTO/"
 echo "Extracted $h_count autoconf check headers to $OUTPUT/libbuild2-autoconf/checks/"
 echo "Extracted $brep_cli_count .cli, $brep_md_count .md, $brep_in_count .in files from $BREP to $OUTPUT/brep/"
+echo "Extracted $hello_src_count source files from $HELLO to $OUTPUT/libbuild2-hello/"

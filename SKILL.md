@@ -13,7 +13,7 @@ license: MIT
 compatibility: build2 toolchain 0.17+; Linux, macOS, FreeBSD, Windows (MSVC/Clang/GCC)
 metadata:
   author: build2-docs contributors
-  generated-from: build2-toolchain, build2-howto, build2-brep, libbuild2-autoconf
+  generated-from: build2-toolchain, build2-howto, build2-brep, libbuild2-autoconf, libbuild2-hello
   tools: b bpkg bdep bx brep
 ---
 
@@ -82,6 +82,12 @@ use the table below to jump directly to the relevant file.
 | Contribute a check to the autoconf builtin catalog | [guides/build2-autoconf-contributing-checks.md](guides/build2-autoconf-contributing-checks.md) |
 | Use autoconf check results in buildfiles | [guides/build2-autoconf-buildfile.md](guides/build2-autoconf-buildfile.md) |
 | kconfig: build system integration and examples | [guides/kconfig-integration.md](guides/kconfig-integration.md) |
+| Create a custom build2 module (rules, init, boot) | [guides/build2-module-hello.md](guides/build2-module-hello.md) |
+| Understand the build2 module API (entry points, module_functions) | [guides/build2-module-hello.md](guides/build2-module-hello.md) |
+| Develop a bootstrap-phase build2 module | [guides/build2-module-hello.md](guides/build2-module-hello.md) |
+| Set up a build2 module development environment | [guides/build2-module-dev-setup.md](guides/build2-module-dev-setup.md) |
+| Split host/target build configurations for module development | [guides/build2-module-dev-setup.md](guides/build2-module-dev-setup.md) |
+| Use a dev-version module in other projects | [guides/build2-module-dev-setup.md](guides/build2-module-dev-setup.md) |
 | Set up cross-compilation with target triplets | [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md) |
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
 | Set up a CI/CD pipeline for a build2 project | [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md) |

@@ -195,6 +195,8 @@ See [bx reference](bx/bx.md) for the full option list.
 - [autoconf: contributing builtin checks](guides/build2-autoconf-contributing-checks.md)
 - [kconfig module: language reference](guides/kconfig-summary.md)
 - [kconfig module: build system integration](guides/kconfig-integration.md)
+- [build2 custom module API reference](guides/build2-module-hello.md)
+- [build2 module development setup](guides/build2-module-dev-setup.md)
 - [install and bootstrap (steps 1-2)](guides/install-bootstrap.md)
 - [install: step 3 from repository](guides/install-toolchain.md)
 - [install: upgrade](guides/install-upgrade.md)

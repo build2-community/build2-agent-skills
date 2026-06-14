@@ -10,3 +10,6 @@
 [submodule "build2-brep"]
 	path = .submodules/build2-brep
 	url = https://github.com/build2/brep
+[submodule "libbuild2-hello"]
+	path = .submodules/libbuild2-hello
+	url = https://github.com/build2/libbuild2-hello.git
