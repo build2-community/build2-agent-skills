@@ -58,6 +58,5 @@ default epoch value when it is not specified?
 **Key facts** (all must appear in a correct answer):
 - A pre-release version sorts below the final release of the same upstream
   version.
-- For example, `1.2.3-alpha.1 < 1.2.3`.
 
 **Source:** `guides/bpkg-package-name-version.md`
