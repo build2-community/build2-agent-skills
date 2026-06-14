@@ -74,4 +74,4 @@ but none is linked to the current configuration?
 - It does not build or install anything; it only updates the local package
   index.
 
-**Source:** `bpkg/README.md`
+**Source:** `bpkg/bpkg-rep-fetch.md`
