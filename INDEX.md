@@ -220,3 +220,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [AI tests: modules-cc-cxx](ai-tests/modules-cc-cxx.md) -- queries for C/C++ compilation modules
 - [AI tests: packaging](ai-tests/packaging.md) -- queries for third-party packaging workflow
 - [AI tests: HOWTO](ai-tests/howto.md) -- queries for practical HOWTO recipes
+- [AI tests: HOWTO (libraries)](ai-tests/howto-libraries.md) -- queries for library design and linking HOWTOs
+- [AI tests: HOWTO (build and config)](ai-tests/howto-build.md) -- queries for cross-compilation, generated headers, configurations, metadata
+- [AI tests: HOWTO (workflow)](ai-tests/howto-workflow.md) -- queries for test dependencies, versioning, CI, rule writing
+- [AI tests: testscript (commands)](ai-tests/testscript-commands.md) -- queries for redirections, here-documents, cleanup, builtins

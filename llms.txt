@@ -174,6 +174,10 @@
 - [ai-tests/modules-cc-cxx.md](ai-tests/modules-cc-cxx.md): Queries for C/C++ compilation modules -- cc option variables, compiler family IDs, cxx/c target types and extensions, in module substitution modes.
 - [ai-tests/packaging.md](ai-tests/packaging.md): Queries for third-party packaging workflow -- repo layout, project scaffold, interface vs. implementation deps, revision workflow, publish defaults, build2-control branch.
 - [ai-tests/howto.md](ai-tests/howto.md): Queries for practical HOWTO recipes -- alias targets, compile option operators, system library linking, package naming, assert in tests, optional components.
+- [ai-tests/howto-libraries.md](ai-tests/howto-libraries.md): Queries for library design and linking HOWTOs -- binless system libs, library-provides-main, pthread linking, third-party private headers.
+- [ai-tests/howto-build.md](ai-tests/howto-build.md): Queries for build and configuration HOWTOs -- cross-compilation, generated headers, multiple configurations, config-independent graph, target metadata, install conflicts, update-for-test/install.
+- [ai-tests/howto-workflow.md](ai-tests/howto-workflow.md): Queries for workflow and versioning HOWTOs -- test package naming, sanitize-tests env/timeout, custom rule writing, non-semver versioning, no-version packages, CI pipeline, troubleshooting.
+- [ai-tests/testscript-commands.md](ai-tests/testscript-commands.md): Queries for testscript command mechanics -- here-documents, output comparison, cleanup directives, builtins, here-doc markers, exit code checking.
 
 ## Raw source
 

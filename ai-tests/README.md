@@ -71,3 +71,7 @@ correctly, or it was not.
 | [modules-cc-cxx.md](modules-cc-cxx.md) | C/C++ compilation modules (cc, cxx, c, in) |
 | [packaging.md](packaging.md) | Third-party packaging workflow |
 | [howto.md](howto.md) | Practical HOWTO recipes |
+| [howto-libraries.md](howto-libraries.md) | HOWTO -- library design and linking |
+| [howto-build.md](howto-build.md) | HOWTO -- build and configuration |
+| [howto-workflow.md](howto-workflow.md) | HOWTO -- workflow and versioning |
+| [testscript-commands.md](testscript-commands.md) | Testscript command mechanics |
