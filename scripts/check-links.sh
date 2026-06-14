@@ -23,8 +23,11 @@ check_file () {
   local file=$1
   local dir
   dir=$(dirname "$root/$file")
+  local in_code_block=0
 
   while IFS= read -r line; do
+    [[ "$line" =~ ^(\`\`\`|~~~) ]] && in_code_block=$(( 1 - in_code_block ))
+    [[ $in_code_block -eq 1 ]] && continue
     local remainder="$line"
     while [[ "$remainder" =~ $link_re ]]; do
       local target="${BASH_REMATCH[2]}"
