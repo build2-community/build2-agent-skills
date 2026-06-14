@@ -37,7 +37,7 @@ config.cxx
   cc.target         # Full target triplet (e.g. x86_64-linux-gnu)
   cc.target.cpu
   cc.target.vendor
-  cc.target.system
+  cc.target.system  # linux-gnu, darwin, freebsd, win32-msvc, mingw32, ...
   cc.target.version
   cc.target.class   # Simplified class: linux, windows, macos, ...
 
