@@ -85,6 +85,7 @@ use the table below to jump directly to the relevant file.
 | Create a custom build2 module (rules, init, boot) | [guides/build2-module-hello.md](guides/build2-module-hello.md) |
 | Understand the build2 module API (entry points, module_functions) | [guides/build2-module-hello.md](guides/build2-module-hello.md) |
 | Develop a bootstrap-phase build2 module | [guides/build2-module-hello.md](guides/build2-module-hello.md) |
+| Write a custom build2 rule (match, apply, recipe, register) | [HOWTO/write-build2-rule.md](HOWTO/write-build2-rule.md) |
 | Set up a build2 module development environment | [guides/build2-module-dev-setup.md](guides/build2-module-dev-setup.md) |
 | Split host/target build configurations for module development | [guides/build2-module-dev-setup.md](guides/build2-module-dev-setup.md) |
 | Use a dev-version module in other projects | [guides/build2-module-dev-setup.md](guides/build2-module-dev-setup.md) |

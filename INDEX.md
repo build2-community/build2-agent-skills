@@ -197,6 +197,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [kconfig module: build system integration](guides/kconfig-integration.md)
 - [build2 custom module API reference](guides/build2-module-hello.md)
 - [build2 module development setup](guides/build2-module-dev-setup.md)
+- [HOWTO: writing a custom build2 rule](HOWTO/write-build2-rule.md)
 - [install and bootstrap (steps 1-2)](guides/install-bootstrap.md)
 - [install: step 3 from repository](guides/install-toolchain.md)
 - [install: upgrade](guides/install-upgrade.md)

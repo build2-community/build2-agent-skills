@@ -69,6 +69,7 @@ Condensed, AI-indexed versions of the
 | File | Topic |
 |------|-------|
 | [toolchain-dev-setup.md](./toolchain-dev-setup.md) | Setting up build2 for toolchain development |
+| [write-build2-rule.md](./write-build2-rule.md) | Writing a custom build2 rule from match() to execute phase |
 
 ## Troubleshooting
 

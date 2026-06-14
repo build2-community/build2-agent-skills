@@ -272,5 +272,6 @@ info $(obj{main}: cxx.poptions)  # Print target-specific variable
 - [`guides/testscript-summary.md`](testscript-summary.md) -- full testscript language reference
 - [`HOWTO/header-only-library.md`](../HOWTO/header-only-library.md) -- binless (header-only) libraries
 - [`HOWTO/library-provides-main.md`](../HOWTO/library-provides-main.md) -- library that provides main()
+- [`build2-module-hello.md`](build2-module-hello.md) -- authoring a custom build2 module (the natural next step after importation)
 - [`HOWTO/target-metadata.md`](../HOWTO/target-metadata.md) -- exporting metadata with targets
 - [`HOWTO/for-install-conflicts.md`](../HOWTO/for-install-conflicts.md) -- resolving for-install build conflicts

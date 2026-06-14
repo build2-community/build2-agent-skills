@@ -89,3 +89,5 @@ $ cd ~/work/build2 && etc/upgrade
 - [`install-toolchain`](../guides/install-toolchain.md) -- toolchain install step 3 from a package repository
 - [`install-upgrade`](../guides/install-upgrade.md) -- upgrading an installed toolchain (dirty or staged)
 - [`bdep README`](../bdep/README.md) -- bdep commands used during day-to-day toolchain development
+- [`build2-module-hello.md`](../guides/build2-module-hello.md) -- custom module API: entry point, init/boot, rules, variables
+- [`build2-module-dev-setup.md`](../guides/build2-module-dev-setup.md) -- development environment setup for a custom module

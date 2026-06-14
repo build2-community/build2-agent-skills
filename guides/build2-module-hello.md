@@ -119,7 +119,7 @@ init (scope& rs,
 | `l` | Source location of the `using` directive. Pass to diagnostics (`info(l)`, `fail(l)`). |
 | `first` | `true` on the first call for this module in this build context. Use to avoid double-registration of rules or variables. |
 | `optional` | `true` when loaded with `using? hello`. The module should not fail if optional functionality is unavailable. |
-| `extra` | Reserved for future build system use. Pass through or ignore. |
+| `extra` | Module instance and hints. `extra.module` (a `shared_ptr<build2::module>`) is null on the first call; on re-entry (`first == false`) it holds the instance registered by the previous call. `extra.hints` is a `const variable_map&` of configuration hints forwarded by other modules (for example, `cxx` passes the detected target platform to `bin` via this map). Use `extra.set_module(new MyModule(...))` to create a stateful instance and `extra.module_as<MyModule>()` to recover it on re-entry. See [Stateful Modules](#stateful-modules). |
 
 Return `true` if the module was successfully initialized, `false` if it was
 silently skipped (only valid when `optional` is true).
@@ -144,7 +144,7 @@ is available. Its signature:
 
 ```cpp
 void
-boot (scope& rs, const location& l, module_init_extra& extra)
+boot (scope& root, const location&, module_boot_extra& extra)
 ```
 
 Pass `nullptr` as the boot entry in `mod_functions` if the module does not
@@ -152,6 +152,262 @@ need to run at bootstrap. Most modules do not need `boot()`.
 
 A module that uses `boot()` must be loaded in `build/bootstrap.build` rather
 than `build/root.build`. See [Bootstrap Modules](#bootstrap-modules) below.
+
+---
+
+## `module_boot_extra` and `module_boot_init`
+
+`module_boot_extra` is the extra argument passed to `boot()`. Its fields:
+
+| Field | Direction | Description |
+|-------|-----------|-------------|
+| `module` (inherited) | in/out | Module instance shared pointer. Same semantics as in `module_init_extra`. |
+| `post` | out | Optional `module_boot_post_function*`. Set to a function to call after all modules in `bootstrap.build` have been booted but before any `init()`. Set to `nullptr` if not needed (the default). |
+| `init` | out | `module_boot_init` enum value controlling when `init()` is called. Default is `before`. |
+
+The `module_boot_init` enum controls the initialization order of booted modules:
+
+| Value | When `init()` is called |
+|-------|------------------------|
+| `before_first` | First init batch, before `root.build` is loaded. Reserved for the `config` module. |
+| `before_second` | Second init batch, before `root.build` is loaded. |
+| `before` | Default. Before `root.build` is loaded. |
+| `after` | After `root.build` is loaded. The module may also be initialized explicitly via `using` in `root.build`. |
+
+Within each batch, modules are initialized in the order they were loaded.
+
+---
+
+## Stateful Modules
+
+By default `init()` has no persistent state. If the module needs to store
+per-project data, derive a class from `build2::module` and register an
+instance via `extra.set_module()`.
+
+In `init.hxx`:
+
+```cpp
+class hello_module: public build2::module
+{
+public:
+  string greeting;
+};
+```
+
+In `init()` on the first call:
+
+```cpp
+hello_module& m (extra.set_module (new hello_module ()));
+m.greeting = "Hello";
+```
+
+On subsequent calls (`first == false`), recover the existing instance:
+
+```cpp
+hello_module& m (extra.module_as<hello_module> ());
+```
+
+From any code that holds a `scope&`, look up the module instance via
+`find_module<T>()` (declared in `scope.hxx`):
+
+```cpp
+if (hello_module* m = rs.find_module<hello_module> ("hello"))
+  ...
+```
+
+`set_module<T>()` and `module_as<T>()` are helpers on `module_common_extra`
+that assert the pointer is non-null. `find_module<T>()` returns `nullptr` if
+the module is not loaded or did not register an instance.
+
+---
+
+## Loading Prerequisite Modules
+
+A module that depends on another module can load it explicitly in `init()`:
+
+```cpp
+// Non-optional: throws if the module cannot be configured.
+load_module (rs, bs, "cxx", l);
+
+// Optional: returns an absent optional<> if unavailable.
+if (load_module (rs, bs, "cxx", l, true /*optional*/))
+  ...
+```
+
+`load_module()` checks `<name>.build.loaded` before calling `init_module()`,
+so loading a module that the project already loaded in `bootstrap.build` or
+`root.build` is safe -- it is skipped without re-initializing. `init_module()`
+does not perform this check and is used by the parser; do not call it directly
+from module code.
+
+---
+
+## Lifecycle Variables
+
+The build system maintains two boolean variables for every loaded module,
+keyed by the module name:
+
+| Variable | Description |
+|----------|-------------|
+| `<name>.build.loaded` | Set to `true` after the module library is loaded. Checked by `load_module()` to avoid double initialization. |
+| `<name>.build.configured` | Set to the return value of `init()`. `false` when `init()` returns `false` (only valid when `optional == true`). |
+
+---
+
+## Submodule Entries
+
+A single `build2_hello_load()` can expose multiple module names by returning
+more than one non-null entry in `mod_functions[]`. Submodule name components
+are separated by `.` (e.g., `hello.config`). Submodule entries must come
+before the main module entry, which must be last:
+
+```cpp
+static const module_functions mod_functions[] =
+{
+  {"hello.config", nullptr, init_config},
+  {"hello",        nullptr, init},
+  {nullptr,        nullptr, nullptr}
+};
+```
+
+The entry-point function name uses only the top-level component:
+`build2_hello_load`, not `build2_hello_config_load`. A project loads a
+submodule by name:
+
+```
+using hello.config
+```
+
+---
+
+## Declaring Variables
+
+A module's `init()` typically declares the variables it introduces so they
+have the correct type and visibility before any buildfile assigns them. Use
+`rs.var_pool().insert<T>(name)` (declared in `variable.hxx`):
+
+```cpp
+// Untyped variable with default (project) visibility.
+const variable& v = rs.var_pool ().insert ("hello.greeting");
+
+// Typed, project-visible variable.
+const variable& v = rs.var_pool ().insert<string> ("hello.greeting");
+
+// Typed, overridable variable with explicit visibility.
+const variable& v = rs.var_pool ().insert<string> (
+  "hello.greeting",
+  true /*overridable*/,
+  variable_visibility::project);
+```
+
+Unless specified explicitly, variables default to: untyped, non-overridable,
+project visibility.
+
+`variable_visibility` values:
+
+| Value | Scope of lookup |
+|-------|-----------------|
+| `global` | All outer scopes including the global scope. |
+| `project` | This project only (default). |
+| `scope` | This scope only, no outer scopes. |
+| `target` | Target scope and target-type/pattern-specific variables only. |
+| `prereq` | Prerequisite-specific variables only. |
+
+---
+
+## Registering Rules
+
+Rules implement the logic for building a target type. Register them in
+`init()` using `scope::insert_rule()`.
+
+### The `rule` and `simple_rule` classes
+
+`rule` (in `libbuild2/rule.hxx`) is the base class with full control over
+the match and apply signature:
+
+```cpp
+class rule
+{
+public:
+  virtual bool   match (action, target&, const string& hint, match_extra&) const = 0;
+  virtual recipe apply (action, target&, match_extra&) const = 0;
+};
+```
+
+`simple_rule` is a convenience subclass that drops the hint and `match_extra`
+arguments:
+
+```cpp
+class simple_rule: public rule
+{
+public:
+  virtual bool   match (action, target&) const = 0;
+  virtual recipe apply (action, target&) const = 0;
+};
+```
+
+Use `simple_rule` unless the rule needs hint-based matching or match options.
+
+### Minimal rule skeleton
+
+```cpp
+class hello_rule: public simple_rule
+{
+public:
+  bool match (action a, target& t) const override
+  {
+    // Return true if this rule should handle target t for action a.
+    return t.is_a<file> ();
+  }
+
+  recipe apply (action a, target& t) const override
+  {
+    // Declare prerequisites; match them so they can be executed later.
+    inject_fsdir (a, t);
+    match_prerequisites (a, t);
+
+    return [] (action a, const target& t) -> target_state
+    {
+      execute_prerequisites (a, t);
+      // ... perform the build action ...
+      return target_state::changed;
+    };
+  }
+};
+```
+
+The recipe function signature is `target_state (action, const target&)`.
+Return `target_state::changed` if the target was rebuilt,
+`target_state::unchanged` if it was already up to date, or throw `failed`
+on error.
+
+### Registering with `insert_rule()`
+
+```cpp
+static const hello_rule hello_rule_;
+
+bool init (scope& rs, scope& bs, const location& l, bool first, ...)
+{
+  if (first)
+    rs.insert_rule<file> (perform_update_id, "hello.update", hello_rule_);
+
+  return true;
+}
+```
+
+The template parameter is the target type the rule handles (`file`, `target`,
+`path_target`, `alias`, etc.). `perform_update_id` is the combined
+action/operation identifier defined in `libbuild2/action.hxx`. The string
+`"hello.update"` is the rule name used in diagnostics and rule hints. The
+rule instance must outlive the scope.
+
+To register for multiple actions (update + clean + configure):
+
+```cpp
+rs.insert_rule<file> (perform_update_id,   "hello.update", hello_rule_);
+rs.insert_rule<file> (perform_clean_id,    "hello.update", hello_rule_);
+rs.insert_rule<file> (configure_update_id, "hello.update", hello_rule_);
+```
 
 ---
 
@@ -333,3 +589,4 @@ Design constraints for bootstrap modules:
 - [build2-modules-core.md](build2-modules-core.md) -- config, test, install modules
 - [build2-projects-advanced.md](build2-projects-advanced.md) -- importation and library metadata
 - [HOWTO/toolchain-dev-setup.md](../HOWTO/toolchain-dev-setup.md) -- setting up build2 for toolchain development
+- [HOWTO/write-build2-rule.md](../HOWTO/write-build2-rule.md) -- step-by-step recipe for implementing a custom rule
