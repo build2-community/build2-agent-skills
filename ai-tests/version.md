@@ -22,7 +22,7 @@ default epoch value when it is not specified?
 **Key facts** (all must appear in a correct answer):
 - The epoch allows switching to a new versioning scheme that would sort
   incompatibly with the old one.
-- The default epoch value is `0` when not explicitly specified.
+- The default epoch value is `1` when not explicitly specified (for stub versions it defaults to `0`).
 
 **Source:** `guides/bpkg-package-name-version.md`
 

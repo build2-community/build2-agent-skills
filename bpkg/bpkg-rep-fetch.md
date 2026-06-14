@@ -8,7 +8,7 @@ bpkg rep-fetch|fetch [<options>] [(<rep-name> | <rep-loc>)...]
 
 ## Description
 
-The `rep-fetch` command fetches the list of available packages for the specified repositories as well as all their complement and prerequisite repositories, recursively. If no repositories were specified, then all the repositories previously added ([bpkg-rep-add](bpkg-rep-add.md)) to the configuration are fetched.
+The `rep-fetch` command fetches the list of available packages for the specified repositories as well as all their complement and prerequisite repositories, recursively. If no repositories were specified, then all the repositories previously added ([bpkg-rep-add](bpkg-rep-add.md)) to the configuration are fetched. Only the local package availability index is updated; no package archives are downloaded and no packages are built or installed.
 
 The repository to fetch can be specified either as a repository name or as a repository location (URL or a directory path, see [bpkg-rep-add](bpkg-rep-add.md) for details). In the latter case, the repository location is added/replaced as if by first executing the `rep-add` command.
 
