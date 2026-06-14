@@ -24,6 +24,34 @@ manifest, testscript). Tests follow this layout:
 correct answer. They are intentionally phrased to avoid synonyms so they can
 be checked mechanically (substring or semantic match).
 
+
+## Running a test
+
+1. **Provide context.** Load this repository as the AI's knowledge source (for
+   example, by opening it as a Claude Code project, or by passing the relevant
+   source file listed under **Source** directly to the model).
+
+2. **Pose the query.** Copy the **Query** field verbatim and send it to the AI.
+   Do not include the key facts or the source path -- the AI must answer from
+   its context alone.
+
+3. **Evaluate the response.** Read the **Key facts** list. The test passes if
+   every fact is present in the answer, either as a direct substring match or
+   an unambiguous semantic equivalent. The test fails if any fact is missing or
+   contradicted.
+
+4. **Record the outcome.** A minimal pass/fail note is enough:
+
+   ```
+   T003 PASS
+   T005 FAIL -- missing: "build/config.build"
+   ```
+
+A single wrong or missing fact is a failure. Partial credit is not meaningful
+for sanity tests: either the documentation was sufficient for the AI to answer
+correctly, or it was not.
+
+
 ## Files
 
 | File | Section |
