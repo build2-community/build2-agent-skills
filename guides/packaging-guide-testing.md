@@ -81,14 +81,36 @@ $ bdep test
 $ bdep test -a    # all configurations
 ```
 
-**Test the installed case.** Install to a temporary directory and build
-the `tests/` subproject out-of-source against the installed library:
+**Test the installed case.** Install the library to a temporary directory
+first, then build the `tests/` subproject out-of-source against the installed
+copy. This verifies that the public headers are installed in a way that
+consumers can include them -- the same check consumers will perform when they
+link against the installed library.
+
+On GCC/Clang (POSIX):
 
 ```
 $ b install config.install.root=/tmp/install
 $ b test: tests/@/tmp/libfoo-tests-out/ \
   config.cc.loptions=-L/tmp/install/lib \
   config.bin.rpath=/tmp/install/lib
+```
+
+On MSVC (Windows), DLL lookup uses `PATH` instead of rpath, and the linker
+flag uses `/LIBPATH:` syntax:
+
+```
+> b install config.install.root=c:\tmp\install
+> set "PATH=c:\tmp\install\bin;%PATH%"
+> b test: tests\@c:\tmp\libfoo-tests-out\^
+  config.cc.loptions=/LIBPATH:c:\tmp\install\lib
+```
+
+After running the tests, look over the installed files and confirm there is
+nothing unexpected -- no missing headers, no private headers installed by
+mistake. Then clean up:
+
+```
 $ rm -r /tmp/install /tmp/libfoo-tests-out
 ```
 
