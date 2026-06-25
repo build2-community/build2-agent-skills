@@ -114,6 +114,34 @@ mistake. Then clean up:
 $ rm -r /tmp/install /tmp/libfoo-tests-out
 ```
 
+**If a dependency exports an executable target** and the installed test fails
+with `unable to import target <pkg>%exe{...}`, the dependency's executable is
+not reachable from the install tree. Unlike libraries, installed executables
+have no `pkg-config`-style lookup.
+
+If the dependency is a build2 project that implements the executable metadata
+protocol (`export.metadata` in its buildfile and `--build2-metadata` handling
+in `main()`), build2 can find it via `PATH` when `import! [metadata]` is used
+-- see [`HOWTO/target-metadata.md`](../HOWTO/target-metadata.md#installed-case-executables)
+for how to author this. In that case the installed test works without any extra
+configuration, provided the executable is on `PATH`.
+
+For pre-built third-party executables that do not implement the metadata
+protocol, the practical workaround is to point `config.import.<pkg>` at the
+dependency's development build `out_root`, which contains the `export.build`
+file that maps the exe import to the built binary:
+
+```
+$ b test: tests/@/tmp/libfoo-tests-out/ \
+  config.import.libdep=../libdep-build \
+  config.cc.loptions=-L/tmp/install/lib \
+  config.bin.rpath=/tmp/install/lib
+```
+
+This resolves the executable (and all other targets of that dependency) from
+the development tree rather than the install prefix, so it is not a fully
+pure installed-case test for that dependency.
+
 **Test the source distribution.** This is how `cppget.org` builds the package:
 
 ```
