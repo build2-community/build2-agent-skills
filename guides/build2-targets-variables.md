@@ -299,7 +299,7 @@ The following variables are set automatically by the build system core.
 | `config.cxx.libs` | Extra C++ link libraries |
 | `config.import.<project>` | Import override for a project |
 
-## Built-in Function Families
+## Function Families
 
 Functions in build2 are organised into families, such as `$string.*()` for
 string manipulation or `$regex.*()` for regular expressions. Most functions
@@ -328,154 +328,12 @@ must always be called with the full `$regex.` prefix.
 | `$process_path.*()` | `process_path` and `process_path_ex` types | optional |
 | `$target_triplet.*()` | `cpu-vendor-os` target triplets | optional |
 
-### $regex.*() family
-
-The `$regex.*()` family provides comprehensive regular expression matching
-and substitution. The supported flavor is ECMAScript (ECMA-262-based C++11
-regular expressions). The `match_not_null` flag is in effect unless the string
-being matched is empty.
-
-In the format string argument (`fmt`), the standard ECMAScript escape sequences
-(`$1`, `$2`, `$&`, etc.) are supported and extended with a subset of Perl
-escape sequences: `\n`, `\u`, `\l`, `\U`, `\L`, `\E`, `\1` ... `\9`, and `\\`.
-
-Functions in this family must always be called fully qualified:
-
-```
-if $regex.match($name, '(.+)-(.+)')
-  ...
-```
-
-### $json.*() family
-
-The `$json.*()` family operates on the `json`, `json_array`, and `json_object`
-types, which represent JSON, JSON5, or JSON5E values. Objects can be
-constructed from a quoted literal or using the `name@value` syntax:
-
-```
-j = [json] '{
-  one   : 1,
-  two   : "abc",
-  three : {x:1, y:-1}
-}'
-
-# Alternative construction syntax for the same value.
-#j = [json] one@1 two@abc three@([json] x@1 y@-1)
-
-for m: $j
-{
-  n = $member_name($m)
-  v = $member_value($m)
-
-  info $n $value_type($v) $v
-}
-```
-
-> Note: detailed per-function signatures for all families are a work in
-> progress in the upstream build2 documentation.
-
-## Built-in Functions
-
-Functions are organised into families. All functions can be called with the
-family prefix. Some can be called unqualified when the argument type is
-unambiguous.
-
-### Builtin functions (`$builtin.*()`)
-
-| Function | Description |
-|---|---|
-| `$defined(var)` | Return `true` if variable is defined (not undefined) |
-| `$null(val)` | Return `true` if value is null |
-| `$empty(val)` | Return `true` if value is null or an empty list |
-| `$size(list)` | Return number of elements in a list |
-| `$type(val)` | Return the type name of a value as a string |
-| `$getenv(name)` | Return the value of an environment variable, or null |
-
-### String functions (`$string.*()`)
-
-| Function | Description |
-|---|---|
-| `$string(val)` | Convert value to a string |
-| `$string.contains(str, substr)` | Return `true` if string contains substring |
-| `$string.starts_with(str, prefix)` | Return `true` if string starts with prefix |
-| `$string.ends_with(str, suffix)` | Return `true` if string ends with suffix |
-| `$string.trim(str)` | Return string with leading and trailing whitespace removed |
-| `$string.upcase(str)` | Return string converted to upper case |
-| `$string.downcase(str)` | Return string converted to lower case |
-| `$string.length(str)` | Return the number of characters |
-
-### Integer functions (`$integer.*()`)
-
-| Function | Description |
-|---|---|
-| `$integer.string(n)` | Convert integer to string |
-
-### Path functions (`$path.*()`)
-
-| Function | Description |
-|---|---|
-| `$path(target)` | Return the filesystem path of a target |
-| `$path.base(path)` | Return path without the extension |
-| `$path.extension(path)` | Return the file extension (without leading `.`) |
-| `$path.leaf(path)` | Return the filename component |
-| `$path.directory(path)` | Return the directory component |
-| `$path.complete(path)` | Return an absolute path (relative to `src_base`) |
-| `$path.canonicalize(path)` | Return a canonicalized path |
-| `$path.normalize(path)` | Return a normalized path |
-
-### Name functions (`$name.*()`)
-
-| Function | Description |
-|---|---|
-| `$name.name(name)` | Return the unqualified name |
-| `$name.type(name)` | Return the target type of a name |
-| `$name.dir(name)` | Return the directory component of a name |
-| `$recall(process_path)` | Return the recall path of an executable |
-
-### Target functions (`$target.*()`)
-
-| Function | Description |
-|---|---|
-| `$path(target)` | Return the filesystem path of a target |
-| `$process_path(target)` | Return the process path for an executable target |
-
-### Regex functions (`$regex.*()`, always require family prefix)
-
-| Function | Description |
-|---|---|
-| `$regex.match(str, pattern)` | Return `true` if string matches ECMAScript regex |
-| `$regex.search(str, pattern)` | Return `true` if regex matches anywhere in string |
-| `$regex.replace(str, pattern, fmt)` | Return string with regex substitution applied |
-| `$regex.split(str, pattern, fmt)` | Split string by regex pattern; return list |
-| `$regex.merge(list, pattern, fmt [, delim])` | Apply regex to each element and join results |
-| `$regex.apply(list, pattern, fmt)` | Apply regex substitution to each element of a list |
-| `$regex.filter(list, pattern)` | Keep elements matching pattern |
-| `$regex.filter_out(list, pattern)` | Remove elements matching pattern |
-
-### JSON functions (`$json.*()`)
-
-| Function | Description |
-|---|---|
-| `$json.load(path)` | Load a JSON file and return the parsed value |
-| `$json.value_type(val)` | Return the JSON type name of a value |
-| `$json.member_name(member)` | Return the name of a JSON object member |
-| `$json.member_value(member)` | Return the value of a JSON object member |
-
-### Process functions (`$process.*()`)
-
-| Function | Description |
-|---|---|
-| `$process.run(cmd...)` | Run a command and return its stdout as a string (trimmed) |
-| `$process.run_regex(cmd..., pattern, fmt)` | Run a command and apply regex to stdout |
-| `$process.run_regex_lines(cmd..., pattern, fmt)` | Run and apply regex per-line; return list |
-
-### Filesystem functions (`$filesystem.*()`)
-
-| Function | Description |
-|---|---|
-| `$path_search(pattern [, dir])` | Search for files matching a path pattern; return list |
+For the complete per-function reference including all overloads, optional
+arguments, flags, and purity annotations, see
+[build2-functions.md](build2-functions.md).
 
 ## See Also
 
+- [build2 built-in functions reference](build2-functions.md)
 - [build2 manual summary](build2-intro-concepts.md)
 - [Directives, name patterns, and attributes](build2-directives-patterns.md)

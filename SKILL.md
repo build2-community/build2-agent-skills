@@ -34,6 +34,7 @@ use the table below to jump directly to the relevant file.
 | Write or read a buildfile | [guides/build2-intro-concepts.md](guides/build2-intro-concepts.md) |
 | Buildfile language syntax (if/loop/switch/patterns) | [guides/build2-buildfile-language.md](guides/build2-buildfile-language.md) |
 | Buildfile directives, name patterns, and attributes | [guides/build2-directives-patterns.md](guides/build2-directives-patterns.md) |
+| Look up a buildfile function signature, flags, or purity | [guides/build2-functions.md](guides/build2-functions.md) |
 | Library projects, target importation, subprojects | [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md) |
 | Create a PHONY-equivalent (alias{}) target | [HOWTO/alias-targets.md](HOWTO/alias-targets.md) |
 | Which compile/link options belong in a buildfile | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |

@@ -175,6 +175,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [build2 advanced projects: importation, libraries, testing, installation](guides/build2-projects-advanced.md)
 - [build2 manual: project configuration](guides/build2-project-config.md)
 - [build2 manual: targets and variables](guides/build2-targets-variables.md)
+- [build2 functions reference](guides/build2-functions.md)
 - [build2 manual: core modules (config, test, install)](guides/build2-modules-core.md)
 - [build2 module: version](guides/build2-module-version.md)
 - [build2 modules: bin target types](guides/build2-modules-bin.md)
