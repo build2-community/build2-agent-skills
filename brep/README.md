@@ -13,7 +13,7 @@ versions, and build results. The module reads from two PostgreSQL databases:
 the **package** database (repository and package metadata) and the **build**
 database (build results from automated build bots).
 
-Four command-line utilities manage these databases and the surrounding
+Several command-line utilities manage these databases and the surrounding
 infrastructure:
 
 - `brep-load` -- fetches repository manifests and loads them into the package
@@ -23,6 +23,9 @@ infrastructure:
 - `brep-migrate` -- creates, migrates, or drops the database schemas.
 - `brep-monitor` -- detects delayed package builds and reports them to
   `stderr`.
+- `brep-upload-bindist-clean` -- removes expired binary distribution upload
+  directories; only needed when `brep-upload-bindist` is the configured upload
+  handler.
 
 The web module also handles inbound HTTP requests for package submission, CI
 requests, and binary distribution artifact uploads. For each request type a
@@ -67,9 +70,9 @@ receives the path to a request directory containing uploaded content and a
 | `brep-clean` | Delete expired build records or expire/archive tenants |
 | `brep-migrate` | Create, migrate, or drop the `package` or `build` database schema |
 | `brep-monitor` | Analyze build delays and report infrastructure issues to `stderr` |
+| `brep-upload-bindist-clean` | Remove expired binary distribution upload directories (only when `brep-upload-bindist` is in use) |
 
-All utilities share the same exit codes: 0 success, 1 fatal error, 2 already
-running (retry), 3 recoverable database error (retry).
+The C++ utilities (`brep-load`, `brep-clean`, `brep-migrate`, `brep-monitor`) share the same exit codes: 0 success, 1 fatal error, 2 already running (retry), 3 recoverable database error (retry). `brep-upload-bindist-clean` is a shell script; it exits 0 on success and 1 on error.
 
 ---
 
@@ -130,6 +133,7 @@ brep-monitor --report-timeout 86400 /etc/brep/brep.conf build2/0.17
 - [brep-clean](brep-clean.md) -- expire or archive builds and tenants
 - [brep-migrate](brep-migrate.md) -- create, migrate, or drop database schemas
 - [brep-monitor](brep-monitor.md) -- report delayed package builds
+- [brep-upload-bindist-clean](brep-upload-bindist-clean.md) -- remove expired binary distribution upload directories
 
 ### Protocol reference
 

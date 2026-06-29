@@ -143,10 +143,11 @@ See [bx reference](bx/bx.md) for the full option list.
 
 | Command       | Purpose                                              |
 |---------------|------------------------------------------------------|
-| brep-load     | Load repositories into package database              |
-| brep-clean    | Delete expired builds or archive/delete tenants      |
-| brep-migrate  | Create, migrate, or drop database schemas            |
-| brep-monitor  | Report delayed package builds to stderr              |
+| brep-load                | Load repositories into package database              |
+| brep-clean               | Delete expired builds or archive/delete tenants      |
+| brep-migrate             | Create, migrate, or drop database schemas            |
+| brep-monitor             | Report delayed package builds to stderr              |
+| brep-upload-bindist-clean | Remove expired binary distribution upload directories |
 
 
 ## Navigation

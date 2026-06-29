@@ -76,6 +76,7 @@
 - [brep/brep-clean.md](brep/brep-clean.md): brep-clean -- delete expired build records or expire/archive tenants.
 - [brep/brep-migrate.md](brep/brep-migrate.md): brep-migrate -- create, migrate, or drop the package or build database schema.
 - [brep/brep-monitor.md](brep/brep-monitor.md): brep-monitor -- detect and report delayed package builds.
+- [brep/brep-upload-bindist-clean.md](brep/brep-upload-bindist-clean.md): brep-upload-bindist-clean -- remove expired binary distribution upload directories created by brep-upload-bindist.
 - [brep/brep-request-handling.md](brep/brep-request-handling.md): brep request handling -- package submission, CI request, build artifact upload, and GitHub CI integration protocols.
 
 ## Guides

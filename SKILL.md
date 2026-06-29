@@ -107,6 +107,7 @@ use the table below to jump directly to the relevant file.
 | Expire old builds or archive tenants in brep | [brep/brep-clean.md](brep/brep-clean.md) |
 | Set up or migrate brep databases | [brep/brep-migrate.md](brep/brep-migrate.md) |
 | Monitor brep build infrastructure for delays | [brep/brep-monitor.md](brep/brep-monitor.md) |
+| Clean up binary distribution upload directories | [brep/brep-upload-bindist-clean.md](brep/brep-upload-bindist-clean.md) |
 | Implement a package submission or CI handler | [brep/brep-request-handling.md](brep/brep-request-handling.md) |
 | Understand the brep package submission protocol | [brep/brep-request-handling.md](brep/brep-request-handling.md) |
 | Understand the brep CI request protocol | [brep/brep-request-handling.md](brep/brep-request-handling.md) |
