@@ -43,6 +43,18 @@ The `status` value is returned as the HTTP response code. `reference` must be
 present on success and should uniquely identify the request (for example, the
 abbreviated checksum or request UUID).
 
+### Built-in submit handlers
+
+Three handler programs are installed alongside the brep CLI tools. Configure
+with `submit-handler` (absolute path) and repeated `submit-handler-argument`
+entries in `brep-module.conf`.
+
+| Handler | Description | Use when |
+|---------|-------------|----------|
+| `brep-submit-dir` | Saves archive and manifest to `submit-data`; no further action | Testing or manual processing |
+| `brep-submit-git` | Commits archive to a git repository; supports `queue -> public` ownership-check workflow | Review pipeline |
+| `brep-submit-pub` | Atomically publishes to a live pkg repository via symlink swap | Production; zero-downtime with duplicate protection |
+
 ---
 
 ## Package Submission
