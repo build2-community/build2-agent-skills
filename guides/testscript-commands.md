@@ -158,9 +158,28 @@ EOO
 
 ## Cleanup
 
-Files and directories created inside the test scope's working directory are
-automatically registered for cleanup when created by redirects or certain
-builtins. Additional cleanups can be registered explicitly:
+Each scope (test or group) gets its own temporary working directory named after
+the scope id, accessible via `$~`. At the end of the scope all registered
+cleanups are executed in reverse order of registration: the named file or
+directory is deleted. After all cleanups the working directory itself is removed
+-- but only if it is empty. If it is not empty the test is considered failed due
+to unexpected output. In other words, any file left in `$~` that was not
+explicitly cleaned up causes a test failure.
+
+Output redirect files (written with `>=` or `>+`) are registered automatically.
+Filesystem builtins (`cp`, `ln`, `mkdir`, `touch`) register newly created
+entries that fall inside the working directory automatically as well.
+
+To keep the working directory for post-mortem inspection, run:
+
+```
+b test config.test.output=keep
+```
+
+This skips all cleanups and teardowns and leaves `$~` intact. Note that with
+`keep`, some failures due to unexpected output may go undetected.
+
+Additional cleanups can be registered explicitly:
 
 ```
 $* &output.log != 0          # always cleanup: fail if file does not exist
@@ -183,6 +202,19 @@ Wildcard components in cleanup paths:
 
 Registering a path outside the script working directory is an error. Use
 `rm -f` or `rmdir -f` to clean up such paths manually.
+
+### `--no-cleanup` on filesystem builtins
+
+The builtins `cp`, `ln`, `mkdir`, and `touch` automatically register newly
+created entries that are inside the script working directory for cleanup. Pass
+`--no-cleanup` to suppress that automatic registration for the current
+invocation.
+
+The `mv` builtin does not create entries; instead it adjusts the cleanup paths
+already registered for the source entities to reflect their new names and
+locations. If the destination is outside the working directory or an entry
+already exists at the destination, the source's cleanup is canceled. Passing
+`--no-cleanup` suppresses these adjustments entirely.
 
 ---
 
