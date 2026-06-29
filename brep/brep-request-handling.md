@@ -51,9 +51,9 @@ entries in `brep-module.conf`.
 
 | Handler | Description | Use when |
 |---------|-------------|----------|
-| `brep-submit-dir` | Saves archive and manifest to `submit-data`; no further action | Testing or manual processing |
+| `brep-submit-dir` | Validates the archive; submission stays in `submit-data` for manual processing | Testing or manual processing |
 | `brep-submit-git` | Commits archive to a git repository; supports `queue -> public` ownership-check workflow | Review pipeline |
-| `brep-submit-pub` | Atomically publishes to a live pkg repository via symlink swap | Production; zero-downtime with duplicate protection |
+| `brep-submit-pub` | Atomically publishes to a section-less pkg repository via symlink swap | Production; zero-downtime with duplicate protection |
 
 ---
 
