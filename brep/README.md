@@ -98,8 +98,8 @@ brep-load /etc/brep/loadtab
 Schedule periodic reloads to keep the package database current:
 
 ```
-# crontab: reload every 10 minutes
-*/10 * * * * brep-load /etc/brep/loadtab
+# crontab: reload every 5 minutes
+*/5 * * * * brep-load /etc/brep/loadtab
 ```
 
 ### Expire old builds
@@ -122,6 +122,24 @@ brep-clean tenants 168
 # Report delays for build2 0.17.x; suppress repeats for 24 h
 brep-monitor --report-timeout 86400 /etc/brep/brep.conf build2/0.17
 ```
+
+### Scheduling jobs with cron
+
+Stagger the minute offsets so that jobs do not pile up at midnight or on any
+`*/5` boundary that coincides with another job:
+
+```
+# crontab entries (all times shifted a few minutes apart)
+*/5 * * * *  brep-load /etc/brep/loadtab
+  1 0 * * *  brep-clean tenants 240
+  2 0 * * *  brep-clean builds /etc/brep/buildtab
+  3 0 * * *  brep-upload-bindist-clean /var/bindist 2880
+  4 * * * *  brep-monitor --report-timeout 86400 --clean /etc/brep/brep-module.conf public
+```
+
+The `*/5` loader fires at :00, :05, :10, ...; the daily cleaner jobs run at
+00:01 and 00:02; the bindist cleaner at 00:03; and the monitor runs once per
+hour at :04.
 
 ---
 

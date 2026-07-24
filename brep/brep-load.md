@@ -21,6 +21,13 @@ Use `brep-migrate package` to create or migrate it.
 By default, only repositories whose manifest file timestamps have changed since
 the last load are reloaded. Use `--force` to reload unconditionally.
 
+Internally, `brep-load` uses `bpkg rep-info` to fetch repository metadata from
+each entry in the loadtab. For `cache:` paths it reads the pre-existing
+`packages.manifest` directly; it does not regenerate it. If `packages.manifest`
+is absent or stale, `brep-load` will fail or return stale data. When using
+`brep-submit-git`, the cron job must run `bpkg rep-create` on each section
+directory before `brep-load`.
+
 ## Options
 
 ### Load behavior
