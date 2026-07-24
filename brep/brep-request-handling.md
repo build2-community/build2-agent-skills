@@ -95,6 +95,34 @@ is not cloned at submission time. The control URL used for ownership
 verification comes from the `control` field in `request.manifest` sent by
 `bdep-publish`, not from a handler argument.
 
+**Ubuntu 26.04: systemd hardening makes /home read-only inside Apache.**
+The INSTALL guide (section 6.2) covers the required `setfacl` ACLs, which are
+necessary but not sufficient on Ubuntu 26.04. The packaged `apache2.service`
+ships with `ProtectHome=read-only` and other hardening enabled, which causes
+systemd to bind-mount `/home` read-only inside Apache's mount namespace. The
+kernel returns `EROFS` (read-only file system) rather than `EACCES`, making
+the denial look like a filesystem problem rather than a policy one. The fix is
+a targeted `ReadWritePaths` drop-in that punches just the submit directories
+through the restriction without disabling other hardening:
+
+```bash
+sudo tee /etc/systemd/system/apache2.service.d/brep-submit.conf >/dev/null << 'EOF'
+[Service]
+ReadWritePaths=/home/brep
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart apache2
+```
+
+Use the common parent `/home/brep` rather than separate entries for
+`submit-data` and `submit-temp`: two `ReadWritePaths` entries create two
+separate bind mounts, and `rename(2)` across different mount points returns
+`EXDEV`, causing brep to fail when atomically moving the temp submission
+directory into `submit-data`.
+
+Not mentioned in the brep INSTALL guide (written against older Ubuntu where
+the apache2 service had no hardening).
+
 ---
 
 ## Package Submission
