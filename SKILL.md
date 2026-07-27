@@ -65,6 +65,7 @@ use the table below to jump directly to the relevant file.
 | Use assert() correctly in tests | [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md) |
 | Tests with extra dependencies (separate test package) | [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md) |
 | Build only what is needed for test or install | [HOWTO/update-for-test-install.md](HOWTO/update-for-test-install.md) |
+| Wire runtime test fixtures (child helpers, test=false exes) | [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md) |
 | Resolve "already updated but [not] for install" conflicts | [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Test and publish a third-party package | [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md) |

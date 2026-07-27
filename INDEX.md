@@ -185,6 +185,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [build2 manual: misc modules](guides/build2-modules-misc.md)
 - [testscript reference](guides/testscript-summary.md)
 - [testscript: commands, redirections, and builtins](guides/testscript-commands.md)
+- [runtime test fixtures (child helpers, update-for-test)](HOWTO/test-runtime-fixtures.md)
 - [packaging guide: setup through installation](guides/packaging-guide-summary.md)
 - [packaging guide: testing and publishing](guides/packaging-guide-testing.md)
 - [packaging guide: review process and checklist](guides/packaging-guide-review.md)

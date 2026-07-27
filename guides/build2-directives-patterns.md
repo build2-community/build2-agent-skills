@@ -282,6 +282,26 @@ Relative patterns are searched in `src_base`. Absolute patterns are searched
 in the given absolute directory. Generated names are relative to the base for
 relative patterns, or absolute for absolute patterns.
 
+### Multi-dot names (platform suffixes)
+
+Names such as `clock.posix.c` or `foo.test.cxx` have more than one dot. By
+default the last component is treated as the extension. To match or name the
+full stem including intermediate dots, use a trailing `...` in the name
+pattern:
+
+```
+# Match clock.posix.c / clock.windows.c as c{} with multi-dot names.
+#
+lib{reproc}: reproc/c{*.windows...}: include = ($c.target.class == 'windows')
+lib{reproc}: reproc/c{*.posix...}:   include = ($c.target.class != 'windows')
+```
+
+Without `...`, `c{*.posix}` would look for a different extension story and
+typically miss `*.posix.c`. Pair platform selection with the `include`
+prerequisite-specific variable so the build graph stays
+configuration-independent (see
+[config-independent-build-graph.md](../HOWTO/config-independent-build-graph.md)).
+
 ## Attributes
 
 Attributes appear in `[...]` before a target, variable, or prerequisite.

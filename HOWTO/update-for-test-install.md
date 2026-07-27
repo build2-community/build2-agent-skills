@@ -50,8 +50,25 @@ rpath) and for-development. The pre-operations `update-for-test` and
 `update-for-install` request the correct flavour without the side effects of
 running tests or writing files into the install root.
 
+## What is in the for-test closure
+
+`update-for-test` updates **testable** targets (for example `exe{}` with
+`test = true` or a Testscript prerequisite) and what those targets need for
+testing. That includes:
+
+- The test executable and its link prerequisites
+- Associated `testscript{}` files (matched for update with the test)
+- Prerequisites of those testscripts (runtime fixtures attached there)
+- Simple-test inputs marked with `test.stdin` / `test.stdout` / `test.input`
+
+It does **not** build non-test members of a directory merely because they
+appear on `./:`. If helper programs use `exe{*}: test = false`, they must be
+prerequisites of a testable target's testscript (or another path the test
+rule updates). See [test-runtime-fixtures.md](./test-runtime-fixtures.md).
+
 ## See Also
 
 - [b README](../b/README.md) -- operations table and buildspec syntax
 - [for-install-conflicts](./for-install-conflicts.md) -- resolving errors when both flavours are required simultaneously
+- [test-runtime-fixtures.md](./test-runtime-fixtures.md) -- child helpers and other non-test fixtures
 - [build2 core modules: install](../guides/build2-modules-core.md) -- install layout and the for-install build model

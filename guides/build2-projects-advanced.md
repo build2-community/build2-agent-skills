@@ -213,6 +213,17 @@ tests/: install = false
 doc{INSTALL}@./: install = false
 ```
 
+Targets named on the left-hand side of a dependency default to **out**. Pure
+source files that are never generated (for example `INSTALL`, a
+`testscript{}`) must be pinned to **src** with `@./`. The same pattern
+applies when attaching prerequisites to a source testscript:
+
+```
+testscript{common}@./: ../resources/exe{helper}
+```
+
+See [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md).
+
 ---
 
 ## Subprojects and amalgamations

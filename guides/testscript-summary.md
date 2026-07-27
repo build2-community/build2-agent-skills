@@ -57,6 +57,41 @@ exe{hello-lite}: testscript{basics}
 | `test.cleanups` | Extra cleanups (of `cmdline` type) |
 | `test.target` | Cross-testing platform target (defaults to `build.host`) |
 
+### Simple-test prerequisite variables
+
+Without a Testscript, a target can still be a **simple test** (`test = true`
+or any of the variables below). Prerequisite-specific flags mark files used
+as I/O for that single run:
+
+| Variable | Meaning |
+|---|---|
+| `test.stdin` | Prerequisite file is redirected to the test's stdin |
+| `test.stdout` | Prerequisite file is compared to the test's stdout |
+| `test.roundtrip` | Shortcut for both stdin and stdout |
+| `test.input` | Prerequisite is updated and its path is appended as an extra argv element (after `test.options` / `test.arguments`) |
+
+Example:
+
+```
+exe{hello}: file{names.txt}: test.stdin = true
+exe{hello}: file{greetings.txt}: test.stdout = true
+```
+
+`test.input` is currently available to **simple tests only**, not Testscript
+runs. Do not use it for Testscript runtime fixtures (child helpers discovered
+by path). Attach those as prerequisites of the testscript instead. See
+[test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md).
+
+### Runtime fixtures on the testscript
+
+Prerequisites of a `testscript{}` target are updated when the test is
+prepared. Pin a pure-src testscript with `@./` when it is the **left-hand**
+side of a dependency (LHS defaults to out):
+
+```
+testscript{common}@./: ../resources/exe{helper}
+```
+
 ### Running tests
 
 ```

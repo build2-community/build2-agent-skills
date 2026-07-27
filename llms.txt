@@ -101,7 +101,7 @@
 - [guides/build2-project-config.md](guides/build2-project-config.md): Project configuration -- config directive syntax, variable declaration, types, nullable and required variables, config.build cache, hermetic builds, propagating values via macros or generated headers, configuration report attributes, command-line overrides, factoring config directives, bpkg package considerations.
 - [guides/build2-targets-variables.md](guides/build2-targets-variables.md): Targets and variables reference -- built-in target type hierarchy (alias, dir, fsdir, group, file, doc, exe), C/C++ module target types (cxx, hxx, obj, liba, libs), target naming and qualification, variable types table, assignment operators, scope hierarchy (global/root/directory/target/prerequisite), built-in scope and global variables, function family overview table.
 - [guides/build2-functions.md](guides/build2-functions.md): build2 functions reference -- all fourteen function families ($builtin, $string, $integer, $bool, $path, $name, $target, $regex, $json, $process, $filesystem, $project_name, $process_path, $target_triplet) with signatures, optional arguments, flags, and purity annotations.
-- [guides/testscript-summary.md](guides/testscript-summary.md): Testscript language reference -- integration, execution model, lexical structure, test/group scopes, commands.
+- [guides/testscript-summary.md](guides/testscript-summary.md): Testscript language reference -- integration, simple-test test.* variables, runtime fixtures, execution model, lexical structure, test/group scopes, commands.
 - [guides/testscript-commands.md](guides/testscript-commands.md): Testscript variables, redirections, here-documents, output regex, cleanup, builtins table, and common patterns.
 - [guides/build2-modules-autoconf.md](guides/build2-modules-autoconf.md): autoconf module -- processing config.h.in/cmake/meson files with builtin and project checks.
 - [guides/build2-autoconf-project-checks.md](guides/build2-autoconf-project-checks.md): autoconf module -- authoring project-specific checks in build/autoconf/checks/.
@@ -134,6 +134,7 @@
 - [HOWTO/target-metadata.md](HOWTO/target-metadata.md): Exporting metadata with executables and libraries.
 - [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md): Correctly using assert() in tests.
 - [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md): Sanitizing misbehaving tests with Testscript.
+- [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md): Runtime test fixtures -- child helpers, test=false, testscript@./ prerequisites, update-for-test.
 - [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md): Tests with extra dependencies (separate test package).
 - [HOWTO/convert-source-to-utf8.md](HOWTO/convert-source-to-utf8.md): Converting source file encoding to UTF-8.
 - [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects.

@@ -108,6 +108,20 @@ lib{hello}: m{*}: include = ($c.target.class == 'macos')
 Linking Objective-C targets uses the C compiler driver. No Objective-C runtime
 library (such as `-lobjc`) is linked automatically.
 
+### Platform multi-dot sources
+
+Upstream often ships pairs such as `clock.posix.c` / `clock.windows.c`. Use
+trailing `...` in the name pattern so intermediate dots stay part of the
+name, and gate participation with `include`:
+
+```
+lib{foo}: c{*.windows...}: include = ($c.target.class == 'windows')
+lib{foo}: c{*.posix...}:   include = ($c.target.class != 'windows')
+```
+
+See [name patterns](build2-directives-patterns.md) (multi-dot names section)
+for details.
+
 ### Assembler with C Preprocessor Compilation
 
 Load the `c.as-cpp` submodule after `c`:

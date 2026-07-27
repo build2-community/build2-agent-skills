@@ -32,6 +32,7 @@ Condensed, AI-indexed versions of the
 |------|-------|
 | [assert-in-tests.md](./assert-in-tests.md) | Correctly using `assert()` in tests |
 | [sanitize-tests.md](./sanitize-tests.md) | Sanitizing misbehaving tests with Testscript |
+| [test-runtime-fixtures.md](./test-runtime-fixtures.md) | Runtime fixtures (child helpers) for tests and update-for-test |
 | [tests-extra-dependencies.md](./tests-extra-dependencies.md) | Tests with extra dependencies (separate test package) |
 
 ## Packaging third-party projects

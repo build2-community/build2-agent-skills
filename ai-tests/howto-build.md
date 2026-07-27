@@ -125,3 +125,24 @@ from plain `update`, and what is an example invocation of each?
 - Example invocations: `b update-for-test` and `b update-for-install`.
 
 **Source:** `HOWTO/update-for-test-install.md`
+
+
+## T008 -- runtime test fixtures and test.input
+
+**Query:** How do you make child-process helper executables build under
+`update-for-test` for Testscript-driven unit tests, and why is
+`test.input = true` the wrong tool for that?
+
+**Key facts** (all must appear in a correct answer):
+- Mark fixture exes with `test = false` so they are not run as smoke tests.
+- Attach fixtures as prerequisites of the testscript, pinned with `@./`
+  (for example `testscript{common}@./: ../resources/exe{helper}`).
+- LHS targets default to out. Without `@./`, a pure-src testscript gets
+  "no rule to update".
+- `test.input` is for simple tests only: it updates the prereq and appends
+  its path as an extra argv argument. It is not for Testscript path-based
+  fixtures.
+- Merely listing a `test = false` exe on `./:` is not enough for
+  `update-for-test`.
+
+**Source:** `HOWTO/test-runtime-fixtures.md`
