@@ -114,8 +114,12 @@ b test config.test.output=keep            # preserve working dirs after run
 A testscript file is an implicit top-level group scope. Each scope (group or
 test) gets a nested temporary working directory. For a directory target (`./`)
 the path is `$out_base/test/`; for a named target like `exe{hello}` it is
-`$out_base/test-hello/`. The directory is removed after a successful run and
-left behind on failure.
+`$out_base/test-hello/`. After the scope's cleanups run, the directory is
+removed automatically only if it is empty -- anything left behind that wasn't
+registered for cleanup causes the test to be considered failed ("unexpected
+output"), so leftover-file cleanup is enforced, not just a convention (see
+[testscript-commands.md](testscript-commands.md#cleanup)). The directory is
+left behind on outright test failure regardless.
 
 **Scope types:**
 
@@ -135,7 +139,10 @@ via read-only `$~`.
 **Execution order:**
 
 1. Setup commands (`+cmd`) run sequentially.
-2. Inner test/group scopes run in parallel.
+2. Inner test/group scopes run in parallel. There is no per-scope "serial"
+   attribute -- the only way to force sequential execution of scopes that
+   would otherwise run in parallel is to place them into a single compound
+   test (see [Compound test](#compound-test-implicit-scope) below).
 3. Teardown commands (`-cmd`) run sequentially after all inner scopes succeed.
 
 Filesystem names starting with `stdin`, `stdout`, or `stderr` inside a scope

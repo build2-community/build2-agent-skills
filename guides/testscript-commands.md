@@ -127,7 +127,11 @@ Matching is two-level:
 
 The introducer character for a here-string is its first character. For a
 here-document it is specified as the first character of the end marker:
-`>>~/EOE/` uses `/` as introducer.
+`>>~/EOE/` uses `/` as introducer. There is no way to escape the introducer
+character inside the regex -- if a golden line's content needs to contain it
+(e.g. a literal `/` in an expected path), change the introducer for the whole
+here-document instead, e.g. `>>~%EOE%` instead of `>>~/EOE/`, and convert
+every regex line inside it to use the new introducer.
 
 **Global match flags** are placed after the closing introducer of the end
 marker: `>>~%EOO%i` applies `i` to all char-regexes in the document.
