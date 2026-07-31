@@ -50,6 +50,11 @@ Release version 2.1.0+1
 > The fact that all the changes must be in a single commit is another reason
 > to avoid substantial changes in revisions.
 
+This single-commit rule is specific to the revision release commit itself.
+During the initial packaging stretch (before the first release), commits
+should instead be atomic and step-wise -- see
+[Atomic commits](packaging-guide-summary.md) in the summary guide.
+
 You can make multiple commits while developing and testing the changes for a
 revision in a separate branch. However, once they are ready for a release,
 they need to be squashed into a single commit. The `bdep-release` command

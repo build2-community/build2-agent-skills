@@ -75,6 +75,9 @@ The output directory may already contain files provided they do not clash with
 files to be created. The `new` command recognizes certain well-known files and
 tries to use the extracted information in `manifest`. Specifically, it tries to
 guess the license from `LICENSE` and extract the summary from `README.md`. This
+also applies when generating a package with `--package`: a pre-existing
+`LICENSE` sets the `license` manifest field, `README.md` sets
+`description-file`, and `NEWS`/`CHANGES`/`ChangeLog` sets `changes-file`. This
 supports the following workflow:
 
 ```
