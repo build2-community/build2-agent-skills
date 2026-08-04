@@ -69,10 +69,15 @@ not run `bpkg rep-create`. After pulling, the cron job must regenerate
 otherwise `brep-load` will fail or return stale data. The standard pattern is:
 
 ```
-git -C <repo> pull --ff-only \
+git -C <repo> fetch \
+  && git -C <repo> reset --hard FETCH_HEAD \
   && find <repo> -name repositories.manifest -execdir bpkg rep-create . \; \
   && brep-load <loadtab>
 ```
+
+Note: `git pull --ff-only` aborts when the remote history has been rewritten
+(force-push), leaving the local clone behind. The `fetch + reset --hard` form
+mirrors the remote exactly regardless of history rewrites.
 
 **submit.config.bash.** The handler sources `submit.config.bash` from the root
 of both `tgt-repo` and `ref-repo` (if provided). The file is a bash fragment
