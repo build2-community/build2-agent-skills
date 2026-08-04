@@ -63,11 +63,16 @@ unless overridden with `remote.origin.build2ControlUrl` or
 `remote.origin.build2Url`. The special `none` value to the `--control` option
 can be used to disable this functionality.
 
-The control URL must use a standard parseable URL scheme (`https://`, `http://`,
-or `git://`). SCP-style SSH remote URLs of the form `git@host:path` are not
-valid URLs and will be rejected by `bdep` with "invalid --control option value".
-If the project remote uses SSH, pass `--control <https-url>` explicitly to
-supply the equivalent HTTPS URL instead.
+When `--control` is omitted, bdep automatically derives an HTTPS URL from the
+git remote: SSH URLs (`ssh://user@host/path` or `git@host:path`) are normalized
+to `https://host/path`. For common hosting services (GitHub, GitLab, Azure
+DevOps) the derived HTTPS URL is correct and no manual intervention is needed.
+
+When `--control` is specified explicitly, the value must be a parseable standard
+URL. SCP-style SSH remote URLs of the form `git@host:path` are not valid URLs
+and bdep rejects them immediately with "invalid --control option value". If you
+need to override the control URL and the natural form is SCP-style SSH, pass the
+HTTPS equivalent instead: `--control https://host/path/to/repo`.
 
 If the `--forward` option is specified then the forwarded configurations are
 used to prepare the package distributions. In particular, this means that in
