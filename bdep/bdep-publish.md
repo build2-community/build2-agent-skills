@@ -63,6 +63,12 @@ unless overridden with `remote.origin.build2ControlUrl` or
 `remote.origin.build2Url`. The special `none` value to the `--control` option
 can be used to disable this functionality.
 
+The control URL must use a standard parseable URL scheme (`https://`, `http://`,
+or `git://`). SCP-style SSH remote URLs of the form `git@host:path` are not
+valid URLs and will be rejected by `bdep` with "invalid --control option value".
+If the project remote uses SSH, pass `--control <https-url>` explicitly to
+supply the equivalent HTTPS URL instead.
+
 If the `--forward` option is specified then the forwarded configurations are
 used to prepare the package distributions. In particular, this means that in
 this mode the project doesn't need to be initialized and all that's required is

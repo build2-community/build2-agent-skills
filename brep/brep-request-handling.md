@@ -95,19 +95,25 @@ is not cloned at submission time. The control URL used for ownership
 verification comes from the `control` field in `request.manifest` sent by
 `bdep-publish`, not from a handler argument.
 
-**Ubuntu 26.04: systemd hardening makes /home read-only inside Apache.**
+**Ubuntu 26.04: Apache service hardening blocks writes to /home/brep.**
 The INSTALL guide (section 6.2) covers the required `setfacl` ACLs, which are
-necessary but not sufficient on Ubuntu 26.04. The packaged `apache2.service`
-ships with `ProtectHome=read-only` and other hardening enabled, which causes
-systemd to bind-mount `/home` read-only inside Apache's mount namespace. The
-kernel returns `EROFS` (read-only file system) rather than `EACCES`, making
-the denial look like a filesystem problem rather than a policy one. The fix is
-a targeted `ReadWritePaths` drop-in that punches just the submit directories
-through the restriction without disabling other hardening:
+necessary but not sufficient on Ubuntu 26.04 (and possibly earlier versions).
+The packaged `apache2.service` ships with two hardening options that interfere:
+
+- `ProtectHome=read-only` bind-mounts `/home` read-only inside Apache's mount
+  namespace. Writes to `submit-data` and `submit-temp` return `EROFS` (read-only
+  file system) rather than `EACCES`, making the denial look like a filesystem
+  problem rather than a policy one.
+- `RestrictSUIDSGID=yes` installs a seccomp-BPF filter blocking syscalls that
+  attempt to set SUID or SGID bits (mode bits 04000/02000). This can cause
+  `EPERM` in file-creation paths inside the submission handler.
+
+The fix is a drop-in that addresses both:
 
 ```bash
 sudo tee /etc/systemd/system/apache2.service.d/brep-submit.conf >/dev/null << 'EOF'
 [Service]
+RestrictSUIDSGID=no
 ReadWritePaths=/home/brep
 EOF
 sudo systemctl daemon-reload
