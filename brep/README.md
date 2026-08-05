@@ -52,8 +52,12 @@ be archived (`brep-clean --archive`) to stop new builds while keeping packages
 visible.
 
 **loadtab.** A configuration file consumed by `brep-load` that lists the
-repositories to fetch. `brep-load` uses `bpkg` internally to fetch repository
-metadata from each listed repository.
+repositories to serve. Each line has the form
+`<remote-url> <display-name> cache:<local-path>`. The remote URL must include
+the brep-root path prefix (e.g. `http://example.com/pkg/1/stable`, not
+`http://example.com/1/stable`) — it is used to derive each section's
+`interface_url` for dependency links in the web UI. See
+[brep-load](brep-load.md) for the full format and `interface_url` mechanics.
 
 **Handler program.** An executable invoked by the brep web module when a
 package submission, CI request, or build artifact upload arrives. The handler
@@ -85,6 +89,36 @@ Create both database schemas before first use:
 ```
 brep-migrate package
 brep-migrate build
+```
+
+### Serve repository files at `/pkg/1/...`
+
+The brep web module rejects URL paths whose first segment after the brep-root is
+all digits (e.g. `/pkg/1/stable`). These paths are repository section URLs used
+by `bpkg add` and must be served directly from the filesystem by Apache. Without
+this, both `bpkg add http://example.com/pkg/1/stable` and browser navigation to
+those paths return 404.
+
+Add the following directives **inside** the `<VirtualHost>` block, **after** the
+`<Location "/pkg">` section injected by `brep-apache2.conf`. The `<LocationMatch>`
+must come after `<Location "/pkg">` — a separate conf file loaded before the
+VirtualHost will not override `SetHandler brep`. `DirectorySlash On` overrides
+brep's `DirectorySlash Off` so that directory requests without a trailing slash
+redirect correctly; without it, Apache generates autoindex links relative to the
+wrong parent, producing broken URLs.
+
+```apache
+<LocationMatch "^/pkg/[0-9]+(/.*)?$">
+  SetHandler None
+  DirectorySlash On
+</LocationMatch>
+
+AliasMatch ^/pkg/([0-9]+)/(.+)$ /path/to/pkg-repo/$1/$2
+
+<Directory "/path/to/pkg-repo">
+  Require all granted
+  Options Indexes
+</Directory>
 ```
 
 ### Load repositories
