@@ -237,6 +237,82 @@ backported from upstream. To put it another way, changes in a revision should
 have an even more limited scope than a patch release.
 
 
+## How Do I Deal with Bad Header Inclusion Practice?
+
+Libraries whose public headers have no library-name prefix (e.g.,
+`#include <util.h>`) cannot coexist when installed or used together in the
+same build. Such packages cannot be published to cppget.org without fixing the
+inclusion scheme.
+
+> `sys:` substitution is unavailable after the fix (the system-installed version
+> still uses the unqualified scheme). Check Debian/Fedora first: if they already
+> install headers into a subdirectory, adopt the same prefix. If the library is
+> widely considered to "own" its unqualified names, get in touch before
+> packaging.
+
+**Layout.** Add a library-name directory level and symlink upstream headers
+into it (`bdep new` sub-options `split`, `subdir=`, `buildfile-in-prefix`
+generate this directly):
+
+```
+libfoo/
+├── include/
+│   └── libfoo/
+│       └── util.h  ->  ../../../upstream/include/util.h
+└── src/
+    └── ...          ->  ../../upstream/src/...
+```
+
+**Header `buildfile`.** Install into the added subdirectory:
+
+```
+{hxx ixx txx}{*}:
+{
+  install         = include/libfoo/
+  install.subdirs = true
+}
+```
+
+**Source `buildfile`.** The `_unq` paths let upstream sources keep writing
+`#include <util.h>` internally. They must appear only in `cxx.poptions`, never
+in `cxx.export.poptions`, so consumers are forced to use the prefixed form:
+
+```
+out_pfx_inc     = [dir_path] $out_root/include/
+src_pfx_inc     = [dir_path] $src_root/include/
+out_pfx_src     = [dir_path] $out_root/src/
+src_pfx_src     = [dir_path] $src_root/src/
+out_pfx_inc_unq = [dir_path] $out_root/include/libfoo/
+src_pfx_inc_unq = [dir_path] $src_root/include/libfoo/
+
+cxx.poptions =+ "-I$out_pfx_src" "-I$src_pfx_src" \
+                "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq"
+
+lib{foo}:
+{
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc"  # qualified only
+  cxx.export.libs     = $intf_libs
+}
+```
+
+**Dual inclusion (optional).** To also support consumers that still write
+`#include <util.h>`, export the unqualified paths and add them to the generated
+`pkg-config` files. This re-introduces the co-existence problem within a build,
+so only do this for compelling backwards-compatibility reasons:
+
+```
+lib{foo}:
+{
+  cxx.export.poptions = "-I$out_pfx_inc" "-I$src_pfx_inc" \
+                        "-I$out_pfx_inc_unq" "-I$src_pfx_inc_unq"
+  cxx.export.libs     = $intf_libs
+}
+
+lib{foo}: cxx.pkgconfig.include = include/ include/libfoo/
+```
+
+
 ## How Do I Patch Upstream Source Code?
 
 If you need to change something in the upstream source code, there are several
