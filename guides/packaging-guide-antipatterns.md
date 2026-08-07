@@ -32,7 +32,11 @@ adjustments: fill in placeholders, add symlinks, list sources, set include and
 install paths, declare dependencies. Do not restructure sections, remove
 generated comments, or add new sections unless they serve a clear and direct
 purpose. The generated layout and phrasing are what reviewers expect to see,
-and deviations increase review burden and maintenance cost.
+and deviations increase review burden and maintenance cost. In particular, do
+not change the generated `depends: * build2 >= X.Y.Z` and `depends: * bpkg
+>= X.Y.Z` manifest values -- they match the toolchain that generated the
+scaffold and should stay as generated (see
+[packaging-guide-summary.md](packaging-guide-summary.md#step-3-write-the-package-manifest)).
 
 
 ### Avoid fixing upstream issues in the `build2` package
