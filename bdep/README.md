@@ -133,7 +133,7 @@ path.
    ```
 2. Create an associated build configuration and initialize the project in it:
    ```
-   bdep init -C @gcc cc config.cxx=g++
+   bdep init -C ../hello-gcc @gcc cc config.cxx=g++
    ```
 3. Edit `repositories.manifest` to add a prerequisite repository.
 4. Edit `manifest` to add a `depends:` entry.

@@ -53,8 +53,9 @@ use the table below to jump directly to the relevant file.
 | Export metadata from executables or libraries | [HOWTO/target-metadata.md](HOWTO/target-metadata.md) |
 | Add/remove packages, resolve version conflicts | [bpkg/README.md](bpkg/README.md) |
 | Build a package, upgrade, or patch | [bpkg/bpkg-pkg-build.md](bpkg/bpkg-pkg-build.md) |
-| Create a bpkg configuration | [bpkg/bpkg-cfg-create.md](bpkg/bpkg-cfg-create.md) |
-| Initialize a project with bdep | [bdep/bdep-init.md](bdep/bdep-init.md) |
+| Create a bpkg configuration (standalone, no bdep project) | [bpkg/bpkg-cfg-create.md](bpkg/bpkg-cfg-create.md) |
+| Create a configuration and initialize a bdep project in it | [bdep/bdep-init.md](bdep/bdep-init.md) |
+| Initialize a project in an existing configuration | [bdep/bdep-init.md](bdep/bdep-init.md) |
 | Sync manifest/lockfile with configuration | [bdep/bdep-sync.md](bdep/bdep-sync.md) |
 | Create a new project | [bdep/bdep-new.md](bdep/bdep-new.md) |
 | Publish a package | [bdep/bdep-publish.md](bdep/bdep-publish.md) |
@@ -139,7 +140,7 @@ bpkg create -d build-gcc cc config.cxx=g++
 bpkg build hello               # Build a package into the configuration
 
 bdep new -l c++ -t exe hello   # Create a new executable project
-bdep init -C ../build-gcc      # Initialize project in a configuration
+bdep init -C ../build-gcc @gcc cc config.cxx=g++  # Create config and initialize project in it
 bdep sync                      # Sync manifest/lockfile with configurations
 bdep test                      # Run tests across all configurations
 bdep update                    # Update project in all configurations
