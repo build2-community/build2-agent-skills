@@ -64,7 +64,32 @@ if ($cxx.target.system == 'mingw32')
 Never use `build.host.*` for target platform detection; always use
 `cxx.target.*`.
 
+### CPU architecture matching with `cxx.target.cpu`
+
+Use `$cxx.target.cpu` with `$regex.match` for CPU-conditional options. Common
+patterns:
+
+| Architecture | `$cxx.target.cpu` examples | Pattern |
+|---|---|---|
+| 64-bit x86 | `x86_64` | `x86_64` |
+| 32-bit x86 | `i386`, `i486`, `i586`, `i686` | `i[3-6]86` |
+| Both x86 variants | | `(i[3-6]86|x86_64)` |
+| 64-bit ARM | `aarch64` | `aarch64` |
+| 32-bit ARM | `armv7`, `armv7l` | `arm.*` |
+
+Note that 32-bit x86 does not start with `x86`, so the pattern `x86.*` does
+not match it. Always use `(i[3-6]86|x86_64)` when you need both variants.
+
+Example -- adding a required ISA flag for GCC and Clang on x86 when upstream
+headers unconditionally pull in SSE4.x intrinsics:
+
+```
+if ($cxx.class != 'msvc' && $regex.match($cxx.target.cpu, '(i[3-6]86|x86_64)'))
+  cxx.coptions += -msse4.2
+```
+
 ## See Also
 
 - [`build2-modules-cxx`](../guides/build2-modules-cxx.md#cross-compilation-and-target-configuration) -- target triplet variables and cross-compilation reference
+- [`build2-modules-cxx`](../guides/build2-modules-cxx.md#export-options-propagated-to-consumers-of-a-library) -- export options and why `cxx.export.coptions` does not exist
 - [`build2-modules-cxx`](../guides/build2-modules-cxx.md#system-library-dependencies-and-pkg-config-integration) -- pkg-config sysroot rewriting

@@ -375,6 +375,11 @@ compiler mode options when they affect the compiler identity or target.
 | `cxx.export.poptions` | Preprocessor options consumers need |
 | `cxx.export.libs` | Libraries consumers need to link |
 
+`cxx.export.coptions` does not exist by design: a library cannot impose
+compiler flags on its consumers. If consumers need a specific compiler option
+(for example, an ISA flag required by unconditionally-included SIMD headers),
+they must set it themselves in their own `root.build`.
+
 Typical library `buildfile` pattern:
 
 ```
