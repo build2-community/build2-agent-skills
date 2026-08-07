@@ -66,6 +66,13 @@ different sub-options. This applies to the initial packaging and upgrade
 work; the revision release itself works the opposite way, as a single
 squashed commit (see [New Revision](packaging-guide-version-management.md#new-revision)).
 
+When a fixup is discovered later in the stretch, keep it as a separate commit
+scoped to the single step it corrects -- do not bundle unrelated fixups into
+one combined commit. A manifest version-constraint correction and a buildfile
+import correction discovered at the same time are still two commits, one for
+each ancestor, so each can be squashed into the right place via interactive
+rebase.
+
 
 ## Packaging Workflow Checklist
 
