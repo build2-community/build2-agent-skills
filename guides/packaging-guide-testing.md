@@ -235,7 +235,18 @@ and publish.
 
 **Always use `bdep new` as a starting point.** Do not write `buildfiles` from
 scratch. The generated templates encode years of accumulated best practices and
-make the package easier to review and maintain.
+make the package easier to review and maintain. When editing any scaffold file
+after generation, make only package-specific adjustments and preserve the
+generated structure and phrasing -- deviations increase review burden and make
+the package harder to maintain.
+
+**Keep `PACKAGE-README.md` close to the generated template.** Fill the
+`<...>` placeholders with package-specific content; for the summary slot, copy
+one to two paragraphs from the upstream documentation. Keep all generated
+sections, trimming minimal ones to a single placeholder sentence (e.g.,
+"This package has no configuration variables."). Do not add new sections or
+pad with content the consumer already has from `README.md`. The generated
+structure and ordering are intentional.
 
 **Never bundle dependencies.** If upstream vendors a testing framework or
 another library, replace it with a proper external dependency. Bundled

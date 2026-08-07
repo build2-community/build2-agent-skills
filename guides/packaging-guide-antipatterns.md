@@ -27,6 +27,13 @@ take a bit of time to understand the customization points necessary to achieve
 the desired layout for your first package, this will pay off when you work on
 converting subsequent packages.
 
+When editing scaffold files after generation, make only package-specific
+adjustments: fill in placeholders, add symlinks, list sources, set include and
+install paths, declare dependencies. Do not restructure sections, remove
+generated comments, or add new sections unless they serve a clear and direct
+purpose. The generated layout and phrasing are what reviewers expect to see,
+and deviations increase review burden and maintenance cost.
+
 
 ### Avoid fixing upstream issues in the `build2` package
 
