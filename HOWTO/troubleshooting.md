@@ -47,6 +47,35 @@ Reproduce locally with the expanded dist-test recipe in
 [packaging-guide-testing.md](../guides/packaging-guide-testing.md) rather
 than waiting on a publish-queue result.
 
+### `error: target <target> specified in the test variable is out of date`
+
+**Cause:** A testscript's `test` variable was overridden to an **imported**
+target (`testscript{*}: test = $t`), typically to test a package's own
+`exe{}` from its `tests/` subproject. The override is resolved with a
+lookup only (`search_existing()`), never an update -- if the imported target
+isn't otherwise guaranteed up to date (e.g. testing the `tests/` subproject
+in isolation, rather than the whole project), the test rule fails instead of
+building it.
+
+**Fix:** List the imported target as a prerequisite of the directory alias,
+alongside the testscript, exactly as the diagnostic suggests:
+```
+./: testscript $t
+```
+See [test-imported-executable.md](./test-imported-executable.md).
+
+### `error: both 'testscript' and other names specified for <target>`
+
+**Cause:** An imported target was given a testscript prerequisite directly
+(`$t: testscript{...}`), mirroring the local-target association pattern,
+while that same target already has its own local testscript prerequisite
+declared in its own project. The two declarations conflict on the same
+target.
+
+**Fix:** Don't declare a testscript prerequisite on an imported target.
+Override the `test` variable instead (`testscript{*}: test = $t`); see
+[test-imported-executable.md](./test-imported-executable.md#do-not-use-the-imported-target-as-the-declarations-left-hand-side).
+
 ### `error: unknown build system module <name>`
 
 **Cause:** The module name is misspelled, or the module is not part of the
@@ -311,6 +340,7 @@ a binless library is linked, `*.libs` is required.
 
 - [`for-install-conflicts`](./for-install-conflicts.md) -- detailed for-install conflict resolution
 - [`test-runtime-fixtures`](./test-runtime-fixtures.md) -- attaching runtime fixtures without breaking `clean`
+- [`test-imported-executable`](./test-imported-executable.md) -- testing an imported executable, and the two errors above
 - [`bpkg-dependency-negotiation`](../bpkg/bpkg-dependency-negotiation.md) -- how dependency version constraints are resolved
 - [`build2-modules-cc`](../guides/build2-modules-cc.md) -- cc module reference
 - [`bx`](../bx/bx.md) -- full bx option and script reference

@@ -34,6 +34,7 @@ Condensed, AI-indexed versions of the
 | [sanitize-tests.md](./sanitize-tests.md) | Sanitizing misbehaving tests with Testscript |
 | [test-runtime-fixtures.md](./test-runtime-fixtures.md) | Runtime fixtures (child helpers) for tests and update-for-test |
 | [tests-extra-dependencies.md](./tests-extra-dependencies.md) | Tests with extra dependencies (separate test package) |
+| [test-imported-executable.md](./test-imported-executable.md) | Testscript-testing an imported executable (e.g. a package's own `exe{}` from `tests/`) |
 
 ## Packaging third-party projects
 

@@ -91,6 +91,14 @@ import! [metadata, rule_hint=cxx.link] lh = libhello%lib{hello}
 
 ## Installed case: executables
 
+This is for an executable with **no dev build present** -- located via
+`PATH`, with metadata queried from the running binary itself. For the
+simpler, much more common case of testscript-testing an imported executable
+that **is** dev-built alongside the tester (e.g. a package's own `exe{}`
+re-imported into its `tests/` subproject), see
+[test-imported-executable.md](./test-imported-executable.md) instead -- no
+metadata protocol needed.
+
 For executables, metadata is embedded in the binary itself. The executable
 must handle `--build2-metadata=<version>` by printing a buildfile fragment to
 `stdout` and exiting 0:
@@ -148,3 +156,4 @@ exe{hello}:
 ## See Also
 
 - [third-party-private-headers](./third-party-private-headers.md) -- applying the `[path, null]` / `.for_install` metadata pattern to share generated file paths (config headers, data archives) across packages in a multi-package repository
+- [test-imported-executable](./test-imported-executable.md) -- testing a dev-built imported executable, no metadata protocol needed

@@ -9,6 +9,7 @@ Source documentation:
 - `HOWTO/package-version-none.md`
 - `HOWTO/ci-cd-setup.md`
 - `HOWTO/troubleshooting.md`
+- `HOWTO/test-imported-executable.md`
 
 
 ## T001 -- Test package naming and manifest association
@@ -142,3 +143,21 @@ command submits to a remote CI server?
   operations must be registered at bootstrap time.
 
 **Source:** `HOWTO/troubleshooting.md`
+
+
+## T009 -- Testing an imported executable
+
+**Query:** How do you testscript-test an imported executable (for example, a
+package's own `exe{}` re-imported into its `tests/` subproject), and what
+must you add to avoid an "out of date" test failure?
+
+**Key facts** (all must appear in a correct answer):
+- Import the target and override the testscript's `test` variable:
+  `import t = pkg%exe{tool}` then `testscript{*}: test = $t`.
+- The override alone only resolves the target with a lookup, it does not
+  update it -- add the imported target as a prerequisite of the directory
+  alias alongside the testscript: `./: testscript $t`.
+- Without that prerequisite, testing the subproject in isolation fails with
+  "target ... specified in the test variable is out of date".
+
+**Source:** `HOWTO/test-imported-executable.md`

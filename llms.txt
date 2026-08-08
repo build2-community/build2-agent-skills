@@ -136,6 +136,7 @@
 - [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md): Sanitizing misbehaving tests with Testscript.
 - [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md): Runtime test fixtures -- child helpers, test=false, testscript@./ prerequisites, update-for-test.
 - [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md): Tests with extra dependencies (separate test package).
+- [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md): Testing an imported executable -- `test` variable override, `build/export.build` prerequisite, update ordering, `clean`-safety, the broken alternative LHS form.
 - [HOWTO/convert-source-to-utf8.md](HOWTO/convert-source-to-utf8.md): Converting source file encoding to UTF-8.
 - [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects.
 - [HOWTO/package-version-non-semver.md](HOWTO/package-version-non-semver.md): Projects that don't use semantic versioning.

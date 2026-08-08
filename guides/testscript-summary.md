@@ -57,6 +57,13 @@ exe{hello-lite}: testscript{basics}
 | `test.cleanups` | Extra cleanups (of `cmdline` type) |
 | `test.target` | Cross-testing platform target (defaults to `build.host`) |
 
+Overriding `test` to a target name is how a `tests/` subproject tests an
+**imported** executable (e.g. a package's own `exe{}`, re-imported into its
+own `tests/` subproject) instead of a locally-built one. See
+[test-imported-executable.md](../HOWTO/test-imported-executable.md) for the
+worked pattern, the update-ordering requirement, and a broken alternative
+to avoid.
+
 ### Simple-test prerequisite variables
 
 Without a Testscript, a target can still be a **simple test** (`test = true`
@@ -503,3 +510,5 @@ echo $arg              # Hello   Spaces
 - [testscript-commands.md](testscript-commands.md) -- variables, redirections, regex, cleanup, builtins, patterns
 - [build2 core modules: test](build2-modules-core.md)
 - [build2 projects advanced](build2-projects-advanced.md)
+- [test-imported-executable.md](../HOWTO/test-imported-executable.md) -- testing an imported (not locally-built) executable
+- [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md) -- attaching runtime fixtures without breaking `clean`

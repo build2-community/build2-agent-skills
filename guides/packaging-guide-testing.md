@@ -54,9 +54,13 @@ converting:
 - Internal utility libraries shared across test executables (use `libue{}`
   utility libraries in `build2`)
 - Runtime fixtures: child processes or data built alongside the tests (mark
-  with `test = false`, attach as prerequisites of the testscript with
-  `@./` so `update-for-test` and test-installed still build them). See
+  with `test = false`, attach as `include = adhoc` prerequisites of the
+  **test executable**, not the testscript, so `update-for-test` and
+  test-installed still build them). See
   [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md).
+- Importing the package's own `exe{}` into `tests/` to test it (the shape
+  `bpkg`'s and `bdep`'s own test suites use): see
+  [test-imported-executable.md](../HOWTO/test-imported-executable.md).
 
 Multiple test executables using a shared utility library:
 
@@ -305,3 +309,4 @@ upstream version.
 - [bdep-release](../bdep/bdep-release.md)
 - [bdep-publish](../bdep/bdep-publish.md)
 - [third-party-private-headers](../HOWTO/third-party-private-headers.md)
+- [test-imported-executable](../HOWTO/test-imported-executable.md) -- testing a package's own `exe{}` imported into `tests/`

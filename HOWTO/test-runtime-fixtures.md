@@ -166,3 +166,4 @@ testscript{common}@./: ../resources/exe{foo}
 - [config-independent-build-graph.md](./config-independent-build-graph.md) -- platform-specific tests with `include =`
 - [third-party-private-headers.md](./third-party-private-headers.md) -- `include = adhoc` for tracked, non-compiled prerequisites
 - [build2-projects-advanced.md](../guides/build2-projects-advanced.md) -- `@./` for src-side targets
+- [test-imported-executable.md](./test-imported-executable.md) -- testing an imported executable without repeating this file's `clean` footgun in a new context
