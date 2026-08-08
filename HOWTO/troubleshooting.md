@@ -19,6 +19,34 @@ or the target name does not match any pattern.
 - Verify the target type suffix matches the `extension` variable setting.
 - Check that the file actually exists in the source directory.
 
+### `error: no rule to clean <target>`
+
+**Cause:** A `testscript{}` was given its own dependency declaration, e.g.
+`testscript{name}@./: <target>`, instead of only being listed as a
+prerequisite of the test target. Normally a testscript is only ever
+consumed as a prerequisite, associated with its target by the `test`
+module rather than by generic dependency traversal. A standalone
+declaration makes it an independently-declared target instead, and in an
+in-source build (`src_base` == `out_base`) that target sits right where a
+directory-scoped `b clean` (what the cppget.org publish queue runs against
+a plain, non-forwarded build) walks looking for things to clean.
+`testscript{}` has no `clean` rule (it is only ever *prepared* by the
+`test` operation), so this fails. `@./` is not the cause -- it only pins
+the target to `src` instead of the default `out` (see ["Src/out
+qualification"](../guides/build2-targets-variables.md#srcout-qualification)),
+which is separately required here since the physical file lives in `src`.
+
+**Fix:** Attach the runtime fixture as an `include = adhoc` prerequisite of
+the *test executable* instead of the testscript:
+```
+exe{unit-foo}: ../resources/exe{foo}: include = adhoc
+```
+See [test-runtime-fixtures.md](./test-runtime-fixtures.md). Confirmed and
+fixed this way upstream in `build2-reproc` (libreproc 14.2.7 -> 14.2.7+1).
+Reproduce locally with the expanded dist-test recipe in
+[packaging-guide-testing.md](../guides/packaging-guide-testing.md) rather
+than waiting on a publish-queue result.
+
 ### `error: unknown build system module <name>`
 
 **Cause:** The module name is misspelled, or the module is not part of the
@@ -282,6 +310,7 @@ a binless library is linked, `*.libs` is required.
 ## See Also
 
 - [`for-install-conflicts`](./for-install-conflicts.md) -- detailed for-install conflict resolution
+- [`test-runtime-fixtures`](./test-runtime-fixtures.md) -- attaching runtime fixtures without breaking `clean`
 - [`bpkg-dependency-negotiation`](../bpkg/bpkg-dependency-negotiation.md) -- how dependency version constraints are resolved
 - [`build2-modules-cc`](../guides/build2-modules-cc.md) -- cc module reference
 - [`bx`](../bx/bx.md) -- full bx option and script reference

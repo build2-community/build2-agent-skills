@@ -214,15 +214,16 @@ doc{INSTALL}@./: install = false
 ```
 
 Targets named on the left-hand side of a dependency default to **out**. Pure
-source files that are never generated (for example `INSTALL`, a
-`testscript{}`) must be pinned to **src** with `@./`. The same pattern
-applies when attaching prerequisites to a source testscript:
+source files that are never generated (for example `INSTALL`) must be pinned
+to **src** with `@./` for a variable assignment like the one above. See
+["Src/out qualification"](build2-targets-variables.md#srcout-qualification)
+for the general rule.
 
-```
-testscript{common}@./: ../resources/exe{helper}
-```
-
-See [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md).
+Do not use the same shape to give a `testscript{}` its own dependency
+declaration (`testscript{name}@./: <target>`), for example to attach a
+runtime fixture -- that breaks `b clean`. See
+[test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md#why-the-executable-not-the-testscript)
+for why, and the correct `include = adhoc` approach.
 
 ---
 

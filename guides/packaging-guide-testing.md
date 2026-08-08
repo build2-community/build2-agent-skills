@@ -146,7 +146,15 @@ This resolves the executable (and all other targets of that dependency) from
 the development tree rather than the install prefix, so it is not a fully
 pure installed-case test for that dependency.
 
-**Test the source distribution.** This is how `cppget.org` builds the package:
+**Test the source distribution.** This is how `cppget.org` builds the package.
+
+`bdep ci` (git-based) and the `cppget.org` publish-test step (archive-based)
+are **not equivalent**: git-based CI prepares the distribution differently
+and does not reliably catch buildfile-graph gaps -- missing-from-`buildfile`
+source files, targets unreachable from a directory's default `./:` set, or
+broken `clean` rules for targets only reachable via non-`./:` declarations
+(build2/build2#533). A green `bdep ci` is not sufficient on its own. Always
+run the full recipe below, including `clean`, before `bdep publish`:
 
 ```
 $ b dist config.dist.root=/tmp/dist config.dist.uncommitted=true
@@ -154,6 +162,7 @@ $ cd /tmp/dist/libfoo-<version>/
 $ b configure config.cxx=g++
 $ b update
 $ b test
+$ b clean
 $ rm -r /tmp/dist
 ```
 

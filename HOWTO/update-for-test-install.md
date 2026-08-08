@@ -58,13 +58,16 @@ testing. That includes:
 
 - The test executable and its link prerequisites
 - Associated `testscript{}` files (matched for update with the test)
-- Prerequisites of those testscripts (runtime fixtures attached there)
+- `include = adhoc` prerequisites of the test executable (runtime fixtures
+  attached that way, not via the testscript -- see
+  [test-runtime-fixtures.md](./test-runtime-fixtures.md))
 - Simple-test inputs marked with `test.stdin` / `test.stdout` / `test.input`
 
 It does **not** build non-test members of a directory merely because they
 appear on `./:`. If helper programs use `exe{*}: test = false`, they must be
-prerequisites of a testable target's testscript (or another path the test
-rule updates). See [test-runtime-fixtures.md](./test-runtime-fixtures.md).
+`include = adhoc` prerequisites of a testable target's executable (or another
+path the test rule updates). See
+[test-runtime-fixtures.md](./test-runtime-fixtures.md).
 
 ## See Also
 

@@ -113,6 +113,52 @@ doc{*}: extension = md
 ./: md{README PACKAGE-README INSTALL}
 ```
 
+### Src/out qualification
+
+Every build has two parallel directory trees, **src** and **out** (the same
+directory in an in-source build). A **target** named in a buildfile is, by
+default, resolved in **out**. **Prerequisites** (the right-hand side of a
+dependency) have no src/out notion of their own: they are resolved however
+their target type's rule prefers -- for `file{}`-based prerequisites, out is
+searched first and, failing that, an existing file in src is used. This is
+why ordinary source files listed as prerequisites (`exe{hello}: cxx{hello}`)
+never need any `@`-qualification: the fallback finds them in src on its own.
+
+The **elaborate target specification**, `<src-spec>@<out-spec>`, is for the
+cases where the out-by-default guess is wrong and a *target* (not a
+prerequisite) must resolve against a specific directory:
+
+```
+<src>@<out>
+```
+
+- On the command line, this pairs a source directory with an out-of-source
+  build directory, e.g. `b hello/@hello-out/`. See ["Out of source
+  builds"](build2-buildfile-language.md#out-of-source-builds).
+- Inside a buildfile, `@./` pins a target that is on the **left-hand side**
+  of a dependency declaration -- and would otherwise default to out -- to
+  the current directory's src tree instead. This comes up for pure source
+  files that are never generated, typically to attach a directory-scope
+  attribute to one:
+
+  ```
+  doc{INSTALL}@./: install = false
+  ```
+
+  Without `@./`, build2 would look for a generated `INSTALL` in **out**
+  and find nothing there to attach the variable to.
+
+**`@./` only changes which directory a target's path resolves against.** It
+has no bearing on whether writing `<target>: <prerequisite>` registers
+`<target>` as a target this buildfile independently declares -- that
+happens from the dependency declaration itself, regardless of `@`.
+Conflating the two is a real pitfall: see
+[test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md#why-the-executable-not-the-testscript)
+for a worked example where giving a `testscript{}` its own `@./`-qualified
+dependency declaration (instead of leaving it as an ordinary prerequisite)
+breaks `b clean`, even though the `@./` itself is correct and necessary
+there.
+
 ## Variable Types
 
 The following types can be used in buildfiles:
@@ -337,3 +383,5 @@ arguments, flags, and purity annotations, see
 - [build2 built-in functions reference](build2-functions.md)
 - [build2 manual summary](build2-intro-concepts.md)
 - [Directives, name patterns, and attributes](build2-directives-patterns.md)
+- [Buildfile language: out-of-source builds](build2-buildfile-language.md#out-of-source-builds) -- `@` on the command line
+- [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md) -- a real-world `@./` pitfall (breaking `b clean`)

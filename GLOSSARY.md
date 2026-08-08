@@ -141,6 +141,17 @@ scope are visible to nested scopes but not to parent scopes by default.
 The root scope of a project and its amalgamation scopes provide the
 configuration inheritance hierarchy.
 
+**src/out qualification** -- The `<src>@<out>` target specification that
+tells build2 explicitly which directory (src or out) a *target* resolves
+against, overriding the default of out. Used on the command line to pair a
+source directory with an out-of-source build directory (for example
+`b hello/@hello-out/`), and inside buildfiles, as `@./`, to pin a
+left-hand-side target that is a pure source file to the current directory's
+src tree (for example `doc{INSTALL}@./: install = false`). Prerequisites
+(the right-hand side of a dependency) have no src/out notion of their own
+and never need this qualification. See
+[build2-targets-variables.md](guides/build2-targets-variables.md#srcout-qualification).
+
 **stub** -- A minimal package that contains only a `manifest` file and no
 source code of its own. Stubs are used to represent system-provided libraries
 or tools in the bpkg dependency graph. A stub satisfies a dependency

@@ -79,18 +79,27 @@ exe{hello}: file{greetings.txt}: test.stdout = true
 
 `test.input` is currently available to **simple tests only**, not Testscript
 runs. Do not use it for Testscript runtime fixtures (child helpers discovered
-by path). Attach those as prerequisites of the testscript instead. See
-[test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md).
+by path). Attach those as `adhoc` prerequisites of the test executable
+instead. See [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md).
 
-### Runtime fixtures on the testscript
+### Runtime fixtures on the test executable
 
-Prerequisites of a `testscript{}` target are updated when the test is
-prepared. Pin a pure-src testscript with `@./` when it is the **left-hand**
-side of a dependency (LHS defaults to out):
+Attach built runtime fixtures (child-process helpers, generated data) as
+`include = adhoc` prerequisites of the **test executable**, not of the
+testscript:
 
 ```
-testscript{common}@./: ../resources/exe{helper}
+exe{unit-foo}: ../resources/exe{helper}: include = adhoc
 ```
+
+A testscript is normally only ever consumed as a prerequisite, associated
+with its target by the `test` module. Giving it its own dependency
+declaration instead (`testscript{name}@./: <target>`) makes it an
+independently-declared target, and `testscript{}` has no `clean` rule --
+so this breaks `b clean`. `@./` itself is not the cause (see ["Src/out
+qualification"](build2-targets-variables.md#srcout-qualification)); the
+full explanation is in
+[test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md#why-the-executable-not-the-testscript).
 
 ### Running tests
 

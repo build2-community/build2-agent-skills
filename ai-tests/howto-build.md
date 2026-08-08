@@ -135,10 +135,14 @@ from plain `update`, and what is an example invocation of each?
 
 **Key facts** (all must appear in a correct answer):
 - Mark fixture exes with `test = false` so they are not run as smoke tests.
-- Attach fixtures as prerequisites of the testscript, pinned with `@./`
-  (for example `testscript{common}@./: ../resources/exe{helper}`).
-- LHS targets default to out. Without `@./`, a pure-src testscript gets
-  "no rule to update".
+- Attach fixtures as `include = adhoc` prerequisites of the test executable,
+  not of the testscript (for example
+  `exe{unit-foo}: ../resources/exe{helper}: include = adhoc`).
+- Giving the testscript its own dependency declaration instead of only
+  listing it as a prerequisite (`testscript{name}@./: <target>`) makes it
+  an independently-declared target with no `clean` rule, breaking
+  `b clean`; `@./` itself is not the cause -- it only pins the target to
+  `src`.
 - `test.input` is for simple tests only: it updates the prereq and appends
   its path as an extra argv argument. It is not for Testscript path-based
   fixtures.
