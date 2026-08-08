@@ -338,22 +338,112 @@ configuration.
 | `build-warning-email` | `<email> [; <comment>]` | Email address for build warning and error notifications only. |
 | `build-error-email` | `<email> [; <comment>]` | Email address for build error notifications only. |
 
-**`builds` class expression syntax:**
+**`builds` class expression grammar:**
 
 ```
-builds: none                        ; No configurations.
-builds: all                         ; All configurations.
-builds: all : &host                 ; All host configurations.
-builds: default                     ; Default configurations (implied if absent).
-builds: -windows                    ; Default except Windows.
-builds: all : -windows              ; All except Windows.
-builds: all : &gcc                  ; All with GCC only.
-builds: all : &gcc &( +linux +macos ) ; All GCC on Linux or Mac OS.
+[builds]: [<class-uset> ':' ] [<class-expr>] [; <comment>]
+
+<class-uset> = <class-name> [ <class-name>]*
+<class-expr> = <class-term> [ <class-term>]*
+<class-term> = ('+'|'-'|'&')['!'](<class-name> | '(' <class-expr> ')')
 ```
 
-The optional underlying class set before `:` defines the base. The expression
-uses `+` (add), `-` (subtract), `&` (intersect), optionally followed by `!`
-to invert. The first `builds` value may specify the underlying set.
+The optional underlying class set (`<class-uset>`) before `:` defines which
+configurations to start from. If omitted, the `default` class is used.
+The class expression then adds (`+`), subtracts (`-`), or intersects (`&`)
+sets. Appending `!` to an operator inverts the operand against the underlying
+set. The colon and any parentheses must be separated from adjacent terms by
+spaces.
+
+**`builds` expression examples:**
+
+```
+builds: none                          ; None.
+builds: all                           ; All (suitable for libraries).
+builds: all : &host                   ; All host (suitable for tools).
+builds: default                       ; All default.
+builds: default : &host               ; Default host.
+builds: default legacy                ; All default and legacy.
+builds: -windows                      ; Default except Windows.
+builds: all : -windows                ; All except Windows.
+builds: all : -mobile                 ; All except mobile.
+builds: all : &gcc                    ; All with GCC only.
+builds: all : &gcc-8+                 ; All with GCC 8 and up only.
+builds: all : &gcc -optimized         ; All GCC without optimization.
+builds: all : &gcc &( +linux +macos ) ; All GCC on Linux and Mac OS.
+```
+
+Multiple `builds:` values are evaluated in order as a single expression.
+Only the first value may specify the underlying set. Using multiple values
+lets each part carry its own comment:
+
+```
+builds: default experimental ; Only modern compilers are supported.
+builds: -gcc                 ; GCC is not supported.
+builds: -clang               ; Clang is not supported.
+```
+
+**Pre-defined class names:**
+
+The following class names are pre-defined in every build bot deployment:
+
+| Class | Meaning |
+|-------|---------|
+| `none` | Empty set -- disables all automated builds |
+| `default` | Default build configurations (assumed when `builds:` is absent) |
+| `all` | All available configurations |
+| `host` | Host configurations (tools that run on the build machine) |
+| `build2` | build2 tool configurations |
+
+Additional class names (`linux`, `windows`, `macos`, `freebsd`, `gcc`,
+`clang`, `msvc`, `static`, `optimized`, `legacy`, `mobile`, etc.) are defined
+per build-bot deployment. For the complete list on cppget.org, see
+https://ci.cppget.org/?build-configs.
+
+**`build-include` and `build-exclude` wildcard patterns:**
+
+After all `builds:` values are evaluated, `build-include:` and
+`build-exclude:` patterns further refine the set. The `<config>` and optional
+`<target>` components are filesystem wildcard patterns matched against the
+build target configuration name and target name respectively:
+
+- `*` matches zero or more characters within a single name component.
+- `**` matches across name component boundaries.
+- A wildcard-only pattern component also matches an absent component.
+
+Examples:
+
+```
+build-exclude: windows**    ; matches windows_10-msvc_15
+build-exclude: macos*-gcc** ; matches macos_10.13-gcc_8.1-O3
+build-exclude: linux-gcc*-* ; matches linux-gcc_8.1 and linux-gcc_8.1-O3
+```
+
+Patterns are applied in the order listed. The first matching pattern
+determines whether the package is built for that configuration and target.
+If no pattern matches, the package is built.
+
+The comment on the matching exclusion pattern is displayed by brep in the web
+interface as the reason for the build configuration exclusion.
+
+**Platform whitelist ("only platform X"):**
+
+```
+build-include: linux**
+build-exclude: ** ; Only supported on Linux.
+```
+
+No `builds:` line is needed here. Omitting `builds:` defaults to `default`,
+and `build-exclude: **` already excludes every configuration that does not
+match `linux**`. Adding `builds: default` explicitly would be redundant.
+
+**Target filter in patterns:**
+
+The pattern may include a `/`-separated target triplet component:
+
+```
+build-exclude: *-msvc_14**/i?86-** ; Linker crash.
+```
 
 **Per-configuration overrides** (`*-build-config`):
 

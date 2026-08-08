@@ -97,6 +97,7 @@ use the table below to jump directly to the relevant file.
 | Set up cross-compilation with target triplets | [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md) |
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
 | Set up a CI/CD pipeline for a build2 project | [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md) |
+| Filter automated CI builds for specific platforms | [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md) |
 | Set up build2 for toolchain development | [HOWTO/toolchain-dev-setup.md](HOWTO/toolchain-dev-setup.md) |
 | Scaffold a new bpkg package directory | [scripts/new-package.sh](scripts/new-package.sh) |
 | Run .bx scripts or named tasks | [bx/bx.md](bx/bx.md) |

@@ -193,6 +193,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [bpkg package naming, version format, and constraint syntax](guides/bpkg-package-name-version.md)
 - [packaging guide: version management workflows](guides/packaging-guide-version-management.md)
 - [packaging guide: common antipatterns and upstream patching](guides/packaging-guide-antipatterns.md)
+- [HOWTO: CI build filtering with builds:, build-include:, build-exclude:](HOWTO/builds-ci-filtering.md)
 - [autoconf module](guides/build2-modules-autoconf.md)
 - [autoconf: project-specific checks](guides/build2-autoconf-project-checks.md)
 - [autoconf: buildfile integration](guides/build2-autoconf-buildfile.md)

@@ -72,3 +72,69 @@ in a manifest `depends` field?
 - The package is built for default configurations.
 
 **Source:** `bpkg/bpkg-manifest-reference.md`
+
+
+## T007 -- builds class expression grammar
+
+**Query:** What is the grammar for the `builds:` manifest field value?
+
+**Key facts** (all must appear in a correct answer):
+- An optional underlying class set before `:` defines the base configuration set.
+- The class expression is a space-separated list of terms evaluated left to right.
+- Each term begins with `+` (add), `-` (subtract), or `&` (intersect).
+- Appending `!` to the operator inverts the operand against the underlying set.
+- A term may be a class name or a parenthesized sub-expression.
+
+**Source:** `bpkg/bpkg-manifest-reference.md`
+
+
+## T008 -- build-include/build-exclude first-match-wins rule
+
+**Query:** In what order are `build-include` and `build-exclude` patterns
+applied, and what happens when none of them match?
+
+**Key facts** (all must appear in a correct answer):
+- Patterns are applied in the order they appear in the manifest.
+- The first matching pattern determines whether the package is built for that configuration.
+- If no pattern matches, the package is built.
+
+**Source:** `bpkg/bpkg-manifest-reference.md`
+
+
+## T009 -- platform whitelist without redundant builds: default
+
+**Query:** How do you restrict a package to build only on Linux using
+`build-include:` and `build-exclude:`, and is a `builds: default` line needed?
+
+**Key facts** (all must appear in a correct answer):
+- Use `build-include: linux**` followed by `build-exclude: **`.
+- No `builds:` line is needed.
+- Omitting `builds:` defaults to `default`, and `build-exclude: **` makes
+  an explicit `builds: default` redundant.
+
+**Source:** `bpkg/bpkg-manifest-reference.md`
+
+
+## T010 -- pre-defined class names
+
+**Query:** Which build target configuration class names are guaranteed to be
+pre-defined in every build bot deployment?
+
+**Key facts** (all must appear in a correct answer):
+- `none`, `default`, `all`, `host`, and `build2` are always pre-defined.
+- Additional class names such as `linux`, `windows`, `macos` vary by
+  build-bot deployment.
+
+**Source:** `bpkg/bpkg-manifest-reference.md`
+
+
+## T011 -- evaluation order of builds: and build-include:/build-exclude:
+
+**Query:** In what order are `builds:`, `build-include:`, and
+`build-exclude:` evaluated when all three are present?
+
+**Key facts** (all must appear in a correct answer):
+- `builds:` values are evaluated first to produce the initial configuration set.
+- `build-include:` and `build-exclude:` patterns then refine that set.
+
+**Source:** `bpkg/bpkg-manifest-reference.md`
