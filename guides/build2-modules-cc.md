@@ -285,11 +285,42 @@ c.predefs.poptions = true
 
 Variables controlling the rule:
 
-- `[bool] *.predefs.poptions` -- include `*.poptions` in compiler invocation
+- `[bool] *.predefs.poptions` -- include `*.poptions` in compiler invocation;
+  no default, must be set explicitly (omitting it fails with
+  `error: explicit c.predefs.poptions must be specified for <target>`)
 - `[string] *.predefs.default` -- default value for macros with no value
 - `[string_map] *.predefs.macros` -- macros to extract (with optional rename)
 
 Example rename syntax: `c.predefs.macros = FOO __SIZEOF_SIZE_T__@SIZEOF_SIZE_T`
+
+### Consuming a Buildfile Predefs Output
+
+The `buildfile{}` output form is meant to be loaded into the current
+buildfile's scope with the `update`/`source` directives (see
+[`update`/`source`](build2-directives-patterns.md#update)), not compiled
+(the `h{}` form) or parsed by external tooling (the `json{}` form) -- it is
+the only one of the three that is `source`d. Typical round trip: extract a
+macro from a vendored header, load it, and reference the resulting plain
+variable later in the same buildfile:
+
+```
+# buildfile
+
+cxx.predefs.poptions = true
+
+[rule_hint=cxx.predefs] buildfile{predefs}: h{vendor-config}
+{
+  cxx.predefs.macros = VENDOR_VERSION
+}
+
+if ($build.meta_operation == 'perform')
+{
+  update buildfile{predefs}
+  source $path(buildfile{predefs})
+}
+
+print $VENDOR_VERSION
+```
 
 ### Importation of Installed Libraries
 
@@ -457,3 +488,4 @@ alternative:
 - [`build2-modules-c.md`](build2-modules-c.md) -- c module: C-specific compilation
 - [`build2-modules-cxx.md`](build2-modules-cxx.md) -- cxx module: C++ compilation, cross-compilation, options reference
 - [`build2-modules-core.md`](build2-modules-core.md) -- core modules (config, test, install, dist)
+- [`build2-directives-patterns.md`](build2-directives-patterns.md#update) -- `update`/`source` directives used to consume a `buildfile{}` predefs output

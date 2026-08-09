@@ -160,6 +160,43 @@ h{config}: in{config}
 }
 ```
 
+When a value is more than a single bare token -- for example, hyphenated or
+built from `$variable` interpolation -- quote the *value*, not the whole
+`key@value` pair: `key@"value"` is correct. Quoting the whole element
+(`"key@value"`) silently breaks the internal `@`-split: it does not error at
+the `in.substitutions` assignment, it instead surfaces later as a generic
+`undefined variable 'key'` error at the `.in` file's substitution site,
+indistinguishable from never having supplied that substitution at all.
+
+`strict` mode (the default) is what you want for `in.substitutions` entries
+whose keys aren't valid buildfile variable identifiers (hyphenated, leading
+underscore, etc) -- `strict` still resolves them correctly via
+`in.substitutions`. Reach for `lax` only when the `.in` file also has
+*other*, unrelated `$...$`-shaped text that should pass through unresolved
+(the autoconf-adaptation case shown above), not merely because a key's name
+isn't a valid buildfile identifier: under `lax`, a hyphenated reference such
+as `$my-hyphenated-key$` is silently judged to "not look like a variable
+name" and copied through verbatim with no error at all, which is a second,
+independent way the same habit of reaching for `lax` can silently produce
+wrong output.
+
+```
+/* config.h.in */
+
+#define VERSION_STRING "$my-hyphenated-key$"
+```
+
+```
+# buildfile
+
+version = '1.2.3'
+
+h{config}: in{config}
+{
+  in.substitutions = my-hyphenated-key@"some-$version-value"
+}
+```
+
 Allow null substitutions to produce an empty string:
 
 ```

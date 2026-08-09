@@ -90,6 +90,10 @@ if ($build.meta_operation == 'perform')
 }
 ```
 
+See [`c.predefs`/`cxx.predefs`](build2-modules-cc.md#consuming-a-buildfile-predefs-output)
+for a worked example of this pattern applied to a `buildfile{}` predefs
+output.
+
 ### `if` / `elif` / `else`
 
 ```
@@ -357,3 +361,4 @@ hxx{config}: in{config}
 - [build2 targets and variables](build2-targets-variables.md)
 - [build2 buildfile language reference](build2-buildfile-language.md)
 - [build2 manual summary](build2-intro-concepts.md)
+- [`build2-modules-cc.md`](build2-modules-cc.md#consuming-a-buildfile-predefs-output) -- worked `update`/`source` example for a `c.predefs`/`cxx.predefs` `buildfile{}` output
