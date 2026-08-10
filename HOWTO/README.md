@@ -42,6 +42,7 @@ Condensed, AI-indexed versions of the
 |------|-------|
 | [convert-source-to-utf8.md](./convert-source-to-utf8.md) | Converting source file encoding to UTF-8 |
 | [package-naming.md](./package-naming.md) | Naming packages for third-party projects |
+| [package-changes-file.md](./package-changes-file.md) | Packaging an upstream changelog with a non-canonical name |
 | [package-version-non-semver.md](./package-version-non-semver.md) | Projects that don't use semantic versioning |
 | [package-version-none.md](./package-version-none.md) | Projects with no version at all |
 | [third-party-private-headers.md](./third-party-private-headers.md) | Private implementation headers and generated config headers shared across internal targets |

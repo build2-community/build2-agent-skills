@@ -76,6 +76,7 @@ use the table below to jump directly to the relevant file.
 | Packaging version management (new revision, new version) | [guides/packaging-guide-version-management.md](guides/packaging-guide-version-management.md) |
 | Packaging antipatterns, what not to do | [guides/packaging-guide-antipatterns.md](guides/packaging-guide-antipatterns.md) |
 | Handle private headers when packaging a third-party project | [HOWTO/third-party-private-headers.md](HOWTO/third-party-private-headers.md) |
+| Package an upstream changelog with a non-canonical name | [HOWTO/package-changes-file.md](HOWTO/package-changes-file.md) |
 | bpkg package name rules, version format, constraint syntax | [guides/bpkg-package-name-version.md](guides/bpkg-package-name-version.md) |
 | Install or bootstrap the toolchain | [guides/install-bootstrap.md](guides/install-bootstrap.md) |
 | Install toolchain from repository (step 3) | [guides/install-toolchain.md](guides/install-toolchain.md) |

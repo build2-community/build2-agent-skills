@@ -196,6 +196,14 @@ filling in those `manifest` fields by hand in Step 3 instead.
 
 Only symlink files upstream actually provides.
 
+If the upstream changelog's basename doesn't match one of the recognized
+names (for example `ChangeLog (Historical).txt`), auto-detection simply
+doesn't fire. There is no requirement to rename or symlink it under a
+canonical name: `changes-file:` accepts an arbitrary path, so it can be set
+by hand in Step 3 to the file's actual name. See
+[package-changes-file](../HOWTO/package-changes-file.md) for the full recipe,
+including the Step 4 `doc{}` listing that's also required.
+
 Use `bdep new --package` with sub-options to generate a layout that matches
 upstream. Iterate until satisfied, deleting and re-running rather than manually
 editing, since the generated templates have years of refinement.
@@ -300,6 +308,11 @@ Adjust as needed:
 - Do not build main targets (libraries, executables) in the root `buildfile`.
   Instead keep them in a subdirectory `buildfile`. Loading the root `buildfile`
   during target importation would otherwise wastefully load all subprojects.
+- A file referenced by `changes-file:` in the `manifest` (Step 3) must
+  independently be listed here as a `doc{}` prerequisite to be picked up by
+  `dist`/install. The two mechanisms are unrelated: `changes-file:` only
+  controls what bpkg/brep read as package changes metadata. See
+  [package-changes-file](../HOWTO/package-changes-file.md).
 
 
 ## Step 5: Write Source Buildfiles

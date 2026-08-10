@@ -139,6 +139,7 @@
 - [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md): Testing an imported executable -- `test` variable override, `build/export.build` prerequisite, update ordering, `clean`-safety, the broken alternative LHS form.
 - [HOWTO/convert-source-to-utf8.md](HOWTO/convert-source-to-utf8.md): Converting source file encoding to UTF-8.
 - [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects.
+- [HOWTO/package-changes-file.md](HOWTO/package-changes-file.md): Packaging an upstream changelog with a non-canonical name, changes-file vs doc{}.
 - [HOWTO/package-version-non-semver.md](HOWTO/package-version-non-semver.md): Projects that don't use semantic versioning.
 - [HOWTO/package-version-none.md](HOWTO/package-version-none.md): Projects with no version at all.
 - [HOWTO/third-party-private-headers.md](HOWTO/third-party-private-headers.md): Private implementation headers and generated config headers shared across internal targets in third-party packages.
