@@ -3,7 +3,7 @@
 Source documentation: `HOWTO/cross-compilation.md`, `HOWTO/generated-headers.md`,
 `HOWTO/multiple-configurations.md`, `HOWTO/config-independent-build-graph.md`,
 `HOWTO/target-metadata.md`, `HOWTO/for-install-conflicts.md`,
-`HOWTO/update-for-test-install.md`
+`HOWTO/update-for-test-install.md`, `HOWTO/conditional-dependency-config.md`
 
 
 ## T001 -- Cross-compilation: detecting the target platform in buildfiles
@@ -150,3 +150,27 @@ from plain `update`, and what is an example invocation of each?
   `update-for-test`.
 
 **Source:** `HOWTO/test-runtime-fixtures.md`
+
+
+## T009 -- bdep init -C: cfg-args vs pkg-args for conditional dependencies
+
+**Query:** When using `bdep init -C` to create a build configuration, where must
+a package config variable like `config.libfoo.cuda=true` be placed if it is
+needed to activate a conditional `depends:` entry, and what happens if it is
+placed in the wrong position?
+
+**Key facts** (all must appear in a correct answer):
+- `bdep init -C` splits arguments into `<cfg-args>` (before `--`) and `<pkg-args>`
+  (after `--`).
+- `<cfg-args>` are forwarded to `bpkg cfg-create`; `<pkg-args>` are forwarded to
+  `bpkg pkg-build`.
+- Package config variables (e.g. `config.libfoo.cuda=true`) must go in `<pkg-args>`,
+  after `--`.
+- If placed in `<cfg-args>`, `bpkg cfg-create` has no schema for them and silently
+  drops them; no error or warning is emitted.
+- The conditional dependency then evaluates to the declared default (usually
+  `false`) and the optional feature is not installed.
+- When there are no `<cfg-args>` but there are `<pkg-args>`, two `--` separators
+  are required.
+
+**Source:** `HOWTO/conditional-dependency-config.md`

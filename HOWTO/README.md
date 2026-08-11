@@ -55,6 +55,7 @@ Condensed, AI-indexed versions of the
 | [cross-compilation.md](./cross-compilation.md) | Setting up a cross-compilation configuration with target triplets |
 | [ci-cd-setup.md](./ci-cd-setup.md) | Typical CI pipeline using bdep update/test |
 | [builds-ci-filtering.md](./builds-ci-filtering.md) | Filtering automated CI builds with `builds:`, `build-include:`, and `build-exclude:` |
+| [conditional-dependency-config.md](./conditional-dependency-config.md) | Passing package config variables via `bdep init -C` for conditional dependencies |
 
 ## Migrating to build2
 

@@ -147,6 +147,7 @@
 - [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md): Setting up a cross-compilation configuration with target triplets.
 - [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md): Typical CI pipeline using bdep update/test.
 - [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md): CI build filtering recipes -- builds: class expressions, build-include/build-exclude patterns, common whitelist/blacklist recipes.
+- [HOWTO/conditional-dependency-config.md](HOWTO/conditional-dependency-config.md): Package config variables in `bdep init -C` -- cfg-args vs pkg-args, conditional dependency activation, two-separator form.
 - [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md): Porting a CMake project to build2 buildfiles.
 - [HOWTO/toolchain-dev-setup.md](HOWTO/toolchain-dev-setup.md): Setting up build2 for toolchain development.
 - [HOWTO/write-build2-rule.md](HOWTO/write-build2-rule.md): Writing a custom build2 rule -- match(), apply(), recipe function, and registering with insert_rule().
