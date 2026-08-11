@@ -50,6 +50,46 @@ $out_root/
 export $out_root/repro-tool/exe{repro-tool}
 ```
 
+## Named testscript files
+
+A testscript does not have to use the reserved default filename (`testscript`). A
+file named `trtexec.testscript` becomes `testscript{trtexec}` in buildfile syntax,
+and the pattern must be adjusted for out-of-source builds. Add `@./`
+src-qualification to both places:
+
+```
+# tests/build/root.build
+import t = repro-tool%exe{repro-tool}
+testscript{trtexec}@./: test = $t
+```
+
+```
+# tests/buildfile
+./: testscript{trtexec}@./ $t
+```
+
+Omitting `@./` from either line causes build2 to look in the out tree, where no
+such target exists, and fail:
+
+```
+error: no rule to update testscript{trtexec} (implicitly declared in a buildfile)
+```
+
+**Why the default filename does not need `@./`.** The wildcard form
+`testscript{*}: test = $t` sets a variable on any testscript target that is
+resolved, without declaring a specific target itself. The prerequisite reference
+`testscript` (no type qualifier) in `./: testscript $t` uses the file-based
+out-then-src fallback: build2 searches out first, then falls back to an existing
+file in src, finding the source file there.
+
+By contrast, `testscript{trtexec}: test = $t` (without `@./`) implicitly declares
+a specific target in the out tree -- where the file does not exist and there is no
+rule to create it. `@./` on the left-hand side pins the declaration to the src tree
+instead. The matching `@./` on the prerequisite line ensures the reference resolves
+to that same src-tree target rather than looking for an out-tree one. See
+[build2-targets-variables.md#srcout-qualification](../guides/build2-targets-variables.md#srcout-qualification)
+for the full src/out target-resolution rules.
+
 ## Ordering: why the `./:` prerequisite matters
 
 `test = $t` only tells the test rule *what* to run -- it resolves `$t` with

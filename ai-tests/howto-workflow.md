@@ -161,3 +161,28 @@ must you add to avoid an "out of date" test failure?
   "target ... specified in the test variable is out of date".
 
 **Source:** `HOWTO/test-imported-executable.md`
+
+
+## T010 -- Named testscript files and @./ qualification
+
+**Query:** What changes when using a named testscript file (e.g.,
+`trtexec.testscript`) instead of the default `testscript` filename with an imported
+executable in an out-of-source build?
+
+**Key facts** (all must appear in a correct answer):
+- Named testscript targets use an explicit type qualifier (`testscript{trtexec}`),
+  which causes build2 to declare them in the out tree by default -- unlike the
+  unqualified `testscript` filename.
+- `@./` is required on the variable-assignment line in `root.build`:
+  `testscript{trtexec}@./: test = $t`
+- `@./` is required on the prerequisite reference in `buildfile`:
+  `./: testscript{trtexec}@./ $t`
+- Without `@./`, build2 implicitly declares an out-tree target that has no rule,
+  and errors with "no rule to update testscript{trtexec} (implicitly declared in a
+  buildfile)".
+- The default `testscript` filename does not need `@./` because the wildcard form
+  `testscript{*}: test = $t` does not declare a specific target, and the unqualified
+  prerequisite `testscript` uses the file-based out-then-src fallback to find the
+  source file.
+
+**Source:** `HOWTO/test-imported-executable.md`
