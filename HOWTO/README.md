@@ -46,6 +46,7 @@ Condensed, AI-indexed versions of the
 | [package-version-non-semver.md](./package-version-non-semver.md) | Projects that don't use semantic versioning |
 | [package-version-none.md](./package-version-none.md) | Projects with no version at all |
 | [third-party-private-headers.md](./third-party-private-headers.md) | Private implementation headers and generated config headers shared across internal targets |
+| [require-dependency-feature.md](./require-dependency-feature.md) | Requiring a dependency boolean feature with `require` (not `reflect`) |
 
 ## Build configurations
 

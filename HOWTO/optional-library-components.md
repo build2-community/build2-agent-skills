@@ -38,3 +38,4 @@ multiple libraries" arrangement -- see `libasio` and `libevent` on
 - [build2 core modules: config](../guides/build2-modules-core.md) -- config variables and persistence
 - [build2-modules-bin.md](../guides/build2-modules-bin.md) -- lib/liba/libs target types
 - [target-metadata.md](./target-metadata.md)
+- [require-dependency-feature.md](./require-dependency-feature.md)

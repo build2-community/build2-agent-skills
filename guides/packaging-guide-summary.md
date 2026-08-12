@@ -433,6 +433,29 @@ For a co-located package in the same repository, use `== $`:
 depends: libfoo == $
 ```
 
+**Requiring a dependency feature.** If this package needs a boolean feature of
+a dependency turned on (including a sibling), use a multi-line `depends` with
+`require` alone. `require` sets the *dependency's* bool config to `true`. Do
+not add `reflect` unless this package must read the negotiated value in a
+later `depends` or in its own buildfile.
+
+```
+depends:
+\
+liblodepng == $
+{
+  require
+  {
+    config.liblodepng.cpp = true
+  }
+}
+\
+```
+
+See [require-dependency-feature](../HOWTO/require-dependency-feature.md). For
+`prefer`/`accept` and the negotiation loop, see
+[bpkg-dependency-negotiation](../bpkg/bpkg-dependency-negotiation.md).
+
 **Synchronize build configurations** after editing `manifest` ([`bdep sync`](../bdep/bdep-sync.md)):
 
 ```
@@ -504,3 +527,4 @@ $ b install config.install.root=/tmp/install
 - [bdep-init](../bdep/bdep-init.md)
 - [bdep-sync](../bdep/bdep-sync.md)
 - [third-party-private-headers](../HOWTO/third-party-private-headers.md)
+- [require-dependency-feature](../HOWTO/require-dependency-feature.md)

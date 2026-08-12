@@ -1,6 +1,6 @@
 # Tests: packaging -- third-party packaging workflow
 
-Source documentation: `guides/packaging-guide-summary.md`, `guides/packaging-guide-version-management.md`, `bdep/bdep-publish.md`, `bdep/bdep-release.md`
+Source documentation: `guides/packaging-guide-summary.md`, `guides/packaging-guide-version-management.md`, `bdep/bdep-publish.md`, `bdep/bdep-release.md`, `HOWTO/require-dependency-feature.md`
 
 
 ## T001 -- Third-party repo layout
@@ -92,3 +92,33 @@ what is added to it?
   authorized to publish the archive under the package name.
 
 **Source:** `bdep/bdep-publish.md`
+
+
+## T007 -- require vs reflect
+
+**Query:** In a multi-line `depends` clause, what is the difference between
+`require` and `reflect`?
+
+**Key facts** (all must appear in a correct answer):
+- `require` sets the dependency's `bool` config vars to `true`.
+- `reflect` copies a negotiated value into the dependent's own `config.*`
+  vars.
+- `require` and `reflect` are not a pair.
+- A `depends` alternative is `require` or `prefer`/`accept`, and optionally
+  `reflect` after that.
+
+**Source:** `HOWTO/require-dependency-feature.md`
+
+
+## T008 -- require alone is valid
+
+**Query:** How do you turn on a sibling package's boolean feature from a
+`depends` entry, and do you need `reflect`?
+
+**Key facts** (all must appear in a correct answer):
+- Use a multi-line `depends` with `require` alone.
+- Example shape: `require { config.liblodepng.cpp = true }`.
+- Do not add `reflect` unless this package must read the negotiated value in
+  a later `depends` or in its own buildfile.
+
+**Source:** `HOWTO/require-dependency-feature.md`

@@ -159,6 +159,11 @@ must follow all `depends` values in the manifest.
 
 ## Examples
 
+`require` and `reflect` are not a pair. Use `require` (or `prefer`/`accept`)
+to influence the dependency. Add `reflect` only if this package needs the
+negotiated value in a later `depends` or in its own buildfile. See
+[require-dependency-feature](../HOWTO/require-dependency-feature.md).
+
 ### Require a boolean feature to be enabled
 
 ```
@@ -297,3 +302,4 @@ depends: libbar ^1.0.0 ? ($config.hello.libfoo_cache)
 
 - [bpkg README](README.md)
 - [bpkg-pkg-build](bpkg-pkg-build.md)
+- [require-dependency-feature](../HOWTO/require-dependency-feature.md)

@@ -273,6 +273,12 @@ Clause semantics:
 In `require`/`prefer` you set the **dependency's** config vars. In `reflect`
 you set the **dependent's** config vars.
 
+`require` and `reflect` are not a pair. A `depends` alternative is `require`
+or `prefer`/`accept`, and optionally `reflect` after that. Use `require` (or
+`prefer`/`accept`) to influence the dependency. Add `reflect` only if this
+package needs the negotiated value in a later `depends` or in its own
+buildfile. See [require-dependency-feature](../HOWTO/require-dependency-feature.md).
+
 ### `constrains`
 
 ```
@@ -537,3 +543,4 @@ skeleton when the package list manifest is created.
 
 - [bpkg README](README.md)
 - [packaging guide](../guides/packaging-guide-summary.md)
+- [require-dependency-feature](../HOWTO/require-dependency-feature.md)
