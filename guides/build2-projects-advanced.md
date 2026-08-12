@@ -41,6 +41,43 @@ b hello/ config.import.libhello=libhello/
 b configure: hello/ config.import.libhello=libhello-clang/
 ```
 
+### Immediate import: `import!` and `import?`
+
+Plain `import` is deferred: the two-step search above (subprojects/
+amalgamations, then rule-specific search) runs later, when the target that
+consumes `$libs` is matched. `import!` and `import?` are immediate instead:
+resolution happens right at the directive, before any target has been
+matched. `import!` fails the build if the target isn't found, while `import?`
+is optional (analogous to `using?`) and assigns `null` instead:
+
+```
+import? libs = libhello%lib{hello}
+
+if ($libs != [null])
+  info "libhello found"
+```
+
+Because immediate import runs before rule matching, there is no target yet to
+drive rule-specific search, so it is skipped by default: only
+`config.import.*` overrides and subproject/amalgamation search apply (plus,
+for `exe{}` targets, a `PATH` fallback). To reach rule-specific search (for
+example the link rule's [installed library
+search](build2-modules-cc.md#importation-of-installed-libraries)), nominate
+the rule explicitly with `rule_hint`:
+
+```
+import? [rule_hint=cxx.link] libs = libhello%lib{hello}
+```
+
+The `metadata` attribute (see
+[target-metadata.md](../HOWTO/target-metadata.md)) is likewise only valid
+with `import!`/`import?`, since loading metadata requires the target to be
+resolved immediately:
+
+```
+import! [metadata, rule_hint=cxx.link] lh = libhello%lib{hello}
+```
+
 ### Export stub
 
 For a project to be importable it needs `build/export.build`:

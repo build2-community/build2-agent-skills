@@ -40,17 +40,28 @@ using install
 ### `import`
 
 ```
-import [!] <var> = <project>%<target>
+import [!|?] <var> = <project>%<target>
 ```
 
 Import a target from another project. The build system locates the project
-and makes its exported target available as the value of `<var>`. Using `!`
-makes the import required (error if not found):
+and makes its exported target available as the value of `<var>`. Plain
+`import` is deferred: resolution (including rule-specific search, such as an
+installed library found by the link rule) happens later, when the importing
+target is matched. `!` and `?` both make the import immediate: resolved right
+at the directive instead. `!` also makes it required (error if not found),
+while `?` makes it optional (analogous to `using?`) and assigns `<var>` to
+`null` instead of failing:
 
 ```
 import  libs = libhello%lib{hello}
 import! foo  = foo%exe{foo}
+import? cli  = cli%exe{cli}
 ```
+
+Immediate import skips rule-specific search unless a `rule_hint` attribute
+nominates a rule. See
+[build2-projects-advanced.md](build2-projects-advanced.md#immediate-import-import-and-import)
+for the full explanation and the `metadata` attribute.
 
 ### `include`
 

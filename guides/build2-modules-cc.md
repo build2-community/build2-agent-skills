@@ -354,6 +354,30 @@ names, such as zlib:
 import libs = zlib%lib{z}
 ```
 
+This search is rule-specific (provided by the link rule), so it only runs
+automatically for plain (deferred) `import`. For `import!`/`import?`
+(immediate import), nominate the rule explicitly with `rule_hint=cxx.link`
+(or `c.link`). See
+[build2-projects-advanced.md](build2-projects-advanced.md#immediate-import-import-and-import).
+
+On systems where the package manager does not install into the compiler's
+default search path (Homebrew on macOS being the common case), this search
+finds nothing until `config.cc.poptions`/`config.cc.loptions` add the prefix
+explicitly:
+
+```
+config.cc.poptions=-I$(brew --prefix)/include
+config.cc.loptions=-L$(brew --prefix)/lib
+```
+
+bpkg's `sys:` scheme does not set these paths itself, so it doesn't help
+here. Where a library still isn't found, an ad hoc
+`config.import.<proj>.<name>.libs=$(brew --prefix)/lib/lib....dylib` override
+can point directly at the installed binary. Prefer `libs{}` over `lib{}` in
+the import if the system's own `.pc` file self-lists a `-l` option for the
+same library, which otherwise triggers an import cycle (seen with Homebrew's
+SDL2 / sdl2-compat).
+
 #### Sysroot Rewriting for Installed Libraries
 
 For cross-compilation scenarios where libraries are installed into a sysroot:
