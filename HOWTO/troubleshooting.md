@@ -141,6 +141,20 @@ configuration, or specify the location explicitly:
 b configure: hello/ config.import.libhello=libhello/
 ```
 
+### `undefined reference to <symbol>` (GNU ld)
+
+**Cause:** On an `exe{}` or `libs{}` target, a library prerequisite was listed
+before the object or source that references it. The `c.link` / `cxx.link`
+rule preserves that order on the linker command line. GNU ld is single-pass
+on static archives, so `$libs` first then the `.o` drops the archive.
+
+**Fix:** List object and source prerequisites before `$libs`:
+```
+exe{x}: cxx{x} $libs
+```
+Split declarations append, so `exe{x}: $libs` then `exe{x}: cxx{x}` is the
+same bug. See [link-prerequisite-order.md](./link-prerequisite-order.md).
+
 ---
 
 ## bpkg errors

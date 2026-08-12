@@ -48,4 +48,5 @@ config.cxx="g++ -pthread"
 
 - [build2-modules-cc.md](../guides/build2-modules-cc.md) -- *.libs variables and link options
 - [link-system-library.md](./link-system-library.md)
+- [link-prerequisite-order.md](./link-prerequisite-order.md)
 - [buildfile-compile-options.md](./buildfile-compile-options.md)

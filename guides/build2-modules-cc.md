@@ -513,3 +513,4 @@ alternative:
 - [`build2-modules-cxx.md`](build2-modules-cxx.md) -- cxx module: C++ compilation, cross-compilation, options reference
 - [`build2-modules-core.md`](build2-modules-core.md) -- core modules (config, test, install, dist)
 - [`build2-directives-patterns.md`](build2-directives-patterns.md#update) -- `update`/`source` directives used to consume a `buildfile{}` predefs output
+- [`link-prerequisite-order.md`](../HOWTO/link-prerequisite-order.md) -- sources before `$libs` on linked `exe{}` and `libs{}`

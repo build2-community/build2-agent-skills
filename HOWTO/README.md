@@ -23,6 +23,7 @@ Condensed, AI-indexed versions of the
 | [library-provides-main.md](./library-provides-main.md) | Library that provides `main()` |
 | [link-pthread.md](./link-pthread.md) | Linking `pthread` |
 | [link-system-library.md](./link-system-library.md) | Linking system libraries (`-lm`, `-ldl`, `advapi32.lib`) |
+| [link-prerequisite-order.md](./link-prerequisite-order.md) | Prerequisite order on link-rule targets (sources before `$libs`) |
 | [optional-library-components.md](./optional-library-components.md) | Making library components optional |
 | [target-metadata.md](./target-metadata.md) | Exporting metadata with executables and libraries |
 

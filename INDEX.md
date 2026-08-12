@@ -197,6 +197,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [HOWTO: CI build filtering with builds:, build-include:, build-exclude:](HOWTO/builds-ci-filtering.md)
 - [HOWTO: package config variables in `bdep init -C` (conditional dependencies)](HOWTO/conditional-dependency-config.md)
 - [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md): Require a dependency feature -- require vs reflect, require-alone sibling example, when to copy a negotiated value.
+- [HOWTO/link-prerequisite-order.md](HOWTO/link-prerequisite-order.md): Link-rule prerequisite order -- link-line order, sources before $libs, GNU ld single-pass static archives, split declarations, liba{} archive exception.
 - [autoconf module](guides/build2-modules-autoconf.md)
 - [autoconf: project-specific checks](guides/build2-autoconf-project-checks.md)
 - [autoconf: buildfile integration](guides/build2-autoconf-buildfile.md)

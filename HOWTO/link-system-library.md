@@ -40,6 +40,7 @@ the static variant of the binless library.
 
 ## See Also
 
+- [`link-prerequisite-order`](./link-prerequisite-order.md) -- sources before `$libs` on `exe{}` and `libs{}`
 - [`link-pthread`](./link-pthread.md) -- special case: linking pthread portably
 - [`header-only-library`](./header-only-library.md) -- binless library dependency considerations for *.libs
 - [`build2-modules-cxx`](../guides/build2-modules-cxx.md) -- cxx.libs, cxx.export.libs, and pkg-config integration

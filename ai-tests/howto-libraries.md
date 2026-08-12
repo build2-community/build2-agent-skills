@@ -1,6 +1,6 @@
 # Tests: HOWTO -- libraries
 
-Source documentation: `HOWTO/header-only-library.md`, `HOWTO/library-provides-main.md`, `HOWTO/link-pthread.md`, `HOWTO/third-party-private-headers.md`
+Source documentation: `HOWTO/header-only-library.md`, `HOWTO/library-provides-main.md`, `HOWTO/link-pthread.md`, `HOWTO/third-party-private-headers.md`, `HOWTO/link-prerequisite-order.md`
 
 
 ## T001 -- Binless library system dependencies in both *.libs and *.export.libs
@@ -66,3 +66,19 @@ to consumers of the library?
   into the install tree.
 
 **Source:** `HOWTO/third-party-private-headers.md`
+
+
+## T005 -- Link-rule prerequisite order on exe{} and libs{}
+
+**Query:** Why does `exe{x}: $libs cxx{x}` fail with undefined references
+under GNU ld when `$libs` is a static archive, what is the correct
+prerequisite order, and does the same order bug apply to `liba{}`?
+
+**Key facts** (all must appear in a correct answer):
+- Prerequisite order on a linked `exe{}` or `libs{}` is link-line order.
+- List object and source prerequisites before `$libs`.
+- GNU ld is single-pass on static archives.
+- Split declarations that list `$libs` first then the source are the same bug.
+- `liba{}` is archived, so this failure mode does not apply there.
+
+**Source:** `HOWTO/link-prerequisite-order.md`

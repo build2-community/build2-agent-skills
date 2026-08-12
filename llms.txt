@@ -131,6 +131,7 @@
 - [HOWTO/library-provides-main.md](HOWTO/library-provides-main.md): Library that provides main().
 - [HOWTO/link-pthread.md](HOWTO/link-pthread.md): Linking pthread.
 - [HOWTO/link-system-library.md](HOWTO/link-system-library.md): Linking system libraries (-lm, -ldl, advapi32.lib).
+- [HOWTO/link-prerequisite-order.md](HOWTO/link-prerequisite-order.md): Link-rule prerequisite order -- link-line order, sources before $libs, GNU ld single-pass static archives, split declarations, liba{} archive exception.
 - [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md): Making library components optional.
 - [HOWTO/target-metadata.md](HOWTO/target-metadata.md): Exporting metadata with executables and libraries.
 - [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md): Correctly using assert() in tests.

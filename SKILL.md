@@ -47,6 +47,7 @@ use the table below to jump directly to the relevant file.
 | Create a header-only (binless) library | [HOWTO/header-only-library.md](HOWTO/header-only-library.md) |
 | Link pthread | [HOWTO/link-pthread.md](HOWTO/link-pthread.md) |
 | Link a system library (-lm, -ldl, advapi32.lib) | [HOWTO/link-system-library.md](HOWTO/link-system-library.md) |
+| Order sources before libraries on a link target | [HOWTO/link-prerequisite-order.md](HOWTO/link-prerequisite-order.md) |
 | Make library components optional | [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md) |
 | Use auto-generated C/C++ headers | [HOWTO/generated-headers.md](HOWTO/generated-headers.md) |
 | Create a library that provides main() | [HOWTO/library-provides-main.md](HOWTO/library-provides-main.md) |
