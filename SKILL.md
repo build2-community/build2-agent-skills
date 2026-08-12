@@ -59,6 +59,7 @@ use the table below to jump directly to the relevant file.
 | Initialize a project in an existing configuration | [bdep/bdep-init.md](bdep/bdep-init.md) |
 | Sync manifest/lockfile with configuration | [bdep/bdep-sync.md](bdep/bdep-sync.md) |
 | Create a new project | [bdep/bdep-new.md](bdep/bdep-new.md) |
+| See what a `bdep new` option combination creates | [bdep/bdep-new-layouts.md](bdep/bdep-new-layouts.md) |
 | Publish a package | [bdep/bdep-publish.md](bdep/bdep-publish.md) |
 | Release a new version | [bdep/bdep-release.md](bdep/bdep-release.md) |
 | Write testscripts | [guides/testscript-summary.md](guides/testscript-summary.md) |

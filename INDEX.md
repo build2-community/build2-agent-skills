@@ -160,6 +160,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [bx full reference](bx/bx.md)
 - [bpkg reference](bpkg/README.md) -- bpkg overview, workflows, command table, and per-command index
 - [bdep reference](bdep/README.md) -- bdep overview, workflows, command table, and per-command index
+- [bdep/bdep-new-layouts.md](bdep/bdep-new-layouts.md): bdep-new layouts -- project types, --package vs --source, combined and split source trees.
 - [brep reference](brep/README.md) -- brep overview, commands, deployment workflows, and per-command index
 
 ### HOWTO

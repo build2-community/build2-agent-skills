@@ -70,7 +70,7 @@ path.
 
 | Command | Description |
 |---|---|
-| `bdep-new` | Create and initialize a new project |
+| `bdep-new` | Create and initialize a new project ([layout examples](bdep-new-layouts.md)) |
 | `bdep-init` | Initialize project in build configurations |
 | `bdep-deinit` | Deinitialize project in build configurations |
 

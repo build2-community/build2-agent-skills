@@ -52,6 +52,7 @@
 - [bpkg/bpkg-help.md](bpkg/bpkg-help.md): bpkg-help -- show help for a command or help topic.
 - [bdep/README.md](bdep/README.md): Project dependency manager -- key concepts, all commands, typical workflows.
 - [bdep/bdep-new.md](bdep/bdep-new.md): bdep-new -- create and initialize a new project.
+- [bdep/bdep-new-layouts.md](bdep/bdep-new-layouts.md): bdep-new layouts -- project types, --package vs --source, combined and split source trees.
 - [bdep/bdep-init.md](bdep/bdep-init.md): bdep-init -- initialize project in build configurations.
 - [bdep/bdep-deinit.md](bdep/bdep-deinit.md): bdep-deinit -- deinitialize project in build configurations.
 - [bdep/bdep-sync.md](bdep/bdep-sync.md): bdep-sync -- synchronize project and build configurations.

@@ -102,8 +102,9 @@ The source subdirectory can be customized with the `subdir` type sub-option:
 $ bdep new -l c++ -t lib,subdir=libhello/io libhello-io
 ```
 
-For the source layout reference, including split layouts, see the
-[Source Layout](#source-layout) section below.
+For command-plus-tree examples of the common types and layouts, see
+[bdep-new layouts](bdep-new-layouts.md). The [Source Layout](#source-layout)
+section below describes the prefix and subdirectory components.
 
 
 ## Project Type Options
@@ -350,33 +351,8 @@ Headers are included with the source subdirectory (if any) as a prefix, so
 different combinations of prefix and subdirectory produce different include
 paths even if they yield the same physical layout.
 
-Selected layout examples:
-
-```
-# combined -- libhello/hello/
-$ bdep new -l c++ -t lib,subdir=hello libhello
-
-# combined with prefix -- hello/src/hello/
-$ bdep new -l c++ -t exe,prefix=src hello
-
-# split -- libhello/{include,src}/libhello/
-$ bdep new -l c++ -t lib,split libhello
-
-# split, header prefix only -- libhello/{include,.}/libhello/
-$ bdep new -l c++ -t lib,prefix-include=include libhello
-
-# no source subdirectory -- hello/src/
-$ bdep new -l c++ -t exe,prefix=src,no-subdir hello
-
-# all in root -- libhello/
-$ bdep new -l c++ -t lib,no-subdir,no-version,no-tests libhello
-
-# split, no subdir in source only -- libhello/{include/hello,src}/
-$ bdep new -l c++ -t lib,split,subdir=hello,no-subdir-source libhello
-
-# buildfiles in prefix (third-party packaging pattern)
-$ bdep new -l c -t lib,split,subdir=hello,no-version,no-symexport,buildfile-in-prefix libhello
-```
+For a chooser table and a `tree` of each common type, mode, and layout
+option, see [bdep-new layouts](bdep-new-layouts.md).
 
 The `split` sub-option is a convenient shortcut for
 `prefix-include=include,prefix-source=src`.
@@ -429,6 +405,7 @@ fail, a dummy `you@example.org` email is used.
 ## See Also
 
 - [bdep README](README.md)
+- [bdep-new layouts](bdep-new-layouts.md)
 - [bdep-init](bdep-init.md)
 - [bdep-default-options-files](bdep-default-options-files.md)
 - [`header-only-library`](../HOWTO/header-only-library.md) -- binless (header-only) libraries

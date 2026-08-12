@@ -72,3 +72,41 @@ in `bdep new`?
 - It resolves and fetches any missing or updated dependencies.
 
 **Source:** `bdep/README.md`
+
+
+## T007 -- Default executable source layout
+
+**Query:** What source directory does `bdep new -l c++ -t exe hello` create?
+
+**Key facts** (all must appear in a correct answer):
+- Source lives in `hello/hello/`.
+- The sample source file is `hello.cxx`.
+
+**Source:** `bdep/bdep-new-layouts.md`
+
+
+## T008 -- Split library layout
+
+**Query:** What source layout does `bdep new -l c++ -t lib,split libhello` create?
+
+**Key facts** (all must appear in a correct answer):
+- Public headers go under `include/libhello/`.
+- Sources go under `src/libhello/`.
+- `split` is a shortcut for `prefix-include=include,prefix-source=src`.
+
+**Source:** `bdep/bdep-new-layouts.md`
+
+
+## T009 -- package vs source modes
+
+**Query:** What is the difference between `bdep new --package` and `bdep new --source`?
+
+**Key facts** (all must appear in a correct answer):
+- `--package` adds a new package inside an existing project and updates
+  `packages.manifest`.
+- `--source` adds a source subdirectory inside an existing project or package.
+- `--package` is used after `-t empty` for a multi-package repository.
+- `--source` is used after `-t bare` for one package with several source
+  directories.
+
+**Source:** `bdep/bdep-new-layouts.md`
