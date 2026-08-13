@@ -73,6 +73,7 @@ use the table below to jump directly to the relevant file.
 | Testscript-test an imported executable (e.g. a package's own `exe{}` from `tests/`) | [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md) |
 | Resolve "already updated but [not] for install" conflicts | [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
+| Start a third-party package on the review branch | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Require a dependency feature from a `depends` clause | [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md) |
 | Test and publish a third-party package | [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md) |
 | Review a third-party package submission | [guides/packaging-guide-review.md](guides/packaging-guide-review.md) |

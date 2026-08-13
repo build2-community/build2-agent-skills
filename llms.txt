@@ -82,9 +82,9 @@
 
 ## Guides
 
-- [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md): Third-party packaging guide -- concepts, workflow checklist, and steps 1-7 (repository setup through installation configuration).
-- [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md): Third-party packaging -- steps 8-10: writing tests, CI validation, releasing and publishing to cppget.org, common pitfalls.
-- [guides/packaging-guide-review.md](guides/packaging-guide-review.md): Third-party package review process -- transition policy, initial/version/revision review procedures, authoritative checklist, outcome and email formats.
+- [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md): Third-party packaging guide -- concepts, review branch, workflow checklist, and steps 1-7 (repository setup through installation configuration).
+- [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md): Third-party packaging -- steps 8-10: writing tests, CI validation, merging the review branch into main, releasing and publishing to cppget.org, common pitfalls.
+- [guides/packaging-guide-review.md](guides/packaging-guide-review.md): Third-party package review process -- transition policy, author review branch vs dummy review-X.Y.Z PR, initial/version/revision review procedures, authoritative checklist, outcome and email formats.
 - [guides/packaging-guide-version-management.md](guides/packaging-guide-version-management.md): Third-party packaging version management -- new revision workflow, new upstream version workflow, version bump procedures.
 - [guides/packaging-guide-antipatterns.md](guides/packaging-guide-antipatterns.md): Third-party packaging antipatterns -- common mistakes, what not to do, upstream patching guidelines.
 - [guides/bpkg-package-name-version.md](guides/bpkg-package-name-version.md): bpkg package naming rules, version format, and dependency constraint syntax.

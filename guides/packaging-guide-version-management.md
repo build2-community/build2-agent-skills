@@ -4,7 +4,11 @@ This guide covers releasing revisions and new upstream versions, and managing
 old release series on long-lived branches.
 
 See [packaging-guide-summary.md](packaging-guide-summary.md) for the full
-packaging workflow context and concepts.
+packaging workflow context and concepts. Initial packaging uses a single
+working branch named `review` (created from the first `bdep new` project
+commit on `main`). The `wip-*` branches in this guide are for later
+revisions and new upstream versions, after that first merge of `review`
+into `main`.
 
 
 ## New Revision

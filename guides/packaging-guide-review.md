@@ -80,8 +80,15 @@ description (including both NOTE lines at the top), then create the issue.
 
 ### Step 2: Create review pull request
 
-GitHub only supports code reviews inside a pull request. Create a dummy draft
-PR whose sole purpose is to host code review comments:
+GitHub only supports code reviews inside a pull request. How you open that
+PR depends on whether the author's `review` branch is still unmerged.
+
+The author of a new package is expected to put the first `bdep new` project
+commit on `main` and do all further packaging work on a branch named
+`review`, created from that same `main` commit. That `review` branch is the
+one that later gets merged into `main`. See
+[packaging-guide-summary.md](packaging-guide-summary.md) (Review branch) and
+[Merge the review branch](packaging-guide-testing.md#merge-the-review-branch).
 
 1. Clone the package repository:
 
@@ -99,28 +106,41 @@ PR whose sole purpose is to host code review comments:
    git log -p "$(git rev-list --all | tail -1)"
    ```
 
-3. Create and push the review branch starting from that first commit:
+   That first commit must be the tip of `main` from which `review` was
+   created. If later packaging commits landed on `main` directly, that is
+   a process error to note in the review.
+
+3. Choose the pull request:
+
+   **If `review` is still present and not yet merged into `main`**, use it.
+   Open a pull request with `base:` set to `main` and `compare:` set to
+   `review`. Link the review issue in the PR description. This is a real
+   pull request: when the packaging stretch is complete it is merged into
+   `main`. Do not create a dummy `review-X.Y.Z` branch in this case.
+
+   **If `review` has already been merged** (typical once the first version
+   is on `main` and published), create a dummy draft PR whose sole purpose
+   is to host code review comments:
 
    ```
    git branch review-X.Y.Z "$(git rev-list --all | tail -1)"
    git push origin review-X.Y.Z
    ```
 
-4. Open the GitHub link printed by the push, set `base:` to `review-X.Y.Z`
-   and `compare:` to `master`/`main`.
-
-5. Set the PR title to:
+   Open the GitHub link printed by the push, set `base:` to `review-X.Y.Z`
+   and `compare:` to `master`/`main`. Set the PR title to:
 
    ```
    Dummy draft pull request for version `X.Y.Z` review (do not merge)
    ```
 
-6. In the PR description link to the review issue: `See review issue #<N>.`
+   In the PR description link to the review issue: `See review issue #<N>.`
+   Select **Create draft pull request** and submit.
 
-7. Select **Create draft pull request** and submit.
-
-This PR must never be merged. Its value is that subsequent revision commits
-from the author are automatically included, making re-review straightforward.
+   Name the dummy branch `review-X.Y.Z` so it is not confused with the
+   author's `review` working branch. This dummy PR must never be merged.
+   Its value is that subsequent revision commits from the author are
+   automatically included, making re-review straightforward.
 
 ### Step 3: Go through the checklist
 
@@ -150,7 +170,9 @@ See [Outcome Comment Format](#outcome-comment-format).
 
 1. Edit the issue description: remove the first NOTE line that says the review
    is in progress.
-2. Close (do not merge) the review PR.
+2. If this is the author's `review` to `main` pull request, merge it (that
+   is how the packaging stretch lands on `main`). If this is a dummy
+   `review-X.Y.Z` pull request, close it without merging.
 3. If there are no non-blocking issues, also close the review issue. Leave it
    open if non-blocking issues exist (as a reminder for the next version).
 4. Send the notification email (see [Notification Email](#notification-email)).
@@ -431,8 +453,8 @@ there may be no review issue. In that case the outcome link may be omitted.
 
 ## See Also
 
-- [packaging-guide-summary.md](packaging-guide-summary.md) -- concepts, workflow, and steps 1-7
-- [packaging-guide-testing.md](packaging-guide-testing.md) -- steps 8-10: tests, CI, release, publish
+- [packaging-guide-summary.md](packaging-guide-summary.md) -- concepts, review branch, workflow, and steps 1-7
+- [packaging-guide-testing.md](packaging-guide-testing.md) -- steps 8-10: tests, CI, merge review into main, release, publish
 - [build2-modules-core.md](build2-modules-core.md) -- config, test, install modules
 - [HOWTO/sanitize-tests.md](../HOWTO/sanitize-tests.md) -- handling misbehaving upstream tests
 - [HOWTO/tests-extra-dependencies.md](../HOWTO/tests-extra-dependencies.md) -- separate test packages

@@ -1,7 +1,8 @@
 # build2 Packaging Guide -- Testing and Publishing
 
 Steps 8-10 of the third-party packaging workflow: writing tests, validating
-the package, and publishing to `cppget.org`.
+the package, merging the `review` branch into `main`, and publishing to
+`cppget.org`.
 
 See [packaging-guide-summary.md](packaging-guide-summary.md) for the full
 context, concepts, and steps 1-7 (repository setup through installation).
@@ -174,14 +175,18 @@ If dependencies cannot be found during `configure`, set each
 `config.import.<dep>` to the path of the build configuration that contains
 that dependency.
 
-**Remote CI.** Commit and push, then submit:
+**Remote CI.** These commits belong on `review`, not on `main`. Commit and
+push the branch, then submit:
 
 ```
 $ git add .
 $ git commit -m "Add upstream tests"
-$ git push
+$ git push -u origin review
 $ bdep ci
 ```
+
+The first push of `review` needs `-u origin review`. Later pushes on the same
+branch can use `git push`.
 
 The `bdep ci` command prints a link to the CI job results. Wait until no
 configurations remain with `<unbuilt>` or `building` status. If platforms or
@@ -192,11 +197,43 @@ combinations.
 
 ## Step 10: Publish
 
+### Merge the review branch
+
+When the packaging stretch is complete (local tests, installed case,
+distribution, and CI are green, and the READMEs are adjusted), merge `review`
+into `main`. Use a fast-forward merge so `main` stays a linear history: the
+first `bdep new` project commit, then every packaging commit from `review`.
+
+```
+$ git checkout main
+$ git merge --ff-only review
+$ git push origin main
+```
+
+`--ff-only` fails if `main` has moved. That is intentional. `main` should
+still be the first `bdep new` commit, so the merge must be a fast-forward. If
+it is not, stop and find out why `main` changed before continuing.
+
+After this merge, `main` is the branch you transfer, release, and publish
+from. Do not release or publish from `review`. You may delete `review` after
+the merge, or leave it pointing at the same commit as `main`.
+
+**Transfer first, then merge.** If you transfer the repository to
+`github.com/build2-packaging` while the work is still on `review` (for
+example to share a reasonably complete package under the organization), push
+`review` and open a pull request with `base:` set to `main` and `compare:`
+set to `review`. On `build2-packaging`, `main` is protected, so that pull
+request is the only merge path. Merge it when the packaging stretch is
+complete, then continue with release and publish from `main`. This is the
+same `review` branch, not a new one.
+
 **Transfer the repository** to `github.com/build2-packaging` before publishing
 the first version. This is required because the `git` repository URL is used as
 a proxy for package name ownership. Transfer via GitHub Settings > Danger Zone >
 Transfer. Rename the repository first if it has a `build2-` prefix or
-`-package` suffix.
+`-package` suffix. If you have not already merged `review` into `main`, do
+that first (or transfer first and merge through the pull request described
+above).
 
 **Release the final version:**
 
@@ -239,9 +276,11 @@ $ git push ...
 $ bdep publish
 ```
 
-For a new upstream version, create a work branch, update the `upstream`
+For a new upstream version, create a `wip-X.Y.Z` work branch (not `review`,
+which is reserved for the initial packaging stretch), update the `upstream`
 submodule, update symlinks, adjust `buildfiles`, test, then merge, release,
-and publish.
+and publish. See
+[packaging-guide-version-management.md](packaging-guide-version-management.md).
 
 
 ## Common Patterns and Pitfalls
@@ -300,7 +339,7 @@ upstream version.
 
 ## See Also
 
-- [packaging-guide-summary.md](packaging-guide-summary.md) -- concepts and steps 1-7
+- [packaging-guide-summary.md](packaging-guide-summary.md) -- concepts, review branch, and steps 1-7
 - [bpkg manifest reference](../bpkg/bpkg-manifest-reference.md)
 - [build2 modules: cc/cxx](build2-modules-cc.md)
 - [build2 core modules: install](build2-modules-core.md)
