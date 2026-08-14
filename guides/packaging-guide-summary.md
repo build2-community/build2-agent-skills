@@ -294,8 +294,13 @@ packaging. Run `bdep release --no-open` when ready to publish.
 Do not capitalize subsequent words unless proper nouns. No trailing period.
 Recommended template: `<functionality> C++ library`.
 
-**license.** Use the SPDX license identifier. See
-`https://spdx.org/licenses/` for the full list.
+**license.** Use the SPDX license identifier (e.g. `MIT`, `Apache-2.0`,
+`GPL-3.0-only`). For licenses outside SPDX, use the `other:` scheme (e.g.
+`other: proprietary`). When a project is distributed under multiple licenses,
+use multiple `license:` values (OR semantics) or a comma-separated list within
+one value (AND semantics). See [packaging-license.md](packaging-license.md)
+for the full reference including the SPDX table, AND/OR semantics, comment
+syntax, and multi-license examples.
 
 **depends.** Use the `^` constraint operator for semver dependencies. For
 dependencies within the same repository, use `== $` to require the same version.

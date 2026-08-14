@@ -82,6 +82,7 @@ use the table below to jump directly to the relevant file.
 | Handle private headers when packaging a third-party project | [HOWTO/third-party-private-headers.md](HOWTO/third-party-private-headers.md) |
 | Package an upstream changelog with a non-canonical name | [HOWTO/package-changes-file.md](HOWTO/package-changes-file.md) |
 | bpkg package name rules, version format, constraint syntax | [guides/bpkg-package-name-version.md](guides/bpkg-package-name-version.md) |
+| Express a package license in the manifest (SPDX, other:, multiple licenses) | [guides/packaging-license.md](guides/packaging-license.md) |
 | Install or bootstrap the toolchain | [guides/install-bootstrap.md](guides/install-bootstrap.md) |
 | Install toolchain from repository (step 3) | [guides/install-toolchain.md](guides/install-toolchain.md) |
 | Upgrade an installed toolchain (dirty or staged) | [guides/install-upgrade.md](guides/install-upgrade.md) |

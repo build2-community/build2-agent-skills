@@ -156,7 +156,7 @@ accordingly.
 | `name` | `<name>` | Package name. Case-insensitive comparison but original case preserved. Must start with a letter, end with a letter/digit/`+`. At least two characters. |
 | `version` | `<version>` | Package version. See version format above. |
 | `summary` | `<text>` | Short one-line description of the package. |
-| `license` | `<licenses> [; <comment>]` | SPDX license expression or `other:` scheme. Multiple values have OR semantics. Comma-separated names within one value have AND semantics. |
+| `license` | `<licenses> [; <comment>]` | SPDX license expression or `other:` scheme. Multiple values have OR semantics. Comma-separated names within one value have AND semantics. See [packaging-license.md](../guides/packaging-license.md). |
 
 
 ## Package Identity Fields

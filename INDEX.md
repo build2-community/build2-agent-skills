@@ -192,6 +192,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [packaging guide: testing and publishing](guides/packaging-guide-testing.md)
 - [packaging guide: review process and checklist](guides/packaging-guide-review.md)
 - [bpkg package naming, version format, and constraint syntax](guides/bpkg-package-name-version.md)
+- [packaging guide: license field -- SPDX, other: scheme, AND/OR semantics](guides/packaging-license.md)
 - [packaging guide: version management workflows](guides/packaging-guide-version-management.md)
 - [packaging guide: common antipatterns and upstream patching](guides/packaging-guide-antipatterns.md)
 - [HOWTO: CI build filtering with builds:, build-include:, build-exclude:](HOWTO/builds-ci-filtering.md)

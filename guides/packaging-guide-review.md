@@ -327,7 +327,7 @@ completion of any outstanding items in comments.
 [upstream-symlink]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-fill-source
 [dont-bundle-deps]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#dont-bundle
 [not-to-do]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#dont-do
-[manifest-license]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-root-manifest-license
+[manifest-license]: packaging-license.md
 [manifest-summary]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-root-manifest-summary
 [manifest-depends]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-fill-depend
 [manifest-depends-import]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-adjust-build-src-source-dep
