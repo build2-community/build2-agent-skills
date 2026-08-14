@@ -1,6 +1,6 @@
 # Tests: Package manifest format
 
-Source documentation: `bpkg/bpkg-manifest-reference.md`
+Source documentation: `bpkg/bpkg-manifest-reference.md`, `guides/packaging-license.md`
 
 
 ## T001 -- Required fields
@@ -138,3 +138,88 @@ pre-defined in every build bot deployment?
 - `build-include:` and `build-exclude:` patterns then refine that set.
 
 **Source:** `bpkg/bpkg-manifest-reference.md`
+
+
+## T012 -- license AND semantics
+
+**Query:** A package requires users to comply with both MIT and BSD-2-Clause
+simultaneously. How is that expressed in the manifest?
+
+**Key facts** (all must appear in a correct answer):
+- Put both names in a single `license:` value, comma-separated or using the
+  SPDX `AND` operator: `license: MIT, BSD-2-Clause` or
+  `license: MIT AND BSD-2-Clause`.
+- A comma-separated list within one value has AND semantics -- the user must
+  comply with every license listed.
+- Two separate `license:` lines would instead mean OR (the user may choose
+  either), which is the wrong semantics here.
+
+**Source:** `guides/packaging-license.md`
+
+
+## T013 -- license OR semantics (dual licensing)
+
+**Query:** A project offers its code under either Apache-2.0 or MIT; users
+may pick either. How is that written in the manifest?
+
+**Key facts** (all must appear in a correct answer):
+- Use two separate `license:` values, one per line:
+  ```
+  license: Apache-2.0
+  license: MIT
+  ```
+- Multiple `license:` values have OR semantics -- the user may comply with
+  any one of them.
+- Alternatively, the SPDX OR operator inside a single value works for
+  same-scheme names: `license: Apache-2.0 OR MIT`.
+
+**Source:** `guides/packaging-license.md`
+
+
+## T014 -- license comment syntax
+
+**Query:** What is the syntax for adding a human-readable comment to a
+`license:` value, and what rules apply to the comment text?
+
+**Key facts** (all must appear in a correct answer):
+- Append `;` followed by the comment text to the value:
+  `license: MPL-2.0 ; Mozilla Public License 2.0.`
+- The comment is part of the value (not a `#`-style manifest comment), so it
+  is preserved and displayed to users.
+- The comment must be one or more full sentences: start with a capital letter
+  and end with a period.
+- A non-comment semicolon within the value must be escaped with `\`.
+
+**Source:** `guides/packaging-license.md`
+
+
+## T015 -- other: scheme predefined names
+
+**Query:** What are the predefined `other:` license names and what does each
+mean?
+
+**Key facts** (all must appear in a correct answer):
+- `other: public domain` -- released into the public domain.
+- `other: available source` -- not free/open source but source code is publicly
+  accessible.
+- `other: proprietary` -- not free/open source.
+- `other: TODO` -- license is not yet decided.
+- For new public-domain projects, `Unlicense` (an SPDX identifier) is
+  preferred over `other: public domain`.
+
+**Source:** `guides/packaging-license.md`
+
+
+## T016 -- bdep new detects only one license
+
+**Query:** A third-party project is dual-licensed under Apache-2.0 and MIT.
+After running `bdep new`, the generated manifest shows only one of them. Why,
+and what must be done?
+
+**Key facts** (all must appear in a correct answer):
+- `bdep new` auto-detects the license by reading the `LICENSE` file (or
+  `LICENSE.txt`, `LICENSE.md`, `COPYING`, `UNLICENSE`) but it will detect at
+  most one license.
+- The second license must be added to the manifest by hand after generation.
+
+**Source:** `guides/packaging-license.md`
