@@ -85,7 +85,8 @@ PR depends on whether the author's `review` branch is still unmerged.
 
 The author of a new package is expected to put the first `bdep new` project
 commit on `main` and do all further packaging work on a branch named
-`review`, created from that same `main` commit. That `review` branch is the
+`review`, created from that same `main` commit. Until the publish-time
+merge, `main` remains that first commit. That `review` branch is the
 one that later gets merged into `main`. See
 [packaging-guide-summary.md](packaging-guide-summary.md) (Review branch) and
 [Merge the review branch](packaging-guide-testing.md#merge-the-review-branch).

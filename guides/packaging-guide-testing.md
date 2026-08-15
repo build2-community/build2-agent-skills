@@ -199,10 +199,16 @@ combinations.
 
 ### Merge the review branch
 
+Do not perform this merge while packaging. Stay on `review`. After the
+first `bdep new` commit, `main` stays untouched until this publish-time
+step. Do not `git checkout main` to land work, inspect results, or
+"finish" the stretch.
+
 When the packaging stretch is complete (local tests, installed case,
-distribution, and CI are green, and the READMEs are adjusted), merge `review`
-into `main`. Use a fast-forward merge so `main` stays a linear history: the
-first `bdep new` project commit, then every packaging commit from `review`.
+distribution, and CI are green, and the READMEs are adjusted) and you are
+ready to transfer, release, and publish, merge `review` into `main`. Use a
+fast-forward merge so `main` stays a linear history: the first `bdep new`
+project commit, then every packaging commit from `review`.
 
 ```
 $ git checkout main
