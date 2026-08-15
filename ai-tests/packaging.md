@@ -140,3 +140,52 @@ land on main?
 - Release and publish from `main` after that merge.
 
 **Source:** `guides/packaging-guide-summary.md`, `guides/packaging-guide-testing.md`
+
+
+## T010 -- Which repositories.manifest is consulted
+
+**Query:** When package B depends on package A, which `repositories.manifest`
+is consulted, and does a nested copy inside a published package archive
+participate?
+
+**Key facts** (all must appear in a correct answer):
+- Resolution follows the repository the consumer added, plus that repository's own complements and prerequisites.
+- It does not follow a nested `repositories.manifest` inside a package archive.
+- For a `git` or `dir` repository, the project's `repositories.manifest` is the repository manifest.
+- For a `pkg` repository, the section directory has its own `repositories.manifest`.
+
+**Source:** `guides/packaging-guide-summary.md`
+
+
+## T011 -- Complements, prerequisites, and same-section visibility
+
+**Query:** In a `pkg` section, how do complements and prerequisites differ, and
+do packages that already live in the same section need to list each other?
+
+**Key facts** (all must appear in a correct answer):
+- Complements make another repository's packages look as if they were in this one.
+- Prerequisites make another repository's packages available as dependencies only.
+- Packages that already live in the same section are visible to each other with no extra listing.
+- A package in a more-stable section cannot see one that exists only in a less-stable complement.
+
+**Source:** `guides/packaging-guide-summary.md`
+
+
+## T012 -- Queue publish and git fallbacks
+
+**Query:** Can package B be published to `queue.cppget.org` without listing
+package A's git URL if A is already in the queue, and should a long-lived
+project keep git fallbacks or the queue itself in `repositories.manifest`?
+
+**Key facts** (all must appear in a correct answer):
+- The queue is a `pkg` repository that recreates the public sections.
+- Same-section queued packages see each other.
+- `queue/testing` prerequisites public `testing`.
+- `queue/beta` complements `queue/testing`.
+- A queued testing package cannot see a queued alpha package.
+- B can be published without A's git URL once A is in the same queue section or the matching public section.
+- A published archive is just the package directory, so project-level git fallbacks have no effect on `pkg` consumers.
+- Git prerequisite lines exist only for git/dir consumers.
+- Do not leave a transient repository (the queue is the usual example) in a long-lived project's `repositories.manifest`.
+
+**Source:** `guides/packaging-guide-summary.md`, `guides/packaging-guide-testing.md`, `bdep/bdep-publish.md`

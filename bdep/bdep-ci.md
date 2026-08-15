@@ -29,6 +29,12 @@ these package versions from this repository as well as any dependencies from
 this repository or its prerequisite/complement repositories, according to each
 package's `repositories.manifest`.
 
+CI consumes the git repository. The project's `repositories.manifest` is
+therefore the repository manifest (not a nested file inside a package
+archive). See
+[Which repositories.manifest is consulted](../guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted)
+for the `pkg` vs `git`/`dir` split and why this differs from `bdep publish`.
+
 If the CI server is not explicitly specified with the `--server` option, the
 request is submitted to `ci.cppget.org` by default.
 

@@ -188,7 +188,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [testscript: commands, redirections, and builtins](guides/testscript-commands.md)
 - [runtime test fixtures (child helpers, update-for-test)](HOWTO/test-runtime-fixtures.md)
 - [testing an imported executable](HOWTO/test-imported-executable.md)
-- [packaging guide: setup through installation](guides/packaging-guide-summary.md)
+- [packaging guide: setup through installation](guides/packaging-guide-summary.md) (includes which `repositories.manifest` is consulted)
 - [packaging guide: testing and publishing](guides/packaging-guide-testing.md)
 - [packaging guide: review process and checklist](guides/packaging-guide-review.md)
 - [bpkg package naming, version format, and constraint syntax](guides/bpkg-package-name-version.md)

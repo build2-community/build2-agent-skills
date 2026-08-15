@@ -19,6 +19,8 @@ Note that the explicit specification is only needed when the correct type cannot
 
 A `pkg` repository is _archive_-based. That is, it contains a collection of various packages/versions as archive files. For more information on the structure of `pkg` repositories refer to the `build2` Package Manager Manual. The `pkg` repository location can be a local directory path or an `http(s)://` URL.
 
+Each section directory has its own `repositories.manifest`. Resolution follows that file's complements and prerequisites, not a nested `repositories.manifest` inside a package archive. See [Which repositories.manifest is consulted](../guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted).
+
 ### dir Repositories
 
 A `dir` repository is _directory_-based. That is, it contains a collection of various packages as directories but only a single version per package can be present in such a repository. The `dir` repository location can be a local directory path or a `file://` URL.
@@ -26,6 +28,8 @@ A `dir` repository is _directory_-based. That is, it contains a collection of va
 A `dir` repository is expected to contain either the `manifest` or `packages.manifest` file in the root directory of the repository. If it only contains `manifest`, then it is assumed to be a simple, single-package repository with the `manifest` file being its package manifest. Otherwise, the `packages.manifest` file should list the locations of available packages as described in the Package List Manifest for `dir` Repositories documentation.
 
 A `dir` repository may also contain the `repositories.manifest` file in the root directory of the repository. This file can be used to describe the repository itself as well as specify its prerequisite and complement repositories. See the Repository List Manifest documentation for details on the format and semantics of this file.
+
+Complements and prerequisites are the graph the *consumer's* repository follows. Resolution does not consult a nested `repositories.manifest` inside a `pkg` package archive. For the `pkg` vs `git`/`dir` split, see [Which repositories.manifest is consulted](../guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted).
 
 ### git Repositories
 
@@ -121,4 +125,5 @@ The `file://` protocol has the same fetch minimization support as `git://` and i
 
 - [bpkg README](README.md)
 - [bpkg-rep-add](bpkg-rep-add.md)
+- [Which repositories.manifest is consulted](../guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted)
 - [bpkg-common-options](bpkg-common-options.md)

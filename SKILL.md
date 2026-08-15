@@ -75,6 +75,7 @@ use the table below to jump directly to the relevant file.
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Start a third-party package on the review branch | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Require a dependency feature from a `depends` clause | [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md) |
+| How a pkg vs git repository finds dependencies | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted) |
 | Test and publish a third-party package | [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md) |
 | Review a third-party package submission | [guides/packaging-guide-review.md](guides/packaging-guide-review.md) |
 | Packaging version management (new revision, new version) | [guides/packaging-guide-version-management.md](guides/packaging-guide-version-management.md) |

@@ -457,6 +457,49 @@ role: prerequisite
 location: https://pkg.cppget.org/1/stable
 ```
 
+### Which repositories.manifest is consulted
+
+Resolution always follows the *repository the consumer added*, plus that
+repository's own complements and prerequisites. It does not follow a nested
+`repositories.manifest` inside a package archive. The `pkg` and `git`/`dir`
+worlds therefore use different files.
+
+**`git` and `dir`.** For these types, the project's `repositories.manifest`
+*is* the repository manifest. Local `bdep init` / `bdep sync`, `bdep ci`,
+and anyone who adds the git URL all use those prerequisite and complement
+entries to find dependencies.
+
+**`pkg`.** For an archive repository, the section directory has its own
+`repositories.manifest`. Packages that already live in that same section
+are visible to each other with no extra listing. Complements make another
+repository's packages look as if they were in this one. Prerequisites make
+another repository's packages available as dependencies only. A published
+archive is just the package directory. The project-level
+`repositories.manifest` never enters it, so git fallbacks there have no
+effect on `pkg` consumers.
+
+**Publishing.** Publishing moves a package from the git/dir world into a
+`pkg` section. After that, the section's graph is what matters. Match the
+section to where the dependencies already are. A package in a more-stable
+section cannot see one that exists only in a less-stable complement (the
+arrows go the other way).
+
+**What to keep in the project file.** Git prerequisite lines therefore
+exist only for git/dir consumers. Keep the `pkg.cppget.org` section that
+already holds public dependencies. Drop git fallbacks once those
+dependencies are in a `pkg` section the consumer will add. Do not leave a
+transient repository (the queue is the usual example) in a long-lived
+project's `repositories.manifest`.
+
+**Illustration: `queue.cppget.org`.** The queue is a `pkg` repository that
+recreates the public sections. Same-section queued packages see each
+other. `queue/testing` prerequisites public `testing`. `queue/beta`
+complements `queue/testing`, so a queued testing package cannot see a
+queued alpha package. That is why B can be published without A's git URL
+once A is in the same queue section (or has migrated to the matching
+public section). The live graph is in https://github.com/cppget/queue
+and is not mirrored here.
+
 **Adding to `manifest`.** Add one `depends` line per dependency. Use `^` for
 semver dependencies:
 
@@ -560,6 +603,7 @@ $ b install config.install.root=/tmp/install
 ## See Also
 
 - [packaging-guide-testing.md](packaging-guide-testing.md) -- Steps 8-10: tests, CI, merge review into main, publish, common pitfalls
+- [bpkg-repository-types](../bpkg/bpkg-repository-types.md) -- pkg, git, and dir repository structure
 - [bpkg manifest reference](../bpkg/bpkg-manifest-reference.md)
 - [build2 modules: cc/cxx](build2-modules-cc.md)
 - [bdep-new](../bdep/bdep-new.md)

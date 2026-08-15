@@ -126,7 +126,9 @@ from. Three types are supported: `pkg` (an archive-based repository such as
 `https://pkg.cppget.org/`), `git` (a version-control repository where
 packages are stored as branches or tags), and `dir` (a local directory
 containing package directories). Repositories can list other repositories
-as prerequisites or complements, forming a dependency network.
+as prerequisites or complements, forming a dependency network. A complement
+makes the other repository's packages look as if they were in this one. A
+prerequisite makes them available as dependencies only.
 
 **rule** -- The mechanism inside the build system that knows how to produce a
 specific target type from its prerequisites. When the build system matches a

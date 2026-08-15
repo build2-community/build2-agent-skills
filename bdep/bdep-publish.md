@@ -31,6 +31,11 @@ sends it as part of the package submission request to an archive-based
 repository. If the repository is not explicitly specified with the
 `--repository` option, packages are published to `cppget.org` by default.
 
+The uploaded archive is the package directory. The project-level
+`repositories.manifest` does not travel with it. `pkg` consumers use the
+destination section's complements and prerequisites. See
+[Which repositories.manifest is consulted](../guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted).
+
 Along with the package archive, the submission request specifies the repository
 section to publish the package under, the control repository URL to use for
 authorization, and the publisher's name and email address for the record. While

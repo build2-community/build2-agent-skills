@@ -158,8 +158,17 @@ are **not equivalent**: git-based CI prepares the distribution differently
 and does not reliably catch buildfile-graph gaps -- missing-from-`buildfile`
 source files, targets unreachable from a directory's default `./:` set, or
 broken `clean` rules for targets only reachable via non-`./:` declarations
-(build2/build2#533). A green `bdep ci` is not sufficient on its own. Always
-run the full recipe below, including `clean`, before `bdep publish`:
+(build2/build2#533).
+
+They also differ in which repository graph is used. `bdep ci` consumes the
+git repository, so the project's `repositories.manifest` is the repository
+manifest. The queue and `cppget.org` publish path is `pkg`: consumers
+follow the destination section's complements and prerequisites, not a
+nested copy of that file inside the archive. See
+[Which repositories.manifest is consulted](packaging-guide-summary.md#which-repositoriesmanifest-is-consulted).
+
+A green `bdep ci` is not sufficient on its own. Always run the full recipe
+below, including `clean`, before `bdep publish`:
 
 ```
 $ b dist config.dist.root=/tmp/dist config.dist.uncommitted=true
@@ -262,6 +271,12 @@ $ bdep publish
 
 `bdep publish` creates a source archive, uploads it to `queue.cppget.org`, and
 prints a link. Review the displayed build results and package information.
+
+The uploaded archive is the package directory. The project-level
+`repositories.manifest` does not travel with it. Once the package is in a
+queue section, same-section packages see each other and the section's
+own complements and prerequisites supply the rest. See
+[Which repositories.manifest is consulted](packaging-guide-summary.md#which-repositoriesmanifest-is-consulted).
 
 If the package uses a zero major version but upstream does not treat it as
 alpha quality, override the target section:
