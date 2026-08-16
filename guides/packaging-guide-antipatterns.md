@@ -380,7 +380,10 @@ in our `libfoo` example. The recommended sequence of steps is as follows:
 
 The presence of the `.orig` and `.patch` files makes it clear that the
 upstream code was modified. They are also useful when re-applying the changes
-to the new version of the upstream source code. The recommended sequence of
+to the new version of the upstream source code. Do not add them to the build
+graph (not as `file{}` prerequisites of a library or executable, and not with
+`include = adhoc`). They are git-only packager notes. The distribution already
+contains the modified source file. The recommended sequence of
 steps for this task is as follows:
 
 1. After the `upstream` submodule update, the `.orig` symlink points to the
