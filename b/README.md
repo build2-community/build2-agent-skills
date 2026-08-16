@@ -257,7 +257,7 @@ $ b info: libfoo/,json
 ## See Also
 
 - [`alias-targets`](../HOWTO/alias-targets.md) -- PHONY-equivalent targets using `alias{}`
-- [`buildfile-compile-options`](../HOWTO/buildfile-compile-options.md) -- which compile/link options belong in a buildfile
+- [`buildfile-compile-options`](../HOWTO/buildfile-compile-options.md) -- which compile/link options belong in a buildfile, compile-line order, cxx.mode after std
 - [`generated-headers`](../HOWTO/generated-headers.md) -- auto-generated C/C++ headers
 - [`config-independent-build-graph`](../HOWTO/config-independent-build-graph.md) -- keeping the build graph configuration-independent
 - [`target-metadata`](../HOWTO/target-metadata.md) -- exporting metadata with executables and libraries

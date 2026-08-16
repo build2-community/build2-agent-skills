@@ -8,7 +8,7 @@ Condensed, AI-indexed versions of the
 | File | Topic |
 |------|-------|
 | [alias-targets.md](./alias-targets.md) | PHONY-equivalent targets using `alias{}` |
-| [buildfile-compile-options.md](./buildfile-compile-options.md) | Which compile/link options belong in a buildfile |
+| [buildfile-compile-options.md](./buildfile-compile-options.md) | Which compile/link options belong in a buildfile, compile-line order, cxx.mode after std |
 | [config-independent-build-graph.md](./config-independent-build-graph.md) | Keeping the build graph configuration-independent |
 | [for-install-conflicts.md](./for-install-conflicts.md) | Resolving "already updated but [not] for install" errors |
 | [generated-headers.md](./generated-headers.md) | Auto-generated C/C++ headers |

@@ -76,6 +76,19 @@ config.cxx.translate_include
   cxx.translate_include  # Header unit translation map
 ```
 
+### Compiler mode
+
+Set `cxx.std` and any unconditional base `cxx.mode` before
+`using cxx`. Configured mode (the extra words in `config.cxx`) is
+then appended to the buildfile value. `cxx.std` is translated into
+mode (`-std=`, `/std:c++20`, `/Zc:__cplusplus`). The mode list
+appears last on the compile line, after `poptions` and `coptions`.
+
+To append a flag after those std-derived options, use `cxx.mode +=`
+at project root after `using cxx`. `cxx.class` and `cxx.target.*`
+are available then. See
+[`buildfile-compile-options.md`](../HOWTO/buildfile-compile-options.md#put-a-flag-last-with-cxxmode).
+
 ### C++ Target Types
 
 ```

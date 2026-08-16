@@ -86,6 +86,16 @@ $ b config.cxx="g++ -m32"
 $ b config.cxx="clang++ -stdlib=libc++"
 ```
 
+### Compile command line order
+
+The compile command line is path, `poptions`, `coptions`, then
+`*.mode`. Mode options appear last. `c.std` / `cxx.std` are folded
+into mode (`-std=`, `/std:c++20`), not into `coptions`.
+
+To place a flag after those std-derived options, append to `c.mode`
+or `cxx.mode` at project root after `using c` / `using cxx`. See
+[`buildfile-compile-options.md`](../HOWTO/buildfile-compile-options.md#put-a-flag-last-with-cxxmode).
+
 ### Binary-Specific Compile Options
 
 Compile options (`*.poptions`, `*.coptions`) can be set on `exe{}` or `lib{}`

@@ -39,6 +39,7 @@ use the table below to jump directly to the relevant file.
 | Library projects, target importation, subprojects | [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md) |
 | Create a PHONY-equivalent (alias{}) target | [HOWTO/alias-targets.md](HOWTO/alias-targets.md) |
 | Which compile/link options belong in a buildfile | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
+| Place a compile flag after compiler mode or -std | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
 | Port a CMake project to build2 buildfiles | [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md) |
 | Keep the build graph configuration-independent | [HOWTO/config-independent-build-graph.md](HOWTO/config-independent-build-graph.md) |
 | C/C++ compile and link options, module support | [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md) |

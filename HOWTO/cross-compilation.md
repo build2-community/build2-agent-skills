@@ -62,7 +62,11 @@ if ($cxx.target.system == 'mingw32')
 ```
 
 Never use `build.host.*` for target platform detection; always use
-`cxx.target.*`.
+`cxx.target.*`. These variables exist only after `using cxx`. Use
+them on `*.coptions`, `*.libs`, and similar after that load. To
+place a flag after compiler mode / `-std`, append to `cxx.mode`
+instead. See
+[`buildfile-compile-options.md`](./buildfile-compile-options.md#put-a-flag-last-with-cxxmode).
 
 ### CPU architecture matching with `cxx.target.cpu`
 

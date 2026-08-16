@@ -346,5 +346,5 @@ cxx.poptions =+ "-I$out_root" "-I$src_root"   # Untyped concat (required for -I)
 - [`build2-targets-variables.md`](build2-targets-variables.md) -- complete target type and variable reference
 - [`b/README.md`](../b/README.md) -- b driver overview
 - [`b/b.md`](../b/b.md) -- full b option reference
-- [`HOWTO/buildfile-compile-options.md`](../HOWTO/buildfile-compile-options.md) -- which compile options belong in a buildfile
+- [`HOWTO/buildfile-compile-options.md`](../HOWTO/buildfile-compile-options.md) -- which compile options belong in a buildfile, compile-line order, cxx.mode after std
 - [`HOWTO/config-independent-build-graph.md`](../HOWTO/config-independent-build-graph.md) -- keeping the build graph configuration-independent

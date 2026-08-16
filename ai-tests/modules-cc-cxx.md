@@ -77,3 +77,18 @@ Source documentation: `guides/build2-modules-cc.md`, `guides/build2-modules-cxx.
 - `in.substitutions` -- key-value pairs in `name@value` form that provide substitution values; entries here take precedence over buildfile variables. Omitting the value (just `name`) sets a null value.
 
 **Source:** `guides/build2-modules-misc.md`
+
+
+## T007 -- Compile command line order and compiler mode
+
+**Query:** In what order are `poptions`, `coptions`, and `*.mode` placed on
+the compile command line, and where is `cxx.std` translated?
+
+**Key facts** (all must appear in a correct answer):
+- The compile command line is path, `poptions`, `coptions`, then `*.mode`.
+- Mode options appear last.
+- `cxx.std` is folded into mode (`-std=`, `/std:c++20`), not into `coptions`.
+- To place a flag after those std-derived options, append with `cxx.mode +=`
+  at project root after `using cxx`.
+
+**Source:** `guides/build2-modules-cc.md`, `guides/build2-modules-cxx.md`

@@ -122,7 +122,7 @@
 - [HOWTO/README.md](HOWTO/README.md): Practical recipes indexed by topic.
 - [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md): Common error messages and resolutions for b, bpkg, bdep, bx, and brep.
 - [HOWTO/alias-targets.md](HOWTO/alias-targets.md): PHONY-equivalent targets using alias{}.
-- [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md): Which compile/link options belong in a buildfile.
+- [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md): Which compile/link options belong in a buildfile -- local-effect rule, += vs =+, compile recipe order, placing a flag after compiler mode.
 - [HOWTO/config-independent-build-graph.md](HOWTO/config-independent-build-graph.md): Keeping the build graph configuration-independent.
 - [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md): Resolving "already updated but [not] for install" errors.
 - [HOWTO/generated-headers.md](HOWTO/generated-headers.md): Auto-generated C/C++ headers.

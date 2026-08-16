@@ -83,3 +83,37 @@ is the preferred order among them, and when is each appropriate?
 - Strategy 3 (last resort): use configuration variables to gate the component -- appropriate only when factoring into a separate library is not possible, e.g. when packaging a third-party project.
 
 **Source:** `HOWTO/optional-library-components.md`
+
+
+## T007 -- Compile recipe order
+
+**Query:** In what order does build2 assemble the C++ compile command line,
+where does `cxx.std` end up, and can a `coptions` assignment come after that?
+
+**Key facts** (all must appear in a correct answer):
+- The compile command line order is path, `poptions`, `coptions`, then `*.mode`.
+- Mode options appear last.
+- `cxx.std` is translated into mode (`-std=`, `/std:c++20`, `/Zc:__cplusplus`).
+- No `coptions` assignment, directory, or target can come after mode.
+
+**Source:** `HOWTO/buildfile-compile-options.md`
+
+
+## T008 -- Place a flag last with cxx.mode
+
+**Query:** How do you append a compiler flag so it appears after `/std:c++20`,
+including when the flag is platform-conditional, and which operators and
+scopes must you not use?
+
+**Key facts** (all must appear in a correct answer):
+- After `using cxx`, append at project root with `cxx.mode +=`.
+- `cxx.class` and `cxx.target.*` are available after `using cxx`, so the
+  append can be wrapped in `if ($cxx.class == 'msvc')` or a `cxx.target.*`
+  check.
+- Use `+=` (append). Do not use `=+` (that prepends and would put the flag
+  before `/std:c++20`). Do not use `=` after `using cxx` (that replaces the
+  vector and drops std and configured mode).
+- Do not put the flag in `*.coptions` (that list is always before mode).
+- Do not use `build.host.*` for the compile target.
+
+**Source:** `HOWTO/buildfile-compile-options.md`

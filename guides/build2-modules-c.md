@@ -71,6 +71,10 @@ config.c.internal.scope
   c.internal.scope  # Internal scope for warning suppression
 ```
 
+To append a C compile flag after `c.std` (which is folded into
+`c.mode`), use `c.mode +=` at project root after `using c`. See
+[`buildfile-compile-options.md`](../HOWTO/buildfile-compile-options.md#put-a-flag-last-with-cxxmode).
+
 ### C Target Types
 
 ```

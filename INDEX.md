@@ -199,6 +199,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [HOWTO: package config variables in `bdep init -C` (conditional dependencies)](HOWTO/conditional-dependency-config.md)
 - [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md): Require a dependency feature -- require vs reflect, require-alone sibling example, when to copy a negotiated value.
 - [HOWTO/link-prerequisite-order.md](HOWTO/link-prerequisite-order.md): Link-rule prerequisite order -- link-line order, sources before $libs, GNU ld single-pass static archives, split declarations, liba{} archive exception.
+- [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md): Which compile/link options belong in a buildfile -- local-effect rule, += vs =+, compile recipe order, placing a flag after compiler mode.
 - [autoconf module](guides/build2-modules-autoconf.md)
 - [autoconf: project-specific checks](guides/build2-autoconf-project-checks.md)
 - [autoconf: buildfile integration](guides/build2-autoconf-buildfile.md)
