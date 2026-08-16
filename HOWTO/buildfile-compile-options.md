@@ -72,8 +72,9 @@ inside one list. They do not move a flag from `coptions` into mode.
 
 This matters when a later option overrides an earlier one. Putting
 `/Zc:strictStrings-` in `cxx.coptions` places it before `/std:c++20`.
-MSVC then compiles with strict string literals and fails with C2440
-on writable string literals.
+`/std:c++20` and later enable `/permissive-`, which turns
+`/Zc:strictStrings` on, so the earlier disable has no effect. MSVC
+then fails with C2440 on writable string literals.
 
 ## Put a flag last with cxx.mode
 
