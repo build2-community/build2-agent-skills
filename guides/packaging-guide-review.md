@@ -278,6 +278,10 @@ completion of any outstanding items in comments.
 
 - [ ] `manifest`: `name`/`project`/`version` values make sense.
 - [ ] `manifest`: [`summary`][manifest-summary] value follows guidelines.
+- [ ] If an accompanying package (`-tests`, `-examples`, `-benchmarks`)
+      exists, its `summary` matches the main package plus ` (tests)`,
+      ` (examples)`, or ` (benchmarks)`
+      (see [accompanying-summary][accompanying-pkg]).
 - [ ] `manifest`: [`license`][manifest-license] value is SPDX, matches
       upstream license(s).
 - [ ] `manifest`: [`depends`][manifest-depends] values make sense, have
@@ -312,6 +316,10 @@ completion of any outstanding items in comments.
       calls non-inline function).
 
 - [ ] `PACKAGE-README.md`: [makes sense][pkg-readme].
+- [ ] If an accompanying package exists, its `PACKAGE-README.md` follows
+      the accompanying-package template (no importable targets, no config
+      vars, title ends with `(tests)`, `(examples)`, or `(benchmarks)`)
+      (see [accompanying-readme][accompanying-pkg]).
 
 - [ ] Above checks applied to all packages.
 
@@ -344,6 +352,7 @@ completion of any outstanding items in comments.
 [test-smoke]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-test-smoke-adjust
 [pkg-readme]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-root-package-readme
 [rep-readme]: https://build2.org/build2-toolchain/doc/build2-toolchain-packaging.xhtml#core-repo-readme
+[accompanying-pkg]: ../HOWTO/tests-extra-dependencies.md
 
 ---
 

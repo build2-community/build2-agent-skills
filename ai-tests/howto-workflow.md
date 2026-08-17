@@ -28,6 +28,30 @@ manifest field links it to the main package?
 **Source:** `HOWTO/tests-extra-dependencies.md`
 
 
+## T011 -- Accompanying package summary and PACKAGE-README
+
+**Query:** How should the manifest `summary` and `PACKAGE-README.md` of a
+separate `libhello-tests`, `libhello-examples`, or `libhello-benchmarks`
+package be written?
+
+**Key facts** (all must appear in a correct answer):
+- Copy the main package `summary` unchanged.
+- Append ` (tests)`, ` (examples)`, or ` (benchmarks)` to mark the
+  accompanying kind.
+- Do not rewrite the summary (no "tests for ...", no appending the bare
+  word `tests`).
+- The `PACKAGE-README.md` heading is
+  `# lib<pkg>-tests - <same title as main package> (tests)`
+  (or `(examples)` / `(benchmarks)`).
+- The file states that this is a `build2` package containing the test suite
+  (or examples, or benchmarks) for the upstream library.
+- Importable targets: "This package exports no targets."
+- Configuration variables: "This package provides no configuration
+  variables."
+
+**Source:** `HOWTO/tests-extra-dependencies.md`
+
+
 ## T002 -- Environment variables and timeouts in testscript
 
 **Query:** How do you set an environment variable and impose a timeout on a

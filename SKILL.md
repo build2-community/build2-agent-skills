@@ -69,6 +69,7 @@ use the table below to jump directly to the relevant file.
 | Sanitize misbehaving tests with Testscript | [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md) |
 | Use assert() correctly in tests | [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md) |
 | Tests with extra dependencies (separate test package) | [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md) |
+| Write a lib<pkg>-tests/examples/benchmarks summary or PACKAGE-README | [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md) |
 | Build only what is needed for test or install | [HOWTO/update-for-test-install.md](HOWTO/update-for-test-install.md) |
 | Wire runtime test fixtures (child helpers, test=false exes) | [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md) |
 | Testscript-test an imported executable (e.g. a package's own `exe{}` from `tests/`) | [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md) |

@@ -50,7 +50,15 @@ EOO
 converting:
 - Unit tests (needing internal symbols) vs. integration tests (public API only)
 - External testing framework usage (if so, factor tests into a separate
-  package to avoid making the library depend on the testing framework)
+  accompanying package to avoid making the library depend on the testing
+  framework). The same split applies to examples and benchmarks. Name the
+  sibling `libfoo-tests`, `libfoo-examples`, or `libfoo-benchmarks`, and
+  declare it from the primary package with `tests:`, `examples:`, or
+  `benchmarks:` (`tests: libfoo-tests == $`). Copy the primary package
+  `summary` unchanged and append ` (tests)`, ` (examples)`, or
+  ` (benchmarks)`. Do not rewrite the summary. See
+  [tests-extra-dependencies.md](../HOWTO/tests-extra-dependencies.md) for
+  the manifest and `PACKAGE-README.md` conventions.
 - Single or multiple test executables
 - Internal utility libraries shared across test executables (use `libue{}`
   utility libraries in `build2`)
@@ -314,12 +322,40 @@ generated structure and phrasing -- deviations increase review burden and make
 the package harder to maintain.
 
 **Keep `PACKAGE-README.md` close to the generated template.** Fill the
-`<...>` placeholders with package-specific content; for the summary slot, copy
+`<...>` placeholders with package-specific content. For the summary slot, copy
 one to two paragraphs from the upstream documentation. Keep all generated
 sections, trimming minimal ones to a single placeholder sentence (e.g.,
 "This package has no configuration variables."). Do not add new sections or
 pad with content the consumer already has from `README.md`. The generated
 structure and ordering are intentional.
+
+An accompanying package (`lib<pkg>-tests`, `-examples`, `-benchmarks`) is
+the exception. It does not keep the generated Usage-style template. Use the
+short form below, substituting the type in the package name, the
+parenthetical heading suffix, and the opening sentence (`test suite`,
+`examples`, or `benchmarks`). The title after the hyphen is the same as the
+main package heading. Keep Importable targets and Configuration variables
+even when empty. The peculiarities paragraph is optional.
+
+```
+# lib<pkg>-tests - <same title as main package> (tests)
+
+This is a `build2` package containing the test suite for the
+[`<project>`](https://github.com/<org>/<project>) library.
+<brief details if there are peculiarities, e.g. patches or
+noteworthy changes like "using doctest instead of catch2",
+or if only a subset of the upstream tests are covered>
+
+
+## Importable targets
+
+This package exports no targets.
+
+
+## Configuration variables
+
+This package provides no configuration variables.
+```
 
 **Never bundle dependencies.** If upstream vendors a testing framework or
 another library, replace it with a proper external dependency. Bundled
@@ -370,3 +406,4 @@ upstream version.
 - [bdep-publish](../bdep/bdep-publish.md)
 - [third-party-private-headers](../HOWTO/third-party-private-headers.md)
 - [test-imported-executable](../HOWTO/test-imported-executable.md) -- testing a package's own `exe{}` imported into `tests/`
+- [tests-extra-dependencies](../HOWTO/tests-extra-dependencies.md): accompanying `-tests`/`-examples`/`-benchmarks` packages, summary suffix, PACKAGE-README template

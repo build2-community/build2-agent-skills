@@ -189,3 +189,24 @@ project keep git fallbacks or the queue itself in `repositories.manifest`?
 - Do not leave a transient repository (the queue is the usual example) in a long-lived project's `repositories.manifest`.
 
 **Source:** `guides/packaging-guide-summary.md`, `guides/packaging-guide-testing.md`, `bdep/bdep-publish.md`
+
+
+## T013 -- Accompanying package summary and PACKAGE-README
+
+**Query:** When packaging a third-party library, how should the manifest
+`summary` and `PACKAGE-README.md` of a separate `libfoo-tests`,
+`libfoo-examples`, or `libfoo-benchmarks` package be written?
+
+**Key facts** (all must appear in a correct answer):
+- Copy the primary package `summary` unchanged and append ` (tests)`,
+  ` (examples)`, or ` (benchmarks)`.
+- Do not rewrite the summary.
+- An accompanying package does not keep the generated Usage-style
+  `PACKAGE-README.md`.
+- The heading is `# lib<pkg>-tests - <same title as main package> (tests)`
+  (or `(examples)` / `(benchmarks)`).
+- Importable targets: "This package exports no targets."
+- Configuration variables: "This package provides no configuration
+  variables."
+
+**Source:** `guides/packaging-guide-testing.md`

@@ -297,6 +297,12 @@ packaging. Run `bdep release --no-open` when ready to publish.
 Do not capitalize subsequent words unless proper nouns. No trailing period.
 Recommended template: `<functionality> C++ library`.
 
+An accompanying package (`lib<pkg>-tests`, `-examples`, `-benchmarks`)
+reuses the main package summary and only appends ` (tests)`, ` (examples)`,
+or ` (benchmarks)`. Do not rewrite the summary. See
+[tests-extra-dependencies.md](../HOWTO/tests-extra-dependencies.md) and
+[Step 8 in packaging-guide-testing.md](packaging-guide-testing.md#step-8-write-tests).
+
 **license.** Use the SPDX license identifier (e.g. `MIT`, `Apache-2.0`,
 `GPL-3.0-only`). For licenses outside SPDX, use the `other:` scheme (e.g.
 `other: proprietary`). When a project is distributed under multiple licenses,
