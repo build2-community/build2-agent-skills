@@ -99,6 +99,11 @@ testscript:
 exe{unit-foo}: ../resources/exe{helper}: include = adhoc
 ```
 
+Source-tree data the test opens by relative name is a different pattern:
+list the files on the executable the same way, then `ln` them into `$~`.
+Do not `env -c $out_base`. See
+[test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md#source-tree-test-data).
+
 A testscript is normally only ever consumed as a prerequisite, associated
 with its target by the `test` module. Giving it its own dependency
 declaration instead (`testscript{name}@./: <target>`) makes it an
@@ -511,4 +516,4 @@ echo $arg              # Hello   Spaces
 - [build2 core modules: test](build2-modules-core.md)
 - [build2 projects advanced](build2-projects-advanced.md)
 - [test-imported-executable.md](../HOWTO/test-imported-executable.md) -- testing an imported (not locally-built) executable
-- [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md) -- attaching runtime fixtures without breaking `clean`
+- [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md): attaching built fixtures and source-tree test data without breaking `clean`

@@ -73,5 +73,5 @@ path the test rule updates). See
 
 - [b README](../b/README.md) -- operations table and buildspec syntax
 - [for-install-conflicts](./for-install-conflicts.md) -- resolving errors when both flavours are required simultaneously
-- [test-runtime-fixtures.md](./test-runtime-fixtures.md) -- child helpers and other non-test fixtures
+- [test-runtime-fixtures.md](./test-runtime-fixtures.md): child helpers, source-tree data, and other non-test fixtures
 - [build2 core modules: install](../guides/build2-modules-core.md) -- install layout and the for-install build model

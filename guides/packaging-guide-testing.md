@@ -62,11 +62,19 @@ converting:
 - Single or multiple test executables
 - Internal utility libraries shared across test executables (use `libue{}`
   utility libraries in `build2`)
-- Runtime fixtures: child processes or data built alongside the tests (mark
-  with `test = false`, attach as `include = adhoc` prerequisites of the
-  **test executable**, not the testscript, so `update-for-test` and
+- Built runtime fixtures: child processes or data built alongside the tests
+  (mark with `test = false`, attach as `include = adhoc` prerequisites of
+  the **test executable**, not the testscript, so `update-for-test` and
   test-installed still build them). See
   [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md).
+- Source-tree test data: files or directories the test opens by relative
+  name (`"inputs/..."`, `"json-patch-tests/..."`). List them as
+  `include = adhoc` `file{}` prerequisites of the test executable so
+  `dist` sees them, then `ln` them into `$~` in the testscript. Do not use
+  the NEWS `fsdir{}` directory-symlink recipe (that is for a program that
+  needs an asset directory next to it at runtime) and do not
+  `env -c $out_base`. See
+  [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md#source-tree-test-data).
 - Importing the package's own `exe{}` into `tests/` to test it (the shape
   `bpkg`'s and `bdep`'s own test suites use): see
   [test-imported-executable.md](../HOWTO/test-imported-executable.md).
@@ -163,10 +171,14 @@ pure installed-case test for that dependency.
 
 `bdep ci` (git-based) and the `cppget.org` publish-test step (archive-based)
 are **not equivalent**: git-based CI prepares the distribution differently
-and does not reliably catch buildfile-graph gaps -- missing-from-`buildfile`
-source files, targets unreachable from a directory's default `./:` set, or
+and does not reliably catch buildfile-graph gaps: missing-from-`buildfile`
+source files, targets unreachable from a directory's default `./:` set,
 broken `clean` rules for targets only reachable via non-`./:` declarations
-(build2/build2#533).
+(build2/build2#533), or custom `fsdir{}` clean recipes whose path aliases
+src when `src_base == out_base` (the NEWS directory-symlink pattern used
+as a test-data fixture). That last case fails `b clean` in the unpacked
+archive while `bdep test` stays green. See
+[test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md#source-tree-test-data).
 
 They also differ in which repository graph is used. `bdep ci` consumes the
 git repository, so the project's `repositories.manifest` is the repository
@@ -405,5 +417,6 @@ upstream version.
 - [bdep-release](../bdep/bdep-release.md)
 - [bdep-publish](../bdep/bdep-publish.md)
 - [third-party-private-headers](../HOWTO/third-party-private-headers.md)
-- [test-imported-executable](../HOWTO/test-imported-executable.md) -- testing a package's own `exe{}` imported into `tests/`
+- [test-imported-executable](../HOWTO/test-imported-executable.md): testing a package's own `exe{}` imported into `tests/`
+- [test-runtime-fixtures](../HOWTO/test-runtime-fixtures.md): built fixtures, source-tree test data, NEWS `fsdir{}`
 - [tests-extra-dependencies](../HOWTO/tests-extra-dependencies.md): accompanying `-tests`/`-examples`/`-benchmarks` packages, summary suffix, PACKAGE-README template

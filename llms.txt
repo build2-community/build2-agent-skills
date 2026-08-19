@@ -136,8 +136,8 @@
 - [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md): Making library components optional.
 - [HOWTO/target-metadata.md](HOWTO/target-metadata.md): Exporting metadata with executables and libraries.
 - [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md): Correctly using assert() in tests.
-- [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md): Sanitizing misbehaving tests with Testscript.
-- [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md): Runtime test fixtures -- child helpers, test=false, testscript@./ prerequisites, update-for-test.
+- [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md): Sanitizing misbehaving tests with Testscript -- output redirection, cleanup, env timeouts, ln of src files and directories into $~.
+- [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md): Runtime test fixtures -- built child helpers, source-tree data, NEWS fsdir{} exe assets, test=false, include=adhoc, update-for-test.
 - [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md): Tests with extra dependencies (separate test package).
 - [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md): Testing an imported executable -- `test` variable override, `build/export.build` prerequisite, update ordering, `clean`-safety, the broken alternative LHS form.
 - [HOWTO/convert-source-to-utf8.md](HOWTO/convert-source-to-utf8.md): Converting source file encoding to UTF-8.
@@ -186,8 +186,8 @@
 - [ai-tests/packaging.md](ai-tests/packaging.md): Queries for third-party packaging workflow -- repo layout, project scaffold, interface vs. implementation deps, revision workflow, publish defaults, build2-control branch.
 - [ai-tests/howto.md](ai-tests/howto.md): Queries for practical HOWTO recipes -- alias targets, compile option operators, system library linking, package naming, assert in tests, optional components.
 - [ai-tests/howto-libraries.md](ai-tests/howto-libraries.md): Queries for library design and linking HOWTOs -- binless system libs, library-provides-main, pthread linking, third-party private headers.
-- [ai-tests/howto-build.md](ai-tests/howto-build.md): Queries for build and configuration HOWTOs -- cross-compilation, generated headers, multiple configurations, config-independent graph, target metadata, install conflicts, update-for-test/install.
-- [ai-tests/howto-workflow.md](ai-tests/howto-workflow.md): Queries for workflow and versioning HOWTOs -- test package naming, sanitize-tests env/timeout, custom rule writing, non-semver versioning, no-version packages, CI pipeline, troubleshooting.
+- [ai-tests/howto-build.md](ai-tests/howto-build.md): Queries for build and configuration HOWTOs -- cross-compilation, generated headers, multiple configurations, config-independent graph, target metadata, install conflicts, update-for-test/install, runtime fixtures, source-tree test data.
+- [ai-tests/howto-workflow.md](ai-tests/howto-workflow.md): Queries for workflow and versioning HOWTOs -- test package naming, sanitize-tests env/timeout and directory ln, custom rule writing, non-semver versioning, no-version packages, CI pipeline, troubleshooting.
 - [ai-tests/testscript-commands.md](ai-tests/testscript-commands.md): Queries for testscript command mechanics -- here-documents, output comparison, cleanup directives, builtins, here-doc markers, exit code checking.
 
 ## Raw source

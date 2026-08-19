@@ -10,6 +10,7 @@ Source documentation:
 - `HOWTO/ci-cd-setup.md`
 - `HOWTO/troubleshooting.md`
 - `HOWTO/test-imported-executable.md`
+- `HOWTO/test-runtime-fixtures.md`
 
 
 ## T001 -- Test package naming and manifest association
@@ -210,3 +211,21 @@ executable in an out-of-source build?
   source file.
 
 **Source:** `HOWTO/test-imported-executable.md`
+
+
+## T011 -- ln of a source-tree data directory into `$~`
+
+**Query:** How do you arrange a source-tree data directory (not just a single
+file) in a testscript working directory so tests that open relative paths
+like `"inputs/..."` can see it?
+
+**Key facts** (all must appear in a correct answer):
+- The `ln` builtin works for a directory as well as a file.
+- Trailing slash on the source (`ln -s $src_base/inputs/ inputs`) is
+  directory syntax.
+- Use a test scope so the links and the executable share `$~`.
+- Do not `env -c $out_base` to make the relative names resolve.
+- List the files on the test executable as `include = adhoc` so `dist` sees
+  them (see `HOWTO/test-runtime-fixtures.md`).
+
+**Source:** `HOWTO/sanitize-tests.md`

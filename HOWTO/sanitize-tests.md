@@ -58,8 +58,33 @@ ln --no-cleanup -s $src_base/test.config ./ ;
 $* 1>&2 2>| &***
 ```
 
+The same idea works for a directory. Trailing slash on the source is
+directory syntax (always `/`, including on Windows). Use a test scope so
+the links and the executable share `$~`:
+
+```
+{
+  ln -s $src_base/inputs/ inputs
+  $*
+}
+```
+
+Do not `env -c $out_base` (or `env -c $src_base`) to make those relative
+names resolve. Cleanup cannot register paths outside `$~`. List the files
+on the test executable as `include = adhoc` so `dist` and
+`update-for-test` see them:
+
+```
+exe{test-parse_examples}: file{inputs/**}: include = adhoc
+```
+
+See [test-runtime-fixtures.md](./test-runtime-fixtures.md#source-tree-test-data)
+for why that buildfile side is required, and why the NEWS `fsdir{}` asset
+recipe is the wrong tool for test data.
+
 ## See Also
 
-- [assert-in-tests.md](./assert-in-tests.md) -- correctly using assert() in tests
-- [testscript-summary.md](../guides/testscript-summary.md) -- Testscript language reference
-- [testscript-commands.md](../guides/testscript-commands.md) -- Testscript commands and redirections
+- [assert-in-tests.md](./assert-in-tests.md): correctly using assert() in tests
+- [test-runtime-fixtures.md](./test-runtime-fixtures.md): source-tree data vs built fixtures vs NEWS `fsdir{}`
+- [testscript-summary.md](../guides/testscript-summary.md): Testscript language reference
+- [testscript-commands.md](../guides/testscript-commands.md): Testscript commands and redirections

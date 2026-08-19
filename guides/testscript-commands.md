@@ -205,7 +205,10 @@ Wildcard components in cleanup paths:
 | `***` (no trailing slash) | All files and sub-dirs recursively plus start dir |
 
 Registering a path outside the script working directory is an error. Use
-`rm -f` or `rmdir -f` to clean up such paths manually.
+`rm -f` or `rmdir -f` to clean up such paths manually. Source-tree test
+data should be linked into `$~` (so cleanup can see it), not made visible
+by `env -c $out_base`. See
+[test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md#source-tree-test-data).
 
 ### `--no-cleanup` on filesystem builtins
 

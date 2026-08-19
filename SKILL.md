@@ -71,7 +71,8 @@ use the table below to jump directly to the relevant file.
 | Tests with extra dependencies (separate test package) | [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md) |
 | Write a lib<pkg>-tests/examples/benchmarks summary or PACKAGE-README | [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md) |
 | Build only what is needed for test or install | [HOWTO/update-for-test-install.md](HOWTO/update-for-test-install.md) |
-| Wire runtime test fixtures (child helpers, test=false exes) | [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md) |
+| Wire runtime test fixtures (child helpers, source-tree data) | [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md) |
+| Give tests access to source-tree data directories | [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md) |
 | Testscript-test an imported executable (e.g. a package's own `exe{}` from `tests/`) | [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md) |
 | Resolve "already updated but [not] for install" conflicts | [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |

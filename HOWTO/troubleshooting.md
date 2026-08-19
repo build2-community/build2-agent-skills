@@ -47,6 +47,40 @@ Reproduce locally with the expanded dist-test recipe in
 [packaging-guide-testing.md](../guides/packaging-guide-testing.md) rather
 than waiting on a publish-queue result.
 
+### `rm: '<path>' is a directory`
+
+**Cause:** A custom `fsdir{}` clean recipe (`rm $out_base/inputs`, the NEWS
+directory-symlink pattern) ran during in-source `b clean`. When
+`src_base == out_base` (the unpacked-dist tree the cppget.org queue
+configures, and the `b dist` then in-source `configure`/`update`/`test`/`clean`
+recipe), `fsdir{inputs/}` is the real source directory. Update is a no-op
+because the directory already exists. Clean still runs `rm` on that path
+and fails. `bdep test` is out-of-source and stays green.
+
+`include = ($out_base != $src_base)` on the exe-to-`fsdir` edge does not
+fix it. An independent `fsdir{}: file{inputs/**}` declaration still
+registers the target, and directory-scoped `b clean` still finds it.
+
+**Fix:** Do not use NEWS-style `fsdir{}` for test data. List the source
+files as `include = adhoc` prerequisites of the test executable and `ln`
+them into `$~` in the testscript:
+
+```
+exe{test-parse_examples}: file{inputs/**}: include = adhoc
+```
+
+```
+{
+  ln -s $src_base/inputs/ inputs
+  $*
+}
+```
+
+See [test-runtime-fixtures.md](./test-runtime-fixtures.md#source-tree-test-data).
+Reproduce locally with the expanded dist-test recipe in
+[packaging-guide-testing.md](../guides/packaging-guide-testing.md),
+including `b clean`. A green `bdep test` is not evidence this is fine.
+
 ### `error: target <target> specified in the test variable is out of date`
 
 **Cause:** A testscript's `test` variable was overridden to an **imported**
@@ -353,7 +387,7 @@ a binless library is linked, `*.libs` is required.
 ## See Also
 
 - [`for-install-conflicts`](./for-install-conflicts.md) -- detailed for-install conflict resolution
-- [`test-runtime-fixtures`](./test-runtime-fixtures.md) -- attaching runtime fixtures without breaking `clean`
+- [`test-runtime-fixtures`](./test-runtime-fixtures.md): attaching runtime fixtures and source-tree test data without breaking `clean`
 - [`test-imported-executable`](./test-imported-executable.md) -- testing an imported executable, and the two errors above
 - [`bpkg-dependency-negotiation`](../bpkg/bpkg-dependency-negotiation.md) -- how dependency version constraints are resolved
 - [`build2-modules-cc`](../guides/build2-modules-cc.md) -- cc module reference

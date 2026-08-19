@@ -3,7 +3,8 @@
 Source documentation: `HOWTO/cross-compilation.md`, `HOWTO/generated-headers.md`,
 `HOWTO/multiple-configurations.md`, `HOWTO/config-independent-build-graph.md`,
 `HOWTO/target-metadata.md`, `HOWTO/for-install-conflicts.md`,
-`HOWTO/update-for-test-install.md`, `HOWTO/conditional-dependency-config.md`
+`HOWTO/update-for-test-install.md`, `HOWTO/test-runtime-fixtures.md`,
+`HOWTO/conditional-dependency-config.md`
 
 
 ## T001 -- Cross-compilation: detecting the target platform in buildfiles
@@ -174,3 +175,29 @@ placed in the wrong position?
   are required.
 
 **Source:** `HOWTO/conditional-dependency-config.md`
+
+
+## T010 -- source-tree test data vs NEWS fsdir{}
+
+**Query:** How do you give Testscript-driven tests access to source-tree data
+directories that the test opens by relative name (for example `"inputs/..."`),
+and why is the NEWS `fsdir{}` directory-symlink recipe the wrong tool for
+that?
+
+**Key facts** (all must appear in a correct answer):
+- List the files as `include = adhoc` prerequisites of the test executable
+  (for example `exe{test-parse_examples}: file{inputs/**}: include = adhoc`)
+  so `dist` and `update-for-test` see them.
+- In the testscript, `ln -s $src_base/inputs/ inputs` inside `$~` (a test
+  scope so the links and the executable share a working directory). Trailing
+  slash on the source is directory syntax.
+- Do not `env -c $out_base` or `env -c $src_base`. Testscript will not
+  auto-clean writes outside `$~`.
+- NEWS `fsdir{}` with `ln -s $src_base/assets $out_base/assets` is for a
+  program that needs an asset directory next to it at runtime, not for tests.
+- Using that NEWS recipe for test data breaks in-source `b clean`
+  (`rm: '...' is a directory`) because `src_base == out_base` makes
+  `fsdir{inputs/}` the real source directory. `bdep test` is out-of-source
+  and hides this.
+
+**Source:** `HOWTO/test-runtime-fixtures.md`
