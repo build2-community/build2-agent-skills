@@ -187,6 +187,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [testscript reference](guides/testscript-summary.md)
 - [testscript: commands, redirections, and builtins](guides/testscript-commands.md)
 - [runtime test fixtures (child helpers, source-tree data, update-for-test)](HOWTO/test-runtime-fixtures.md)
+- [HOWTO/exclude-test-data-from-dist.md](HOWTO/exclude-test-data-from-dist.md): Excluding test data from a b dist archive -- target-specific vs prerequisite-specific dist, include=false still collected, dir{}/: dist=false no-op, if-wrapped declarations, whole-directory patterns.
 - [testing an imported executable](HOWTO/test-imported-executable.md)
 - [packaging guide: setup through installation](guides/packaging-guide-summary.md) (includes which `repositories.manifest` is consulted)
 - [packaging guide: testing and publishing](guides/packaging-guide-testing.md)

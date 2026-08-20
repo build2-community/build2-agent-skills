@@ -18,7 +18,11 @@ buildfile:32:3: warning: conditional dependency declaration may result in incomp
 Instead of guarding dependency declarations with `if`, use the
 [`include` prerequisite-specific variable](../guides/build2-targets-variables.md#prerequisite-specific-variable-attributes).
 All targets remain in the graph; `include` controls whether they participate
-in the build for a given configuration:
+in the build for a given configuration. Note that this keeps the prerequisite
+in the dist archive -- `include = (condition)` fixes *incomplete*
+distribution, it is not a way to *exclude* something from distribution. To
+actually drop a file from the archive, see
+[exclude-test-data-from-dist.md](./exclude-test-data-from-dist.md):
 
 ```
 # Wrong: produces different graphs on different platforms.
@@ -92,3 +96,4 @@ if $config.hello.develop
 - [build2 buildfile language](../guides/build2-buildfile-language.md) -- conditional and loop directives
 - [build2 directives, name patterns, attributes](../guides/build2-directives-patterns.md)
 - [build2 core modules: config](../guides/build2-modules-core.md)
+- [exclude-test-data-from-dist.md](./exclude-test-data-from-dist.md): actually excluding a file from the `b dist` archive

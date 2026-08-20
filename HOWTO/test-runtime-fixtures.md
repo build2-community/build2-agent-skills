@@ -181,6 +181,10 @@ exe{test-parse_examples}: file{inputs/**}: include = adhoc
 `include = adhoc` tracks the files without treating them as compile or link
 inputs. That is the same attachment used for built fixtures.
 
+This gets the files *into* the archive and the test tree. For the opposite
+problem -- keeping large or generated fixtures *out* of the `b dist`
+archive -- see [exclude-test-data-from-dist.md](./exclude-test-data-from-dist.md).
+
 ### Link into `$~` in the testscript
 
 In the testscript, link into `$~` and run there (one test scope, so the
@@ -297,6 +301,7 @@ env -c $out_base -- $*
 - [packaging-guide-testing.md](../guides/packaging-guide-testing.md): packaging workflow, dist-test, test-installed
 - [generated-headers.md](./generated-headers.md): `clean = ($src_root != $out_root)` for generated files overlaying src
 - [config-independent-build-graph.md](./config-independent-build-graph.md): platform-specific tests with `include =`
+- [exclude-test-data-from-dist.md](./exclude-test-data-from-dist.md): keep fixtures out of the `b dist` archive instead of into the test tree
 - [third-party-private-headers.md](./third-party-private-headers.md): `include = adhoc` for tracked, non-compiled prerequisites
 - [build2-projects-advanced.md](../guides/build2-projects-advanced.md): `@./` for src-side targets
 - [test-imported-executable.md](./test-imported-executable.md): testing an imported executable without repeating this file's `clean` footgun in a new context

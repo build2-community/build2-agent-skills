@@ -4,7 +4,7 @@ Source documentation: `HOWTO/cross-compilation.md`, `HOWTO/generated-headers.md`
 `HOWTO/multiple-configurations.md`, `HOWTO/config-independent-build-graph.md`,
 `HOWTO/target-metadata.md`, `HOWTO/for-install-conflicts.md`,
 `HOWTO/update-for-test-install.md`, `HOWTO/test-runtime-fixtures.md`,
-`HOWTO/conditional-dependency-config.md`
+`HOWTO/conditional-dependency-config.md`, `HOWTO/exclude-test-data-from-dist.md`
 
 
 ## T001 -- Cross-compilation: detecting the target platform in buildfiles
@@ -199,5 +199,45 @@ that?
   (`rm: '...' is a directory`) because `src_base == out_base` makes
   `fsdir{inputs/}` the real source directory. `bdep test` is out-of-source
   and hides this.
+
+**Source:** `HOWTO/test-runtime-fixtures.md`
+
+
+## T011 -- Excluding test fixtures from a b dist archive
+
+**Query:** A test's fixture data (a single large file, or a whole
+`tests/resources/` directory) should stay in the git checkout but not ship
+in the `b dist` archive. `dir{resources}/: dist = false`, `include = false`,
+and `tests/: install = false` all seem plausible and none of them work. What
+is the actual correct recipe?
+
+**Key facts** (all must appear in a correct answer):
+- `dist = false` must be a target-specific assignment -- its own buildfile
+  line naming the target on the left of the colon (`file{data/fixture.txt}:
+  dist = false`), not chained after a prerequisite on someone else's
+  declaration line (`./: file{data/fixture.txt}: dist = false` sets a
+  prerequisite-specific value that `dist`'s collector never reads and is
+  silently ignored).
+- `include = false` alone does not exclude a file from the archive:
+  `dist_include()` rewrites excluded prerequisites to adhoc so "every
+  source is included into the distribution."
+- `dir{resources}/: dist = false` (target-specific, on the `dir{}` target)
+  is a silent no-op: `dist`'s collector only ever walks `file` targets.
+- A brace-block scope assignment (`resources/ { dist = false }`) is a hard
+  parse error (`dist` has target visibility, cannot be assigned on a
+  scope).
+- `tests/: install = false` has no effect on `dist`: that cascading lookup
+  is specific to the `install` module's rule, which `dist` does not have.
+- The working recipe combines both knobs: `include = false` (keeps the
+  build from requiring the now-uncopied file) plus target-specific
+  `dist = false` (removes it from the archive). Without `include = false`,
+  rebuilding the unpacked archive in-source fails with "no rule to update"
+  because the buildfile still declares the prerequisite but the file is
+  gone.
+- Wrapping the declaration in `if` instead produces a dist-only parser
+  warning ("conditional dependency declaration may result in incomplete
+  distribution") and does not exclude the file under the branch taken.
+
+**Source:** `HOWTO/exclude-test-data-from-dist.md`
 
 **Source:** `HOWTO/test-runtime-fixtures.md`

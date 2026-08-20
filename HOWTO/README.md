@@ -34,6 +34,7 @@ Condensed, AI-indexed versions of the
 | [assert-in-tests.md](./assert-in-tests.md) | Correctly using `assert()` in tests |
 | [sanitize-tests.md](./sanitize-tests.md) | Sanitizing misbehaving tests with Testscript |
 | [test-runtime-fixtures.md](./test-runtime-fixtures.md) | Runtime fixtures: child helpers, source-tree data, NEWS fsdir{} |
+| [exclude-test-data-from-dist.md](./exclude-test-data-from-dist.md) | Excluding test data from a `b dist` archive |
 | [tests-extra-dependencies.md](./tests-extra-dependencies.md) | Tests with extra dependencies (separate test package) |
 | [test-imported-executable.md](./test-imported-executable.md) | Testscript-testing an imported executable (e.g. a package's own `exe{}` from `tests/`) |
 
