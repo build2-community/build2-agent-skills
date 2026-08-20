@@ -302,6 +302,7 @@ env -c $out_base -- $*
 - [generated-headers.md](./generated-headers.md): `clean = ($src_root != $out_root)` for generated files overlaying src
 - [config-independent-build-graph.md](./config-independent-build-graph.md): platform-specific tests with `include =`
 - [exclude-test-data-from-dist.md](./exclude-test-data-from-dist.md): keep fixtures out of the `b dist` archive instead of into the test tree
+- [fsdir-parent-chain.md](./fsdir-parent-chain.md): built-in `fsdir{}` parent auto-creation is out-of-tree only (not the NEWS directory-symlink recipe)
 - [third-party-private-headers.md](./third-party-private-headers.md): `include = adhoc` for tracked, non-compiled prerequisites
 - [build2-projects-advanced.md](../guides/build2-projects-advanced.md): `@./` for src-side targets
 - [test-imported-executable.md](./test-imported-executable.md): testing an imported executable without repeating this file's `clean` footgun in a new context

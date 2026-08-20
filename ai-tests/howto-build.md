@@ -4,7 +4,8 @@ Source documentation: `HOWTO/cross-compilation.md`, `HOWTO/generated-headers.md`
 `HOWTO/multiple-configurations.md`, `HOWTO/config-independent-build-graph.md`,
 `HOWTO/target-metadata.md`, `HOWTO/for-install-conflicts.md`,
 `HOWTO/update-for-test-install.md`, `HOWTO/test-runtime-fixtures.md`,
-`HOWTO/conditional-dependency-config.md`, `HOWTO/exclude-test-data-from-dist.md`
+`HOWTO/conditional-dependency-config.md`, `HOWTO/exclude-test-data-from-dist.md`,
+`HOWTO/fsdir-parent-chain.md`
 
 
 ## T001 -- Cross-compilation: detecting the target platform in buildfiles
@@ -240,4 +241,24 @@ is the actual correct recipe?
 
 **Source:** `HOWTO/exclude-test-data-from-dist.md`
 
-**Source:** `HOWTO/test-runtime-fixtures.md`
+
+## T012 -- fsdir{} parent auto-creation is out-of-tree only
+
+**Query:** When does the built-in fsdir{} rule auto-create parent
+directories, what must you declare for a nested directory in an in-source
+build, and which test actually catches a missing chain?
+
+**Key facts** (all must appear in a correct answer):
+- Parent directories are auto-created only when the target directory is
+  not under the project's `src_path()` (out-of-tree).
+- In-source (`out_base == src_base`) auto-inject never fires. Only an
+  explicitly declared `fsdir{}` prerequisite is honored.
+- Every missing intermediate level needs its own `fsdir{}`-to-`fsdir{}`
+  prerequisite.
+- A forwarded out-of-source config hides a missing chain because that is
+  where the cascade fires.
+- The check that matters for publish is `b dist` then in-source
+  `configure` then `update` of the unpacked archive.
+- This is intentional build2 behavior, not a defect.
+
+**Source:** `HOWTO/fsdir-parent-chain.md`

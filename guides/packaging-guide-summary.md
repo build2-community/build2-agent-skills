@@ -180,7 +180,9 @@ Use `https://` for the submodule URL. Never use a URL requiring authentication.
 ## Step 2: Determine Package Structure
 
 **Repository name.** Use the upstream repository name as the package repository
-name. No `build2-` prefix or `-package` suffix.
+name. No `build2-` prefix or `-package` suffix. Preserve upstream case in the
+repository name. Keep `project:` and package `name:` lowercase (see
+[package-naming.md](../HOWTO/package-naming.md#naming-case-repository-project-package)).
 
 **Package name for executables.** Use the upstream name unless there is a good
 reason to deviate. Check Debian for guidance.
@@ -438,7 +440,9 @@ System libraries (such as `-lm`, `-ldl`, `ws2_32.lib`) go in `c.libs` or
 
 Shared library ABI versioning uses `bin.lib.version`. The generated default
 embeds major and minor version in the binary name, treating only patch releases
-as ABI-compatible.
+as ABI-compatible. That default does not match most upstream SONAME layouts.
+See [match-upstream-library-name.md](../HOWTO/match-upstream-library-name.md)
+when existing consumers resolve the library by a fixed file name.
 
 For extra requirements (Objective-C, Assembler, `.in` template processing,
 `config.h.in` with Autoconf probing, unit tests in the source directory,
@@ -617,3 +621,5 @@ $ b install config.install.root=/tmp/install
 - [bdep-sync](../bdep/bdep-sync.md)
 - [third-party-private-headers](../HOWTO/third-party-private-headers.md)
 - [require-dependency-feature](../HOWTO/require-dependency-feature.md)
+- [package-naming](../HOWTO/package-naming.md)
+- [match-upstream-library-name](../HOWTO/match-upstream-library-name.md)

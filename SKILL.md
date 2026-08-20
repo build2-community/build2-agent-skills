@@ -35,6 +35,7 @@ use the table below to jump directly to the relevant file.
 | Buildfile language syntax (if/loop/switch/patterns) | [guides/build2-buildfile-language.md](guides/build2-buildfile-language.md) |
 | Buildfile directives, name patterns, and attributes | [guides/build2-directives-patterns.md](guides/build2-directives-patterns.md) |
 | Pin a target to src instead of out (`@./` qualification) | [guides/build2-targets-variables.md](guides/build2-targets-variables.md) |
+| Create nested directories with fsdir{} | [HOWTO/fsdir-parent-chain.md](HOWTO/fsdir-parent-chain.md) |
 | Look up a buildfile function signature, flags, or purity | [guides/build2-functions.md](guides/build2-functions.md) |
 | Library projects, target importation, subprojects | [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md) |
 | Create a PHONY-equivalent (alias{}) target | [HOWTO/alias-targets.md](HOWTO/alias-targets.md) |
@@ -45,6 +46,7 @@ use the table below to jump directly to the relevant file.
 | C/C++ compile and link options, module support | [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md) |
 | C-common variables, DLL export, compilation database | [guides/build2-modules-cc.md](guides/build2-modules-cc.md) |
 | bin/liba/libs/exe target types | [guides/build2-modules-bin.md](guides/build2-modules-bin.md) |
+| Match an upstream shared library name or SONAME | [HOWTO/match-upstream-library-name.md](HOWTO/match-upstream-library-name.md) |
 | Create a header-only (binless) library | [HOWTO/header-only-library.md](HOWTO/header-only-library.md) |
 | Link pthread | [HOWTO/link-pthread.md](HOWTO/link-pthread.md) |
 | Link a system library (-lm, -ldl, advapi32.lib) | [HOWTO/link-system-library.md](HOWTO/link-system-library.md) |
@@ -77,6 +79,7 @@ use the table below to jump directly to the relevant file.
 | Testscript-test an imported executable (e.g. a package's own `exe{}` from `tests/`) | [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md) |
 | Resolve "already updated but [not] for install" conflicts | [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md) |
 | Package a third-party library | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
+| Name a third-party package, project, and repository | [HOWTO/package-naming.md](HOWTO/package-naming.md) |
 | Start a third-party package on the review branch | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md) |
 | Require a dependency feature from a `depends` clause | [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md) |
 | How a pkg vs git repository finds dependencies | [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted) |

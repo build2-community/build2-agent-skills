@@ -34,10 +34,51 @@ both of the following hold:
 2. No well-known project provides an executable with the same name (verified
    against the Debian package repository).
 
+## Naming case: repository, project, package
+
+Three names are involved in packaging a third-party project. They do not
+follow the same case convention.
+
+| Name | Case | Example (upstream `MoltenVK`) |
+|---|---|---|
+| Git repository | Mirror the upstream repository name exactly, including case. Drop only a `build2-` prefix or `-package` suffix. | `MoltenVK` |
+| Manifest `project:` and `project =` in `build/bootstrap.build` | Lowercase, even when the repository is mixed case. | `project: moltenvk` |
+| Manifest `name:` | Lowercase by default. | `libmoltenvk` |
+
+The `Vulkan-Loader` package is the same split done correctly: repository
+`Vulkan-Loader`, `project: vulkan-loader`, packages `libvulkan-loader` and
+`vulkan-loader-asm-offset`.
+
+This is convention, not a parser rule. `project` is typed as the same
+`package_name` as `name:` (`libbpkg/manifest.hxx`). Comparison is
+case-insensitive, and original case is preserved for display and file names
+([Case Sensitivity](../guides/bpkg-package-name-version.md#case-sensitivity)).
+Nothing rejects `project: MoltenVK`. A mixed-case `project:` that copies the
+repository name will publish.
+
+The packaging guide's Qt rows (`Qt5` / `Qt5Moc` / `libQt5Core`) are the
+documented exception: mixed-case package names when that mixed case *is*
+the upstream identifier
+(`.submodules/build2-toolchain/doc/packaging.cli`, `#core-package-name`).
+Do not copy the repository's mixed case into `project:` just because the
+repo kept it.
+
+## Target names vs package names
+
+Build2 target identifiers (`lib{MoltenVK}`) live in a separate namespace
+from `name:` and `project:`. They can diverge from both.
+
+When the library's output is consumed outside the build2 graph, match
+upstream's artifact. See
+[match-upstream-library-name.md](./match-upstream-library-name.md) for the
+preference order and the `bin.lib.version` / `bin.lib.prefix` / `extension`
+knobs.
+
 ## See Also
 
-- [`packaging-guide-summary`](../guides/packaging-guide-summary.md) -- full packaging workflow including package structure decisions
-- [`bpkg-package-name-version`](../guides/bpkg-package-name-version.md) -- package name rules, version format, and constraint syntax
-- [`bdep-new`](../bdep/bdep-new.md) -- creating multi-package project repositories
-- [`package-version-non-semver`](./package-version-non-semver.md) -- handling upstream projects that don't use semantic versioning
-- [`package-version-none`](./package-version-none.md) -- handling upstream projects with no version
+- [packaging-guide-summary.md](../guides/packaging-guide-summary.md): full packaging workflow including package structure decisions
+- [match-upstream-library-name.md](./match-upstream-library-name.md): matching upstream target names, SONAME, and file prefix
+- [bpkg-package-name-version.md](../guides/bpkg-package-name-version.md): package name rules, version format, and constraint syntax
+- [bdep-new.md](../bdep/bdep-new.md): creating multi-package project repositories
+- [package-version-non-semver.md](./package-version-non-semver.md): handling upstream projects that don't use semantic versioning
+- [package-version-none.md](./package-version-none.md): handling upstream projects with no version

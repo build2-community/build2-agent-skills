@@ -99,3 +99,4 @@ fixed default extension `.def`.
 - [`build2-modules-cxx.md`](build2-modules-cxx.md) -- cxx module: C++ compilation and C++20 modules
 - [`build2-targets-variables.md`](build2-targets-variables.md) -- full built-in target type reference
 - [`link-prerequisite-order.md`](../HOWTO/link-prerequisite-order.md) -- sources before `$libs` on linked `exe{}` and `libs{}`
+- [`match-upstream-library-name.md`](../HOWTO/match-upstream-library-name.md) -- matching upstream SONAME, prefix, and shared-library file names

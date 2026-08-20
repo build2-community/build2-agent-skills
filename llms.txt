@@ -125,6 +125,7 @@
 - [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md): Which compile/link options belong in a buildfile -- local-effect rule, += vs =+, compile recipe order, placing a flag after compiler mode.
 - [HOWTO/config-independent-build-graph.md](HOWTO/config-independent-build-graph.md): Keeping the build graph configuration-independent.
 - [HOWTO/for-install-conflicts.md](HOWTO/for-install-conflicts.md): Resolving "already updated but [not] for install" errors.
+- [HOWTO/fsdir-parent-chain.md](HOWTO/fsdir-parent-chain.md): fsdir{} parent-directory auto-creation -- out-of-tree cascade, in-source explicit chains, dist/publish path.
 - [HOWTO/generated-headers.md](HOWTO/generated-headers.md): Auto-generated C/C++ headers.
 - [HOWTO/disable-shared-lib-per-platform.md](HOWTO/disable-shared-lib-per-platform.md): Disabling the shared library variant per platform.
 - [HOWTO/update-for-test-install.md](HOWTO/update-for-test-install.md): Building only what is needed for test or install (update-for-test / update-for-install operations).
@@ -133,6 +134,7 @@
 - [HOWTO/link-pthread.md](HOWTO/link-pthread.md): Linking pthread.
 - [HOWTO/link-system-library.md](HOWTO/link-system-library.md): Linking system libraries (-lm, -ldl, advapi32.lib).
 - [HOWTO/link-prerequisite-order.md](HOWTO/link-prerequisite-order.md): Link-rule prerequisite order -- link-line order, sources before $libs, GNU ld single-pass static archives, split declarations, liba{} archive exception.
+- [HOWTO/match-upstream-library-name.md](HOWTO/match-upstream-library-name.md): Matching upstream library output names -- target vs package name, bin.lib.version, linux@ SONAME, bin.lib.prefix on MinGW, extension overrides.
 - [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md): Making library components optional.
 - [HOWTO/target-metadata.md](HOWTO/target-metadata.md): Exporting metadata with executables and libraries.
 - [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md): Correctly using assert() in tests.
@@ -142,7 +144,7 @@
 - [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md): Tests with extra dependencies (separate test package).
 - [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md): Testing an imported executable -- `test` variable override, `build/export.build` prerequisite, update ordering, `clean`-safety, the broken alternative LHS form.
 - [HOWTO/convert-source-to-utf8.md](HOWTO/convert-source-to-utf8.md): Converting source file encoding to UTF-8.
-- [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects.
+- [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects -- lib prefix, repository vs project: vs name: case, target vs package names.
 - [HOWTO/package-changes-file.md](HOWTO/package-changes-file.md): Packaging an upstream changelog with a non-canonical name, changes-file vs doc{}.
 - [HOWTO/package-version-non-semver.md](HOWTO/package-version-non-semver.md): Projects that don't use semantic versioning.
 - [HOWTO/package-version-none.md](HOWTO/package-version-none.md): Projects with no version at all.

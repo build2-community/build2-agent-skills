@@ -188,8 +188,11 @@ See [bx reference](bx/bx.md) for the full option list.
 - [testscript: commands, redirections, and builtins](guides/testscript-commands.md)
 - [runtime test fixtures (child helpers, source-tree data, update-for-test)](HOWTO/test-runtime-fixtures.md)
 - [HOWTO/exclude-test-data-from-dist.md](HOWTO/exclude-test-data-from-dist.md): Excluding test data from a b dist archive -- target-specific vs prerequisite-specific dist, include=false still collected, dir{}/: dist=false no-op, if-wrapped declarations, whole-directory patterns.
+- [HOWTO/fsdir-parent-chain.md](HOWTO/fsdir-parent-chain.md): fsdir{} parent-directory auto-creation -- out-of-tree cascade, in-source explicit chains, dist/publish path.
 - [testing an imported executable](HOWTO/test-imported-executable.md)
 - [packaging guide: setup through installation](guides/packaging-guide-summary.md) (includes which `repositories.manifest` is consulted)
+- [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects -- lib prefix, repository vs project: vs name: case, target vs package names.
+- [HOWTO/match-upstream-library-name.md](HOWTO/match-upstream-library-name.md): Matching upstream library output names -- target vs package name, bin.lib.version, linux@ SONAME, bin.lib.prefix on MinGW, extension overrides.
 - [packaging guide: testing and publishing](guides/packaging-guide-testing.md)
 - [packaging guide: review process and checklist](guides/packaging-guide-review.md)
 - [bpkg package naming, version format, and constraint syntax](guides/bpkg-package-name-version.md)

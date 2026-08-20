@@ -11,6 +11,7 @@ Condensed, AI-indexed versions of the
 | [buildfile-compile-options.md](./buildfile-compile-options.md) | Which compile/link options belong in a buildfile, compile-line order, cxx.mode after std |
 | [config-independent-build-graph.md](./config-independent-build-graph.md) | Keeping the build graph configuration-independent |
 | [for-install-conflicts.md](./for-install-conflicts.md) | Resolving "already updated but [not] for install" errors |
+| [fsdir-parent-chain.md](./fsdir-parent-chain.md) | `fsdir{}` parent auto-creation is out-of-tree only |
 | [generated-headers.md](./generated-headers.md) | Auto-generated C/C++ headers |
 | [disable-shared-lib-per-platform.md](./disable-shared-lib-per-platform.md) | Disabling the shared library variant per platform |
 | [update-for-test-install.md](./update-for-test-install.md) | Building only what is needed for test or install |
@@ -21,6 +22,7 @@ Condensed, AI-indexed versions of the
 |------|-------|
 | [header-only-library.md](./header-only-library.md) | Binless (header-only) libraries |
 | [library-provides-main.md](./library-provides-main.md) | Library that provides `main()` |
+| [match-upstream-library-name.md](./match-upstream-library-name.md) | Matching upstream target names, SONAME, and file prefix |
 | [link-pthread.md](./link-pthread.md) | Linking `pthread` |
 | [link-system-library.md](./link-system-library.md) | Linking system libraries (`-lm`, `-ldl`, `advapi32.lib`) |
 | [link-prerequisite-order.md](./link-prerequisite-order.md) | Prerequisite order on link-rule targets (sources before `$libs`) |
@@ -43,7 +45,7 @@ Condensed, AI-indexed versions of the
 | File | Topic |
 |------|-------|
 | [convert-source-to-utf8.md](./convert-source-to-utf8.md) | Converting source file encoding to UTF-8 |
-| [package-naming.md](./package-naming.md) | Naming packages for third-party projects |
+| [package-naming.md](./package-naming.md) | Naming packages for third-party projects (repo vs `project:` vs `name:` case) |
 | [package-changes-file.md](./package-changes-file.md) | Packaging an upstream changelog with a non-canonical name |
 | [package-version-non-semver.md](./package-version-non-semver.md) | Projects that don't use semantic versioning |
 | [package-version-none.md](./package-version-none.md) | Projects with no version at all |

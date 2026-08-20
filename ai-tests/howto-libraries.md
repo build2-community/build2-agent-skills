@@ -1,6 +1,6 @@
 # Tests: HOWTO -- libraries
 
-Source documentation: `HOWTO/header-only-library.md`, `HOWTO/library-provides-main.md`, `HOWTO/link-pthread.md`, `HOWTO/third-party-private-headers.md`, `HOWTO/link-prerequisite-order.md`
+Source documentation: `HOWTO/header-only-library.md`, `HOWTO/library-provides-main.md`, `HOWTO/link-pthread.md`, `HOWTO/third-party-private-headers.md`, `HOWTO/link-prerequisite-order.md`, `HOWTO/match-upstream-library-name.md`
 
 
 ## T001 -- Binless library system dependencies in both *.libs and *.export.libs
@@ -82,3 +82,27 @@ prerequisite order, and does the same order bug apply to `liba{}`?
 - `liba{}` is archived, so this failure mode does not apply there.
 
 **Source:** `HOWTO/link-prerequisite-order.md`
+
+
+## T006 -- Match upstream library output names
+
+**Query:** When packaging a third-party shared library whose file is
+opened by a dynamic loader or `dlopen()` by a fixed path, how should the
+build2 target name and the generated artifact relate to upstream, and
+which knobs change SONAME and the MinGW `lib` prefix?
+
+**Key facts** (all must appear in a correct answer):
+- Build2 target identifiers (`lib{MoltenVK}`) are a separate namespace
+  from package `name:` and `project:`.
+- Prefer matching the upstream target name directly. At minimum, match
+  the generated artifact including SONAME, version suffix, and prefix,
+  not just the base name.
+- Default `bin.lib.version` is a platform-independent suffix and does
+  not produce Linux `libhello.so.MAJOR`.
+- Linux SONAME uses a `linux@MAJOR.MINOR` or `MAJOR.MINOR.EXTRA` pair
+  (MINOR is required). Platform-specific `bin.lib.version` is currently
+  implemented only on Linux.
+- Unset `bin.lib.prefix` defaults to `lib` on MinGW. An empty assignment
+  suppresses that prefix (`vulkan-1.dll` rather than `libvulkan-1.dll`).
+
+**Source:** `HOWTO/match-upstream-library-name.md`

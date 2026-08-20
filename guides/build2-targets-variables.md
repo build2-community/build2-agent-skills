@@ -36,7 +36,7 @@ rule definitions, not in dependency declarations.
 | `path_target{}` | Abstract, has a corresponding filesystem path |
 | `alias{}` | Non-file target that acts as an alias for its prerequisites (like a phony `make` target) |
 | `dir{}` | Special alias representing a directory; building it builds everything in that directory |
-| `fsdir{}` | Filesystem directory; listed as a prerequisite it is created on `update` and removed on `clean` |
+| `fsdir{}` | Filesystem directory. Listed as a prerequisite it is created on `update` and removed on `clean`. Parent directories are auto-created only out-of-tree (see [fsdir-parent-chain](../HOWTO/fsdir-parent-chain.md)) |
 | `group{}` | User-defined explicit target group whose members are all built by a single recipe |
 | `file{}` | Generic file with no default extension; base for most file-based types |
 | `doc{}` | Generic documentation file, installed to `doc/` by default |
@@ -47,6 +47,12 @@ rule definitions, not in dependency declarations.
 | `json{}` | JSON text file; default extension `.json` |
 | `buildfile{}` | build2 buildfile fragment |
 | `manifest{}` | Package manifest file |
+
+The built-in `fsdir{}` rule auto-creates parent directories only when the
+target is out-of-tree. In-source (`b dist` then `configure` then `update` of
+the unpacked archive) every missing level needs an explicit
+`fsdir{}`-to-`fsdir{}` prerequisite. See
+[fsdir-parent-chain.md](../HOWTO/fsdir-parent-chain.md).
 
 ### Module-provided target types (C/C++)
 
@@ -383,5 +389,6 @@ arguments, flags, and purity annotations, see
 - [build2 built-in functions reference](build2-functions.md)
 - [build2 manual summary](build2-intro-concepts.md)
 - [Directives, name patterns, and attributes](build2-directives-patterns.md)
-- [Buildfile language: out-of-source builds](build2-buildfile-language.md#out-of-source-builds) -- `@` on the command line
-- [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md) -- a real-world `@./` pitfall (breaking `b clean`)
+- [Buildfile language: out-of-source builds](build2-buildfile-language.md#out-of-source-builds): `@` on the command line
+- [test-runtime-fixtures.md](../HOWTO/test-runtime-fixtures.md): a real-world `@./` pitfall (breaking `b clean`)
+- [fsdir-parent-chain.md](../HOWTO/fsdir-parent-chain.md): `fsdir{}` parent auto-creation is out-of-tree only

@@ -264,6 +264,9 @@ completion of any outstanding items in comments.
 - [ ] Repository/project/package names consistent with upstream,
       [Debian][debian-pkgs]
       (see [repository name][rep-name], [package name][pkg-name]).
+      Repository keeps upstream case. `project:` and package `name:` are
+      lowercase unless mixed case is the upstream identifier
+      (see [package naming](../HOWTO/package-naming.md#naming-case-repository-project-package)).
 - [ ] If library without `lib` prefix, no clashes with executable names
       (see [package name][pkg-name]).
 - [ ] Uses git submodule and symlinks for upstream, submodule at correct
@@ -468,3 +471,4 @@ there may be no review issue. In that case the outcome link may be omitted.
 - [build2-modules-core.md](build2-modules-core.md) -- config, test, install modules
 - [HOWTO/sanitize-tests.md](../HOWTO/sanitize-tests.md) -- handling misbehaving upstream tests
 - [HOWTO/tests-extra-dependencies.md](../HOWTO/tests-extra-dependencies.md) -- separate test packages
+- [HOWTO/package-naming.md](../HOWTO/package-naming.md) -- repository / `project:` / package `name:` case

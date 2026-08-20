@@ -81,6 +81,32 @@ Reproduce locally with the expanded dist-test recipe in
 [packaging-guide-testing.md](../guides/packaging-guide-testing.md),
 including `b clean`. A green `bdep test` is not evidence this is fine.
 
+### `error: unable to create directory <path>: no such file or directory`
+
+**Cause:** An `fsdir{}` target is several directory levels deep, and an
+intermediate parent does not exist. The built-in rule auto-creates parents
+only out-of-tree (`inject_fsdir_impl` skips anything under `src_path()`).
+In-source (`out_base == src_base`, the unpacked-dist tree the cppget.org
+queue configures) only an explicitly declared `fsdir{}` prerequisite is
+honored. A forwarded dev config stays green because that is exactly where
+the cascade fires.
+
+**Fix:** Declare every missing intermediate as an `fsdir{}`-to-`fsdir{}`
+prerequisite of the child:
+
+```
+file{bundle/Contents/icd.d/icd.json}: fsdir{bundle/Contents/icd.d/}
+
+fsdir{bundle/Contents/icd.d/}: fsdir{bundle/Contents/}
+fsdir{bundle/Contents/}:      fsdir{bundle/}
+```
+
+See [fsdir-parent-chain.md](./fsdir-parent-chain.md). Reproduce locally
+with the dist-test recipe in
+[packaging-guide-testing.md](../guides/packaging-guide-testing.md)
+(`b dist`, then in-source `configure` / `update`). A green `bdep test` is
+not evidence the chain is complete.
+
 ### `error: target <target> specified in the test variable is out of date`
 
 **Cause:** A testscript's `test` variable was overridden to an **imported**

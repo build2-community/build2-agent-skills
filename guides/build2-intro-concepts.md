@@ -62,7 +62,7 @@ Common target types:
 | `file{}` | Generic file target |
 | `doc{}` | Documentation file |
 | `man{}` | Man page file |
-| `fsdir{}` | Filesystem directory (creates directories) |
+| `fsdir{}` | Filesystem directory (creates directories). Parent auto-creation is out-of-tree only: [fsdir-parent-chain](../HOWTO/fsdir-parent-chain.md) |
 | `testscript{}` | build2 Testscript file |
 | `manifest{}` | Package manifest file |
 
@@ -344,3 +344,4 @@ Module-provided meta-operations:
 - [`build2-modules-cc.md`](build2-modules-cc.md) -- cc module: compile/link option configuration
 - [`b/README.md`](../b/README.md) -- b driver overview and common invocations
 - [`HOWTO/README.md`](../HOWTO/README.md) -- practical recipes
+- [`HOWTO/fsdir-parent-chain.md`](../HOWTO/fsdir-parent-chain.md) -- `fsdir{}` parent auto-creation is out-of-tree only

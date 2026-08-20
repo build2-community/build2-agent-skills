@@ -117,3 +117,24 @@ scopes must you not use?
 - Do not use `build.host.*` for the compile target.
 
 **Source:** `HOWTO/buildfile-compile-options.md`
+
+
+## T009 -- Repository vs project: vs package name case
+
+**Query:** When packaging a third-party project whose upstream repository
+name has mixed case (for example MoltenVK), what case convention applies
+to the git repository name, the manifest `project:` field, and the
+package `name:` field?
+
+**Key facts** (all must appear in a correct answer):
+- The git repository name mirrors the upstream repository name exactly,
+  including case (example: `MoltenVK`).
+- Manifest `project:` is lowercase even when the repository is mixed
+  case (example: `project: moltenvk`).
+- Package `name:` is lowercase by default (example: `libmoltenvk`).
+- This is convention, not a parser rule: nothing rejects
+  `project: MoltenVK`.
+- The packaging guide's Qt rows (`Qt5Moc`, `libQt5Core`) are the
+  documented exception when mixed case is the upstream identifier.
+
+**Source:** `HOWTO/package-naming.md`

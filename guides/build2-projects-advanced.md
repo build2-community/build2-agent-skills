@@ -324,3 +324,4 @@ info $(obj{main}: cxx.poptions)  # Print target-specific variable
 - [`build2-module-hello.md`](build2-module-hello.md) -- authoring a custom build2 module (the natural next step after importation)
 - [`HOWTO/target-metadata.md`](../HOWTO/target-metadata.md) -- exporting metadata with targets
 - [`HOWTO/for-install-conflicts.md`](../HOWTO/for-install-conflicts.md) -- resolving for-install build conflicts
+- [`HOWTO/match-upstream-library-name.md`](../HOWTO/match-upstream-library-name.md) -- matching upstream SONAME, prefix, and shared-library file names
