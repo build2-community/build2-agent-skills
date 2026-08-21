@@ -126,3 +126,4 @@ variants follow the same syntax as the common fields.
 
 - `bpkg/bpkg-manifest-reference.md` -- full field reference, grammar, and wildcard rules
 - https://ci.cppget.org/?build-configs -- complete configuration and class list for cppget.org
+- `HOWTO/sys-build-config.md` -- requesting system-provided libraries on specific CI bots with the `sys` class

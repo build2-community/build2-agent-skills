@@ -406,6 +406,12 @@ Additional class names (`linux`, `windows`, `macos`, `freebsd`, `gcc`,
 per build-bot deployment. For the complete list on cppget.org, see
 https://ci.cppget.org/?build-configs.
 
+One such deployment-defined class on cppget.org is `sys`, used together with
+`sys:` dependency specs in a `*-build-config` value (below) to request that a
+package-specific configuration variant be attempted only on bot machines
+suited to resolving those dependencies as system-provided. See
+[HOWTO/sys-build-config.md](../HOWTO/sys-build-config.md) for the recipe.
+
 **`build-include` and `build-exclude` wildcard patterns:**
 
 After all `builds:` values are evaluated, `build-include:` and
@@ -478,8 +484,17 @@ Examples:
 ```
 network-build-config: config.libfoo.network=true; Enable networking API.
 sys-build-config: ?sys:libz; Test with system libz.
+sys-build-config: sys:libz; Require system libz, not just as a dependency.
 network-builds: linux; Only supported on Linux.
 ```
+
+The leading `?` is the same `pkg-spec` flag used with `bpkg build` (see
+"Hold vs dependency" in `bpkg-pkg-build.md`): without it the package is built
+to hold, with it the package is built as a dependency and dropped once
+nothing depends on it. See
+[HOWTO/sys-build-config.md](../HOWTO/sys-build-config.md) for a worked
+example of pairing `sys:` dependency specs with a matching `*-builds:` class
+override.
 
 
 ## Test Package Fields

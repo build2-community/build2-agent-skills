@@ -5,7 +5,8 @@ Source documentation: `HOWTO/cross-compilation.md`, `HOWTO/generated-headers.md`
 `HOWTO/target-metadata.md`, `HOWTO/for-install-conflicts.md`,
 `HOWTO/update-for-test-install.md`, `HOWTO/test-runtime-fixtures.md`,
 `HOWTO/conditional-dependency-config.md`, `HOWTO/exclude-test-data-from-dist.md`,
-`HOWTO/fsdir-parent-chain.md`
+`HOWTO/fsdir-parent-chain.md`, `HOWTO/builds-ci-filtering.md`,
+`HOWTO/sys-build-config.md`
 
 
 ## T001 -- Cross-compilation: detecting the target platform in buildfiles
@@ -262,3 +263,42 @@ build, and which test actually catches a missing chain?
 - This is intentional build2 behavior, not a defect.
 
 **Source:** `HOWTO/fsdir-parent-chain.md`
+
+
+## T013 -- Requesting system-provided libraries on specific CI bots with sys
+
+**Query:** How do you get a specific per-configuration CI bot to resolve a
+dependency against the system-provided library instead of building it from
+source, what does the leading `?` mean in a `*-build-config` dependency spec
+like `?sys:libz`, and what does the `sys` class actually control?
+
+**Key facts** (all must appear in a correct answer):
+- Pair a `*-build-config:` value listing `sys:<pkg>` dependency specs with a
+  matching `*-builds:` override naming the `sys` class (for example
+  `fedora-x11-build-config: sys:libxi` with `fedora-x11-builds: sys`).
+- The `<name>` in `*-build-config`/`*-builds` (e.g. `fedora-x11`) is an
+  arbitrary package-chosen configuration name defining an additional
+  configuration built alongside `default`, not the name of an existing bot
+  configuration. `sys` in the `*-builds:` value is the separate,
+  deployment-defined class restricting which real bot machines that
+  configuration runs on.
+- The `*-build-config` dependency-spec grammar permits both `sys:<pkg>`
+  (bare) and `?sys:<pkg>` forms. The `?` is the same `pkg-spec` flag used
+  with `bpkg build`: without it the package is built to hold, with it it is
+  built as a dependency (dropped once nothing depends on it), not an
+  "optional dependency" marker.
+- Resolving `sys:<pkg>` queries the system package manager for an
+  already-installed version and does not install anything without
+  `--sys-install`. Neither `build2-toolchain` nor the live cppget.org
+  build-configs page documents what the `sys` class itself does; the
+  best-supported explanation is that it identifies bot machines provisioned
+  with those libraries preinstalled.
+- `bbot`'s `bbot.sys-install` worker step is unrelated: it installs a
+  package's own generated binary distribution artifact to verify it installs
+  cleanly, not a package's `sys:` dependencies.
+- This mechanism only applies to libraries an actual system package manager
+  distributes. OS/SDK-bundled frameworks with no installable package name
+  (e.g. Apple's Metal, Cocoa, IOKit, CoreVideo) are outside its scope and are
+  typically linked directly instead (e.g. via `-framework`).
+
+**Source:** `HOWTO/sys-build-config.md`, `bpkg/bpkg-manifest-reference.md`
