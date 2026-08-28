@@ -47,6 +47,48 @@ and may be dropped in severe cases.
 
 A package that is no longer maintained may be moved to the `legacy` section.
 
+### Major Version 0 (0.x) Packages
+
+For a final version (no `alpha`/`beta` `prerel` component, see
+[Components](bpkg-package-name-version.md#components)) whose major component
+is `0`, `bdep publish` does not silently derive `stable`. Because semantic
+versioning treats a zero major version as pre-release, it prints a note to
+that effect and interactively asks:
+
+```
+publish to alpha as opposed to stable [y/n]
+```
+
+Answering `y` sets the section to `alpha`. Answering `n` sets it to `stable`,
+the normal route into `testing` for review described above. This prompt is
+not silenced by `--yes` (that option only skips the final publish-plan
+confirmation): the only way to skip it is to pass `--section` explicitly, for
+example `--section=testing`, which is used verbatim and bypasses all
+automatic derivation.
+
+Semantic versioning treats `0.x` as "initial development, anything may
+change," which is why `bdep publish` suggests `alpha`. Whether to accept that
+suggestion or decline it (`n`, or an explicit `--section` bypassing the
+prompt) is a judgement call about the package's actual maturity, not a
+mechanical rule tied to the leading `0`:
+
+- Check whether upstream itself describes the current `0.x` version as
+  stable (frozen API, no further breaking changes), even if it also
+  disclaims long-term support or future compatibility promises. A `0.x`
+  release that upstream calls stable is a reasonable candidate for declining
+  the `alpha` suggestion.
+- A long-stagnant, no-longer-developed project is supporting evidence but
+  not sufficient on its own: stagnation can equally mean abandonment.
+- The strongest signal is existing usage: if other widely used, already
+  `stable` packages depend on it, that is a strong indication the package is
+  reasonably stable in practice.
+
+If, weighing these, the package looks reasonably stable, decline the `alpha`
+suggestion so it goes through the same review-and-promotion process as any
+other package. Reserve `alpha` for versions that are genuinely still in flux
+upstream. See [package-version-none.md](../HOWTO/package-version-none.md) for
+choosing a version when upstream has no versioning scheme at all.
+
 ---
 
 ## Finding Packages to Review
@@ -469,6 +511,8 @@ there may be no review issue. In that case the outcome link may be omitted.
 - [packaging-guide-summary.md](packaging-guide-summary.md) -- concepts, review branch, workflow, and steps 1-7
 - [packaging-guide-testing.md](packaging-guide-testing.md) -- steps 8-10: tests, CI, merge review into main, release, publish
 - [build2-modules-core.md](build2-modules-core.md) -- config, test, install modules
+- [bpkg-package-name-version.md](bpkg-package-name-version.md) -- version format, `prerel` component, alpha/beta ordering
 - [HOWTO/sanitize-tests.md](../HOWTO/sanitize-tests.md) -- handling misbehaving upstream tests
 - [HOWTO/tests-extra-dependencies.md](../HOWTO/tests-extra-dependencies.md) -- separate test packages
 - [HOWTO/package-naming.md](../HOWTO/package-naming.md) -- repository / `project:` / package `name:` case
+- [HOWTO/package-version-none.md](../HOWTO/package-version-none.md) -- choosing a version when upstream has none

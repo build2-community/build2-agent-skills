@@ -45,7 +45,14 @@ repository, the following semantics apply when submitting to `cppget.org`.
 The section specifies the desired repository section to publish the project
 under. If not explicitly specified with the `--section` option, one of the
 `alpha`, `beta`, or `stable` values are automatically derived from the package
-version.
+version: an `alpha`/`beta` `prerel` component derives that same section. For a
+final version whose major component is `0`, derivation is not fully
+automatic: since semantic versioning treats a zero major version as
+pre-release, `publish` prints a note to that effect and interactively asks
+whether to publish to `alpha` instead of `stable` (this prompt is not
+silenced by `--yes`, which only skips the final publish-plan confirmation).
+Passing `--section` explicitly bypasses this derivation and prompt entirely,
+using the given value verbatim.
 
 The control repository URL is a publicly accessible, read-only URL to a
 version control repository (normally the same as the project's) that is used

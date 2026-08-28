@@ -16,6 +16,16 @@ work as normal.
 
 Best for immature projects likely to adopt versioning in future.
 
+A `0.0.Z` version carries no `prerel` component, but `bdep publish` still
+notices the major version is `0`: it warns that semver treats this as
+pre-release and interactively asks whether to publish to `alpha` instead of
+`stable` (not silenced by `--yes`). Pass `--section` explicitly (for example
+`--section=testing`) to skip that prompt. Whether declining the `alpha`
+suggestion is actually appropriate given the package's real-world maturity is
+a judgement call, not a rule tied to the leading `0`. See
+[Major Version 0 (0.x) Packages](../guides/packaging-guide-review.md#major-version-0-0x-packages)
+in the review guide.
+
 ## Option 2: Use a date
 
 Use the commit or release date in `YYYYMMDD` format (e.g., `20210824`). This
@@ -52,3 +62,4 @@ is imminent.
 - [bpkg manifest reference](../bpkg/bpkg-manifest-reference.md) -- version field and epoch syntax
 - [build2 version module](../guides/build2-module-version.md) -- version variables and snapshot versioning
 - [package-version-non-semver.md](./package-version-non-semver.md)
+- [packaging-guide-review.md](../guides/packaging-guide-review.md#major-version-0-0x-packages) -- judging whether a 0.x package belongs in `testing` as a normal publish
