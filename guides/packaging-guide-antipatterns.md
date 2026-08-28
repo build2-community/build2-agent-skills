@@ -410,6 +410,16 @@ steps for this task is as follows:
    $ diff -u foo.cpp.orig foo.cpp >foo.cpp.patch
    ```
 
+Whether to mention such a patch in `PACKAGE-README.md` depends on whether it
+is useful to and actually affects consumers of the package, for example a
+behavior change, a dropped or added feature, or a workaround for a
+platform/compiler limitation users need to be aware of. A patch with no
+consumer-visible effect, such as adding a missing `#include` or fixing an
+internal typo, needs no mention there: it makes no real difference to
+consumers and is already recorded by the `.orig`/`.patch` pair and `git log`.
+See [tests-extra-dependencies.md](../HOWTO/tests-extra-dependencies.md) for
+where such patches are noted when warranted.
+
 
 ### Modifying upstream source code during build
 

@@ -74,15 +74,20 @@ Importable targets and Configuration variables sections even when empty.
 
 The title after the hyphen is the same human-readable title as the main
 package `PACKAGE-README.md` heading. The peculiarities paragraph is optional.
-Omit it when there is nothing noteworthy.
+Omit it when there is nothing noteworthy. Only mention a [patch applied to
+upstream source](../guides/packaging-guide-antipatterns.md#how-do-i-patch-upstream-source-code)
+here if it is useful to and actually affects consumers (a behavior change, a
+dropped/added feature, a platform workaround). A patch with no
+consumer-visible effect, such as adding a missing `#include`, needs no
+mention: it makes no real difference to consumers.
 
 ```
 # lib<pkg>-tests - <same title as main package> (tests)
 
 This is a `build2` package containing the test suite for the
 [`<project>`](https://github.com/<org>/<project>) library.
-<brief details if there are peculiarities, e.g. patches or
-noteworthy changes like "using doctest instead of catch2",
+<brief details if there are peculiarities, e.g. a consumer-affecting
+patch or noteworthy changes like "using doctest instead of catch2",
 or if only a subset of the upstream tests are covered>
 
 

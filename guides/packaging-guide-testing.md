@@ -351,15 +351,19 @@ short form below, substituting the type in the package name, the
 parenthetical heading suffix, and the opening sentence (`test suite`,
 `examples`, or `benchmarks`). The title after the hyphen is the same as the
 main package heading. Keep Importable targets and Configuration variables
-even when empty. The peculiarities paragraph is optional.
+even when empty. The peculiarities paragraph is optional. Only mention a
+[patch applied to upstream
+source](packaging-guide-antipatterns.md#how-do-i-patch-upstream-source-code)
+there if it is useful to and actually affects consumers: a patch with no
+consumer-visible effect (e.g. adding a missing `#include`) needs no mention.
 
 ```
 # lib<pkg>-tests - <same title as main package> (tests)
 
 This is a `build2` package containing the test suite for the
 [`<project>`](https://github.com/<org>/<project>) library.
-<brief details if there are peculiarities, e.g. patches or
-noteworthy changes like "using doctest instead of catch2",
+<brief details if there are peculiarities, e.g. a consumer-affecting
+patch or noteworthy changes like "using doctest instead of catch2",
 or if only a subset of the upstream tests are covered>
 
 
