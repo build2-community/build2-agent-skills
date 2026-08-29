@@ -439,10 +439,14 @@ System libraries (such as `-lm`, `-ldl`, `ws2_32.lib`) go in `c.libs` or
 `cxx.libs`, not as imported targets.
 
 Shared library ABI versioning uses `bin.lib.version`. The generated default
-embeds major and minor version in the binary name, treating only patch releases
-as ABI-compatible. That default does not match most upstream SONAME layouts.
-See [match-upstream-library-name.md](../HOWTO/match-upstream-library-name.md)
-when existing consumers resolve the library by a fixed file name.
+embeds major and minor version in the binary name, treating only patch
+releases as ABI-compatible. Change it for one of two reasons: that
+assumption is wrong for this library, or upstream ships a fixed SONAME that
+existing consumers resolve by a fixed file name (a dynamic loader, `dlopen()`
+by a hardcoded name, a non-bpkg consumer). For a library consumed only as a
+bpkg dependency, with no such consumer, the default is fine as is. See
+[match-upstream-library-name.md](../HOWTO/match-upstream-library-name.md)
+for the second case.
 
 For extra requirements (Objective-C, Assembler, `.in` template processing,
 `config.h.in` with Autoconf probing, unit tests in the source directory,

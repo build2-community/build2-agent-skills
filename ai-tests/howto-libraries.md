@@ -106,3 +106,31 @@ which knobs change SONAME and the MinGW `lib` prefix?
   suppresses that prefix (`vulkan-1.dll` rather than `libvulkan-1.dll`).
 
 **Source:** `HOWTO/match-upstream-library-name.md`
+
+
+## T007 -- When upstream SONAME matching is unnecessary, and the pre-release guard
+
+**Query:** I'm packaging an ordinary third-party library that will only ever
+be consumed as a bpkg dependency, never `dlopen()`'d by a fixed name and
+never linked by a non-bpkg consumer. Do I need to override `bin.lib.version`
+to match upstream's SONAME? Separately, if I do customize it for another
+package, why does the generated default guard on `$version.pre_release`, and
+should I keep that guard when I add platform-specific branches?
+
+**Key facts** (all must appear in a correct answer):
+- Matching upstream only matters once the produced file is resolved by
+  something other than this configuration's own build2/bpkg dependency
+  graph. build2's link rule embeds an rpath for every shared library
+  dependency, so a library consumed only as a bpkg dependency finds it by
+  that recorded path, not by a system-wide SONAME lookup.
+- For a library consumed only as a bpkg dependency, with no `dlopen()` by a
+  fixed name and no non-bpkg consumer, the generated default `bin.lib.version`
+  is fine as is.
+- The `if $version.pre_release` branch in the generated default exists so a
+  pre-release snapshot's version suffix can never be mistaken for another
+  pre-release or the final release.
+- That guard must be kept when customizing the other branches for
+  upstream/platform matching -- only the `else` (or per-platform `elif`)
+  branches should change.
+
+**Source:** `HOWTO/match-upstream-library-name.md`

@@ -4,15 +4,42 @@ Build2 target identifiers (`lib{MoltenVK}`) are a separate namespace from
 the package `name:` and `project:` manifest fields. See
 [package-naming.md](./package-naming.md) for those.
 
-When a library's output is consumed outside the build2 graph (a dynamic
-loader, a `-l` link line, `dlopen()` by a fixed path, pkg-config), match
+When a library's output is consumed outside the build2 graph, match
 upstream's artifact, not a convenient build2 name. Existing consumers cannot
-be "fixed" to expect a renamed file.
+be "fixed" to expect a renamed file. See "When this matters" below for what
+counts as outside the graph.
 
 This is verified against
 `.submodules/build2-toolchain/build2/libbuild2/cc/link-rule.cxx`
-(`derive_libs_paths`, the `bin.lib.prefix` lookup) and
+(`derive_libs_paths`, the `bin.lib.prefix` lookup, `rpath_libraries`) and
 `libbuild2/bin/init.cxx` (`bin.lib.version`, `bin.lib.prefix`).
+
+## When this matters
+
+Matching upstream only matters once the produced file is resolved by
+something other than this configuration's own build2/bpkg dependency graph.
+`b`'s link rule embeds an rpath (or platform equivalent) for every shared
+library dependency (`rpath_libraries` in `link-rule.cxx`), so an executable
+or library built and linked within one bpkg configuration finds its
+dependencies by that recorded path, not by a system-wide SONAME lookup. In
+that case the file name build2 generates by default does not matter:
+nothing outside the build resolves it by name.
+
+Match upstream's artifact when something outside that graph resolves the
+library by a fixed name instead:
+
+- a dynamic loader or plugin/driver mechanism doing `dlopen()` (or
+  equivalent) by a hardcoded name
+- an existing non-bpkg consumer (a system package, another build system, a
+  hand-written Makefile) linking against a shared system install and
+  expecting upstream's SONAME to be present at runtime
+- the package is meant to be an ABI-compatible drop-in replacement for the
+  system-installed upstream library
+
+For an ordinary library consumed only as a bpkg dependency (imported and
+linked via build2's own dependency resolution, never installed for use by
+software outside this graph), none of this applies and the generated
+default is fine as is.
 
 ## Preference order
 
@@ -47,6 +74,14 @@ platform-specific key overrides it). It does not produce Linux
 
 Look at what upstream actually ships (`libfoo.so.1`, `libfoo.1.dylib`,
 `foo-1.dll`) and set the knobs below until the produced file names match.
+
+The `if $version.pre_release` guard in that default is deliberate, not
+boilerplate to discard: build2's own manual explains it exists so a
+pre-release snapshot's version suffix can never be mistaken for another
+pre-release or the final release (`build2/doc/manual.cli`, "Library
+Exportation and Versioning"). Keep that guard when customizing the branches
+below for upstream matching, changing only what the `else` (or per-platform
+`elif`) branches produce. See "Combining the knobs across platforms" below.
 
 ## `bin.lib.version`: platform-independent vs `linux@`
 
@@ -133,6 +168,32 @@ if ($cxx.target.class == 'bsd')
 The same knob can produce a Darwin extra-extension layout
 (`libfoo.1.dylib`) that the independent suffix (`libfoo-1.dylib`) would
 miss. Confirm against upstream's actual file name before copying this.
+
+## Combining the knobs across platforms
+
+A package matching upstream on more than one platform typically nests a
+per-platform `elif` chain inside the pre-release guard, and reaches for
+`extension` or `bin.lib.prefix` only on the platforms that need them:
+
+```
+if $version.pre_release
+  lib{hello}: bin.lib.version = "-$version.project_id"
+elif ($cxx.target.class == 'macos')
+  lib{hello}: bin.lib.version = ".$version.major"
+elif ($cxx.target.class == 'bsd')
+  libs{hello}: extension = "so.$version.major"
+else
+  lib{hello}: bin.lib.version = "-$version.major" \
+    linux@"$version.major.$version.minor.$version.patch"
+
+if ($cxx.target.system == 'mingw32')
+  lib{hello}: bin.lib.prefix =
+```
+
+Confirm each branch against what upstream actually ships on that platform.
+None of these values are portable across projects, and a platform with no
+branch above falls through to the platform-independent suffix in the
+default `else`.
 
 ## See Also
 
