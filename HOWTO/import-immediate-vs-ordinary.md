@@ -31,10 +31,10 @@ immediate result in its own variable. If the library also needs linking,
 issue a second, ordinary `import` into `libs`:
 
 ```
-import? [metadata, rule_hint=cxx.link] lh = libhello%lib{hello}
+import? [metadata, rule_hint=cxx.link] hello = libhello%lib{hello}
 
 libs =
-if ($lh != [null])
+if ($hello != [null])
   import libs = libhello%lib{hello}
 
 exe{driver}: c{driver} $libs
@@ -96,6 +96,6 @@ in the same project.
 ## See Also
 
 - [build2-projects-advanced.md](../guides/build2-projects-advanced.md#immediate-import-import-and-import) -- `import!`/`import?` mechanics, the `metadata` and `rule_hint` attributes
-- [target-metadata.md](./target-metadata.md#importing-with-metadata) -- the metadata protocol and the `lh` query pattern this recipe builds on
+- [target-metadata.md](./target-metadata.md#importing-with-metadata) -- the metadata protocol and the `hello` query pattern this recipe builds on
 - [build2-modules-cc.md](../guides/build2-modules-cc.md#importation-of-installed-libraries) -- the link rule's installed-library search that ordinary import relies on
 - [packaging-guide-testing.md](../guides/packaging-guide-testing.md#step-9-test-the-package) -- the installed test is what exercises this split

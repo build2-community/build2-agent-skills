@@ -138,9 +138,9 @@ should I keep that guard when I add platform-specific branches?
 
 ## T008 -- Immediate import for metadata, ordinary import for linking
 
-**Query:** I use `import? [metadata, rule_hint=c.link] lh = libfoo%liba{foo}`
+**Query:** I use `import? [metadata, rule_hint=c.link] liba = libfoo%liba{foo}`
 to query a library's metadata, and I also need to link that library into my
-`exe{}`. Can I just add `$lh` as a link prerequisite, and if not, what
+`exe{}`. Can I just add `$liba` as a link prerequisite, and if not, what
 should I do instead, especially for the installed case?
 
 **Key facts** (all must appear in a correct answer):

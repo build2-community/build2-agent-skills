@@ -51,9 +51,9 @@ matched. `import!` fails the build if the target isn't found, while `import?`
 is optional (analogous to `using?`) and assigns `null` instead:
 
 ```
-import? lh = libhello%lib{hello}
+import? hello = libhello%lib{hello}
 
-if ($lh != [null])
+if ($hello != [null])
   info "libhello found"
 ```
 
@@ -66,7 +66,7 @@ search](build2-modules-cc.md#importation-of-installed-libraries)), nominate
 the rule explicitly with `rule_hint`:
 
 ```
-import? [rule_hint=cxx.link] lh = libhello%lib{hello}
+import? [rule_hint=cxx.link] hello = libhello%lib{hello}
 ```
 
 The `metadata` attribute (see
@@ -75,7 +75,7 @@ with `import!`/`import?`, since loading metadata requires the target to be
 resolved immediately:
 
 ```
-import! [metadata, rule_hint=cxx.link] lh = libhello%lib{hello}
+import! [metadata, rule_hint=cxx.link] hello = libhello%lib{hello}
 ```
 
 #### When to use immediate vs ordinary import
@@ -87,9 +87,9 @@ anything that becomes a link prerequisite (`libs`, `intf_libs`,
 implementation dependencies, and rpath.
 
 Do not assign the immediate result to `libs` and then list that as a
-prerequisite of a linked target -- keep it in its own variable (`lh` above)
-and issue a second, ordinary `import` into `libs` if the library also needs
-linking. See
+prerequisite of a linked target -- keep it in its own variable (`hello`
+above) and issue a second, ordinary `import` into `libs` if the library also
+needs linking. See
 [import-immediate-vs-ordinary.md](../HOWTO/import-immediate-vs-ordinary.md)
 for the full worked example, why linking the immediate target breaks in the
 installed case, and a related pkg-config pitfall when importing two members

@@ -27,12 +27,12 @@ lib{hello}:
 Query in the consumer:
 
 ```
-import lh = libhello%lib{hello}
+import hello = libhello%lib{hello}
 
-if $($lh: libhello.fancy)
+if $($hello: libhello.fancy)
   ...
 
-assets_dir = $($lh: libhello.assets)
+assets_dir = $($hello: libhello.assets)
 ```
 
 ## Installed case: C/C++ libraries
@@ -86,10 +86,10 @@ the import directive resolves the target and verifies metadata is present.
 Nominate the link rule for the installed search with `rule_hint`:
 
 ```
-import! [metadata, rule_hint=cxx.link] lh = libhello%lib{hello}
+import! [metadata, rule_hint=cxx.link] hello = libhello%lib{hello}
 ```
 
-Keep `$lh` in its own variable for the metadata query. Do not put it on an
+Keep `$hello` in its own variable for the metadata query. Do not put it on an
 `exe{}`/`lib{}` prerequisite list to link the library: the immediate import
 skips the link rule, so the consumer gets no rpath entry for the library's
 own implementation dependencies. If the same library also needs linking, add
