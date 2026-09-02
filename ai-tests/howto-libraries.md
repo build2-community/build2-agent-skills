@@ -1,6 +1,6 @@
 # Tests: HOWTO -- libraries
 
-Source documentation: `HOWTO/header-only-library.md`, `HOWTO/library-provides-main.md`, `HOWTO/link-pthread.md`, `HOWTO/third-party-private-headers.md`, `HOWTO/link-prerequisite-order.md`, `HOWTO/match-upstream-library-name.md`
+Source documentation: `HOWTO/header-only-library.md`, `HOWTO/library-provides-main.md`, `HOWTO/link-pthread.md`, `HOWTO/third-party-private-headers.md`, `HOWTO/link-prerequisite-order.md`, `HOWTO/match-upstream-library-name.md`, `HOWTO/import-immediate-vs-ordinary.md`
 
 
 ## T001 -- Binless library system dependencies in both *.libs and *.export.libs
@@ -134,3 +134,28 @@ should I keep that guard when I add platform-specific branches?
   branches should change.
 
 **Source:** `HOWTO/match-upstream-library-name.md`
+
+
+## T008 -- Immediate import for metadata, ordinary import for linking
+
+**Query:** I use `import? [metadata, rule_hint=c.link] lh = libfoo%liba{foo}`
+to query a library's metadata, and I also need to link that library into my
+`exe{}`. Can I just add `$lh` as a link prerequisite, and if not, what
+should I do instead, especially for the installed case?
+
+**Key facts** (all must appear in a correct answer):
+- No: keep the immediate import (`import!`/`import?`) in its own variable
+  for metadata or an optional presence probe only. `import?` is always
+  immediate; there is no deferred-optional form.
+- Issue a second, ordinary (deferred) `import` into `libs` (or
+  `intf_libs`/`impl_libs`) for the actual link prerequisite.
+- Reaching the installed-library search from an immediate import requires
+  `rule_hint=c.link`/`cxx.link`, but that search still runs without a
+  consumer, so implementation dependencies and rpath are not attached the
+  way they are for an ordinary import matched against the real `exe{}`/`lib{}`.
+- Linking the immediate target directly often still works in-tree (the
+  export stub carries `$impl_libs`), but breaks in the installed case (no
+  export stub, so a static consumer can fail at runtime with an unresolved
+  shared dependency).
+
+**Source:** `HOWTO/import-immediate-vs-ordinary.md`

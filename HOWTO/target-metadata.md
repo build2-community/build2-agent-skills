@@ -89,6 +89,14 @@ Nominate the link rule for the installed search with `rule_hint`:
 import! [metadata, rule_hint=cxx.link] lh = libhello%lib{hello}
 ```
 
+Keep `$lh` in its own variable for the metadata query. Do not put it on an
+`exe{}`/`lib{}` prerequisite list to link the library: the immediate import
+skips the link rule, so the consumer gets no rpath entry for the library's
+own implementation dependencies. If the same library also needs linking, add
+a second, ordinary `import` into `libs`. See
+[import-immediate-vs-ordinary.md](./import-immediate-vs-ordinary.md) for the
+pattern, including the optional-member case.
+
 ## Installed case: executables
 
 This is for an executable with **no dev build present** -- located via
@@ -157,3 +165,4 @@ exe{hello}:
 
 - [third-party-private-headers](./third-party-private-headers.md) -- applying the `[path, null]` / `.for_install` metadata pattern to share generated file paths (config headers, data archives) across packages in a multi-package repository
 - [test-imported-executable](./test-imported-executable.md) -- testing a dev-built imported executable, no metadata protocol needed
+- [import-immediate-vs-ordinary](./import-immediate-vs-ordinary.md) -- do not link the immediately imported target; the two-variable pattern for also linking a queried library

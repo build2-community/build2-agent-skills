@@ -38,6 +38,7 @@ use the table below to jump directly to the relevant file.
 | Create nested directories with fsdir{} | [HOWTO/fsdir-parent-chain.md](HOWTO/fsdir-parent-chain.md) |
 | Look up a buildfile function signature, flags, or purity | [guides/build2-functions.md](guides/build2-functions.md) |
 | Library projects, target importation, subprojects | [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md) |
+| Import a library for metadata and still link it (including installed) | [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md) |
 | Create a PHONY-equivalent (alias{}) target | [HOWTO/alias-targets.md](HOWTO/alias-targets.md) |
 | Which compile/link options belong in a buildfile | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
 | Place a compile flag after compiler mode or -std | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |

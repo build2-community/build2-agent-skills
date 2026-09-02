@@ -28,6 +28,7 @@ Condensed, AI-indexed versions of the
 | [link-prerequisite-order.md](./link-prerequisite-order.md) | Prerequisite order on link-rule targets (sources before `$libs`) |
 | [optional-library-components.md](./optional-library-components.md) | Making library components optional |
 | [target-metadata.md](./target-metadata.md) | Exporting metadata with executables and libraries |
+| [import-immediate-vs-ordinary.md](./import-immediate-vs-ordinary.md) | Immediate vs ordinary import: querying metadata without losing the link |
 
 ## Testing
 

@@ -174,6 +174,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [build2 buildfile language reference](guides/build2-buildfile-language.md)
 - [build2 directives, name patterns, and attributes](guides/build2-directives-patterns.md)
 - [build2 advanced projects: importation, libraries, testing, installation](guides/build2-projects-advanced.md)
+- [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md): Immediate vs ordinary import -- when to use import!/import? vs deferred import, the two-variable pattern for also linking a queried library, why linking the immediate target breaks in the installed case, related pkg-config dual-member pitfall.
 - [build2 manual: project configuration](guides/build2-project-config.md)
 - [build2 manual: targets and variables](guides/build2-targets-variables.md)
 - [build2 functions reference](guides/build2-functions.md)

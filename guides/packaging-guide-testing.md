@@ -139,6 +139,15 @@ mistake. Then clean up:
 $ rm -r /tmp/install /tmp/libfoo-tests-out
 ```
 
+**If the tests project queries a dependency's metadata with `import!`/
+`import?` and also links that dependency**, keep the two separate: the
+immediate import for metadata, an ordinary `import` into `libs` for linking.
+This installed test is what actually exercises the link rule's installed
+search, so it is the case that catches a library linked through its
+immediate import instead -- in-tree testing can pass regardless, because the
+export stub still attaches the dependency's own implementation dependencies.
+See [import-immediate-vs-ordinary.md](../HOWTO/import-immediate-vs-ordinary.md).
+
 **If a dependency exports an executable target** and the installed test fails
 with `unable to import target <pkg>%exe{...}`, the dependency's executable is
 not reachable from the install tree. Unlike libraries, installed executables

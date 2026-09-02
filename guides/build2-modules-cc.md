@@ -367,8 +367,12 @@ import libs = zlib%lib{z}
 This search is rule-specific (provided by the link rule), so it only runs
 automatically for plain (deferred) `import`. For `import!`/`import?`
 (immediate import), nominate the rule explicitly with `rule_hint=cxx.link`
-(or `c.link`). See
-[build2-projects-advanced.md](build2-projects-advanced.md#immediate-import-import-and-import).
+(or `c.link`) -- but use that immediate import for the search or for
+metadata only, not as the link prerequisite itself; the link rule still
+needs to run against the actual consumer. See
+[build2-projects-advanced.md](build2-projects-advanced.md#immediate-import-import-and-import)
+and
+[import-immediate-vs-ordinary.md](../HOWTO/import-immediate-vs-ordinary.md).
 
 On systems where the package manager does not install into the compiler's
 default search path (Homebrew on macOS being the common case), this search

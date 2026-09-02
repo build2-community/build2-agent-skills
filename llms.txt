@@ -137,6 +137,7 @@
 - [HOWTO/match-upstream-library-name.md](HOWTO/match-upstream-library-name.md): Matching upstream library output names -- target vs package name, bin.lib.version, linux@ SONAME, bin.lib.prefix on MinGW, extension overrides.
 - [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md): Making library components optional.
 - [HOWTO/target-metadata.md](HOWTO/target-metadata.md): Exporting metadata with executables and libraries.
+- [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md): Immediate vs ordinary import -- when to use import!/import? vs deferred import, the two-variable pattern for also linking a queried library, why linking the immediate target breaks in the installed case, related pkg-config dual-member pitfall.
 - [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md): Correctly using assert() in tests.
 - [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md): Sanitizing misbehaving tests with Testscript -- output redirection, cleanup, env timeouts, ln of src files and directories into $~.
 - [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md): Runtime test fixtures -- built child helpers, source-tree data, NEWS fsdir{} exe assets, test=false, include=adhoc, update-for-test.

@@ -59,9 +59,11 @@ import? cli  = cli%exe{cli}
 ```
 
 Immediate import skips rule-specific search unless a `rule_hint` attribute
-nominates a rule. See
+nominates a rule, and should not itself be linked as a prerequisite. See
 [build2-projects-advanced.md](build2-projects-advanced.md#immediate-import-import-and-import)
-for the full explanation and the `metadata` attribute.
+for the full explanation and the `metadata` attribute, and
+[import-immediate-vs-ordinary.md](../HOWTO/import-immediate-vs-ordinary.md)
+for why linking it directly breaks in the installed case.
 
 ### `include`
 
