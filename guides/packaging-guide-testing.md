@@ -201,17 +201,49 @@ nested copy of that file inside the archive. See
 [Which repositories.manifest is consulted](packaging-guide-summary.md#which-repositoriesmanifest-is-consulted).
 
 A green `bdep ci` is not sufficient on its own. Always run the full recipe
-below, including `clean`, before `bdep publish`:
+below, including `clean`, before `bdep publish`. Configure with strict
+warnings enabled so any warning upstream source triggers surfaces during
+this pass:
 
 ```
 $ b dist config.dist.root=/tmp/dist config.dist.uncommitted=true
 $ cd /tmp/dist/libfoo-<version>/
-$ b configure config.cxx=g++
+$ b configure config.cxx=g++ config.cxx.coptions="-Wall -Wextra -pedantic"
 $ b update
 $ b test
 $ b clean
 $ rm -r /tmp/dist
 ```
+
+`config.cxx=clang++` takes the same three options. On MSVC, the equivalent
+is `/W4` (breadth roughly matching `-Wall -Wextra`) and `/permissive-`
+(standards conformance, roughly matching `-pedantic`):
+
+```
+> b configure config.cxx=cl config.cxx.coptions="/W4 /permissive-"
+```
+
+(`config.c.coptions` instead of `config.cxx.coptions` for a C library or
+executable.)
+
+These options are for this test build only: never add them to the package's
+own default `cxx.coptions` (see [Options that do NOT
+belong](../HOWTO/buildfile-compile-options.md#options-that-do-not-belong)).
+If upstream source triggers a harmless warning (a genuinely unused
+variable, a benign sign comparison, and the like), silence that specific
+warning with a targeted `-Wno-XXX`/`/wdXXX` addition to the library's own,
+non-export `cxx.coptions` instead (see [Options that are
+OK](../HOWTO/buildfile-compile-options.md#options-that-are-ok)). Never add
+it to `cxx.export.poptions`/`cxx.export.loptions`: exported warning
+suppression is a separate, already-covered rule (see [Export
+options](../HOWTO/buildfile-compile-options.md#export-options)). Give this
+its own small atomic commit late in the `review` branch, scoped to the
+warning(s) silenced (see [Atomic
+commits](packaging-guide-summary.md#concepts)). Reserve an actual
+source patch for a genuine upstream bug the warning has uncovered, and keep
+patches to a minimum since each one adds to the package's maintenance
+burden (see [Avoid fixing upstream issues in the
+package](packaging-guide-antipatterns.md#avoid-fixing-upstream-issues-in-the-build2-package)).
 
 If dependencies cannot be found during `configure`, set each
 `config.import.<dep>` to the path of the build configuration that contains
@@ -395,7 +427,10 @@ security fixes difficult to propagate.
 source increases maintenance burden. Prefer reporting issues upstream and
 waiting for a fix. If you must patch, use the manual copy + `.orig` +
 `.patch` pattern, the `sed`-based ad hoc recipe, or the C preprocessor trick
-to avoid modifying upstream symlinks directly.
+to avoid modifying upstream symlinks directly. Silencing a harmless compiler
+warning with a targeted `-Wno-XXX`/`/wdXXX` buildfile option is not a patch
+and carries none of this burden, since it touches no upstream source at all
+(see [Step 9](#step-9-test-the-package)).
 
 **Do not build main targets in the root `buildfile`.** Keep libraries and
 executables in subdirectory `buildfiles`. The root `buildfile` is loaded during

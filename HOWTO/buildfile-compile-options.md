@@ -140,3 +140,4 @@ Use `-pthread` in `*.libs`, not `-lpthread`. See
 - [cross-compilation.md](./cross-compilation.md) -- `cxx.target.*` and `cxx.class` after `using cxx`
 - [link-pthread.md](./link-pthread.md)
 - [link-system-library.md](./link-system-library.md)
+- [packaging-guide-testing.md](../guides/packaging-guide-testing.md#step-9-test-the-package) -- building a third-party package with strict warnings enabled to find which ones to silence

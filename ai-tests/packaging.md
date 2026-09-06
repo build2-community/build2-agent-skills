@@ -210,3 +210,30 @@ project keep git fallbacks or the queue itself in `repositories.manifest`?
   variables."
 
 **Source:** `guides/packaging-guide-testing.md`
+
+
+## T014 -- Strict warnings during testing, silence vs. patch
+
+**Query:** When testing a third-party package's source distribution, what
+compiler options should be used to surface upstream warnings, and if
+upstream source triggers a harmless warning, should it be silenced or
+patched?
+
+**Key facts** (all must appear in a correct answer):
+- Configure the source distribution test build with `-Wall -Wextra
+  -pedantic` on GCC/Clang, or `/W4 /permissive-` on MSVC.
+- These options are for this test build only (via `config.cxx.coptions=`
+  on the command line) and are never added to the package's own default
+  `cxx.coptions`.
+- A harmless warning (e.g. an unused variable, a benign sign comparison) is
+  silenced with a targeted `-Wno-XXX`/`/wdXXX` addition to the library's
+  own, non-export `cxx.coptions`, not by patching upstream source.
+- This suppression must never be added to `cxx.export.poptions`/
+  `cxx.export.loptions`: exported warning suppression is a separate rule
+  (already forbidden, since export options must not impose settings on
+  consumers).
+- A source patch is reserved for a genuine upstream bug the warning has
+  uncovered, and patches are kept to a minimum since each one adds to the
+  package's maintenance burden.
+
+**Source:** `guides/packaging-guide-testing.md`, `HOWTO/buildfile-compile-options.md`, `guides/packaging-guide-antipatterns.md`

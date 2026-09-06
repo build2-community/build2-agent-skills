@@ -57,6 +57,17 @@ Note that even if you do fix some issues in the `build2` package directly, try
 hard to also incorporate them upstream so that you do not need to maintain the
 patches forever.
 
+Silencing a harmless compiler warning is a different thing from fixing an
+upstream issue: a targeted `-Wno-XXX`/`/wdXXX` addition to the library's
+own, non-export `cxx.coptions` (see
+[buildfile-compile-options.md](../HOWTO/buildfile-compile-options.md#options-that-are-ok))
+touches no upstream source and carries none of the maintenance burden
+described above. This is unrelated to exported warning suppression, which
+[buildfile-compile-options.md](../HOWTO/buildfile-compile-options.md#export-options)
+already forbids. See [Test the source
+distribution](packaging-guide-testing.md#step-9-test-the-package) for
+building with strict warnings enabled to surface which ones need silencing.
+
 See also [Avoid changing upstream source code layout](#avoid-changing-upstream-source-code-layout)
 and [How do I patch upstream source code?](#how-do-i-patch-upstream-source-code).
 
