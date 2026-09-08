@@ -374,6 +374,12 @@ $* 2>&1   # merge stderr into stdout
 
 **Running a system utility instead of a builtin:**
 
+Prefer the portable builtins (see
+[testscript-commands.md](testscript-commands.md#builtins)) in all testscripts
+and ad-hoc build recipes. The `^` prefix is a last resort for cases where no
+builtin covers the need (for example, `patchelf` for RPATH manipulation on
+Linux). Use it only after explicit reviewer approval:
+
 ```
 ^cat --squeeze-blank <file>
 ```

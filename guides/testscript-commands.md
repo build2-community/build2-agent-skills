@@ -227,7 +227,13 @@ already exists at the destination, the source's cleanup is canceled. Passing
 
 ## Builtins
 
-To run a system utility instead of a builtin, prefix the name with `^`.
+Always prefer the builtins below over system-installed tools. They are
+portable across all platforms build2 supports, integrate with scope isolation
+and automatic cleanup tracking, and are equally available in testscripts and in
+ad-hoc build recipe scripts. To run a system-installed tool instead, prefix the
+name with `^`. Do this only as a last resort when no builtin covers the need
+(for example, `patchelf` for RPATH manipulation on Linux) and only after
+explicit reviewer approval.
 
 | Builtin | Synopsis | Description |
 |---|---|---|
