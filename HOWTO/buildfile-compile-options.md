@@ -45,11 +45,50 @@ concerns your library's own interface. In particular, do not disable warnings
 or set standard library feature macros in export options. Note there are no
 `*.export.coptions` for this reason.
 
-## Always append, never assign
+## Assign vs append on lists
 
-Use `+=` or `=+` for
-[build-time option variables](../guides/build2-modules-cxx.md#build-time-options-affect-this-targets-compilationlinking).
-The user may have pre-populated them via `config.*` counterparts.
+If the variable is an accumulated list that already holds values from
+`config.*`, an outer scope, or an earlier append, use `+=` or `=+`. Do
+not use `=` as the only write.
+
+A target-specific `=` plants a new value (`target::assign()`). Later
+lookup finds only that value and never the outer list. `+=`
+(`target::append()`) copies the outer original onto the target, then
+appends.
+
+This class includes:
+
+- `*.poptions`, `*.coptions`, `*.loptions`, `*.aoptions`, `*.libs`
+- `bin.rpath` and `bin.rpath_link` (`config.bin.rpath` is merged into
+  root-scope `bin.rpath` when the bin module initializes)
+- `cxx.mode` / `c.mode` after `using cxx` (see
+  [Put a flag last with cxx.mode](#put-a-flag-last-with-cxxmode) below)
+
+Linked-library rpath is not stored in `bin.rpath`. `bin.rpath.auto` is a
+separate walk at link time. `=` on `bin.rpath` does not turn that off. It
+still drops `config.bin.rpath`. See
+[rpath-unlinked-dependency.md](./rpath-unlinked-dependency.md).
+
+### Export lists are assigned
+
+`*.export.poptions`, `*.export.loptions`, and `*.export.libs` have no
+`config.*` counterpart. They define this library's interface, so the
+first write is `=`. If you split the value across statements, later
+writes must be `+=`:
+
+```
+lib{hello}:
+{
+  cxx.export.poptions = "-I$out_root" "-I$src_root"
+}
+
+liba{hello}:
+{
+  cxx.export.poptions += -DLIBHELLO_STATIC
+}
+```
+
+Scalars (`bin.lib`, `test`, `install`, `bin.whole`) stay `=`.
 
 ## Compile recipe order
 
@@ -140,4 +179,6 @@ Use `-pthread` in `*.libs`, not `-lpthread`. See
 - [cross-compilation.md](./cross-compilation.md) -- `cxx.target.*` and `cxx.class` after `using cxx`
 - [link-pthread.md](./link-pthread.md)
 - [link-system-library.md](./link-system-library.md)
+- [rpath-unlinked-dependency.md](./rpath-unlinked-dependency.md): `bin.rpath +=` for a dependency you never link
+- [build2-targets-variables.md](../guides/build2-targets-variables.md#variable-assignment-operators): `=` vs `+=` operator semantics
 - [packaging-guide-testing.md](../guides/packaging-guide-testing.md#step-9-test-the-package) -- building a third-party package with strict warnings enabled to find which ones to silence

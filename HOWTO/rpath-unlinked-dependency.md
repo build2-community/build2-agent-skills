@@ -65,14 +65,11 @@ exe{driver}: $foo: include = adhoc
 exe{driver}: bin.rpath += $($foo: libfoo.rpath)
 ```
 
-Append with `+=`, the same as `cxx.poptions` and other config-backed lists.
-The bin module merges `config.bin.rpath` into the root-scope `bin.rpath`
-value. A target-specific `=` replaces that list, so a user or CI
-`config.bin.rpath` (and any earlier `bin.rpath +=` in the project) would
-disappear from this target. Automatic rpath for *linked* libraries is a
-separate walk (`bin.rpath.auto`). It is not stored in this variable, so
-`=` does not turn that off, but it still drops everything that *is* in
-the variable.
+Append with `+=`. A target-specific `=` would replace the list, including
+`config.bin.rpath`. See
+[Assign vs append on lists](./buildfile-compile-options.md#assign-vs-append-on-lists).
+Automatic rpath for *linked* libraries is a separate walk
+(`bin.rpath.auto`) and is not stored in this variable.
 
 `bin.rpath` is a list of directories. The link rule embeds them as
 `-Wl,-rpath,...`. Only absolute entries are rewritten to `$ORIGIN` /
@@ -107,3 +104,5 @@ visible.
   why `$cxx.lib_rpaths()` is the wrong tool here
 - [local-installed-import.md](./local-installed-import.md): verify the
   installed consumer actually sees the metadata path
+- [buildfile-compile-options.md](./buildfile-compile-options.md#assign-vs-append-on-lists):
+  `+=` vs `=` on accumulated lists vs `*.export.*`

@@ -229,6 +229,11 @@ cxx.poptions += -DNDEBUG                       # append a define
 The `?=` operator is mandatory inside the `config` directive for configuration
 variables.
 
+For module lists such as `cxx.poptions` and `bin.rpath`, a target-specific
+`=` replaces the outer value, including `config.*`. Use `+=`. Export lists
+(`*.export.*`) are assigned. See
+[Assign vs append on lists](../HOWTO/buildfile-compile-options.md#assign-vs-append-on-lists).
+
 ## Variable Scopes
 
 build2 organises variables in a hierarchical scope tree that mirrors the

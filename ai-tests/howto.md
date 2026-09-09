@@ -21,12 +21,19 @@ it, and what happens if you omit the target type?
 ## T002 -- Compile option variable assignment operators
 
 **Query:** Which assignment operators must and must not be used when setting
-`*.coptions` or `*.poptions` in a buildfile, and why?
+`*.coptions`, `*.poptions`, or `bin.rpath` in a buildfile, how does that
+differ for `*.export.*`, and why?
 
 **Key facts** (all must appear in a correct answer):
-- Use `+=` or `=+` (append operators) when setting build-time option variables.
-- Never use plain `=` (assignment) for these variables.
-- The reason is that the user may have pre-populated them via `config.*` counterparts, and overwriting would discard those values.
+- Use `+=` or `=+` for accumulated lists (`*.poptions`, `*.coptions`,
+  `*.libs`, `bin.rpath`, and similar). Never use plain `=` as the only
+  write. A target-specific `=` replaces the outer value, including
+  `config.*`.
+- `bin.rpath` is the same append class: `config.bin.rpath` is merged into
+  the root-scope `bin.rpath` list.
+- `*.export.poptions`, `*.export.loptions`, and `*.export.libs` have no
+  `config.*` counterpart. The first write is `=`. Later split writes use
+  `+=`.
 
 **Source:** `HOWTO/buildfile-compile-options.md`
 

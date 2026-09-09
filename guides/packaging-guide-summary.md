@@ -407,8 +407,10 @@ lib{foo}: $impl_libs $intf_libs
 ```
 
 Build and export options. Always append (`+=`) to `*.poptions`, `*.coptions`,
-`*.libs`, etc. rather than assigning, since the user may have pre-populated
-them. Export options (`*.export.*`) are assigned:
+`*.libs`, `bin.rpath`, etc. rather than assigning, since the user may have
+pre-populated them. Export options (`*.export.*`) are assigned (later
+split writes use `+=`). See
+[Assign vs append on lists](../HOWTO/buildfile-compile-options.md#assign-vs-append-on-lists):
 
 ```
 cxx.poptions =+ "-I$src_pfx_src" "-I$src_pfx_inc"
