@@ -193,13 +193,25 @@ for details.
 
 **Cause:** An `import` directive references a project that is not a subproject
 of the current project, not in the amalgamation chain, and `config.import.<name>`
-is not set.
+is not set. The same wording is also used when the named *member* does not
+exist in this configuration, for example `import! [metadata] ... %libs{foo}`
+while `config.bin.lib=static` so there is no shared member.
 
-**Fix:** Either add the project as a subproject, place it in the same bpkg
-configuration, or specify the location explicitly:
+**Fix:** If the project is missing, add it as a subproject, place it in the
+same bpkg configuration, or specify the location explicitly:
 ```
 b configure: hello/ config.import.libhello=libhello/
 ```
+
+If the member is missing under a build class, exclude that class on the
+importing package (usually the tests/companion manifest):
+```
+builds: -static  ; Tests import libs{}, absent when only static is built.
+```
+See [builds-ci-filtering.md](./builds-ci-filtering.md#exclude-static-when-tests-import-libs).
+
+For an installed `import! [metadata]` that cannot see the `.pc`, see
+[local-installed-import.md](./local-installed-import.md).
 
 ### `undefined reference to <symbol>` (GNU ld)
 
@@ -218,6 +230,18 @@ same bug. See [link-prerequisite-order.md](./link-prerequisite-order.md).
 ---
 
 ## bpkg errors
+
+### `error: ':' expected after name`
+
+**Cause:** A manifest comment was wrapped onto the following line, the way a
+buildfile `#` comment block continues. Manifest `#` comments are whole-line
+only. `;` comments are part of that line's value. Neither continues. The
+wrapped line is parsed as a new name-value pair.
+
+**Fix:** Keep the comment on the same line as the field, or start a new `#`
+comment line that is a complete line by itself. `\` continues a value, not
+a comment. See
+[bpkg-manifest-reference.md](../bpkg/bpkg-manifest-reference.md#manifest-format).
 
 ### `error: package <name> is not found in <repository>`
 

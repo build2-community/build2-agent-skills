@@ -25,8 +25,10 @@ $ bdep new --package -l c++ -t exe libhello-tests
 
 Add a `tests` field to `libhello/manifest` (use `examples` or `benchmarks` as
 appropriate). This tells bpkg that the tests for `libhello` live in
-`libhello-tests` and implies a dependency on `libhello` -- no explicit
-`depends` on `libhello` is needed in `libhello-tests/manifest`:
+`libhello-tests`. At `rep-fetch` (repository fetch, not configure or build)
+bpkg synthesizes a dependency on `libhello` into the test package from that
+`tests: <name> == $` line. An explicit `depends` on `libhello` in
+`libhello-tests/manifest` is redundant:
 
 ```
 tests: libhello-tests == $
@@ -125,7 +127,9 @@ automatically:
 $ bdep ci -d libhello
 ```
 
-See [`bdep-ci`](../bdep/bdep-ci.md) for options.
+See [`bdep-ci`](../bdep/bdep-ci.md) for options and
+[ci-results.md](./ci-results.md) for how the cppget.org results page
+presents `test-installed`.
 
 ## See Also
 
@@ -133,3 +137,4 @@ See [`bdep-ci`](../bdep/bdep-ci.md) for options.
 - [bdep-new.md](../bdep/bdep-new.md) -- creating new packages (test-only package layout)
 - [packaging-guide-testing.md](../guides/packaging-guide-testing.md) -- testing packages end-to-end
 - [bdep-ci.md](../bdep/bdep-ci.md)
+- [ci-results.md](./ci-results.md): cppget.org results page, per-config `test-installed`

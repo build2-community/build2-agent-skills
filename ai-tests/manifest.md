@@ -223,3 +223,19 @@ and what must be done?
 - The second license must be added to the manifest by hand after generation.
 
 **Source:** `guides/packaging-license.md`
+
+
+## T017 -- Manifest comments do not wrap
+
+**Query:** Why does wrapping a manifest `;` or `#` comment onto the next
+line, the way a buildfile `#` comment block continues, fail with
+`':' expected after name`?
+
+**Key facts** (all must appear in a correct answer):
+- A `#` comment is a whole line and does not continue onto the next line.
+- A `;` comment is part of that line's value.
+- Neither form wraps the way a buildfile `#` comment block does.
+- A wrapped comment is parsed as a new name-value pair.
+- `\` continues a value, not a comment.
+
+**Source:** `bpkg/bpkg-manifest-reference.md`

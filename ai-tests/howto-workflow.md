@@ -11,6 +11,7 @@ Source documentation:
 - `HOWTO/troubleshooting.md`
 - `HOWTO/test-imported-executable.md`
 - `HOWTO/test-runtime-fixtures.md`
+- `HOWTO/ci-results.md`
 
 
 ## T001 -- Test package naming and manifest association
@@ -23,8 +24,10 @@ manifest field links it to the main package?
   `-benchmarks` are also used for the respective package kinds.
 - The manifest field `tests:` in the main package's manifest associates it with
   the test package (e.g., `tests: libhello-tests == $`).
-- Declaring the `tests:` field implies a dependency on the main package -- no
-  explicit `depends:` on the main package is needed in the test package manifest.
+- Declaring the `tests:` field causes bpkg to inject a dependency on the
+  main package into the test package at `rep-fetch` (repository fetch, not
+  configure or build). An explicit `depends:` on the main package is
+  redundant.
 
 **Source:** `HOWTO/tests-extra-dependencies.md`
 

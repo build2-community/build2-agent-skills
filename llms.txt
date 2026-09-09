@@ -138,11 +138,14 @@
 - [HOWTO/optional-library-components.md](HOWTO/optional-library-components.md): Making library components optional.
 - [HOWTO/target-metadata.md](HOWTO/target-metadata.md): Exporting metadata with executables and libraries.
 - [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md): Immediate vs ordinary import -- when to use import!/import? vs deferred import, the two-variable pattern for also linking a queried library, why linking the immediate target breaks in the installed case, related pkg-config dual-member pitfall.
+- [HOWTO/rpath-unlinked-dependency.md](HOWTO/rpath-unlinked-dependency.md): Rpath for a dependency you never link -- include=adhoc, bin.rpath, always-absolute metadata, rule_hint does not affect the consumer.
+- [HOWTO/ad-hoc-recipe.md](HOWTO/ad-hoc-recipe.md): Ad hoc recipes -- attachment grammar, depdb hash for impure $c.lib_* / $cxx.lib_* functions, not a substitute for bin.rpath.
 - [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md): Correctly using assert() in tests.
 - [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md): Sanitizing misbehaving tests with Testscript -- output redirection, cleanup, env timeouts, ln of src files and directories into $~.
 - [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md): Runtime test fixtures -- built child helpers, source-tree data, NEWS fsdir{} exe assets, test=false, include=adhoc, update-for-test.
 - [HOWTO/exclude-test-data-from-dist.md](HOWTO/exclude-test-data-from-dist.md): Excluding test data from a b dist archive -- target-specific vs prerequisite-specific dist, include=false still collected, dir{}/: dist=false no-op, if-wrapped declarations, whole-directory patterns.
 - [HOWTO/tests-extra-dependencies.md](HOWTO/tests-extra-dependencies.md): Tests with extra dependencies (separate test package).
+- [HOWTO/local-installed-import.md](HOWTO/local-installed-import.md): Local installed import! check -- two bpkg configurations, -L finds library and sibling .pc, PKG_CONFIG_PATH only when .pc is elsewhere.
 - [HOWTO/test-imported-executable.md](HOWTO/test-imported-executable.md): Testing an imported executable -- `test` variable override, `build/export.build` prerequisite, update ordering, `clean`-safety, the broken alternative LHS form.
 - [HOWTO/convert-source-to-utf8.md](HOWTO/convert-source-to-utf8.md): Converting source file encoding to UTF-8.
 - [HOWTO/package-naming.md](HOWTO/package-naming.md): Naming packages for third-party projects -- lib prefix, repository vs project: vs name: case, target vs package names.
@@ -155,6 +158,7 @@
 - [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md): Typical CI pipeline using bdep update/test.
 - [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md): CI build filtering recipes -- builds: class expressions, build-include/build-exclude patterns, common whitelist/blacklist recipes.
 - [HOWTO/sys-build-config.md](HOWTO/sys-build-config.md): Requesting system-provided libraries on specific CI bots -- sys build class, bare vs ?-prefixed sys: dependency specs in *-build-config, scope limits for OS-bundled frameworks.
+- [HOWTO/ci-results.md](HOWTO/ci-results.md): cppget.org CI results -- test-installed is per configuration, passing runs fold into log, warnings get a separate link.
 - [HOWTO/conditional-dependency-config.md](HOWTO/conditional-dependency-config.md): Package config variables in `bdep init -C` -- cfg-args vs pkg-args, conditional dependency activation, two-separator form.
 - [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md): Require a dependency feature -- require vs reflect, require-alone sibling example, when to copy a negotiated value.
 - [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md): Porting a CMake project to build2 buildfiles.

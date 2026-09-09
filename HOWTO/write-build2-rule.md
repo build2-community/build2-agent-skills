@@ -10,7 +10,9 @@ for a given action. You need a custom rule when:
 
 You do **not** need a custom rule when ad hoc recipes in a buildfile are
 sufficient for a one-off transformation, or when the existing `in` module (for
-`.in` file substitution) already covers your needs.
+`.in` file substitution) already covers your needs. See
+[ad-hoc-recipe.md](./ad-hoc-recipe.md) for attachment grammar and for calling
+`$cxx.lib_poptions()` from a recipe.
 
 ---
 
@@ -266,3 +268,4 @@ namespace hello
 - [build2-module-hello.md](../guides/build2-module-hello.md) -- full module API: entry point, init/boot, module_functions, stateful modules, variable declaration
 - [build2-module-dev-setup.md](../guides/build2-module-dev-setup.md) -- development environment setup for building and testing a module
 - [HOWTO/toolchain-dev-setup.md](./toolchain-dev-setup.md) -- setting up the full build2 toolchain for development
+- [ad-hoc-recipe.md](./ad-hoc-recipe.md) -- when a `{{ }}` recipe is enough, and how to attach one

@@ -122,8 +122,31 @@ The `*-builds`, `*-build-include`, and `*-build-exclude` per-configuration
 variants follow the same syntax as the common fields.
 
 
+## Exclude static when tests import libs
+
+A tests or companion package that imports a specific `lib{}` group member
+(usually `libs{}`, via the metadata protocol) hard-fails on configurations
+that build only the static member (`config.bin.lib=static`). The shared
+file does not exist, and the diagnostic is a generic `unable to import
+target` with no hint that a build-class exclusion is missing.
+
+```
+builds: -static  ; Tests import libs{}, absent when only static is built.
+```
+
+Put this on the tests/companion package's own manifest, not only on the
+primary. `static` is a deployment-defined class on cppget.org (see
+https://ci.cppget.org/?build-configs), not one of the five pre-defined
+names.
+
+ODB's own manifests use `builds: -static` because plugin implementations
+need `-fPIC` / a shared member. Same class, analogous "this member does
+not exist under static" reason, not the identical metadata-import failure.
+
+
 ## See also
 
 - `bpkg/bpkg-manifest-reference.md` -- full field reference, grammar, and wildcard rules
 - https://ci.cppget.org/?build-configs -- complete configuration and class list for cppget.org
 - `HOWTO/sys-build-config.md` -- requesting system-provided libraries on specific CI bots with the `sys` class
+- `HOWTO/ci-results.md` -- how `test-installed` appears on the cppget.org results page

@@ -1,8 +1,10 @@
 # build2 Functions Reference
 
 Functions in build2 are organized into families such as `$string.*()` for string
-manipulation or `$regex.*()` for regular expressions. This document covers all
-fourteen function families extracted from the libbuild2 source.
+manipulation or `$regex.*()` for regular expressions. This document covers the
+fourteen builtin function families extracted from the libbuild2 source, plus
+the C/C++ module functions (`$c.lib_*()`, `$cxx.lib_*()`) used from ad hoc
+recipes.
 
 ## General rules
 
@@ -13,7 +15,9 @@ exception: all its functions must always be qualified.
 
 **Impure functions.** Functions marked "not pure" read the environment, the
 filesystem, or run external processes. They must be declared with
-`config.environment` if their result can affect the build.
+`config.environment` if their result can affect the build. In an ad hoc
+recipe the restriction is different: impure calls are only allowed in the
+depdb preamble (see [ad-hoc-recipe.md](../HOWTO/ad-hoc-recipe.md)).
 
 **Optional arguments** are shown in square brackets: `[, <arg>]`.
 
@@ -38,6 +42,7 @@ behavior -- for example, `$string.sort($x, icase dedup)`.
 | `$project_name.*()` | `project_name` type | optional |
 | `$process_path.*()` | `process_path` and `process_path_ex` types | optional |
 | `$target_triplet.*()` | `cpu-vendor-os` target triplet | optional |
+| `$c.lib_*()` / `$cxx.lib_*()` | Interface options, libs, and rpaths for ad hoc recipes | required |
 
 
 ## $builtin.*() -- fundamental functions
@@ -289,8 +294,30 @@ example `x86_64-unknown-linux-gnu`).
 | `$representation(<triplet>)` | Return the complete triplet string, always including the vendor component. |
 
 
+## cc and cxx module functions
+
+These live in the `c` / `cxx` modules (`libbuild2/cc/functions.cxx`), not in
+the builtin function pool. Qualification with `$c.` or `$cxx.` is required.
+They are not pure. They may only be called during execution (or, carefully,
+during match) after the specified library targets have been matched.
+
+In an ad hoc recipe they may only appear in the depdb preamble. Pair each
+call with `depdb hash <value>` immediately. See
+[ad-hoc-recipe.md](../HOWTO/ad-hoc-recipe.md).
+
+Passing several library targets in one call is not just convenience: it
+allows more effective duplicate suppression.
+
+| Function | Description |
+|---|---|
+| `$c.lib_poptions(<lib-targets> [, <otype> [, <original>]])` / `$cxx.lib_poptions(...)` | Preprocessor options (`-I`, and similar) for compiling sources that depend on the specified libraries. `<otype>` is the output target type (`obje`, `objs`, ...). Omit `<otype>` for a utility library (`libul{}` or `libu[eas]{}`) to get only common-interface options, which is what a non-compiler tool such as Qt moc needs. If `<original>` is true, return the original `-I` options without translating them to `-isystem` or `/external:I`. That is the default when `<otype>` is omitted. |
+| `$c.lib_libs(<lib-targets>, <otype> [, <flags> [, <self>]])` / `$cxx.lib_libs(...)` | Libraries and associated options for linking targets that depend on the specified libraries. `<otype>` is the output target type (`exe`, `libs`, ...). Flags: `whole` (whole-archive), `absolute` (absolute library paths). If `<self>` is false, omit the specified libraries themselves. |
+| `$c.lib_rpaths(<lib-targets>, <otype> [, <link> [, <self>]])` / `$cxx.lib_rpaths(...)` | Rpath options for a hand-rolled link line. `<otype>` is the output target type (`exe`, `libs`, ...). If `<link>` is true, emit rpath-link options rather than rpath (the usual choice when linking for install). If `<self>` is false, omit options for the specified libraries themselves. This is not a way to add rpath to a target that still uses the stock link rule. For a dependency you never link, use `bin.rpath` instead ([rpath-unlinked-dependency.md](../HOWTO/rpath-unlinked-dependency.md)). |
+
+
 ## See also
 
 - [build2 targets and variables](build2-targets-variables.md) -- target type hierarchy, variable types, assignment operators, built-in scope variables
 - [Buildfile language reference](build2-buildfile-language.md) -- eval contexts, expansion, `if`/`for`/`while`
 - [Buildfile directives, patterns, and attributes](build2-directives-patterns.md) -- `define`, `using`, `import`, wildcard patterns
+- [Ad hoc recipes](../HOWTO/ad-hoc-recipe.md) -- attachment grammar, `depdb hash` pairing for these functions

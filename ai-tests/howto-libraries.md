@@ -1,6 +1,6 @@
 # Tests: HOWTO -- libraries
 
-Source documentation: `HOWTO/header-only-library.md`, `HOWTO/library-provides-main.md`, `HOWTO/link-pthread.md`, `HOWTO/third-party-private-headers.md`, `HOWTO/link-prerequisite-order.md`, `HOWTO/match-upstream-library-name.md`, `HOWTO/import-immediate-vs-ordinary.md`
+Source documentation: `HOWTO/header-only-library.md`, `HOWTO/library-provides-main.md`, `HOWTO/link-pthread.md`, `HOWTO/third-party-private-headers.md`, `HOWTO/link-prerequisite-order.md`, `HOWTO/match-upstream-library-name.md`, `HOWTO/import-immediate-vs-ordinary.md`, `HOWTO/rpath-unlinked-dependency.md`
 
 
 ## T001 -- Binless library system dependencies in both *.libs and *.export.libs
@@ -159,3 +159,26 @@ should I do instead, especially for the installed case?
   shared dependency).
 
 **Source:** `HOWTO/import-immediate-vs-ordinary.md`
+
+
+## T009 -- Rpath for a dependency you never link
+
+**Query:** I `dlopen` a shared library at runtime and list it as
+`include = adhoc` so it is built but never linked. Why does the consumer
+binary have no rpath for that library, does `import! [metadata, rule_hint=cxx.link]`
+fix it, and what should I set instead?
+
+**Key facts** (all must appear in a correct answer):
+- An `include = adhoc` prerequisite is updated but never enters the link
+  rule's rpath walk, so it contributes no rpath entry.
+- Neither a plain `import` nor `import! [metadata, rule_hint=cxx.link]`
+  changes that. `rule_hint` nominates a rule for the imported target, not
+  for how the consumer's already-matched link rule treats a prerequisite.
+- Append to target-specific `bin.rpath` with `+=` from an always-absolute
+  exported metadata `dir_path`. Do not assign with `=`, which replaces the
+  list that already holds `config.bin.rpath`. Query the plain variable,
+  not a relative `.for_install` value.
+- Relative `bin.rpath` entries are copied into the binary as-is and become
+  cwd-relative at runtime.
+
+**Source:** `HOWTO/rpath-unlinked-dependency.md`

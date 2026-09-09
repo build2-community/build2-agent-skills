@@ -92,3 +92,4 @@ via `-framework`).
 - `bpkg/bpkg-manifest-reference.md` -- `builds` and `*-build-config` field reference
 - `bpkg/bpkg-pkg-build.md` -- hold vs dependency, and the `sys:` scheme
 - `HOWTO/builds-ci-filtering.md` -- per-configuration override recipes this extends
+- `HOWTO/local-installed-import.md` -- local installed `import!` check. `sys:` does not set `-I`/`-L`

@@ -97,6 +97,15 @@ a second, ordinary `import` into `libs`. See
 [import-immediate-vs-ordinary.md](./import-immediate-vs-ordinary.md) for the
 pattern, including the optional-member case.
 
+`rule_hint=cxx.link` only nominates the link rule while the *imported*
+target is resolved. It does not change how the consumer's own already
+matched link rule treats that target as a prerequisite. A dependency you
+never link (`include = adhoc`, `dlopen` only) therefore still contributes
+no rpath. Set `bin.rpath` from an always-absolute exported `dir_path`
+instead. See
+[rpath-unlinked-dependency.md](./rpath-unlinked-dependency.md). Do not
+feed `bin.rpath` a `.for_install` value that is relative to `install.root`.
+
 ## Installed case: executables
 
 This is for an executable with **no dev build present** -- located via
@@ -166,3 +175,5 @@ exe{hello}:
 - [third-party-private-headers](./third-party-private-headers.md) -- applying the `[path, null]` / `.for_install` metadata pattern to share generated file paths (config headers, data archives) across packages in a multi-package repository
 - [test-imported-executable](./test-imported-executable.md) -- testing a dev-built imported executable, no metadata protocol needed
 - [import-immediate-vs-ordinary](./import-immediate-vs-ordinary.md) -- do not link the immediately imported target; the two-variable pattern for also linking a queried library
+- [rpath-unlinked-dependency](./rpath-unlinked-dependency.md) -- `bin.rpath` from always-absolute metadata for a dependency you never link
+- [local-installed-import](./local-installed-import.md) -- verify `import! [metadata]` against a real install prefix

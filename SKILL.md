@@ -39,6 +39,8 @@ use the table below to jump directly to the relevant file.
 | Look up a buildfile function signature, flags, or purity | [guides/build2-functions.md](guides/build2-functions.md) |
 | Library projects, target importation, subprojects | [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md) |
 | Import a library for metadata and still link it (including installed) | [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md) |
+| Add rpath for a dlopen-only (never linked) dependency | [HOWTO/rpath-unlinked-dependency.md](HOWTO/rpath-unlinked-dependency.md) |
+| Write an ad hoc recipe (`{{ }}`) | [HOWTO/ad-hoc-recipe.md](HOWTO/ad-hoc-recipe.md) |
 | Create a PHONY-equivalent (alias{}) target | [HOWTO/alias-targets.md](HOWTO/alias-targets.md) |
 | Which compile/link options belong in a buildfile | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
 | Place a compile flag after compiler mode or -std | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
@@ -57,6 +59,7 @@ use the table below to jump directly to the relevant file.
 | Create a library that provides main() | [HOWTO/library-provides-main.md](HOWTO/library-provides-main.md) |
 | Disable shared library variant per platform | [HOWTO/disable-shared-lib-per-platform.md](HOWTO/disable-shared-lib-per-platform.md) |
 | Export metadata from executables or libraries | [HOWTO/target-metadata.md](HOWTO/target-metadata.md) |
+| Test an installed import! locally against a real prefix | [HOWTO/local-installed-import.md](HOWTO/local-installed-import.md) |
 | Add/remove packages, resolve version conflicts | [bpkg/README.md](bpkg/README.md) |
 | Build a package, upgrade, or patch | [bpkg/bpkg-pkg-build.md](bpkg/bpkg-pkg-build.md) |
 | Create a bpkg configuration (standalone, no bdep project) | [bpkg/bpkg-cfg-create.md](bpkg/bpkg-cfg-create.md) |
@@ -113,6 +116,7 @@ use the table below to jump directly to the relevant file.
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
 | Set up a CI/CD pipeline for a build2 project | [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md) |
 | Filter automated CI builds for specific platforms | [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md) |
+| Read cppget.org CI results (test-installed badges) | [HOWTO/ci-results.md](HOWTO/ci-results.md) |
 | Request a system-provided library on a specific CI bot | [HOWTO/sys-build-config.md](HOWTO/sys-build-config.md) |
 | Set up build2 for toolchain development | [HOWTO/toolchain-dev-setup.md](HOWTO/toolchain-dev-setup.md) |
 | Scaffold a new bpkg package directory | [scripts/new-package.sh](scripts/new-package.sh) |

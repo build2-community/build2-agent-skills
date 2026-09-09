@@ -147,6 +147,9 @@ search, so it is the case that catches a library linked through its
 immediate import instead -- in-tree testing can pass regardless, because the
 export stub still attaches the dependency's own implementation dependencies.
 See [import-immediate-vs-ordinary.md](../HOWTO/import-immediate-vs-ordinary.md).
+To reproduce the installed metadata protocol against a second configuration
+that has no in-tree copy of the dependency, see
+[local-installed-import.md](../HOWTO/local-installed-import.md).
 
 **If a dependency exports an executable target** and the installed test fails
 with `unable to import target <pkg>%exe{...}`, the dependency's executable is
@@ -201,9 +204,11 @@ nested copy of that file inside the archive. See
 [Which repositories.manifest is consulted](packaging-guide-summary.md#which-repositoriesmanifest-is-consulted).
 
 A green `bdep ci` is not sufficient on its own. Always run the full recipe
-below, including `clean`, before `bdep publish`. Configure with strict
-warnings enabled so any warning upstream source triggers surfaces during
-this pass:
+below, including `clean`, before `bdep publish`. On the cppget.org results
+page a passing `test-installed` run is folded into each configuration's
+`log` with no separate badge. See [ci-results.md](../HOWTO/ci-results.md).
+Configure with strict warnings enabled so any warning upstream source
+triggers surfaces during this pass:
 
 ```
 $ b dist config.dist.root=/tmp/dist config.dist.uncommitted=true

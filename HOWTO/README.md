@@ -9,6 +9,7 @@ Condensed, AI-indexed versions of the
 |------|-------|
 | [alias-targets.md](./alias-targets.md) | PHONY-equivalent targets using `alias{}` |
 | [buildfile-compile-options.md](./buildfile-compile-options.md) | Which compile/link options belong in a buildfile, compile-line order, cxx.mode after std |
+| [ad-hoc-recipe.md](./ad-hoc-recipe.md) | Ad hoc recipes: attachment grammar, `depdb hash` for `$c.lib_*`/`$cxx.lib_*` |
 | [config-independent-build-graph.md](./config-independent-build-graph.md) | Keeping the build graph configuration-independent |
 | [for-install-conflicts.md](./for-install-conflicts.md) | Resolving "already updated but [not] for install" errors |
 | [fsdir-parent-chain.md](./fsdir-parent-chain.md) | `fsdir{}` parent auto-creation is out-of-tree only |
@@ -29,6 +30,7 @@ Condensed, AI-indexed versions of the
 | [optional-library-components.md](./optional-library-components.md) | Making library components optional |
 | [target-metadata.md](./target-metadata.md) | Exporting metadata with executables and libraries |
 | [import-immediate-vs-ordinary.md](./import-immediate-vs-ordinary.md) | Immediate vs ordinary import: querying metadata without losing the link |
+| [rpath-unlinked-dependency.md](./rpath-unlinked-dependency.md) | Rpath for a `dlopen`/adhoc dependency that is never linked |
 
 ## Testing
 
@@ -40,6 +42,7 @@ Condensed, AI-indexed versions of the
 | [exclude-test-data-from-dist.md](./exclude-test-data-from-dist.md) | Excluding test data from a `b dist` archive |
 | [tests-extra-dependencies.md](./tests-extra-dependencies.md) | Tests with extra dependencies (separate test package) |
 | [test-imported-executable.md](./test-imported-executable.md) | Testscript-testing an imported executable (e.g. a package's own `exe{}` from `tests/`) |
+| [local-installed-import.md](./local-installed-import.md) | Two-config local check of installed `import! [metadata]` |
 
 ## Packaging third-party projects
 
@@ -62,6 +65,7 @@ Condensed, AI-indexed versions of the
 | [ci-cd-setup.md](./ci-cd-setup.md) | Typical CI pipeline using bdep update/test |
 | [builds-ci-filtering.md](./builds-ci-filtering.md) | Filtering automated CI builds with `builds:`, `build-include:`, and `build-exclude:` |
 | [sys-build-config.md](./sys-build-config.md) | Requesting system-provided libraries on specific CI bots via the `sys` class |
+| [ci-results.md](./ci-results.md) | Reading cppget.org CI results: per-config `test-installed`, compact summary |
 | [conditional-dependency-config.md](./conditional-dependency-config.md) | Passing package config variables via `bdep init -C` for conditional dependencies |
 
 ## Migrating to build2

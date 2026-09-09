@@ -6,7 +6,8 @@ Source documentation: `HOWTO/cross-compilation.md`, `HOWTO/generated-headers.md`
 `HOWTO/update-for-test-install.md`, `HOWTO/test-runtime-fixtures.md`,
 `HOWTO/conditional-dependency-config.md`, `HOWTO/exclude-test-data-from-dist.md`,
 `HOWTO/fsdir-parent-chain.md`, `HOWTO/builds-ci-filtering.md`,
-`HOWTO/sys-build-config.md`
+`HOWTO/sys-build-config.md`, `HOWTO/ad-hoc-recipe.md`,
+`HOWTO/local-installed-import.md`, `HOWTO/ci-results.md`
 
 
 ## T001 -- Cross-compilation: detecting the target platform in buildfiles
@@ -302,3 +303,79 @@ like `?sys:libz`, and what does the `sys` class actually control?
   typically linked directly instead (e.g. via `-framework`).
 
 **Source:** `HOWTO/sys-build-config.md`, `bpkg/bpkg-manifest-reference.md`
+
+
+## T014 -- Ad hoc recipe attachment and impure functions
+
+**Query:** Can I put a `{{ }}` recipe immediately after
+`exe{driver}: $foo: include = adhoc`, and how must `$cxx.lib_poptions()` be
+called inside a recipe?
+
+**Key facts** (all must appear in a correct answer):
+- A recipe block may only follow a plain `target: prereqs` declaration, not
+  a prerequisite-specific assignment. Put the `include = adhoc` line first
+  and the plain prerequisite line last, immediately before `{{`.
+- Otherwise the parse error is `unexpected '{{'`.
+- `$cxx.lib_poptions()` (and `$cxx.lib_libs()` / `$cxx.lib_rpaths()`) are
+  not pure. In a recipe they may only be called in the depdb preamble,
+  immediately followed by `depdb hash <value>`.
+- `$cxx.lib_rpaths()` is for a hand-rolled link line, not a substitute for
+  `bin.rpath` on a target that still uses the stock link rule.
+
+**Source:** `HOWTO/ad-hoc-recipe.md`
+
+
+## T015 -- Local installed import! check
+
+**Query:** How do I locally verify that `import! [metadata, rule_hint=cxx.link]`
+works against an installed library, and is `PKG_CONFIG_PATH` required if I
+already pass `-L<prefix>/lib`?
+
+**Key facts** (all must appear in a correct answer):
+- Install the dependency into a prefix from one bpkg configuration, then
+  consume it from a second configuration with
+  `config.cc.loptions+=-L<prefix>/lib`.
+- Installed-library search looks for the binary in `-L` directories and
+  for the `.pc` in that directory's `pkgconfig/` subdirectory, so `-L` is
+  enough when the install layout is `<prefix>/lib` plus
+  `<prefix>/lib/pkgconfig`.
+- `PKG_CONFIG_PATH` is only needed when the `.pc` is not next to the
+  library.
+- A plain `import` can find the binary from `-L` alone.
+  `import! [metadata]` still needs the `.pc` because that is where
+  `export.metadata` lives for an installed library.
+
+**Source:** `HOWTO/local-installed-import.md`
+
+
+## T016 -- builds: -static when tests import libs{}
+
+**Query:** A tests package does `import! [metadata] ... %libs{foo}` and CI
+fails on a `config.bin.lib=static` configuration with `unable to import
+target`. What manifest line fixes it, and on which package?
+
+**Key facts** (all must appear in a correct answer):
+- The shared member does not exist when only static is built, and the
+  diagnostic does not mention a missing build-class exclusion.
+- Put `builds: -static` on the tests/companion package's own manifest.
+- `static` is a deployment-defined class on cppget.org, not one of the
+  five pre-defined names.
+
+**Source:** `HOWTO/builds-ci-filtering.md`
+
+
+## T017 -- cppget.org test-installed results
+
+**Query:** Does the `test-installed` phase on cppget.org run once for the
+whole CI matrix, and why does a passing run often have no separate
+`test-installed` badge?
+
+**Key facts** (all must appear in a correct answer):
+- `test-installed` runs per build-configuration, not once for the matrix.
+- A passing run is folded into that configuration's `log` link with no
+  separate badge.
+- A warning or error gets its own `test-installed` link.
+- This is cppget.org UI, not a `bdep` contract.
+
+**Source:** `HOWTO/ci-results.md`
+

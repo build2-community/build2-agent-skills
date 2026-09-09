@@ -131,7 +131,9 @@ pauses the testing at the specified breakpoint.
 
 While the exact interpretation of the CI request depends on the specific
 service, normally, the CI server will respond with a reference that can be used
-to query the results.
+to query the results. On cppget.org, a passing `test-installed` phase is
+folded into each configuration's `log`. Only a warning or error gets a
+separate `test-installed` link. See [ci-results.md](../HOWTO/ci-results.md).
 
 If the `--forward` option is specified then the forwarded configurations are
 used instead of the default configurations. In particular, this means that in

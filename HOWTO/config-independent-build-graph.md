@@ -97,3 +97,4 @@ if $config.hello.develop
 - [build2 directives, name patterns, attributes](../guides/build2-directives-patterns.md)
 - [build2 core modules: config](../guides/build2-modules-core.md)
 - [exclude-test-data-from-dist.md](./exclude-test-data-from-dist.md): actually excluding a file from the `b dist` archive
+- [ad-hoc-recipe.md](./ad-hoc-recipe.md): recipe attachment grammar (`{{` only after a plain dependency line), `depdb hash` for impure functions

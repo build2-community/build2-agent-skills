@@ -24,10 +24,14 @@ Rules:
 
 - Names are case-sensitive, lower-case, and use `-` to separate words.
 - Leading and trailing whitespace around name and value is ignored.
-- A `#` at the start of a line (outside multi-line mode) is a comment.
+- A `#` at the start of a line (outside multi-line mode) is a comment. Unlike
+  a buildfile `#` comment, it does not continue onto the following line. A
+  wrapped comment is parsed as a new name-value pair and fails with
+  `':' expected after name`.
 - A line ending with `\` (backslash) is continued on the next line. Both the
   backslash and the newline are removed, not replaced with a space. To include
-  a literal trailing backslash, write `\\`.
+  a literal trailing backslash, write `\\`. `\` continues a *value*, not a
+  comment.
 - The first name-value pair must have an empty name. Its value is the manifest
   format version, which must currently be `1`:
 
@@ -511,7 +515,10 @@ repository or its complement repositories (recursively). Recommended naming:
 `<primary>-tests`, `<primary>-examples`, `<primary>-benchmarks`.
 
 Test packages themselves do not declare an explicit dependency on the primary
-package. They may have their own `builds` constraints.
+package. `bpkg rep-fetch` injects that dependency into the test package from
+the primary's `tests:` / `examples:` / `benchmarks:` line. An explicit
+`depends` on the primary is redundant. They may have their own `builds`
+constraints.
 
 Version constraints support `$` to reference the primary package version:
 

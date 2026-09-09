@@ -175,6 +175,9 @@ See [bx reference](bx/bx.md) for the full option list.
 - [build2 directives, name patterns, and attributes](guides/build2-directives-patterns.md)
 - [build2 advanced projects: importation, libraries, testing, installation](guides/build2-projects-advanced.md)
 - [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md): Immediate vs ordinary import -- when to use import!/import? vs deferred import, the two-variable pattern for also linking a queried library, why linking the immediate target breaks in the installed case, related pkg-config dual-member pitfall.
+- [HOWTO/rpath-unlinked-dependency.md](HOWTO/rpath-unlinked-dependency.md): Rpath for a dependency you never link -- include=adhoc, bin.rpath, always-absolute metadata, rule_hint does not affect the consumer.
+- [HOWTO/ad-hoc-recipe.md](HOWTO/ad-hoc-recipe.md): Ad hoc recipes -- attachment grammar, depdb hash for impure $c.lib_* / $cxx.lib_* functions, not a substitute for bin.rpath.
+- [HOWTO/local-installed-import.md](HOWTO/local-installed-import.md): Local installed import! check -- two bpkg configurations, -L finds library and sibling .pc, PKG_CONFIG_PATH only when .pc is elsewhere.
 - [build2 manual: project configuration](guides/build2-project-config.md)
 - [build2 manual: targets and variables](guides/build2-targets-variables.md)
 - [build2 functions reference](guides/build2-functions.md)
@@ -201,6 +204,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [packaging guide: version management workflows](guides/packaging-guide-version-management.md)
 - [packaging guide: common antipatterns and upstream patching](guides/packaging-guide-antipatterns.md)
 - [HOWTO: CI build filtering with builds:, build-include:, build-exclude:](HOWTO/builds-ci-filtering.md)
+- [HOWTO/ci-results.md](HOWTO/ci-results.md): cppget.org CI results -- test-installed is per configuration, passing runs fold into log, warnings get a separate link.
 - [HOWTO: requesting system-provided libraries on specific CI bots with the sys class](HOWTO/sys-build-config.md)
 - [HOWTO: package config variables in `bdep init -C` (conditional dependencies)](HOWTO/conditional-dependency-config.md)
 - [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md): Require a dependency feature -- require vs reflect, require-alone sibling example, when to copy a negotiated value.

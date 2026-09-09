@@ -99,3 +99,5 @@ in the same project.
 - [target-metadata.md](./target-metadata.md#importing-with-metadata) -- the metadata protocol and the `hello` query pattern this recipe builds on
 - [build2-modules-cc.md](../guides/build2-modules-cc.md#importation-of-installed-libraries) -- the link rule's installed-library search that ordinary import relies on
 - [packaging-guide-testing.md](../guides/packaging-guide-testing.md#step-9-test-the-package) -- the installed test is what exercises this split
+- [rpath-unlinked-dependency.md](./rpath-unlinked-dependency.md) -- adhoc / `dlopen` dependencies never get automatic rpath either
+- [local-installed-import.md](./local-installed-import.md) -- two-config recipe that actually hits the installed `.pc`
