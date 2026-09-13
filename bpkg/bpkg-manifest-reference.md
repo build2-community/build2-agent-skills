@@ -169,11 +169,25 @@ accordingly.
 |-------|--------|-------------|
 | `upstream-version` | `<string>` | Original upstream version when the bpkg version deviates from it. Informational. |
 | `type` | `<name>[,<sub-options>]` | Package type: `exe`, `lib`, or `other`. Sub-option `binless` marks a header-only library. Inferred from name prefix if absent. |
-| `language` | `<name>[=impl]` | Programming language (lower-case). Multiple values allowed. Mark implementation-only languages with `=impl`. Defaults to the name extension or `cc`. |
+| `language` | `<name>[=impl]` | Programming language (lower-case). Multiple values are repeated `language:` lines, not comma-separated. Mark implementation-only languages with `=impl`. Defaults to the name extension or `cc`. |
 | `project` | `<name>` | Project this package belongs to. Defaults to the package name. Used for grouping in repositories. |
 | `priority` | `security \| high \| medium \| low [; <comment>]` | Release priority. Defaults to `low`. |
 | `topics` | `<topic> [, <topic>]*` | Up to five multi-word concepts describing the package. |
 | `keywords` | `<keyword> [ <keyword>]*` | Up to five space-separated single words. Package name, project name, and summary words are implicit keywords. |
+
+**Multiple `language` values:**
+
+A package using more than one language repeats the `language` field, one
+value per line. For example, a C library with a C++-only implementation:
+
+```
+type: lib
+language: c
+language: c++=impl
+```
+
+A language implied by another (for example, C++ implying C) does not need
+its own line.
 
 
 ## Source and Documentation Fields
