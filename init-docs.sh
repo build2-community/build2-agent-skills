@@ -15,35 +15,52 @@ set -e
 
 if [ "$#" -ne 1 ] || { [ "$1" != 'true' ] && [ "$1" != 'false' ]; }; then
   echo "usage: $0 true|false"
-  echo "  true   upgrade submodules to latest HEAD (recursively) before extracting"
+  echo "  true   upgrade submodules to latest HEAD before extracting"
   echo "  false  extract from currently checked-out submodule state"
   exit 1
 fi
 
 UPGRADE="$1"
 TOOLCHAIN=.submodules/build2-toolchain
+BUILD2=.submodules/build2
+BPKG=.submodules/bpkg
+BDEP=.submodules/bdep
+LIBBUTL=.submodules/libbutl
 HOWTO=.submodules/build2-howto
 AUTOCONF=.submodules/libbuild2-autoconf
+KCONFIG=.submodules/libbuild2-kconfig
 BREP=.submodules/build2-brep
 HELLO=.submodules/libbuild2-hello
 OUTPUT=.docs
 
-git submodule update --init --recursive -- "$TOOLCHAIN"
+git submodule update --init -- "$TOOLCHAIN"
+git submodule update --init -- "$BUILD2"
+git submodule update --init -- "$BPKG"
+git submodule update --init -- "$BDEP"
+git submodule update --init -- "$LIBBUTL"
 git submodule update --init -- "$HOWTO"
 git submodule update --init -- "$AUTOCONF"
+git submodule update --init -- "$KCONFIG"
 git submodule update --init -- "$BREP"
 git submodule update --init -- "$HELLO"
 
 if [ "$UPGRADE" = 'true' ]; then
-  git submodule update --remote --recursive -- "$TOOLCHAIN"
+  git submodule update --remote -- "$TOOLCHAIN"
+  git submodule update --remote -- "$BUILD2"
+  git submodule update --remote -- "$BPKG"
+  git submodule update --remote -- "$BDEP"
+  git submodule update --remote -- "$LIBBUTL"
   git submodule update --remote -- "$HOWTO"
   git submodule update --remote -- "$AUTOCONF"
+  git submodule update --remote -- "$KCONFIG"
   git submodule update --remote -- "$BREP"
   git submodule update --remote -- "$HELLO"
 fi
 
 rm -rf "$OUTPUT"
 
+# Extract build2-toolchain's own top-level docs (installation and packaging
+# guide sources live here, not in any of its nested submodules).
 find "$TOOLCHAIN" -name '*.cli' \
   ! -path '*/tests/*'           \
   ! -path '*/test/*'            \
@@ -63,6 +80,33 @@ find "$TOOLCHAIN" -name '*.md' \
     mkdir -p "$(dirname "$dst")"
     cp "$src" "$dst"
   done
+
+# Extract build2, bpkg, bdep, and libbutl: each is added directly as its own
+# top-level submodule (rather than reached through build2-toolchain's nested
+# submodules) so a plain, non-recursive submodule init already reaches them.
+for src_dir in "$BUILD2" "$BPKG" "$BDEP" "$LIBBUTL"; do
+  name=$(basename "$src_dir")
+
+  find "$src_dir" -name '*.cli' \
+    ! -path '*/tests/*'         \
+    ! -path '*/test/*'          \
+    | while IFS= read -r src; do
+      rel="${src#$src_dir/}"
+      dst="$OUTPUT/$name/$rel"
+      mkdir -p "$(dirname "$dst")"
+      cp "$src" "$dst"
+    done
+
+  find "$src_dir" -name '*.md' \
+    ! -path '*/tests/*'        \
+    ! -path '*/test/*'         \
+    | while IFS= read -r src; do
+      rel="${src#$src_dir/}"
+      dst="$OUTPUT/$name/$rel"
+      mkdir -p "$(dirname "$dst")"
+      cp "$src" "$dst"
+    done
+done
 
 find "$HOWTO" -name '*.md' \
   | while IFS= read -r src; do
@@ -89,6 +133,14 @@ find "$ac_src/libbuild2/autoconf/checks" -name '*.h' \
 if [ -f "$AUTOCONF/libbuild2-autoconf-tests/README.md" ]; then
   cp "$AUTOCONF/libbuild2-autoconf-tests/README.md" "$ac_dst/tests-README.md"
 fi
+
+# Extract libbuild2-kconfig: README and module manual.
+kc_src="$KCONFIG/libbuild2-kconfig"
+kc_dst="$OUTPUT/libbuild2-kconfig"
+mkdir -p "$kc_dst/doc"
+
+cp "$KCONFIG/README.md" "$kc_dst/README.md"
+cp "$kc_src/doc/manual.cli" "$kc_dst/doc/manual.cli"
 
 # Extract libbuild2-hello: README and module source files.
 # The source files (init.cxx, init.hxx, export.hxx) are the authoritative
@@ -143,7 +195,7 @@ find "$BREP" -name '*.in'     \
   done
 
 cli_count=$(find "$OUTPUT" -name '*.cli' | wc -l)
-toolchain_md_count=$(find "$OUTPUT" -name '*.md' ! -path "$OUTPUT/HOWTO/*" ! -path "$OUTPUT/libbuild2-autoconf/*" ! -path "$OUTPUT/brep/*" ! -path "$OUTPUT/libbuild2-hello/*" | wc -l)
+generic_md_count=$(find "$OUTPUT" -name '*.md' ! -path "$OUTPUT/HOWTO/*" ! -path "$OUTPUT/libbuild2-autoconf/*" ! -path "$OUTPUT/libbuild2-kconfig/*" ! -path "$OUTPUT/brep/*" ! -path "$OUTPUT/libbuild2-hello/*" | wc -l)
 md_count=$(find "$OUTPUT/HOWTO" -name '*.md' | wc -l)
 h_count=$(find "$ac_dst/checks" -name '*.h' | wc -l)
 brep_cli_count=$(find "$brep_dst" -name '*.cli' | wc -l)
@@ -151,7 +203,7 @@ brep_md_count=$(find "$brep_dst" -name '*.md' | wc -l)
 brep_in_count=$(find "$brep_dst" -name '*.in' ! -name '*.hxx.in' | wc -l)
 hello_src_count=$(find "$hello_dst" \( -name '*.hxx' -o -name '*.cxx' \) | wc -l)
 echo "Extracted $cli_count .cli files to $OUTPUT/ (includes brep)"
-echo "Extracted $toolchain_md_count .md files from $TOOLCHAIN to $OUTPUT/"
+echo "Extracted $generic_md_count .md files from $TOOLCHAIN, $BUILD2, $BPKG, $BDEP, $LIBBUTL to $OUTPUT/"
 echo "Extracted $md_count .md files to $OUTPUT/HOWTO/"
 echo "Extracted $h_count autoconf check headers to $OUTPUT/libbuild2-autoconf/checks/"
 echo "Extracted $brep_cli_count .cli, $brep_md_count .md, $brep_in_count .in files from $BREP to $OUTPUT/brep/"

@@ -5,7 +5,7 @@ ship in the `b dist` archive. Three mechanisms look like they should do
 this and do not: `install = false` (wrong module), `include = false` (still
 collected), and wrapping the declaration in `if` (parser warning, not an
 exclusion). This is verified against
-`.submodules/build2-toolchain/build2/libbuild2/dist/` and confirmed with
+`.submodules/build2/libbuild2/dist/` and confirmed with
 real `b dist` runs.
 
 ## The three knobs

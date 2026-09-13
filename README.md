@@ -9,21 +9,31 @@ sources listed below and organised according to the
 
 | Source | Role |
 |--------|------|
-| [`build2/build2-toolchain`](https://github.com/build2/build2-toolchain) submodule | `.cli` and `.md` source files; authoritative for all option descriptions, command synopses, and concept documentation |
+| [`build2/build2`](https://github.com/build2/build2) submodule | `b`/`bx` `.cli` source files; authoritative for the build system driver, task runner, and buildfile/testscript language documentation |
+| [`build2/bpkg`](https://github.com/build2/bpkg) submodule | `.cli` source files; authoritative for all `bpkg` option descriptions, command synopses, and the package manifest reference |
+| [`build2/bdep`](https://github.com/build2/bdep) submodule | `.cli` source files; authoritative for all `bdep` option descriptions and command synopses |
+| [`build2/libbutl`](https://github.com/build2/libbutl) submodule | `.cli` source files; authoritative for the testscript builtin command reference |
+| [`build2/build2-toolchain`](https://github.com/build2/build2-toolchain) submodule | Toolchain amalgamation's own top-level `.cli` and `.md` files; authoritative for installation and packaging guide concept documentation |
 | [`build2/build2-howto`](https://github.com/build2/build2-howto) submodule | HOWTO entries; authoritative for all recipe content |
 | [`build2/libbuild2-autoconf`](https://github.com/build2/libbuild2-autoconf) submodule | Autoconf emulation module; authoritative for builtin check catalog and module README |
+| [`build2/libbuild2-kconfig`](https://github.com/build2/libbuild2-kconfig) submodule | Kconfig emulation module; authoritative for the module manual and README |
 | [`build2/brep`](https://github.com/build2/brep) submodule | Repository web interface; authoritative for brep utility option descriptions and request handling protocols |
 | [`build2/libbuild2-hello`](https://github.com/build2/libbuild2-hello) submodule | Reference custom module implementation; authoritative for the module API pattern, development workflow, and bootstrap module guidance |
 | [Agent Skills specification](https://github.com/anthropics/skills) | Governs the entry-point contract (`SKILL.md`), YAML frontmatter schema, progressive-disclosure model, and file-focus guidance applied throughout |
 | [NVIDIA/skills](https://github.com/NVIDIA/skills) | Reference implementation closest in structure to this repository; used as a concrete model for the troubleshooting catalog, "When to use" hints, and per-command "See also" sections |
 
-Content in `b/`, `bx/`, `bpkg/`, `bdep/`, and `guides/` (except
-`build2-modules-autoconf.md`) is derived from `build2-toolchain`. Content in
-`HOWTO/` is derived from `build2-howto`. Content in `brep/` is derived from
-`build2-brep`. The builtin check catalog in `.docs/libbuild2-autoconf/checks/`
-is derived from `libbuild2-autoconf`. Do not edit derived content directly.
-Patch the upstream submodule instead, then re-run `./init-docs.sh false` to
-regenerate `.docs/`.
+Content in `b/`, `bx/`, and `guides/` covering the build system driver,
+buildfile language, and testscript (except `build2-modules-autoconf.md` and
+the kconfig guides) is derived from the `build2` submodule. Content in
+`bpkg/` is derived from `bpkg`. Content in `bdep/` is derived from `bdep`.
+The testscript builtin reference is derived from `libbutl`. The
+installation and packaging guides are derived from `build2-toolchain`'s own
+top-level files. Content in `HOWTO/` is derived from `build2-howto`. Content
+in `brep/` is derived from `build2-brep`. The builtin check catalog in
+`.docs/libbuild2-autoconf/checks/` is derived from `libbuild2-autoconf`. The
+kconfig guides are derived from `libbuild2-kconfig`. Do not edit derived
+content directly. Patch the upstream submodule instead, then re-run
+`./init-docs.sh false` to regenerate `.docs/`.
 
 ## Repository layout
 
@@ -43,9 +53,14 @@ regenerate `.docs/`.
 | `guides/` | Condensed, topic-scoped guides derived from the large upstream manuals |
 | `HOWTO/` | Practical recipes indexed by topic |
 | `scripts/` | Utility shell scripts for AI-assisted and manual workflows |
-| `.submodules/build2-toolchain/` | Git submodule: upstream `.cli` and `.md` source files |
+| `.submodules/build2/` | Git submodule: upstream `b`/`bx` `.cli` source files |
+| `.submodules/bpkg/` | Git submodule: upstream `bpkg` `.cli` source files |
+| `.submodules/bdep/` | Git submodule: upstream `bdep` `.cli` source files |
+| `.submodules/libbutl/` | Git submodule: upstream testscript builtin `.cli` source |
+| `.submodules/build2-toolchain/` | Git submodule: toolchain amalgamation's own top-level `.cli` and `.md` files |
 | `.submodules/build2-howto/` | Git submodule: upstream HOWTO entries |
 | `.submodules/libbuild2-autoconf/` | Git submodule: upstream autoconf module source and checks |
+| `.submodules/libbuild2-kconfig/` | Git submodule: upstream kconfig module source and manual |
 | `.submodules/build2-brep/` | Git submodule: upstream brep source (`.cli`, `.md`, and `.in` files) |
 | `.submodules/libbuild2-hello/` | Git submodule: reference custom module source (libbuild2-hello) |
 | `.docs/` | Generated output of `init-docs.sh` (git-ignored) |

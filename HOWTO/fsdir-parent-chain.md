@@ -6,7 +6,7 @@ cascade is `mkdir -p`. In-source it is not. Only an explicitly declared
 `fsdir{}` prerequisite is honored.
 
 This is verified against
-`.submodules/build2-toolchain/build2/libbuild2/algorithm.cxx`
+`.submodules/build2/libbuild2/algorithm.cxx`
 (`inject_fsdir_impl`) and `libbuild2/rule.cxx` (`fsdir_rule::apply`).
 
 ## The rule

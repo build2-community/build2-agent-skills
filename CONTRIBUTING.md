@@ -79,13 +79,21 @@ to existing paths. It exits 1 and prints any broken links found.
 ## Accuracy
 
 All technical claims in contributed files must be confirmed against an
-upstream source before committing. The four submodule paths that provide
+upstream source before committing. The submodule paths that provide
 authoritative upstream material are:
 
-- `.submodules/build2-toolchain/` -- b, bpkg, bdep, bx option descriptions,
-  command synopses, and concept documentation
+- `.submodules/build2/` -- b, bx option descriptions, command synopses, and
+  concept documentation (buildfile language, testscript)
+- `.submodules/bpkg/` -- bpkg option descriptions, command synopses, and the
+  package manifest reference
+- `.submodules/bdep/` -- bdep option descriptions and command synopses
+- `.submodules/libbutl/` -- testscript builtin command reference
+- `.submodules/build2-toolchain/` -- installation and packaging guide
+  concept documentation (its own top-level `doc/`, not its nested
+  submodules)
 - `.submodules/build2-howto/` -- HOWTO recipe content
 - `.submodules/libbuild2-autoconf/` -- autoconf module source and builtin
   check catalog
+- `.submodules/libbuild2-kconfig/` -- kconfig module source and manual
 - `.submodules/build2-brep/` -- brep utility option descriptions and request
   handling protocols

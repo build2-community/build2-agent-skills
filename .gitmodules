@@ -1,3 +1,15 @@
+[submodule "build2"]
+	path = .submodules/build2
+	url = https://github.com/build2/build2.git
+[submodule "bpkg"]
+	path = .submodules/bpkg
+	url = https://github.com/build2/bpkg.git
+[submodule "bdep"]
+	path = .submodules/bdep
+	url = https://github.com/build2/bdep.git
+[submodule "libbutl"]
+	path = .submodules/libbutl
+	url = https://github.com/build2/libbutl.git
 [submodule "build2-toolchain"]
 	path = .submodules/build2-toolchain
 	url = https://github.com/build2/build2-toolchain.git
@@ -7,6 +19,9 @@
 [submodule "libbuild2-autoconf"]
 	path = .submodules/libbuild2-autoconf
 	url = https://github.com/build2/libbuild2-autoconf.git
+[submodule "libbuild2-kconfig"]
+	path = .submodules/libbuild2-kconfig
+	url = https://github.com/build2/libbuild2-kconfig.git
 [submodule "build2-brep"]
 	path = .submodules/build2-brep
 	url = https://github.com/build2/brep
