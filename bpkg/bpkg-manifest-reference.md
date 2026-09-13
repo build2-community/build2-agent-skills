@@ -529,10 +529,10 @@ repository or its complement repositories (recursively). Recommended naming:
 `<primary>-tests`, `<primary>-examples`, `<primary>-benchmarks`.
 
 Test packages themselves do not declare an explicit dependency on the primary
-package. `bpkg rep-fetch` injects that dependency into the test package from
-the primary's `tests:` / `examples:` / `benchmarks:` line. An explicit
-`depends` on the primary is redundant. They may have their own `builds`
-constraints.
+package. Instead, the primary package's `tests:` / `examples:` /
+`benchmarks:` line gives the test package a special dependency on the
+primary. An explicit `depends` on the primary is redundant. They may have
+their own `builds` constraints.
 
 Version constraints support `$` to reference the primary package version:
 

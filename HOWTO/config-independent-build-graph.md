@@ -49,7 +49,10 @@ exe{test-pipe}: cxx{test-pipe} $libs
 
 When a recipe should only run in certain configurations, keep the
 target-prerequisite declaration unconditional but wrap the recipe body in an
-`if`. An explicit `%` recipe header is required for a conditional recipe block:
+`if`. An explicit `%` recipe header is required for a conditional recipe block.
+The examples below use `config.<project>.develop`, a variable with pre-defined
+development-vs-consumption semantics: see
+[build2-project-config.md](../guides/build2-project-config.md#the-configprojectdevelop-variable):
 
 ```
 exe{reflex}: c{scan}:     include = ( $config.reflex.develop)

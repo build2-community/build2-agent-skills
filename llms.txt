@@ -45,6 +45,7 @@
 - [bpkg/bpkg-dependency-negotiation.md](bpkg/bpkg-dependency-negotiation.md): bpkg dependency configuration negotiation -- how multi-package version constraints are resolved.
 - [bpkg/bpkg-repository-types.md](bpkg/bpkg-repository-types.md): bpkg-repository-types -- archive, directory, and git repository types, structure, and URLs.
 - [bpkg/bpkg-repository-signing.md](bpkg/bpkg-repository-signing.md): bpkg-repository-signing -- how to sign a repository and how signatures are verified.
+- [bpkg/bpkg-repository-manifest-reference.md](bpkg/bpkg-repository-manifest-reference.md): bpkg repository manifest reference -- repository, repository list, signature, and package list manifest formats.
 - [bpkg/bpkg-argument-grouping.md](bpkg/bpkg-argument-grouping.md): bpkg-argument-grouping -- argument grouping facility for per-package option sets.
 - [bpkg/bpkg-default-options-files.md](bpkg/bpkg-default-options-files.md): bpkg-default-options-files -- how and where default options files are loaded.
 - [bpkg/bpkg-configuration.md](bpkg/bpkg-configuration.md): bpkg-configuration -- configuration directory option shared across commands.
@@ -111,6 +112,7 @@
 - [guides/build2-autoconf-contributing-checks.md](guides/build2-autoconf-contributing-checks.md): autoconf module -- stylistic guidelines and PR format for contributing checks to the builtin catalog.
 - [guides/kconfig-summary.md](guides/kconfig-summary.md): kconfig module -- overview, enabling, and full Kconfig language reference (config entries, dependencies, menus, choices).
 - [guides/kconfig-integration.md](guides/kconfig-integration.md): kconfig build system integration -- loading files, generated config, module variables, and complete worked example.
+- [guides/kconfig-patterns.md](guides/kconfig-patterns.md): kconfig patterns and recipes -- helper options, kconfig-conf method mapping, random/fuzz configuration for CI.
 - [guides/build2-module-hello.md](guides/build2-module-hello.md): custom build2 module reference -- module API, build2_hello_load entry point, init/boot functions, module_boot_extra/module_boot_init, stateful modules, load_module, lifecycle variables, submodule entries, variable declaration, rule registration.
 - [guides/build2-module-dev-setup.md](guides/build2-module-dev-setup.md): build2 module development setup -- build-system-only quickstart, bdep split host/target workflow, three-config tool pattern, CI, release, global import override.
 - [guides/install-bootstrap.md](guides/install-bootstrap.md): Installing and bootstrapping -- prerequisites, pre-built packages, and bootstrap steps 1-2 (all platforms).

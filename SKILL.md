@@ -105,7 +105,9 @@ use the table below to jump directly to the relevant file.
 | Add project-specific autoconf checks | [guides/build2-autoconf-project-checks.md](guides/build2-autoconf-project-checks.md) |
 | Contribute a check to the autoconf builtin catalog | [guides/build2-autoconf-contributing-checks.md](guides/build2-autoconf-contributing-checks.md) |
 | Use autoconf check results in buildfiles | [guides/build2-autoconf-buildfile.md](guides/build2-autoconf-buildfile.md) |
+| kconfig: Kconfig language reference (config entries, dependencies, menus, choices) | [guides/kconfig-summary.md](guides/kconfig-summary.md) |
 | kconfig: build system integration and examples | [guides/kconfig-integration.md](guides/kconfig-integration.md) |
+| kconfig: helper options, non-interactive/random configuration recipes | [guides/kconfig-patterns.md](guides/kconfig-patterns.md) |
 | Create a custom build2 module (rules, init, boot) | [guides/build2-module-hello.md](guides/build2-module-hello.md) |
 | Understand the build2 module API (entry points, module_functions) | [guides/build2-module-hello.md](guides/build2-module-hello.md) |
 | Develop a bootstrap-phase build2 module | [guides/build2-module-hello.md](guides/build2-module-hello.md) |

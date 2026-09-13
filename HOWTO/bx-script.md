@@ -34,6 +34,12 @@ Arguments after the script path are forwarded verbatim:
 $ bx ./configure.bx --prefix /usr/local --enable-tests
 ```
 
+## Builtins
+
+Besides portable shell syntax, `.bx` scripts recognize a `shopt`
+pseudo-builtin. It currently takes no options; upstream has not yet
+documented further behavior for it beyond reserving the name.
+
 ## Running the default task
 
 Once task support is available, the default task will be run with no

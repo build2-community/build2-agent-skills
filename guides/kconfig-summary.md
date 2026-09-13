@@ -45,10 +45,12 @@ using install
 using dist
 ```
 
-By default the module looks for `build/Kconfig` as the top-level definition
-file. The module initializes lazily: on `configure`, it runs the configurator
-and writes `build/config.kconfig`. On subsequent builds, it loads and validates
-the existing file.
+By convention, the top-level definition file is placed at `build/Kconfig` (see
+[kconfig-integration.md](kconfig-integration.md#loading-kconfig-files) for
+where to place it and how to source additional files). The module initializes
+lazily: on `configure`, it runs the configurator and writes
+`build/config.kconfig`. On subsequent builds, it loads and validates the
+existing file.
 
 You may also initialize the module explicitly inside `build/root.build` at any
 point where you need `kconfig.*` variables to be immediately available:
@@ -158,7 +160,8 @@ Multiple `depends on` attributes are ANDed together.
 **`select SYMBOL [if expr]`** -- strong reverse dependency. Forces `SYMBOL` to
 `y` whenever this option is `y`, regardless of `SYMBOL`'s own dependencies or
 user selection. Use with caution on user-visible options; prefer using `select`
-on invisible helper options (see Helper Options below).
+on invisible helper options (see
+[Helper Options](kconfig-patterns.md#helper-options)).
 
 **`imply SYMBOL [if expr]`** -- weak reverse dependency. Suggests `y` as the
 default for `SYMBOL` when this option is `y`, but the user can still override
@@ -227,6 +230,18 @@ endmenu
 The `visible if expr` attribute hides the entire menu and all its entries when
 the expression is false. The `depends on expr` attribute on a `menu` is
 equivalent to adding that dependency to every entry inside it.
+
+The Kconfig menu hierarchy always starts with an implicitly-defined main menu.
+Its prompt can be customized in the `Kconfig` file with a `mainmenu "prompt"`
+definition, but customarily it is left alone and instead set to the project
+name and version automatically by the `kconfig` module, or overridden via the
+`kconfig.kconfig.title` variable (see
+[kconfig-integration.md](kconfig-integration.md#module-variables)).
+Specifying `mainmenu` in the `Kconfig` file is not recommended with `build2`:
+there can only be one such definition, which makes the result
+non-composable, and there are plans for the module to automatically
+aggregate the Kconfig configurations of multiple projects into a single
+configurator invocation.
 
 **`menuconfig`** -- a hybrid that acts as both a `config` entry and a `menu`
 parent. Entries that depend on its symbol become its submenu:
@@ -325,7 +340,20 @@ config IO
 ```
 
 
+### Comment Entries
+
+The `comment` keyword adds a notice for the user during configuration. The
+comment prompt (text) is also written into the resulting configuration file.
+The only valid attribute is `depends on`, which makes the comment conditional:
+
+```
+comment "IO disabled, no output will be shown"
+      depends on !IO
+```
+
+
 ## See Also
 
 - [kconfig-integration.md](kconfig-integration.md) -- build system integration, module variables, and complete example
+- [kconfig-patterns.md](kconfig-patterns.md) -- helper options, kconfig-conf method mapping, random/fuzz configuration
 - [build2 core modules](build2-modules-core.md)

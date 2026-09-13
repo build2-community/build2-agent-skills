@@ -43,6 +43,13 @@ explicitly in your root `buildfile`:
 ./: ... build/file{Kconfig-*}
 ```
 
+This only applies to dynamically-named files. `build/Kconfig` itself and any
+files it sources (transitively) by a static, unconditional path -- as well as
+any `build/defconfig*.kconfig` default configuration files (see
+[Default Configuration Files](#default-configuration-files) below) -- are
+automatically added to the distribution and need not be mentioned as
+prerequisites.
+
 
 ## Generated Configuration
 
@@ -81,6 +88,16 @@ renames it to `build/config.kconfig` only after the project loads
 successfully. On `disfigure`, `config.kconfig` is moved to
 `config.kconfig.old`.
 
+This atomicity requires the configuration to be available during project
+loading, before `configure` itself completes, so the module spreads the work
+across three points in the process:
+
+| Step | Action |
+|---|---|
+| `bootstrap.build` | Register the post-`configure` callback with the `config` module. |
+| `root.build` | Run the configurator, saving the result to `config.kconfig.new`. |
+| `configure` (post-configure) | Rename `config.kconfig.new` to `config.kconfig`. |
+
 The module verifies on each build that `config.kconfig` is consistent with the
 current `Kconfig` definitions. If it is not (for example, after adding or
 removing options), `build2` fails and asks you to reconfigure.
@@ -93,7 +110,7 @@ removing options), `build2` fails and asks you to reconfigure.
 | `config.kconfig` | `string` | Configuration method to use. Format: `[new-|old-](def|ask|reask|mconf|qconf|env ...) [file]`. Default: `ask`. |
 | `kconfig.kconfig.configure` | `string` | Default method when configuring from scratch (no existing `config.kconfig`). Default: `reask`. |
 | `kconfig.kconfig.reconfigure` | `string` | Default method when reconfiguring with existing `config.kconfig`. Default: `ask`. |
-| `kconfig.kconfig.retryconfigure` | `string` | Default method when `config.kconfig.new` exists from an interrupted run. Default: `reask`. |
+| `kconfig.kconfig.retryconfigure` | `string` | Default method when `config.kconfig.new` exists from an interrupted run. Default: `reask`. Choosing a method that does not let the user adjust every option can produce an invalid configuration recoverable only by disfiguring the project. |
 | `kconfig.kconfig.transient` | `string` | Method used when a build is attempted without `config.kconfig`. Default: `ask` (disabled). Set to `def` or a file path to allow transient configurations. |
 | `kconfig.kconfig.title` | `string` | Override for the main menu title. The module sets this to the project name and version by default. |
 | `Kconfig.*` | any | External macro variables passed into the Kconfig macro language as `$(NAME)` substitutions. `bool` values are auto-converted from `true`/`false` to `y`/`n`. |
@@ -198,6 +215,60 @@ The resulting `build/config.kconfig`:
 CONFIG_IO=y
 CONFIG_GREETING="Hi"
 ```
+
+
+## Default Configuration Files
+
+Besides defaults from the `Kconfig` file itself, a project can offer several
+sets of default values as separate files, for example one per target
+platform. A common convention is `defconfig-<platform>.kconfig`, where
+`<platform>` is the target class (`linux`, `windows`, `macos`, etc.) from
+`cxx.target.class`:
+
+```
+using cxx
+
+defconfig = $src_root/build/defconfig-$(cxx.target.class).kconfig
+
+kconfig.kconfig.configure   = new-def $defconfig
+kconfig.kconfig.reconfigure = old-def $defconfig
+kconfig.kconfig.transient   = def $defconfig
+
+using kconfig
+```
+
+`build/defconfig*.kconfig` files are automatically added to the distribution,
+same as `build/Kconfig` and the files it statically sources (see
+[Loading Kconfig Files](#loading-kconfig-files) above).
+
+Such a file is normally a minimal one produced with
+`kconfig-conf --savedefconfig`, which contains only the values that differ
+from the `Kconfig` defaults (see
+[Backwards Compatibility](#backwards-compatibility) below for why this is
+more resilient than committing a full `config.kconfig`). Given a suitably
+configured project, extract it with the `env` method:
+
+```
+$ b configure config.kconfig=\
+"env kconfig-conf --savedefconfig defconfig-linux.kconfig"
+```
+
+Or manually, given just the configuration file:
+
+```
+$ KCONFIG_CONFIG=config.kconfig \
+  kconfig-conf --savedefconfig defconfig-linux.kconfig Kconfig
+```
+
+If the `Kconfig` definition file relies on external inputs (see
+[External Kconfig Macro Variables](#external-kconfig-macro-variables) below),
+manual extraction also requires supplying those inputs via environment
+variables.
+
+For the non-interactive configuration methods used above (`new-def`,
+`old-def`, `def`), the `kconfig-conf`-to-method mapping, and CI-oriented
+recipes such as random configuration generation, see
+[kconfig-patterns.md](kconfig-patterns.md).
 
 
 ## External Kconfig Macro Variables
@@ -410,6 +481,7 @@ configuration file that users can load with `config.kconfig="new-def <file>"`.
 ## See Also
 
 - [kconfig-summary.md](kconfig-summary.md) -- Kconfig language reference
+- [kconfig-patterns.md](kconfig-patterns.md) -- helper options, kconfig-conf method mapping, random/fuzz configuration
 - [build2 core modules](build2-modules-core.md)
 - Official Kconfig Language: https://www.kernel.org/doc/html/latest/kbuild/kconfig-language.html
 - Official Kconfig Macro Language: https://www.kernel.org/doc/html/latest/kbuild/kconfig-macro-language.html

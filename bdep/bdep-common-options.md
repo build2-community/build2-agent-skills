@@ -69,6 +69,15 @@ The following common option cannot be specified in default options files:
 
 - `--fetch-cache-session`
 
+## Environment and Exit Status
+
+The `BDEP_DEF_OPT` environment variable suppresses loading of default
+options files in nested `bdep` invocations. `false`/`0` suppresses, `true`/`1`
+loads. (`BUILD2_SQLITE_SYNCHRONOUS` is documented above alongside
+`--sqlite-synchronous`.)
+
+Exit status is non-zero in case of an error.
+
 ## See Also
 
 - [bdep README](README.md)

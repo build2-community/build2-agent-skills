@@ -242,7 +242,7 @@ explicit reviewer approval.
 | `date` | `date [-u] [+<format>]` | Print current date/time using `std::put_time()` format (extended with `%[.N]` for nanoseconds). `-u` prints UTC. |
 | `diff` | `diff [-u|-U <n>] <f1> <f2>` | Compare files. Not a true builtin; uses platform diff (GNU diff on Windows). |
 | `echo` | `echo <string>...` | Write space-separated strings followed by a newline to stdout. |
-| `env` | `env [-t <sec>] [-c <dir>] [-u <name>]... [-] [<name>=<value>]... -- <cmd>` | Run a command with modified environment, working directory, and/or timeout. Pseudo-builtin; `env` and `--` must be literal. |
+| `env` | `env [-t <sec>] [-s] [-c <dir>] [-u <name>]... [-] [<name>=<value>]... -- <cmd>` | Run a command with modified environment, working directory, and/or timeout. `-s` treats a `-t` timeout as success instead of failure. Pseudo-builtin; `env` and `--` must be literal. |
 | `exit` | `exit [<code>] [<diag>]` | Exit the current scope. Code 0 exits successfully; non-zero exits with error. Pseudo-builtin. |
 | `export` | `export [-c <name>]... [-u <name>]... [<name>=<val>]...` | Add/remove variables from the execution environment for the current scope. Pseudo-builtin. |
 | `false` | `false` | Exit with code 1. |
@@ -252,7 +252,7 @@ explicit reviewer approval.
 | `mv` | `mv [--no-cleanup] [-f] <src> <dst>` | Move/rename files or directories. `-f` allows sources outside working dir. |
 | `rm` | `rm [-r] [-f] <path>...` | Remove files or directories. `-r` for directories, `-f` to suppress errors. |
 | `rmdir` | `rmdir [-f] <dir>...` | Remove empty directories. `-f` suppresses errors. |
-| `sed` | `sed [-n] [-i] (-e <script>)... [<file>]` | Stream editor. Supports `s/regex/replacement/flags` only. ECMAScript regex flavor. Flags: `g`, `p`, `i`. Replacement extras: `\N`, `\u`, `\l`, `\U`, `\L`, `\n`. |
+| `sed` | `sed [-n] [-i] (-e <script>)... [<file>]` | Stream editor. Supports `s/regex/replacement/flags` only. ECMAScript regex flavor (`match_not_null` in effect unless the matched line is empty). Flags: `g`, `p`, `i`. Replacement extras: `\N`, `\u`, `\l`, `\U`, `\L`, `\n`. |
 | `set` | `set [-e] [-n|-w] <var> [<attr>]` | Set a variable from stdin. `-e` exact match (no trailing newline stripping), `-n` split at newlines, `-w` split at whitespace. Pseudo-builtin. Must be last in pipe. |
 | `for` | `for [-e] [-n\|-w] <var> [<attr>]` | Iterate over stdin values, executing the body for each. `-e` exact match, `-n` split at newlines, `-w` split at whitespace (default). Pseudo-builtin. Must be last in pipe. |
 | `sha256sum` | `sha256sum [-b|-t] [--sum-only] <file>...` | Compute SHA256 checksums. `--sum-only` prints only the hash. |

@@ -287,7 +287,20 @@ switch $cxx.target.cpu: regex.match
   case 'x86_64'
     ...
 }
+
+switch $cxx.target.cpu: regex.match icase
+{
+  ...
+}
 ```
+
+The match function name can be followed by additional values passed as its
+third argument, normally used for match flags (`icase` above enables
+case-insensitive matching). Besides `regex.match`, common match functions are
+`regex.search` (matches anywhere in the value, not the whole value),
+`path.match` (shell wildcard patterns), and `string.icasecmp` (case-insensitive
+equality). Any function taking the value as its first argument and the
+pattern as its second, returning `bool`, can be used.
 
 ### Loops
 

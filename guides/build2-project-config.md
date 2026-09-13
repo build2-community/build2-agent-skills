@@ -68,6 +68,32 @@ The semantics of the `config` directive:
 
 If the user provided a value the default expression is not evaluated.
 
+### The `config.<project>.develop` Variable
+
+A variable in the `config.<project>.develop` form has pre-defined semantics:
+it lets a project distinguish *development* builds from *consumption*
+builds. Normally there is no such distinction, but a project can need extra
+functionality only during development, for example a source code generator
+that bootstraps from pre-generated code it also uses in its own
+implementation.
+
+If used, declare it explicitly with the `bool` type and a `false` default:
+
+```
+config [bool] config.libhello.develop ?= false
+```
+
+If a user sets `config.<project>.develop` on a project that does not declare
+it (that is, a project that does not distinguish development from
+consumption), the variable is silently ignored. `bdep init` defaults it to
+`true` for projects it initializes for development; override this with an
+explicit `config.<project>.develop=false`.
+
+Tests are not a good fit for gating behind `develop`: an end user may
+reasonably want to run a dependency's tests too, so restricting them to
+development-only builds is discouraged. Reserve `develop` for genuinely
+development-only functionality such as bootstrap steps.
+
 ## Nullable Variables
 
 By default configuration variables are non-nullable. Assigning `[null]` to

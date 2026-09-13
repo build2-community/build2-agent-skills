@@ -216,6 +216,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [autoconf: contributing builtin checks](guides/build2-autoconf-contributing-checks.md)
 - [kconfig module: language reference](guides/kconfig-summary.md)
 - [kconfig module: build system integration](guides/kconfig-integration.md)
+- [kconfig module: patterns and recipes](guides/kconfig-patterns.md)
 - [build2 custom module API reference](guides/build2-module-hello.md)
 - [build2 module development setup](guides/build2-module-dev-setup.md)
 - [HOWTO: writing a custom build2 rule](HOWTO/write-build2-rule.md)

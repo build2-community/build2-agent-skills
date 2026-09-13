@@ -25,9 +25,9 @@ Each section directory has its own `repositories.manifest`. Resolution follows t
 
 A `dir` repository is _directory_-based. That is, it contains a collection of various packages as directories but only a single version per package can be present in such a repository. The `dir` repository location can be a local directory path or a `file://` URL.
 
-A `dir` repository is expected to contain either the `manifest` or `packages.manifest` file in the root directory of the repository. If it only contains `manifest`, then it is assumed to be a simple, single-package repository with the `manifest` file being its package manifest. Otherwise, the `packages.manifest` file should list the locations of available packages as described in the Package List Manifest for `dir` Repositories documentation.
+A `dir` repository is expected to contain either the `manifest` or `packages.manifest` file in the root directory of the repository. If it only contains `manifest`, then it is assumed to be a simple, single-package repository with the `manifest` file being its package manifest. Otherwise, the `packages.manifest` file should list the locations of available packages as described in [Package List Manifest for `dir` Repositories](bpkg-repository-manifest-reference.md#package-list-manifest-for-dir-repositories).
 
-A `dir` repository may also contain the `repositories.manifest` file in the root directory of the repository. This file can be used to describe the repository itself as well as specify its prerequisite and complement repositories. See the Repository List Manifest documentation for details on the format and semantics of this file.
+A `dir` repository may also contain the `repositories.manifest` file in the root directory of the repository. This file can be used to describe the repository itself as well as specify its prerequisite and complement repositories. See [Repository List Manifest](bpkg-repository-manifest-reference.md#repository-list-manifest) for details on the format and semantics of this file.
 
 Complements and prerequisites are the graph the *consumer's* repository follows. Resolution does not consult a nested `repositories.manifest` inside a `pkg` package archive. For the `pkg` vs `git`/`dir` split, see [Which repositories.manifest is consulted](../guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted).
 
@@ -35,7 +35,7 @@ Complements and prerequisites are the graph the *consumer's* repository follows.
 
 A `git` repository is _version control_-based. That is, it normally contains multiple versions of the same package (but can also contain several, usually related, packages in the same repository).
 
-A `git` repository has the same structure and manifest files as the `dir` repository. See the Package List Manifest for `dir` Repositories and Repository List Manifest documentation for details on their format and semantics.
+A `git` repository has the same structure and manifest files as the `dir` repository. See [Package List Manifest for `dir` Repositories](bpkg-repository-manifest-reference.md#package-list-manifest-for-dir-repositories) and [Repository List Manifest](bpkg-repository-manifest-reference.md#repository-list-manifest) for details on their format and semantics.
 
 Theoretically, a `git` repository may contain as many package versions as there are commits. Practically, however, only a small subset of them is normally of interest while fetching and processing the necessary information for all of them could be prohibitively expensive. As a result, by default, only advertised tags in the `refs/tags/v*` form where the part after `v` is also a valid standard version are considered to be sources of useful package versions. These commits normally correspond to released versions and are called the _default set_. Note that only the latest revision of each such version is considered.
 
@@ -125,5 +125,6 @@ The `file://` protocol has the same fetch minimization support as `git://` and i
 
 - [bpkg README](README.md)
 - [bpkg-rep-add](bpkg-rep-add.md)
+- [bpkg-repository-manifest-reference](bpkg-repository-manifest-reference.md)
 - [Which repositories.manifest is consulted](../guides/packaging-guide-summary.md#which-repositoriesmanifest-is-consulted)
 - [bpkg-common-options](bpkg-common-options.md)

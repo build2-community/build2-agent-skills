@@ -53,7 +53,7 @@ subjectAltName   = email:$email
 
 Adjust the first three lines to match your details. If the repository is hosted by an organization, use the organization's name for `org`. If you host it as an individual, put your full, real name there. Using any kind of aliases or nicknames is a bad idea (except, again, for testing). Remember, users of your repository will be presented with this information and if they see it was signed by someone named SmellySnook, they will unlikely trust it. Also use a working email address in case users need to contact you about issues with your certificate. Note that the `name:` prefix in the `CN` value is not a typo.
 
-The `name` field is a canonical repository name prefix with the `pkg:` type part stripped. Any repository with a canonical name that starts with this prefix can be authenticated by this certificate (see the repository manifest documentation for more information on canonical names). For example, name `example.com` will match any repository hosted on `{,www.,pkg.,bpkg.}example.com`. While name `example.com/math` will match `{...}example.com/pkg/1/math` but not `{...}example.com/pkg/1/misc`.
+The `name` field is a canonical repository name prefix with the `pkg:` type part stripped. Any repository with a canonical name that starts with this prefix can be authenticated by this certificate (see the [Repository Manifest](bpkg-repository-manifest-reference.md#repository-manifest) reference for how a repository's canonical name relates to its `location`). For example, name `example.com` will match any repository hosted on `{,www.,pkg.,bpkg.}example.com`. While name `example.com/math` will match `{...}example.com/pkg/1/math` but not `{...}example.com/pkg/1/misc`.
 
 A certificate name can also contain a subdomain wildcard. A wildcard name in the `*.example.com` form matches any single-level subdomain, for example `foo.example.com` but not `foo.bar.example.com`. A wildcard name in the `**.example.com` form matches any subdomain, including multi-level. The above two forms do not match the domain itself (`example.com` in the above example). If this is desired, the `*example.com` and `**example.com` forms should be used instead. Note that these forms still only match subdomains. In other words, they will not match `fooexample.com`. Wildcard names are less secure and therefore are normally only used for testing and/or internal repositories.
 
@@ -136,3 +136,4 @@ Note that for `openssl` versions prior to `3.0.0` `bpkg` uses the `rsautl` comma
 - [bpkg README](README.md)
 - [bpkg-rep-add](bpkg-rep-add.md)
 - [bpkg-rep-create](bpkg-rep-create.md)
+- [bpkg-repository-manifest-reference](bpkg-repository-manifest-reference.md)

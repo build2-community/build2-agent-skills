@@ -120,6 +120,7 @@ allowed, enabling layered dependency sharing.
 | `bpkg-default-options-files` | How and where default options files are loaded |
 | `bpkg-repository-types` | Repository types (archive, directory, git), structure, and URL formats |
 | `bpkg-repository-signing` | How to sign a repository and how signatures are verified |
+| `bpkg-repository-manifest-reference` | Repository, repository list, signature, and package list manifest formats |
 | `bpkg-common-options` | All options shared across every `bpkg` command |
 
 ---
@@ -226,12 +227,14 @@ bpkg drop foo
 - [Default options files](bpkg-default-options-files.md)
 - [Repository types](bpkg-repository-types.md)
 - [Repository signing](bpkg-repository-signing.md)
+- [Repository manifest reference](bpkg-repository-manifest-reference.md)
 
 ## See Also
 
 - [`bdep README`](../bdep/README.md) -- project dependency manager that orchestrates bpkg
 - [`bpkg-dependency-negotiation`](bpkg-dependency-negotiation.md) -- how version constraints are resolved across the dependency graph
 - [`bpkg-manifest-reference`](bpkg-manifest-reference.md) -- manifest file format and all supported fields
+- [`bpkg-repository-manifest-reference`](bpkg-repository-manifest-reference.md) -- repository, repository list, signature, and package list manifest formats
 - [`packaging-guide-summary`](../guides/packaging-guide-summary.md) -- end-to-end guide for packaging a third-party library
 - [`multiple-configurations`](../HOWTO/multiple-configurations.md) -- managing debug/release/sanitize configurations with bdep
 - [`troubleshooting`](../HOWTO/troubleshooting.md) -- common bpkg error messages and resolutions

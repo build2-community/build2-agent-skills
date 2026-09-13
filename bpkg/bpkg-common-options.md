@@ -91,6 +91,20 @@ note "inherits common options" and link here rather than repeating them.
 |--------|-----|---------|-------------|
 | `--keep-tmp` | | | Don't remove `bpkg`'s temporary directory at the end of command execution and print its path at verbosity level 2 or higher. Primarily useful for troubleshooting. |
 
+## Environment and Exit Status
+
+| Variable | Description |
+|---|---|
+| `BPKG_DEF_OPT` | Suppresses loading of default options files in nested `bpkg` invocations. `false`/`0` suppresses, `true`/`1` loads. |
+| `BPKG_OPEN_CONFIGS` | Set by `bpkg` on commands it executes (e.g. build system hooks) while the current and linked configuration databases are open, to a space-separated, double-quoted list of their absolute, normalized directory paths. |
+
+`BPKG_FETCH_CACHE`, `BPKG_FETCH_CACHE_PATH`, `BPKG_FETCH_CACHE_SESSION`, and
+`BUILD2_SQLITE_SYNCHRONOUS` are documented above alongside the options they
+correspond to (`--fetch-cache*` and `--sqlite-synchronous`, respectively).
+
+Exit status is `0` on success, `1` on a fatal error, and `2` on a recoverable
+error likely to disappear if the command is re-executed.
+
 ## See Also
 
 - [bpkg README](README.md)
