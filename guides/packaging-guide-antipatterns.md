@@ -267,6 +267,25 @@ backported from upstream. To put it another way, changes in a revision should
 have an even more limited scope than a patch release.
 
 
+### Don't leave diary-style comments or notes
+
+Comments (in `buildfile`s, `manifest`, or the generated scaffold) and
+README files reflect the final state of the package, not the process that
+produced it. Packaging a third party is often trial and error: a compile
+option gets adjusted, a layout gets tried and reverted, a dependency
+turns out unneeded. None of that belongs in the committed result.
+
+Do not reference an earlier approach that did not work, a mishap
+encountered along the way, or a "changed because X failed" aside. A
+comment is only warranted when it explains something non-obvious about
+the final result itself, for example why a compile option is needed (see
+[buildfile-compile-options.md](../HOWTO/buildfile-compile-options.md)),
+not why it replaced an earlier one. This is the same standard as "make
+only package-specific adjustments" above: a reader of the finished
+package should see a clean, deliberate result, not a record of how it was
+reached.
+
+
 ## How Do I Deal with Bad Header Inclusion Practice?
 
 Libraries whose public headers have no library-name prefix (e.g.,
