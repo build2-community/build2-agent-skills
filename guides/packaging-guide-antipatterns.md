@@ -242,6 +242,14 @@ libfoo/
     └── buildfile
 ```
 
+> Every symlink above (`igl/`, `foo/`) is a directory symlink. Each package
+> needs its own `<pkg>/.gitattributes` with a matching `symlink=dir` entry:
+> `libigl-core/.gitattributes` needs `igl symlink=dir`, and
+> `libfoo/.gitattributes` needs `include/foo symlink=dir` and
+> `src/foo symlink=dir`. Skip this and the package breaks on a Windows
+> `git` checkout. This is mandatory, not optional, see
+> [Step 5 in packaging-guide-summary.md](packaging-guide-summary.md#step-5-fill-source-and-write-buildfiles).
+
 
 ### Don't make extensive changes in a revision
 
@@ -284,6 +292,11 @@ libfoo/
 └── src/
     └── ...          ->  ../../upstream/src/...
 ```
+
+> If `src/` (or any other entry here) ends up a whole-directory symlink
+> rather than individual files, it needs a matching `symlink=dir` entry in
+> this package's own `<pkg>/.gitattributes`, see
+> [Step 5 in packaging-guide-summary.md](packaging-guide-summary.md#step-5-fill-source-and-write-buildfiles).
 
 **Header `buildfile`.** Install into the added subdirectory:
 

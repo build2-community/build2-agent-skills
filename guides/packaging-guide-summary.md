@@ -100,7 +100,9 @@ merging through a pull request.
 9. Adjust the package version to the pre-release snapshot form.
 10. Initialize the package in one or more build configurations with [`bdep init`](../bdep/bdep-init.md).
 11. Add dependencies to `manifest` and `repositories.manifest`.
-12. Fill the package with upstream source code using symlinks.
+12. Fill the package with upstream source code using symlinks, adding a
+    `symlink=dir` entry to that package's own `<pkg>/.gitattributes` for
+    every directory symlink.
 13. Adjust project-wide build system files in `build/`.
 14. Adjust source subdirectory `buildfiles` (header buildfile, source buildfile).
 15. Build and test the library or executable build in isolation.
@@ -349,7 +351,9 @@ tests/: install = false
 Adjust as needed:
 - If upstream has a `docs/` subdirectory, symlink it and list files using the
   `doc{}` target type. Exclude it from the wildcard with `-docs/` if it
-  contains a separate `buildfile`.
+  contains a separate `buildfile`. This is a directory symlink, so it needs
+  the mandatory `.gitattributes` entry described in
+  [Step 5](#step-5-fill-source-and-write-buildfiles).
 - If the executable has a man page, list it with `man1{foo}`.
 - Do not list an `INSTALL` file since `PACKAGE-README.md` serves that purpose.
 - Do not build main targets (libraries, executables) in the root `buildfile`.
@@ -362,10 +366,79 @@ Adjust as needed:
   [package-changes-file](../HOWTO/package-changes-file.md).
 
 
-## Step 5: Write Source Buildfiles
+## Step 5: Fill Source and Write Buildfiles
 
-After symlinking upstream source files into the package tree, adjust the
-generated `buildfiles`.
+**Symlink upstream source into the package tree.** Continuing the `libfoo`
+example, replace the generated placeholder header/source files with symlinks
+to upstream:
+
+```
+$ cd libfoo/include/foo/
+$ rm foo.hpp
+$ ln -s ../../../upstream/include/foo/*.hpp ./
+$ cd -
+
+$ cd libfoo/src/
+$ rm foo.cpp
+$ ln -s ../../upstream/src/*.hpp ./
+$ ln -s ../../upstream/src/*.cpp ./
+$ cd -
+```
+
+Wildcards may not catch everything: manually check the upstream directories
+for other extensions (C, Objective-C, etc.), extra files (`.def`,
+`config.h.in`), and subdirectories with more source.
+
+If a subdirectory has many files, symlink the whole subdirectory instead of
+each file individually (for example `ln -s ../../upstream/src/impl ./`).
+Symlinking an entire top-level `include/foo/` or `src/` requires the
+`buildfile-in-prefix` layout (buildfiles moved out of the source
+subdirectory), see
+[packaging-guide-antipatterns.md](packaging-guide-antipatterns.md#dont-build-your-main-targets-in-the-root-buildfile)
+for the layout change and worked `bdep new` invocations.
+
+**Mandatory: `.gitattributes` for every directory symlink.** `git` never
+records whether a symlink points to a file or a directory and always
+recreates it as a file symlink on checkout. On Windows this silently turns a
+directory symlink into a broken file, breaking the build. Whenever a symlink
+you add points at a directory (not a plain file), give that specific package
+its own `<pkg>/.gitattributes` file (`bdep new --package` does not
+generate one, so create it by hand the first time it's needed) with one
+`symlink=dir` entry per directory symlink, path relative to that file's own
+directory:
+
+```
+$ cat libfoo/.gitattributes
+src/impl symlink=dir
+```
+
+In a multi-package repository, each package keeps its own
+`<pkg>/.gitattributes` scoped to its own symlinks. Do not add these entries
+to the repository-root `.gitattributes`: that file is for the
+`bdep new --type empty,third-party` boilerplate, not per-package content.
+See
+[Symlinks and Windows](https://build2.org/article/symlinks.xhtml#windows)
+for the underlying `git` limitation. Before committing, verify every
+directory symlink in the package has a matching entry:
+
+```
+$ find libfoo/ -type l -exec test -d {} \; -print
+```
+
+Cross-check each path this prints against `libfoo/.gitattributes`. This
+step is required, not optional, for any package that symlinks whole
+directories, since it is otherwise easy to add a new directory symlink
+later (a new version, a revision) and forget to update `.gitattributes`
+to match.
+
+Commit before touching buildfiles so rollback is easy:
+
+```
+$ git add .
+$ git commit -m "Add upstream source symlinks"
+```
+
+**Adjust the generated `buildfiles`.**
 
 **project-wide files in `build/`:**
 - `bootstrap.build` -- specifies the project name and loads core modules.
