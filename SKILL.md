@@ -119,6 +119,7 @@ use the table below to jump directly to the relevant file.
 | Manage debug/release/sanitize configurations | [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md) |
 | Set up a CI/CD pipeline for a build2 project | [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md) |
 | Filter automated CI builds for specific platforms | [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md) |
+| Trace whether a build-include/build-exclude pattern matches a bot name | [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md) |
 | Read cppget.org CI results (test-installed badges) | [HOWTO/ci-results.md](HOWTO/ci-results.md) |
 | Request a system-provided library on a specific CI bot | [HOWTO/sys-build-config.md](HOWTO/sys-build-config.md) |
 | Set up build2 for toolchain development | [HOWTO/toolchain-dev-setup.md](HOWTO/toolchain-dev-setup.md) |

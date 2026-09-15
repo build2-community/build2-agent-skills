@@ -7,7 +7,13 @@ specifies the initial set via class expressions. `build-include:` and
 
 For the full field reference see `bpkg/bpkg-manifest-reference.md`. For the
 complete list of available configurations and class names on cppget.org, see
-https://ci.cppget.org/?build-configs.
+https://ci.cppget.org/?build-configs=all.
+
+The bare `?build-configs` URL (no query value) defaults to the `default`
+class only, silently hiding every `clang`, macOS, Windows, FreeBSD, Fedora,
+RHEL, and Ubuntu bot. Always use `?build-configs=all`, and the result is
+itself paginated (`&p=1`, `&p=2`, ...): page through every `&p=N` link before
+concluding that a bot class or platform does not exist on the deployment.
 
 
 ## Disable all automated CI builds
@@ -50,6 +56,26 @@ will not be built there. Prefer the whitelist approach when only one or a
 small number of platforms are supported.
 
 
+## Exclude only the bindist variant of a distro
+
+A single bot configuration can carry more than one class at once. On
+cppget.org some bots carry both `sys` and `bindist` (for example
+`linux_debian_12-gcc_12-bindist`), so a class expression aimed at "every
+Debian bot except the one generating binary distribution packages" should
+subtract the class, not the configuration name:
+
+```
+debian-builds: sys -static -bindist
+```
+
+This stays correct even if a future non-`bindist` Debian bot of the same
+distro appears: it is included automatically because it is not excluded by
+name, only by the `bindist` class it happens not to carry. Excluding by
+matching the `-bindist` suffix in a `build-exclude:` name pattern instead
+would miss that future bot, or (worse) any present/future bot whose name
+happens to share the pattern for unrelated reasons.
+
+
 ## Only default configurations for a specific platform
 
 ```
@@ -81,6 +107,58 @@ build-exclude: *-msvc_14**/i?86-** ; Linker crash.
 The `**` in the config component matches across name component boundaries
 (for example it matches `windows_10-msvc_14.0-O2`). The `/i?86-**` target
 component restricts the exclusion to 32-bit x86 targets.
+
+
+## Tracing a wildcard pattern against a bot name by hand
+
+There is no tool to test a `build-include`/`build-exclude` pattern against a
+hypothetical bot name short of submitting a real `bdep ci` request. The
+matching itself (see `dash_components_to_path()` and the constraint-matching
+loop in `build2-brep`'s `mod/build-target-config.cxx`) can be traced by hand:
+
+1. Every dash (`-`) in both the bot name and the pattern becomes a path
+   separator. A single `*` matches within one such component only (it does
+   not cross a dash). `**` matches across component boundaries (zero or more
+   whole components).
+2. `build-include:`/`build-exclude:` entries are checked in the order
+   written, combined into one list. The **first** entry whose pattern matches
+   the bot name (and target, if given) decides the outcome: an include entry
+   means built, an exclude entry means excluded. If nothing in the list
+   matches, the package is built.
+
+Example: a package wants to build only on macOS with Clang, so it writes
+
+```
+macos-clang-build-include: macos_*-clang
+macos-clang-build-exclude: **
+```
+
+Trace it against the real bot name `macos_14.5-clang_17-O3`:
+
+| Step | Value |
+|------|-------|
+| Bot name as path | `macos_14.5/clang_17/O3/` |
+| `macos_*-clang` as path | `macos_*/clang/` |
+| Component 1 | `macos_14.5` matches `macos_*` |
+| Component 2 | `clang_17` vs `clang` -- **no match**, `clang` has no trailing wildcard to absorb the `_17` compiler-version suffix |
+
+The include pattern does not match this bot at all, so the loop falls
+through to `build-exclude: **`, which matches everything -- the bot is
+**excluded**. Since every real macOS Clang bot name carries a version suffix
+after `clang`, this whitelist silently builds on zero macOS bots. The fix is
+a trailing `**` (or an explicit version wildcard) on the include pattern:
+
+```
+macos-clang-build-include: macos_*-clang**
+```
+
+Re-tracing: `macos_*-clang**` becomes the path pattern
+`macos_*/clang*/**/*/`. Component 2 is now `clang*`, a within-component
+wildcard that does match `clang_17` (`clang` plus `*` absorbing `_17`), and
+the trailing `**`/`*` absorb whatever component(s) follow (here `O3`, but
+equally zero or several). This is the same class of gap `?build-configs=all`
+pagination hides (see above): a filtering mistake looks identical to "no
+matching bots exist" until traced or tested directly.
 
 
 ## Restrict to one compiler family

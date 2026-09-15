@@ -5,8 +5,15 @@ override, see `bpkg/bpkg-manifest-reference.md`) are not limited to the five
 guaranteed names (`none`, `default`, `all`, `host`, `build2`): a build-bot
 deployment can define additional classes of its own choosing. On cppget.org,
 one such deployment-defined class is `sys` (see
-https://ci.cppget.org/?build-configs for the current list; the page lists
+https://ci.cppget.org/?build-configs=all for the current list; the page lists
 `sys` as an available class filter with no further explanation).
+
+The bare `?build-configs` URL (no query value) defaults to the `default`
+class only, silently hiding every `clang`, `macOS`, Windows, FreeBSD, Fedora,
+RHEL, and Ubuntu bot. Always use `?build-configs=all`, and the result is
+itself paginated (`&p=1`, `&p=2`, ...): page through every `&p=N` link before
+concluding that a given bot class or platform does not exist on the
+deployment.
 
 
 ## The recipe
@@ -74,6 +81,14 @@ Note that `bbot` (the build bot software) does have a worker step named
 freshly generated binary distribution artifact (via `apt-get install` or
 `dnf install`) to verify that the artifact itself installs cleanly. It plays
 no part in resolving a package's `sys:` dependencies.
+
+These two mechanisms are independent, not mutually exclusive: a single
+physical bot configuration can carry both the `sys` and `bindist` classes at
+once (for example `linux_debian_12-gcc_12-bindist` on cppget.org lists both).
+"This bot runs `bbot.sys-install`" and "this bot can satisfy a `sys:`
+dependency" are not alternatives to pick between; a `bindist`-class bot is
+also available for ordinary `sys:` resolution unless a manifest's own
+`*-builds:` expression excludes it.
 
 
 ## Scope

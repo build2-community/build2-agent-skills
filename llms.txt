@@ -158,8 +158,8 @@
 - [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md): Managing debug/release/sanitize configurations with bdep.
 - [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md): Setting up a cross-compilation configuration with target triplets.
 - [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md): Typical CI pipeline using bdep update/test.
-- [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md): CI build filtering recipes -- builds: class expressions, build-include/build-exclude patterns, common whitelist/blacklist recipes.
-- [HOWTO/sys-build-config.md](HOWTO/sys-build-config.md): Requesting system-provided libraries on specific CI bots -- sys build class, bare vs ?-prefixed sys: dependency specs in *-build-config, scope limits for OS-bundled frameworks.
+- [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md): CI build filtering recipes -- builds: class expressions, build-include/build-exclude patterns, common whitelist/blacklist recipes, tracing a wildcard pattern against a bot name by hand, excluding only the bindist variant of a distro, build-configs=all pagination caveat.
+- [HOWTO/sys-build-config.md](HOWTO/sys-build-config.md): Requesting system-provided libraries on specific CI bots -- sys build class, bare vs ?-prefixed sys: dependency specs in *-build-config, scope limits for OS-bundled frameworks, sys/bindist class coexistence on one bot, build-configs=all pagination caveat.
 - [HOWTO/ci-results.md](HOWTO/ci-results.md): cppget.org CI results -- test-installed is per configuration, passing runs fold into log, warnings get a separate link.
 - [HOWTO/conditional-dependency-config.md](HOWTO/conditional-dependency-config.md): Package config variables in `bdep init -C` -- cfg-args vs pkg-args, conditional dependency activation, two-separator form.
 - [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md): Require a dependency feature -- require vs reflect, require-alone sibling example, when to copy a negotiated value.
