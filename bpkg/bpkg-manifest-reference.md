@@ -497,6 +497,25 @@ dependency specs, optionally prefixed with a build bot step id to restrict
 scope. Per-configuration `*-build-auxiliary` and `*-build-bot` values
 **replace** (not extend) the common values.
 
+`*-builds` and `*-build-include`/`*-build-exclude` replace rather than
+extend the common values too, and they do so as a pair, not independently.
+A named configuration that declares `*-builds` but no
+`*-build-include`/`*-build-exclude` at all does not fall back to the common
+`build-include`/`build-exclude` patterns: it gets an empty, unrestricted
+constraint list instead. Concretely, `effective_constraints()` in
+`libbpkg/manifest.hxx` returns the configuration's own (possibly empty)
+`constraints` whenever `!builds.empty() || !constraints.empty()`, and only
+falls back to the common constraints when both are empty. So this:
+
+```
+fedora-builds: linux
+```
+
+with no `fedora-build-include`/`fedora-build-exclude` lines builds the
+`fedora` configuration on every `linux`-class target, ignoring any common
+`build-include`/`build-exclude` patterns declared elsewhere in the manifest,
+even though it looks like it should inherit them.
+
 Examples:
 
 ```

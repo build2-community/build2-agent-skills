@@ -90,7 +90,13 @@ authoritative upstream material are:
 - `.submodules/libbutl/` -- testscript builtin command reference
 - `.submodules/build2-toolchain/` -- installation and packaging guide
   concept documentation (its own top-level `doc/`, not its nested
-  submodules)
+  submodules), except for `.submodules/build2-toolchain/libbpkg/` (see
+  below)
+- `.submodules/build2-toolchain/libbpkg/` -- package manifest
+  build-constraint resolution logic (`effective_constraints()`,
+  `effective_builds()`); this nested submodule must be initialized
+  separately (`git submodule update --init` from within
+  `.submodules/build2-toolchain/`)
 - `.submodules/build2-howto/` -- HOWTO recipe content
 - `.submodules/libbuild2-autoconf/` -- autoconf module source and builtin
   check catalog
