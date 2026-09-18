@@ -42,7 +42,7 @@ content directly. Patch the upstream submodule instead, then re-run
 | `SKILL.md` | Skill entry point: YAML frontmatter and when-to-use table |
 | `INDEX.md` | Ecosystem overview, full command lookup tables, all navigation links |
 | `AGENTS.md` | Symlink to `INDEX.md`; entry point for AI agents that look for `AGENTS.md` by convention (e.g. GitHub Copilot Workspace). |
-| `CLAUDE.md` | Symlink to `INDEX.md`; entry point for Claude Code. |
+| `CLAUDE.md` | Symlink to `INDEX.md`; entry point for AI agents that look for `CLAUDE.md` by convention. |
 | `GLOSSARY.md` | Cross-tool terminology |
 | `llms.txt` | Flat file index for LLM/AI consumption |
 | `b/` | `b` build system driver -- summary and full option reference |
@@ -53,7 +53,7 @@ content directly. Patch the upstream submodule instead, then re-run
 | `guides/` | Condensed, topic-scoped guides derived from the large upstream manuals |
 | `HOWTO/` | Practical recipes indexed by topic |
 | `scripts/` | Utility shell scripts for AI-assisted and manual workflows |
-| `skills/` | Nested workflow skills (`build2-package`, `build2-review`). Copy a subdirectory into `~/.claude/skills/` to install it as a sibling of the `build2` skill. |
+| `skills/` | Nested workflow skills (`build2-package`, `build2-review`). See [skills/README.md](skills/README.md) |
 | `.submodules/build2/` | Git submodule: upstream `b`/`bx` `.cli` source files |
 | `.submodules/bpkg/` | Git submodule: upstream `bpkg` `.cli` source files |
 | `.submodules/bdep/` | Git submodule: upstream `bdep` `.cli` source files |
@@ -96,13 +96,33 @@ independently addressable, split it along natural topic boundaries.
 | Condensed guide | `guides/build2-<topic>.md` | `guides/build2-modules-cxx.md` |
 | HOWTO recipe | `HOWTO/<topic>.md` | `HOWTO/sanitize-tests.md` |
 | Utility script | `scripts/<verb>-<noun>.sh` | `scripts/run-tests.sh` |
+| Workflow skill | `skills/<name>/SKILL.md` | `skills/build2-package/SKILL.md` |
+
+### Workflow skills
+
+`skills/<name>/SKILL.md` is a procedure that uses the guides and HOWTOs
+in this repository. The root `SKILL.md` remains the `build2` reference
+skill. Nested skills are discovered by clients that walk `SKILL.md` files
+under an installed skill. Clients that only scan one level of a skills
+directory need a sibling copy:
+
+```
+cp -r skills/<name> <skills-root>/
+```
+
+That assumes this repository is already installed as `<skills-root>/build2/`.
+Each workflow skill resolves `ROOT` (the `build2` tree) to `HERE/../build2`
+first, then `HERE/../..`. Point `read_file` paths at `${ROOT}/...`. Do not
+use `../build2/guides/...` links. See [skills/README.md](skills/README.md)
+and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Indexes
 
 `SKILL.md` (when-to-use table) and `llms.txt` (the relevant section for the
 file type added) must be updated whenever a file is added, removed, or renamed. These are the two
-indexes agents use to navigate. `INDEX.md` and `HOWTO/README.md` have their
-own navigation tables and must be kept in sync as well.
+indexes agents use to navigate. `INDEX.md`, `HOWTO/README.md`, and
+`skills/README.md` have their own navigation tables and must be kept in
+sync as well.
 
 ### Cross-references
 

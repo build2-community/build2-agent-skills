@@ -28,7 +28,7 @@ from the system context).
 `guides/packaging-guide-summary.md` exists:
 
 1. `HERE/../build2` (sibling layout: this directory next to a `build2`
-   skill, including a copy into `~/.claude/skills/`)
+   skill, including a copy into a user-level skills directory)
 2. `HERE/../..` (nested layout: this directory under the `build2`
    skill's `skills/` subdirectory)
 

@@ -12,6 +12,7 @@
 
 ## Workflow skills
 
+- [skills/README.md](skills/README.md): Nested workflow skills -- discovery, sibling copy, and ROOT resolution.
 - [skills/build2-package/SKILL.md](skills/build2-package/SKILL.md): End-to-end third-party cppget.org packaging -- new package, new upstream version, packaging revision.
 - [skills/build2-review/SKILL.md](skills/build2-review/SKILL.md): Local pre-publish packaging sanity check -- initial, version, and revision checklists, no external changes.
 

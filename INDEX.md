@@ -165,6 +165,7 @@ See [bx reference](bx/bx.md) for the full option list.
 
 ### Workflow skills
 
+- [skills/README.md](skills/README.md) -- nested workflow skills, discovery, and sibling copy
 - [skills/build2-package/SKILL.md](skills/build2-package/SKILL.md): End-to-end third-party cppget.org packaging -- new package, new upstream version, packaging revision.
 - [skills/build2-review/SKILL.md](skills/build2-review/SKILL.md): Local pre-publish packaging sanity check -- initial, version, and revision checklists, no external changes.
 
