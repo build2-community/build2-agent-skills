@@ -163,6 +163,11 @@ See [bx reference](bx/bx.md) for the full option list.
 - [bdep/bdep-new-layouts.md](bdep/bdep-new-layouts.md): bdep-new layouts -- project types, --package vs --source, combined and split source trees.
 - [brep reference](brep/README.md) -- brep overview, commands, deployment workflows, and per-command index
 
+### Workflow skills
+
+- [skills/build2-package/SKILL.md](skills/build2-package/SKILL.md): End-to-end third-party cppget.org packaging -- new package, new upstream version, packaging revision.
+- [skills/build2-review/SKILL.md](skills/build2-review/SKILL.md): Local pre-publish packaging sanity check -- initial, version, and revision checklists, no external changes.
+
 ### HOWTO
 
 - [HOWTO index](HOWTO/README.md) -- practical recipes indexed by topic

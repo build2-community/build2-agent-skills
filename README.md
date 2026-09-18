@@ -53,6 +53,7 @@ content directly. Patch the upstream submodule instead, then re-run
 | `guides/` | Condensed, topic-scoped guides derived from the large upstream manuals |
 | `HOWTO/` | Practical recipes indexed by topic |
 | `scripts/` | Utility shell scripts for AI-assisted and manual workflows |
+| `skills/` | Nested workflow skills (`build2-package`, `build2-review`). Copy a subdirectory into `~/.claude/skills/` to install it as a sibling of the `build2` skill. |
 | `.submodules/build2/` | Git submodule: upstream `b`/`bx` `.cli` source files |
 | `.submodules/bpkg/` | Git submodule: upstream `bpkg` `.cli` source files |
 | `.submodules/bdep/` | Git submodule: upstream `bdep` `.cli` source files |
