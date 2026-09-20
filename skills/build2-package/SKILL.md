@@ -81,7 +81,10 @@ These are not optional. Violating any one is a failed run.
    If it is not in the tree or in a fetched page, stop and ask.
 9. One git commit per logical packaging step (or a tightly related group).
    A commit whose tree is exactly one `bdep new` invocation uses that
-   command line as the commit message, nothing else.
+   command line as the commit message, nothing else. A commit that creates
+   a `.orig`/`.patch` overlay pair for one upstream file uses `Patch
+   <filename>: <reason>` (optional `<details>` body for a non-trivial
+   patch) as its message, see packaging-guide-antipatterns.md.
 10. Do not merge `review` into `main`, do not `bdep release`, and do not
     `bdep publish` until local tests, installed-case tests, distribution
     tests, and CI are green.
@@ -414,7 +417,8 @@ the initial stretch).
 4. Review the upstream diff (`gitk` or `git diff vOLD..vNEW` inside
    `upstream/`) for layout, dependencies, source files, and build-system
    changes.
-5. Re-apply any `.orig` / `.patch` overlays. See antipatterns.
+5. Re-apply any `.orig` / `.patch` overlays. Each overlay is its own atomic
+   commit, same `Patch <filename>: <reason>` format. See antipatterns.
 6. Adjust symlinks and `buildfile`s (update `.gitattributes` for any new
    or changed directory symlinks, see Hard rule 11). Review `manifest`
    and both READMEs.

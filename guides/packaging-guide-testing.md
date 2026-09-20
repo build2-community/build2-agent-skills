@@ -432,10 +432,13 @@ security fixes difficult to propagate.
 source increases maintenance burden. Prefer reporting issues upstream and
 waiting for a fix. If you must patch, use the manual copy + `.orig` +
 `.patch` pattern, the `sed`-based ad hoc recipe, or the C preprocessor trick
-to avoid modifying upstream symlinks directly. Silencing a harmless compiler
-warning with a targeted `-Wno-XXX`/`/wdXXX` buildfile option is not a patch
-and carries none of this burden, since it touches no upstream source at all
-(see [Step 9](#step-9-test-the-package)).
+to avoid modifying upstream symlinks directly, and give each patched file its
+own atomic commit with the required message format (see [How Do I Patch
+Upstream Source
+Code?](packaging-guide-antipatterns.md#how-do-i-patch-upstream-source-code)).
+Silencing a harmless compiler warning with a targeted `-Wno-XXX`/`/wdXXX`
+buildfile option is not a patch and carries none of this burden, since it
+touches no upstream source at all (see [Step 9](#step-9-test-the-package)).
 
 **Do not build main targets in the root `buildfile`.** Keep libraries and
 executables in subdirectory `buildfiles`. The root `buildfile` is loaded during

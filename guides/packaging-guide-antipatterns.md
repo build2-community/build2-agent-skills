@@ -426,8 +426,24 @@ upstream code was modified. They are also useful when re-applying the changes
 to the new version of the upstream source code. Do not add them to the build
 graph (not as `file{}` prerequisites of a library or executable, and not with
 `include = adhoc`). They are git-only packager notes. The distribution already
-contains the modified source file. The recommended sequence of
-steps for this task is as follows:
+contains the modified source file.
+
+Commit the `.orig` rename, the modified copy, the generated `.patch`, and any
+`PACKAGE-README.md` note added for it (see below) together as a single atomic
+commit scoped to this one patched file (see [Atomic
+commits](packaging-guide-summary.md#concepts)). Use this message format:
+
+```
+Patch <filename>: <reason>
+
+<details>
+```
+
+`<details>` may be omitted only when the patch is trivial and self-explanatory
+from `<reason>` alone (a missing `#include`, a typo fix). Include it for a
+non-trivial patch.
+
+The recommended sequence of steps for this task is as follows:
 
 1. After the `upstream` submodule update, the `.orig` symlink points to the
    new version of the upstream source file.
@@ -452,6 +468,10 @@ steps for this task is as follows:
    ```
    $ diff -u foo.cpp.orig foo.cpp >foo.cpp.patch
    ```
+
+Commit the result the same way, one atomic commit per patched file, using the
+`Patch <filename>: <reason>` format above. Reuse the original `<reason>` and
+`<details>` if the rationale has not changed, or update them if it has.
 
 Whether to mention such a patch in `PACKAGE-README.md` depends on whether it
 is useful to and actually affects consumers of the package, for example a
