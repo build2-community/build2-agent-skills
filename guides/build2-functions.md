@@ -206,10 +206,16 @@ In the format string (`<fmt>`) the standard ECMAScript escape sequences
 | Function | Description |
 |---|---|
 | `$regex.replace(<val>, <pat>, <fmt> [, <flags>])` | Replace matched parts of a value using `<fmt>`. Returns untyped names. Flags: `icase`, `format_first_only`, `format_no_copy`. |
-| `$regex.replace_lines(<val>, <pat>, <fmt> [, <flags>])` | Apply replace to each line. `null` format omits matched lines that produce empty output. Returns name list or, with `return_lines`, a single multi-line name. Flags: `icase`, `format_first_only`, `format_no_copy`, `format_copy_empty`, `return_lines`. |
+| `$regex.replace_lines(<val>, <pat>, <fmt> [, <flags>])` | Apply replace to each line. `null` format omits matched lines that produce empty output. Returns name list or, with `return_lines`, a single multi-line name. Flags: `icase`, `format_first_only`, `format_no_copy`, `return_lines`. |
 | `$regex.split(<val>, <pat>, <fmt> [, <flags>])` | Split a value into unmatched parts and replacements, omitting empty results unless `format_copy_empty`. Flags: `icase`, `format_no_copy`, `format_copy_empty`. |
 | `$regex.merge(<vals>, <pat>, <fmt> [, <delim> [, <flags>]])` | Apply `<fmt>` to each element and concatenate results with an optional delimiter. Flags: `icase`, `format_first_only`, `format_no_copy`, `format_copy_empty`. |
 | `$regex.apply(<vals>, <pat>, <fmt> [, <flags>])` | Apply replacement to each element, returning the transformed list (empty results omitted unless `format_copy_empty`). Flags: `icase`, `format_first_only`, `format_no_copy`, `format_copy_empty`. |
+
+Note that combining `return_lines` with a format that drops the *last* line
+of the input (a `null` format matching it, or `format_no_copy` on an
+unmatched last line) leaves a stray trailing blank line in the reconstructed
+string instead of ending cleanly. Interior dropped lines are omitted
+correctly; only a trailing dropped line is affected.
 
 
 ## $json.*() -- JSON values
