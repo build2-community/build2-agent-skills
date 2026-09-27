@@ -152,11 +152,8 @@ template via the
 ```
 h{config}: in{config}
 {
-  PACKAGE_NAME       = "\"myproject\""
-  HAVE_STRING_H      = true
-  HAVE_STDNORETURN_H = ($c.class != 'msvc'                                    \
-                        ? ($c.find_system_header("stdnoreturn.h") != [null])  \
-                        : false)
+  PACKAGE_NAME  = "\"myproject\""
+  HAVE_STRING_H = true
 }
 
 lib{foo}: h{config} {hxx cxx}{**}
@@ -173,6 +170,26 @@ The postgresql package (`libpq`, by Karen Arutyunyan) follows this pattern for
 its internal version header: `h{version}: in{version} $src_root/manifest`,
 with the comment "The version file is an internal one (it is only included from
 `pg_config.h`) so we don't distribute nor install it".
+
+Do not compute a compiler-conditional capability macro (`HAVE_FOO`-style,
+gated on which compiler or target is in play) as a hand-rolled expression
+in this block. `$c.class`/`$cc.class` is exactly two-valued (`gcc`,
+`msvc`) and tracks command-line syntax, not compiler identity or which
+preprocessor macros a compiler defines for its target -- see [Compiler
+Class vs. Compiler ID vs. Target
+Class](../guides/build2-modules-cc.md#compiler-class-vs-compiler-id-vs-target-class)
+for the full distinction. For example, `$c.class != 'msvc'` does not
+exclude every Clang that defines `_MSC_VER`: vanilla Clang invoked through
+its native, gcc-compatible driver stays class `gcc` even when its target
+triple is `*-windows-msvc`.
+
+Probe the actual macro instead: either extract it with `c.predefs` (see
+[Capability detection as `-D`
+flags](#capability-detection-as--d-flags) below), or write a dedicated
+`autoconf` project check gated on the macro directly, e.g. a
+`build/autoconf/checks/HAVE_STDNORETURN_H.h` guarding on `_MSC_VER` rather
+than on `$c.class` (see
+[Project-specific checks](../guides/build2-autoconf-project-checks.md)).
 
 ## Generated config header (installed as part of the public API)
 
@@ -320,3 +337,4 @@ null (in-tree import) vs. non-null (installed file path). See
 - [`packaging-guide-summary`](../guides/packaging-guide-summary.md) -- full third-party packaging workflow and buildfile scaffold
 - [`build2-modules-misc`](../guides/build2-modules-misc.md) -- in module for .in template preprocessing
 - [`build2-modules-autoconf`](../guides/build2-modules-autoconf.md) -- autoconf module for capability detection via c.predefs
+- [`build2-modules-cc.md`](../guides/build2-modules-cc.md#compiler-class-vs-compiler-id-vs-target-class) -- cc.class (gcc/msvc only, command-line syntax) vs cc.id vs cc.target.class

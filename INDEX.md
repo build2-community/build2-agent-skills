@@ -190,7 +190,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [build2 manual: core modules (config, test, install)](guides/build2-modules-core.md)
 - [build2 module: version](guides/build2-module-version.md)
 - [build2 modules: bin target types](guides/build2-modules-bin.md)
-- [build2 modules: cc C-common infrastructure](guides/build2-modules-cc.md)
+- [build2 modules: cc C-common infrastructure, compiler class vs. ID](guides/build2-modules-cc.md)
 - [build2 modules: c compilation](guides/build2-modules-c.md)
 - [build2 modules: cxx C++ compilation](guides/build2-modules-cxx.md)
 - [build2 manual: misc modules](guides/build2-modules-misc.md)

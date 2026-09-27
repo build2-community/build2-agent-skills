@@ -182,3 +182,22 @@ fix it, and what should I set instead?
   cwd-relative at runtime.
 
 **Source:** `HOWTO/rpath-unlinked-dependency.md`
+
+
+## T010 -- Generated config header: don't hand-roll compiler-conditional macros
+
+**Query:** Why is `$c.class != 'msvc'` the wrong guard for a
+compiler-conditional `HAVE_*` macro in a generated config header, and what
+should be used instead?
+
+**Key facts** (all must appear in a correct answer):
+- `cc.class` is two-valued (`gcc`/`msvc`) and tracks command-line syntax,
+  not whether a specific preprocessor macro (e.g. `_MSC_VER`) is defined.
+- Vanilla Clang targeting `*-windows-msvc` through its native driver stays
+  class `gcc` while still defining `_MSC_VER`, so `$c.class != 'msvc'`
+  does not exclude it.
+- Probe the actual macro instead: extract it with `c.predefs`, or gate an
+  `autoconf` project check (`build/autoconf/checks/<NAME>.h`) directly on
+  `_MSC_VER`.
+
+**Source:** `HOWTO/third-party-private-headers.md`, `guides/build2-modules-cc.md`

@@ -48,7 +48,7 @@ use the table below to jump directly to the relevant file.
 | Port a CMake project to build2 buildfiles | [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md) |
 | Keep the build graph configuration-independent | [HOWTO/config-independent-build-graph.md](HOWTO/config-independent-build-graph.md) |
 | C/C++ compile and link options, module support | [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md) |
-| C-common variables, DLL export, compilation database | [guides/build2-modules-cc.md](guides/build2-modules-cc.md) |
+| C-common variables, DLL export, compilation database, compiler class vs. ID | [guides/build2-modules-cc.md](guides/build2-modules-cc.md) |
 | bin/liba/libs/exe target types | [guides/build2-modules-bin.md](guides/build2-modules-bin.md) |
 | Match an upstream shared library name or SONAME | [HOWTO/match-upstream-library-name.md](HOWTO/match-upstream-library-name.md) |
 | Create a header-only (binless) library | [HOWTO/header-only-library.md](HOWTO/header-only-library.md) |

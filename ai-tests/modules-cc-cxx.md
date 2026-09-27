@@ -92,3 +92,25 @@ the compile command line, and where is `cxx.std` translated?
   at project root after `using cxx`.
 
 **Source:** `guides/build2-modules-cc.md`, `guides/build2-modules-cxx.md`
+
+
+## T008 -- Compiler class vs. compiler ID vs. target class
+
+**Query:** How many values does `cc.class` have, which compilers fall into
+each, and why doesn't `$c.class != 'msvc'` reliably exclude every Clang
+that defines `_MSC_VER`?
+
+**Key facts** (all must appear in a correct answer):
+- `cc.class` (`c.class`/`cxx.class`) is exactly two-valued: `gcc` or `msvc`.
+- It groups compilers by command-line syntax, not identity: `gcc` covers
+  GCC, Clang (including `clang-apple`/`clang-emscripten`), and non-Windows
+  ICC; `msvc` covers real MSVC, `clang-cl`/`msvc-clang`, and Windows ICC.
+- Vanilla Clang invoked through its native, gcc-compatible driver stays
+  class `gcc` even when targeting `*-windows-msvc` and defining `_MSC_VER`
+  -- only the `cl.exe`-compatible `clang-cl`/`msvc-clang` driver is class
+  `msvc`.
+- `cc.id`/`cc.id.type`/`cc.id.variant` identify the actual compiler
+  (`gcc`, `clang`, `clang-apple`, `msvc-clang`, `msvc`); `cc.target.class`
+  is a separate, target-platform axis (`linux`, `windows`, `macos`, ...).
+
+**Source:** `guides/build2-modules-cc.md`

@@ -101,7 +101,7 @@
 - [guides/build2-directives-patterns.md](guides/build2-directives-patterns.md): Buildfile directives (define, using, import, include, source, if/for/while, assert, run, dump) plus name wildcard patterns and target/variable attributes.
 - [guides/build2-projects-advanced.md](guides/build2-projects-advanced.md): Advanced projects -- importation, library metadata, testing, installation, subprojects, diagnostics.
 - [guides/build2-modules-bin.md](guides/build2-modules-bin.md): bin module -- binary target type hierarchy (lib, liba, libs, exe, obj, bmi).
-- [guides/build2-modules-cc.md](guides/build2-modules-cc.md): cc module -- C-common infrastructure, DLL export, compilation database, toolchain detection.
+- [guides/build2-modules-cc.md](guides/build2-modules-cc.md): cc module -- C-common infrastructure, DLL export, compilation database, toolchain detection, compiler class vs. ID vs. target class.
 - [guides/build2-modules-c.md](guides/build2-modules-c.md): c module -- C compilation, Objective-C, assembler.
 - [guides/build2-modules-cxx.md](guides/build2-modules-cxx.md): cxx module -- C++ compilation, C++20 modules, cross-compilation, options reference.
 - [guides/build2-modules-core.md](guides/build2-modules-core.md): Core modules reference -- config (hermetic builds), test (config.test, runners), install (layout, filtering, relocation).

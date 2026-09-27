@@ -520,6 +520,53 @@ alternative:
 > b "config.cxx=cl /MT"
 ```
 
+### Compiler Class vs. Compiler ID vs. Target Class
+
+`cc.class` (`c.class`/`cxx.class`) is exactly two-valued: `gcc` or `msvc`
+(`enum class compiler_class {gcc, msvc}` in `libbuild2/cc/guess.hxx`). It
+groups compilers by **command-line syntax**, not identity or ABI: `gcc`
+covers GCC, Clang (including `clang-apple`/`clang-emscripten`), and
+non-Windows ICC; `msvc` covers real MSVC, `clang-cl`/`msvc-clang`, and
+Windows ICC. There is no `'clang'` value.
+
+Critically, vanilla Clang invoked through its native, gcc-compatible driver
+stays class `gcc` even when its target triple is `*-windows-msvc` and it
+defines `_MSC_VER` -- only the `cl.exe`-compatible `clang-cl`/`msvc-clang`
+driver is class `msvc`. So `$c.class != 'msvc'` is not a substitute for
+checking whether `_MSC_VER` is defined, and neither is `cc.id`: none of
+`cc.class`, `cc.id`, or `cc.id.type` tells you which preprocessor macros a
+compiler defines for its current target. To check that, extract the macro
+with `*.predefs` (see [Compiler Predefined Macro
+Extraction](#compiler-predefined-macro-extraction) above) or gate an
+`autoconf` project check directly on it (see [Project-specific
+checks](build2-autoconf-project-checks.md)).
+
+To branch on compiler **identity**, use `cc.id` (full string: `gcc`,
+`clang`, `clang-apple`, `msvc-clang`, `msvc`) or the split `cc.id.type`
+(variant stripped: `gcc`, `clang`, `msvc`) and `cc.id.variant` (e.g.
+`apple`, empty otherwise) -- both `clang` and `clang-apple` match
+`id.type == 'clang'`.
+
+`cc.target.class` is a third, unrelated axis: the target **platform**
+class (`linux`, `windows`, `macos`, `bsd`, ...), nothing to do with
+command-line syntax or compiler identity.
+
+A common antipattern that mixes these up:
+
+```
+if ($c.class == 'gcc')
+  c.coptions += -Wno-stringop-overflow   # meant: real GCC only
+
+if ($c.class == 'clang')
+  c.coptions += -Wno-self-assign         # meant: Clang only
+```
+
+Both are wrong: the first also applies to every Clang build (Clang is class
+`gcc`), producing an "unknown warning option" warning there; the second is
+dead code, since `c.class` is never `'clang'`, so it silently never fires.
+The fix is `$c.id == 'gcc'` (GCC's id has no variant) and `$c.id.type ==
+'clang'` (covers both `clang` and `clang-apple`).
+
 ## See Also
 
 - [`build2-modules-bin.md`](build2-modules-bin.md) -- bin module: binary target type hierarchy
@@ -528,3 +575,4 @@ alternative:
 - [`build2-modules-core.md`](build2-modules-core.md) -- core modules (config, test, install, dist)
 - [`build2-directives-patterns.md`](build2-directives-patterns.md#update) -- `update`/`source` directives used to consume a `buildfile{}` predefs output
 - [`link-prerequisite-order.md`](../HOWTO/link-prerequisite-order.md) -- sources before `$libs` on linked `exe{}` and `libs{}`
+- [`third-party-private-headers.md`](../HOWTO/third-party-private-headers.md#generated-config-header-internal-only) -- the cc.class-vs-_MSC_VER pitfall in a hand-rolled config header check
