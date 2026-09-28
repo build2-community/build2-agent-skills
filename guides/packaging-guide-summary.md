@@ -536,6 +536,17 @@ repository. These must be unbundled: express them as proper external package
 dependencies instead. Bundled testing frameworks (especially `catch2`) are
 particularly common.
 
+**Checking for pre-installed modules.** Before adding a `depends:` entry for
+a build2 module, check whether it already ships inside the active
+toolchain's `bin/`/`lib/` directory. `autoconf` and `kconfig` are two
+modules that usually do, even though each is also an independently
+versioned cppget.org package (see
+[third-party-private-headers.md](../HOWTO/third-party-private-headers.md)
+for a worked `using autoconf` example). If the module is already there,
+`using X` alone is correct and complete: no `depends:` line is needed, and
+no host or build2-type configuration or `repositories.manifest` change is
+required to resolve it.
+
 **Adding to `repositories.manifest`.** Uncomment the `cppget.org` prerequisite
 entry and set the `location` to the least stable section that contains all
 required dependency versions (`stable` < `testing` < `beta` < `alpha`):

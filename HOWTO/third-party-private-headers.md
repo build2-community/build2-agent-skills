@@ -235,7 +235,12 @@ all of its capability and feature-enable macros.
 
 For capabilities that must be probed at build time (compiler intrinsics, system
 header availability, etc.), use the `autoconf` module's `c.predefs` rule to
-detect macro values and source them into the buildfile:
+detect macro values and source them into the buildfile.
+
+This requires `c.predefs` to already be loaded in `root.build`, after the
+C/C++ compiler module. See
+[build2-autoconf-buildfile.md](../guides/build2-autoconf-buildfile.md)
+(Step 2: Load the `c.predefs` submodule) for the exact `using` lines needed.
 
 ```
 using autoconf
@@ -274,6 +279,10 @@ The `if ($build.meta_operation == 'perform')` guard is required because the
 generated buildfile fragment exists only during an actual build. The
 `autoconf.aliases` attribute remaps macro names that differ between the `.in`
 template and the autoconf check result.
+
+The `autoconf` module ships as part of the standard pre-installed build2
+toolchain, so `using autoconf` alone is correct and complete here. No
+`depends:` entry is needed for it in the package manifest.
 
 The icu package (`libicuuc`, by Karen Arutyunyan) uses this technique to detect
 target endianness: the `h{endian}: in{endian}` / `c.predefs` pair extracts the
