@@ -297,8 +297,15 @@ buildfile     share/build2/export/<project>/          c.i.buildfile
 doc           share/doc/<private>/<project>/          c.i.doc
 legal         doc/                                    c.i.legal
 man           share/man/                              c.i.man
-man<N>        man/man<N>/                             c.i.man<N>
+man1          man/man1/                               c.i.man1
 ```
+
+Only `man` and `man1` are real named locations (`man{}` and `man1{}` are
+the only implemented man page target types). There is no `config.install.man2`
+through `config.install.man9`; install other sections with an explicit
+override on the generic `man{}` type instead, for example
+`man{*.3}: install = man/man3/` -- see
+[man-pages-install.md](../HOWTO/man-pages-install.md).
 
 The `<project>`, `<version>`, and `<private>` placeholders are substituted
 with the project name, version, and private subdirectory, respectively. If

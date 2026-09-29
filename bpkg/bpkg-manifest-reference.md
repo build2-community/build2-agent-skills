@@ -210,6 +210,11 @@ its own line.
 | `email` | `<email> [; <comment>]` | Project email address (e.g., support mailing list). |
 | `package-email` | `<email> [; <comment>]` | Package email address. Defaults to `email`. |
 
+**Plain-text `description`/`changes` line length:** brep renders these
+fields (`text/plain`, the default `description-type`/`changes-type`) in a
+fixed-width block sized for 80-character lines; longer lines wrap
+awkwardly in the web view. Keep lines at 80 characters or less.
+
 
 ## Dependency Fields
 

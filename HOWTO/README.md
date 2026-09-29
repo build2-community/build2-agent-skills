@@ -10,6 +10,7 @@ Condensed, AI-indexed versions of the
 | [alias-targets.md](./alias-targets.md) | PHONY-equivalent targets using `alias{}` |
 | [buildfile-compile-options.md](./buildfile-compile-options.md) | Which compile/link options belong in a buildfile, += vs = on lists vs *.export.*, cxx.mode after std |
 | [ad-hoc-recipe.md](./ad-hoc-recipe.md) | Ad hoc recipes: attachment grammar, `depdb hash` for `$c.lib_*`/`$cxx.lib_*` |
+| [ad-hoc-pattern-rule.md](./ad-hoc-pattern-rule.md) | Ad hoc pattern rules: delimiter/flags, single-target fixed-prerequisite bug, group form needs the group on the real declaration |
 | [config-independent-build-graph.md](./config-independent-build-graph.md) | Keeping the build graph configuration-independent |
 | [for-install-conflicts.md](./for-install-conflicts.md) | Resolving "already updated but [not] for install" errors |
 | [fsdir-parent-chain.md](./fsdir-parent-chain.md) | `fsdir{}` parent auto-creation is out-of-tree only |
@@ -54,6 +55,7 @@ Condensed, AI-indexed versions of the
 | [package-version-non-semver.md](./package-version-non-semver.md) | Projects that don't use semantic versioning |
 | [package-version-none.md](./package-version-none.md) | Projects with no version at all |
 | [third-party-private-headers.md](./third-party-private-headers.md) | Private implementation headers and generated config headers shared across internal targets |
+| [man-pages-install.md](./man-pages-install.md) | Installing man pages: only `man{}`/`man1{}` are implemented, install override for other sections, verifying `.so` stubs |
 | [require-dependency-feature.md](./require-dependency-feature.md) | Requiring a dependency boolean feature with `require` (not `reflect`) |
 
 ## Build configurations

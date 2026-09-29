@@ -148,6 +148,7 @@
 - [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md): Immediate vs ordinary import -- when to use import!/import? vs deferred import, the two-variable pattern for also linking a queried library, why linking the immediate target breaks in the installed case, related pkg-config dual-member pitfall.
 - [HOWTO/rpath-unlinked-dependency.md](HOWTO/rpath-unlinked-dependency.md): Rpath for a dependency you never link -- include=adhoc, bin.rpath, always-absolute metadata, rule_hint does not affect the consumer.
 - [HOWTO/ad-hoc-recipe.md](HOWTO/ad-hoc-recipe.md): Ad hoc recipes -- attachment grammar, depdb hash for impure $c.lib_* / $cxx.lib_* functions, not a substitute for bin.rpath.
+- [HOWTO/ad-hoc-pattern-rule.md](HOWTO/ad-hoc-pattern-rule.md): Ad hoc pattern rules -- delimiter and flags, single-target fixed-prerequisite bug, group form requires the group written on the real declaration too.
 - [HOWTO/assert-in-tests.md](HOWTO/assert-in-tests.md): Correctly using assert() in tests.
 - [HOWTO/sanitize-tests.md](HOWTO/sanitize-tests.md): Sanitizing misbehaving tests with Testscript -- output redirection, cleanup, env timeouts, ln of src files and directories into $~.
 - [HOWTO/test-runtime-fixtures.md](HOWTO/test-runtime-fixtures.md): Runtime test fixtures -- built child helpers, source-tree data, NEWS fsdir{} exe assets, test=false, include=adhoc, update-for-test.
@@ -161,6 +162,7 @@
 - [HOWTO/package-version-non-semver.md](HOWTO/package-version-non-semver.md): Projects that don't use semantic versioning.
 - [HOWTO/package-version-none.md](HOWTO/package-version-none.md): Projects with no version at all.
 - [HOWTO/third-party-private-headers.md](HOWTO/third-party-private-headers.md): Private implementation headers and generated config headers shared across internal targets in third-party packages.
+- [HOWTO/man-pages-install.md](HOWTO/man-pages-install.md): Installing man pages -- only man{} and man1{} are implemented, install path override for other sections, verifying .so cross-reference stubs.
 - [HOWTO/multiple-configurations.md](HOWTO/multiple-configurations.md): Managing debug/release/sanitize configurations with bdep.
 - [HOWTO/cross-compilation.md](HOWTO/cross-compilation.md): Setting up a cross-compilation configuration with target triplets.
 - [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md): Typical CI pipeline using bdep update/test.

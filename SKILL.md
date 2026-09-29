@@ -41,6 +41,7 @@ use the table below to jump directly to the relevant file.
 | Import a library for metadata and still link it (including installed) | [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md) |
 | Add rpath for a dlopen-only (never linked) dependency | [HOWTO/rpath-unlinked-dependency.md](HOWTO/rpath-unlinked-dependency.md) |
 | Write an ad hoc recipe (`{{ }}`) | [HOWTO/ad-hoc-recipe.md](HOWTO/ad-hoc-recipe.md) |
+| Share one recipe body across several targets via `~`/`^` name patterns | [HOWTO/ad-hoc-pattern-rule.md](HOWTO/ad-hoc-pattern-rule.md) |
 | Create a PHONY-equivalent (alias{}) target | [HOWTO/alias-targets.md](HOWTO/alias-targets.md) |
 | Which compile/link options belong in a buildfile | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
 | Place a compile flag after compiler mode or -std | [HOWTO/buildfile-compile-options.md](HOWTO/buildfile-compile-options.md) |
@@ -95,6 +96,7 @@ use the table below to jump directly to the relevant file.
 | Packaging version management (new revision, new version) | [guides/packaging-guide-version-management.md](guides/packaging-guide-version-management.md) |
 | Packaging antipatterns, what not to do | [guides/packaging-guide-antipatterns.md](guides/packaging-guide-antipatterns.md) |
 | Handle private headers when packaging a third-party project | [HOWTO/third-party-private-headers.md](HOWTO/third-party-private-headers.md) |
+| Install man pages (any section other than 1) | [HOWTO/man-pages-install.md](HOWTO/man-pages-install.md) |
 | Package an upstream changelog with a non-canonical name | [HOWTO/package-changes-file.md](HOWTO/package-changes-file.md) |
 | bpkg package name rules, version format, constraint syntax | [guides/bpkg-package-name-version.md](guides/bpkg-package-name-version.md) |
 | Express a package license in the manifest (SPDX, other:, multiple licenses) | [guides/packaging-license.md](guides/packaging-license.md) |

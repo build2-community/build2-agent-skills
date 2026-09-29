@@ -183,11 +183,13 @@ See [bx reference](bx/bx.md) for the full option list.
 - [HOWTO/import-immediate-vs-ordinary.md](HOWTO/import-immediate-vs-ordinary.md): Immediate vs ordinary import -- when to use import!/import? vs deferred import, the two-variable pattern for also linking a queried library, why linking the immediate target breaks in the installed case, related pkg-config dual-member pitfall.
 - [HOWTO/rpath-unlinked-dependency.md](HOWTO/rpath-unlinked-dependency.md): Rpath for a dependency you never link -- include=adhoc, bin.rpath, always-absolute metadata, rule_hint does not affect the consumer.
 - [HOWTO/ad-hoc-recipe.md](HOWTO/ad-hoc-recipe.md): Ad hoc recipes -- attachment grammar, depdb hash for impure $c.lib_* / $cxx.lib_* functions, not a substitute for bin.rpath.
+- [HOWTO/ad-hoc-pattern-rule.md](HOWTO/ad-hoc-pattern-rule.md): Ad hoc pattern rules -- delimiter and flags, single-target fixed-prerequisite bug, group form requires the group written on the real declaration too.
 - [HOWTO/local-installed-import.md](HOWTO/local-installed-import.md): Local installed import! check -- two bpkg configurations, -L finds library and sibling .pc, PKG_CONFIG_PATH only when .pc is elsewhere.
 - [build2 manual: project configuration](guides/build2-project-config.md)
 - [build2 manual: targets and variables](guides/build2-targets-variables.md)
 - [build2 functions reference](guides/build2-functions.md)
 - [build2 manual: core modules (config, test, install)](guides/build2-modules-core.md)
+- [HOWTO/man-pages-install.md](HOWTO/man-pages-install.md): Installing man pages -- only man{} and man1{} are implemented, install path override for other sections, verifying .so cross-reference stubs.
 - [build2 module: version](guides/build2-module-version.md)
 - [build2 modules: bin target types](guides/build2-modules-bin.md)
 - [build2 modules: cc C-common infrastructure, compiler class vs. ID](guides/build2-modules-cc.md)

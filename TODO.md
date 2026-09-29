@@ -3,7 +3,12 @@
 Open documentation gaps discovered while using this reference during real
 packaging work, not yet resolved into a proper guide/HOWTO entry.
 
-None at present.
+Nothing open right now. The man-pages install gap and the ad hoc pattern
+rule gap that used to be tracked here were resolved into
+[HOWTO/man-pages-install.md](HOWTO/man-pages-install.md),
+[HOWTO/ad-hoc-pattern-rule.md](HOWTO/ad-hoc-pattern-rule.md), and a
+correction to the install-module table in
+[guides/build2-modules-core.md](guides/build2-modules-core.md).
 
 ## Suggested upstream build2 patches
 
