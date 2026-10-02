@@ -224,6 +224,7 @@ not exist under static" reason, not the identical metadata-import failure.
 
 ## See also
 
+- `HOWTO/troubleshooting.md#error-static-variant-of-target-is-not-available` -- `error: static variant of <target> is not available`, when excluding a build class is the only option
 - `bpkg/bpkg-manifest-reference.md` -- full field reference, grammar, and wildcard rules
 - https://ci.cppget.org/?build-configs -- complete configuration and class list for cppget.org
 - `HOWTO/sys-build-config.md` -- requesting system-provided libraries on specific CI bots with the `sys` class

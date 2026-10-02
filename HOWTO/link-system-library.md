@@ -40,6 +40,7 @@ the static variant of the binless library.
 
 ## See Also
 
+- [`troubleshooting`](./troubleshooting.md#error-static-variant-of-target-is-not-available) -- `error: static variant of <target> is not available` when the same system library is instead reached through an installed `.pc` file
 - [`link-prerequisite-order`](./link-prerequisite-order.md) -- sources before `$libs` on `exe{}` and `libs{}`
 - [`link-pthread`](./link-pthread.md) -- special case: linking pthread portably
 - [`header-only-library`](./header-only-library.md) -- binless library dependency considerations for *.libs

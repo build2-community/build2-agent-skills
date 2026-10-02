@@ -213,6 +213,59 @@ See [builds-ci-filtering.md](./builds-ci-filtering.md#exclude-static-when-tests-
 For an installed `import! [metadata]` that cannot see the `.pc`, see
 [local-installed-import.md](./local-installed-import.md).
 
+### `error: static variant of <target> is not available`
+
+**Cause:** `link_member()` (`libbuild2/bin/utility.cxx`) requires that the
+`lib{}` member being linked -- `liba{}` for the static variant, `libs{}`
+for the shared one -- actually exists; the symmetric `error: shared
+variant of <target> is not available` is the same check failing the other
+way. For a library imported through its installed `.pc` file, every bare
+name in that file's `Libs`/`Libs.private` (e.g. `-lfoo` or `foo.lib`) is
+first checked against a hardcoded, per-platform table of "known runtime
+libraries" in `libbuild2/cc/pkgconfig.cxx` -- its own comment calls this
+"a potentially very long and unstable list". On Windows that table lists
+over fifty names (`kernel32`, `advapi32`, `ws2`/`ws2_32`, `psapi`, `uuid`,
+and so on); on every other platform it lists common POSIX names (`-lm`,
+`-ldl`, `-lrt`, `-pthread`/`-lpthread`, `-lobjc`), plus a few
+platform-specific extras such as `-lSystem`/`-liconv` on macOS. A name on
+the table is left as a raw linker flag, bypassing `search_library()`/
+`link_member()` entirely, so whether a static archive for it exists is
+never checked. A name *not* on the table (any more specialized system
+dependency, for example a Windows DLL import stub such as `Tbs.lib` or
+`cfgmgr32.lib`) falls through to the general resolution path, which does
+call `link_member()` -- and this hard-fails if that import library has no
+static archive, true of many Windows system DLL stubs regardless of
+whether other, similar names happen to be allowlisted.
+
+This only affects the installed-package / pkg-config reimport path,
+including a package's own out-of-tree `test-installed` step, under a
+strict, single-value `config.bin.exe.lib=static` consumer with no
+fallback. An in-tree build, or a plain `exe{}` linking the system library
+directly in its own buildfile (see
+[link-system-library.md](./link-system-library.md)), never hits this.
+
+**Fix:** There is no buildfile- or manifest-side override to add a missing
+name to this allowlist, or to mark one dependency "shared-only, allow a
+fallback regardless of the consumer's static setting". For a package whose
+exported dependency isn't on the allowlist, a strict single-value static
+consumer (for example a `*-static_*` CI bot) cannot be made to pass by any
+packaging-side change today -- exclude that configuration in the manifest
+instead:
+```
+builds: -static
+```
+or narrower, e.g. `builds: -( +windows &static )`. See
+[builds-ci-filtering.md](./builds-ci-filtering.md).
+
+The durable fix is upstream: add the missing name next to the existing
+entries in the relevant platform branch of `pkgconfig.cxx`. build2 commit
+`43a77886` ("Treat -lobjc as system in pkg-config library resolution",
+[build2/build2#557](https://github.com/build2/build2/issues/557)) is
+precedent for exactly this kind of addition being accepted upstream.
+
+For the general installed `import!`/`.pc` resolution mechanics, see
+[local-installed-import.md](./local-installed-import.md).
+
 ### `undefined reference to <symbol>` (GNU ld)
 
 **Cause:** On an `exe{}` or `libs{}` target, a library prerequisite was listed

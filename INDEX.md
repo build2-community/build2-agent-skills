@@ -172,6 +172,7 @@ See [bx reference](bx/bx.md) for the full option list.
 ### HOWTO
 
 - [HOWTO index](HOWTO/README.md) -- practical recipes indexed by topic
+- [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md): Common error messages and resolutions for b, bpkg, bdep, bx, and brep.
 
 ### Guides
 

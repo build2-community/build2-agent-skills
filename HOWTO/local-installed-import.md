@@ -88,6 +88,9 @@ against a `.pc`.
 
 ## See Also
 
+- [troubleshooting.md](./troubleshooting.md#error-static-variant-of-target-is-not-available):
+  the pkg-config runtime allowlist, and why a strict static-only consumer
+  can still fail here even after the `.pc` resolves correctly
 - [target-metadata.md](./target-metadata.md): authoring `export.metadata`
   and `.for_install`
 - [import-immediate-vs-ordinary.md](./import-immediate-vs-ordinary.md):
