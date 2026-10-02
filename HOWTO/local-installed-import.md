@@ -61,7 +61,20 @@ siblings such as `share/pkgconfig` on Linux).
 
 A normal `b install` / `bpkg install` into `$prefix` puts the library in
 `$prefix/lib` and the `.pc` in `$prefix/lib/pkgconfig`. `config.cc.loptions+=-L$prefix/lib`
-is therefore enough for build2 to find both.
+is therefore enough for build2 to find both, on a GCC/Clang target.
+
+On MSVC, `-L` does nothing here: `msvc_extract_library_search_dirs()`
+(`libbuild2/cc/msvc.cxx`) only recognizes `/LIBPATH:<dir>` (or
+`-LIBPATH:<dir>`) when building this search list, unlike `cl.exe` itself,
+which separately accepts `-I` as an alias for `/I`. A `-L$prefix/lib`
+override is silently ignored, not rejected: no error names the option,
+the directory is simply never added to the search, and `import` then
+fails with the generic `unable to import target` diagnostic (see
+[troubleshooting.md](./troubleshooting.md#error-unable-to-import-target-target))
+with no hint that the loption's own syntax was the problem. Use
+`config.cc.loptions+=/LIBPATH:$prefix\lib` instead, matching the form
+already used for the linker flag in
+[packaging-guide-testing.md](../guides/packaging-guide-testing.md#step-9-test-the-package).
 
 `PKG_CONFIG_PATH` is what the bundled libpkgconf error text suggests when
 *it* cannot find a `.pc`. Set it when the `.pc` is not next to the
