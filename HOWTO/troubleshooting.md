@@ -41,8 +41,7 @@ the *test executable* instead of the testscript:
 ```
 exe{unit-foo}: ../resources/exe{foo}: include = adhoc
 ```
-See [test-runtime-fixtures.md](./test-runtime-fixtures.md). Confirmed and
-fixed this way upstream in `build2-reproc` (libreproc 14.2.7 -> 14.2.7+1).
+See [test-runtime-fixtures.md](./test-runtime-fixtures.md).
 Reproduce locally with the expanded dist-test recipe in
 [packaging-guide-testing.md](../guides/packaging-guide-testing.md) rather
 than waiting on a publish-queue result.

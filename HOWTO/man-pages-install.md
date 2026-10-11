@@ -1,33 +1,17 @@
 # Installing Man Pages
 
-Only two man page target types actually exist: `man{}` (generic, any
-extension) and `man1{}` (fixed `.1` extension). Sections 2-9 have no
-dedicated target type or install wiring, despite what both the build2
-manual and the `target.hxx` design comment imply.
+Only two man page target types exist: `man{}` (generic, any extension)
+and `man1{}` (fixed `.1` extension). Sections 2-9 have no dedicated target
+type or install location.
 
 ## The gap
 
-`target.hxx`'s own design comment (right above the `man`/`man1` class
-declarations) describes the intended plan: `man{}` for a custom page
-installed anywhere, plus `man1..9{}` target types that "would be
-automatically installed into correct locations on other platforms" from
-section-numbered extensions. The upstream manual (`doc/manual.cli`) states
-the same thing even more directly: "The `man<N>{}` target types (where
-`<N>` is an integer between 1 and 9) ... are installed into the `man<N>/`
-installation locations."
-
-Neither is true beyond section 1. `grep "class LIBBUILD2_SYMEXPORT man"
-libbuild2/target.hxx` finds exactly two classes, `man` and `man1`; nothing
-for `man2` through `man9`. `libbuild2/install/init.cxx` confirms it from
-the installability side: `DIR`, `set_dir`, and `install_path` are only ever
-called for `man` and `man1`. There is no `config.install.man2` (etc.)
-variable to override, and no per-section default location. Writing
-`man3{foo}` in a buildfile fails outright with "unknown target type man3".
-
-This is a real gap between documented intent and shipped implementation,
-not a documentation-only oversight in this reference -- the `target.hxx`
-comment itself flags the extension-remapping part as "@@ This is still a
-TODO."
+The upstream manual (`doc/manual.cli`) says "The `man<N>{}` target types
+(where `<N>` is an integer between 1 and 9) ... are installed into the
+`man<N>/` installation locations." Only `man` and `man1` are implemented
+(`libbuild2/target.hxx`, `libbuild2/install/init.cxx`). Writing `man3{foo}`
+in a buildfile fails with "unknown target type man3", and there is no
+`config.install.man2` (etc.) variable and no per-section default location.
 
 ## The fix: generic `man{}` with an explicit install override
 

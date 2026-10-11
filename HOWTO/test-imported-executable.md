@@ -124,12 +124,7 @@ testscript"](./test-runtime-fixtures.md#why-the-executable-not-the-testscript)
 and [troubleshooting.md's "no rule to
 clean"](./troubleshooting.md#error-no-rule-to-clean-target) entry. `./:` is
 the pre-existing directory alias target -- adding a prerequisite to it
-doesn't declare anything new, so it doesn't reintroduce that bug. This was
-confirmed directly: the full `b dist` -> `configure` -> `update` -> `test`
--> `clean` recipe from
-[packaging-guide-testing.md](../guides/packaging-guide-testing.md) passes,
-including a clean `b clean`, both with and without the `./:` prerequisite
-present (only the isolated-subproject test differs).
+doesn't declare anything new, so it doesn't reintroduce that bug.
 
 **Always verify with the full recipe, not `bdep ci`.** A plain `bdep ci`
 (git-based) does not reliably catch a broken `clean` rule the same way the
@@ -156,8 +151,7 @@ in practice, in one of two ways depending on context:
   tests/testscript:3:1: error: unable to execute .../tests: no such file or directory
   ```
 
-Use the `test = $var` override instead; it is the confirmed, working
-pattern.
+Use the `test = $var` override instead.
 
 ## See Also
 

@@ -157,9 +157,6 @@ new upstream version is `2.2.0`:
 $ bdep release --open --open-base 2.2.0
 ```
 
-Nothing is pushed: `bdep release` only pushes when `--push` is given (there
-is no `--no-push` option).
-
 
 ### New version: update `upstream` submodule
 

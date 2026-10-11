@@ -412,8 +412,7 @@ any write. Do not use a branch named `review` (that name is reserved for
 the initial stretch).
 
 1. `git checkout -b wip-X.Y.Z`
-2. `bdep release --open --open-base X.Y.Z` (it never pushes without
-   `--push`, there is no `--no-push`)
+2. `bdep release --open --open-base X.Y.Z`
 3. Update `upstream/` to the new release tag. Commit that alone.
 4. Mandatory: compare against a fresh scaffold. In a temporary directory
    outside the repository, run `bdep new --type empty,third-party <repo>`

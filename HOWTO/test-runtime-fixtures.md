@@ -103,19 +103,12 @@ without treating it as a compile/link input. This is also how
 track but not compile; see [`include = adhoc`
 there](./third-party-private-headers.md#thunk-headers-and-symlinks-cross-package-in-place-workaround).
 
-This pattern (and the `clean` failure it fixes) was confirmed and released
-upstream in `build2-reproc`: `libreproc`/`libreprocxx` revision 14.2.7+1
-replaced `testscript{common}@./: ../resources/exe{$n}` with
-`exe{unit-$n}: ../resources/exe{$n}: include = adhoc` in both
-`tests/unit/buildfile` and `tests/examples/buildfile`.
-
 ### Shared testscript
 
-Because each fixture is now attached directly to the executable that needs
-it, there is no fan-out to worry about: sharing one `testscript{common}`
-across many unit exes no longer pulls in every fixture for every test --
-each executable only gets the fixtures listed on its own `adhoc`
-prerequisites.
+Because each fixture is attached directly to the executable that needs it,
+sharing one `testscript{common}` across many unit exes does not pull in
+every fixture for every test. Each executable only gets the fixtures listed
+on its own `adhoc` prerequisites.
 
 ## Paths for spawn-by-name tests
 

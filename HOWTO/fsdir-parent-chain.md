@@ -5,10 +5,6 @@ target directory is not under the project's `src_path()`. Out-of-tree that
 cascade is `mkdir -p`. In-source it is not. Only an explicitly declared
 `fsdir{}` prerequisite is honored.
 
-This is verified against
-`.submodules/build2/libbuild2/algorithm.cxx`
-(`inject_fsdir_impl`) and `libbuild2/rule.cxx` (`fsdir_rule::apply`).
-
 ## The rule
 
 `fsdir_rule::apply()` calls `inject_fsdir()` on the `fsdir{}` target itself.

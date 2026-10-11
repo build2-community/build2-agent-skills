@@ -247,8 +247,6 @@ relative to the current `build2` toolchain?
 
 **Key facts** (all must appear in a correct answer):
 - Open the new version with `bdep release --open --open-base X.Y.Z`.
-  There is no `--no-push` option, `bdep release` only pushes when `--push`
-  is given.
 - Generate a throwaway scaffold outside the package repository with the
   `bdep new` command lines that would be used today
   (`bdep new --type empty,third-party`, then

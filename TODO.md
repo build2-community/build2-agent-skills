@@ -3,19 +3,6 @@
 Open documentation gaps discovered while using this reference during real
 packaging work, not yet resolved into a proper guide/HOWTO entry.
 
-The man-pages install gap, the ad hoc pattern rule gap, and the strict
-`bin.exe.lib=static` pkg-config allowlist gap that used to be tracked here
-were resolved into
-[HOWTO/man-pages-install.md](HOWTO/man-pages-install.md),
-[HOWTO/ad-hoc-pattern-rule.md](HOWTO/ad-hoc-pattern-rule.md), a
-correction to the install-module table in
-[guides/build2-modules-core.md](guides/build2-modules-core.md), and a new
-entry in [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md). The invalid
-`bdep release --no-push` invocation and the missing fresh `bdep new`
-scaffold comparison for new versions and revisions were resolved in
-[guides/packaging-guide-version-management.md](guides/packaging-guide-version-management.md)
-and `skills/build2-package/SKILL.md`.
-
 ## Suggested upstream build2 patches
 
 Not documentation gaps — concrete bugs found in build2 itself while using

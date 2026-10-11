@@ -6,8 +6,7 @@ serve every real target declaration whose name matches the pattern. The
 feature is documented only in `build2/NEWS`, under "Support for ad hoc
 regex pattern rules" -- there is no manual section, and its one worked
 example uses the more complex group form. This entry covers two things
-that example does not make obvious, both confirmed against build2 0.18.1
-by actually running them, not just by reading the parser source.
+that example does not make obvious.
 
 ## Delimiter and flags
 

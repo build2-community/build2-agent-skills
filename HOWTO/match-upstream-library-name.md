@@ -9,11 +9,6 @@ upstream's artifact, not a convenient build2 name. Existing consumers cannot
 be "fixed" to expect a renamed file. See "When this matters" below for what
 counts as outside the graph.
 
-This is verified against
-`.submodules/build2/libbuild2/cc/link-rule.cxx`
-(`derive_libs_paths`, the `bin.lib.prefix` lookup, `rpath_libraries`) and
-`libbuild2/bin/init.cxx` (`bin.lib.version`, `bin.lib.prefix`).
-
 ## When this matters
 
 Matching upstream only matters once the produced file is resolved by

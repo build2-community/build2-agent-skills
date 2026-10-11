@@ -4,9 +4,7 @@ Large or generated test fixtures should stay in the git checkout but not
 ship in the `b dist` archive. Three mechanisms look like they should do
 this and do not: `install = false` (wrong module), `include = false` (still
 collected), and wrapping the declaration in `if` (parser warning, not an
-exclusion). This is verified against
-`.submodules/build2/libbuild2/dist/` and confirmed with
-real `b dist` runs.
+exclusion).
 
 ## The three knobs
 
@@ -43,8 +41,8 @@ does nothing:
 file{data/fixture.txt}: dist = false
 ```
 
-Confirmed with a real `b dist` run: the chained form leaves the file in the
-archive with no warning; the standalone form removes it.
+The chained form leaves the file in the archive with no warning. The
+standalone form removes it.
 
 ## Recipe: selected files
 
@@ -92,8 +90,7 @@ target-type pattern, recursive if the directory nests further:
 file{tests/data/**}: dist = false
 ```
 
-Confirmed end to end: `tests/data/` (including a nested subdirectory) is
-completely absent from the `b dist` archive, and `configure`/`update`/
+`tests/data/` (including a nested subdirectory) is then completely absent from the `b dist` archive, and `configure`/`update`/
 `test`/`clean` all succeed on the unpacked, in-source archive.
 
 The pattern must cover **every target type** actually present in the
@@ -114,24 +111,24 @@ warning: multiple files are distributed as .../tests/data/buildfile
 
 - **`dir{resources}/: dist = false`** (target-specific, standalone line, on
   the `dir{}` target rather than a `file{}` target) -- parses fine, has zero
-  effect. Confirmed: the file inside still ships. `collect()` skips every
+  effect: the file inside still ships. `collect()` skips every
   non-`file` target (`libbuild2/dist/operation.cxx`), so nothing ever reads
   this value.
 - **`resources/ { dist = false }`** (brace-block scope assignment) -- a hard
-  parse error, confirmed:
+  parse error:
   ```
   error: variable dist has target visibility but is assigned on a scope
     info: consider changing it to '*: dist'
   ```
   (`libbuild2/parser.cxx`.)
-- **`include = false` alone**, with no `dist = false`. Confirmed still
+- **`include = false` alone**, with no `dist = false`. Still
   collected -- `dist_include()` exists specifically to force excluded
   prerequisites onto the dist graph.
-- **`tests/: install = false`** reused for dist. Confirmed no effect: this
+- **`tests/: install = false`** reused for dist. No effect: this
   is the `install` module's own scope-chain lookup, which `dist` does not
   have.
 - **`if ($build.meta_operation != 'dist') { ./: file{...} }`** (or any
-  `if`-guarded dependency declaration loaded during `dist`). Confirmed
+  `if`-guarded dependency declaration loaded during `dist`). Triggers a
   warning:
   ```
   warning: conditional dependency declaration may result in incomplete distribution
@@ -141,24 +138,18 @@ warning: multiple files are distributed as .../tests/data/buildfile
   This does not exclude the file under the branch that is actually taken --
   it still ships. The warning exists because a *different* configuration
   taking the other branch would silently produce a different, incomplete
-  archive, not because this is a working exclusion mechanism. ODB's own use
-  of `if ($build.meta_operation != 'dist')` in `odb-tests/` (69
-  occurrences) wraps only `assert` statements, never a dependency
-  declaration, which is why it never trips this warning -- do not copy that
-  guard onto a target declaration.
+  archive, not because this is a working exclusion mechanism. ODB's
+  `odb-tests/` uses `if ($build.meta_operation != 'dist')` only around
+  `assert` statements, never around a dependency declaration. Do not copy
+  that guard onto a target declaration.
 
 ## Runtime caveat
 
 `include = false` + `dist = false` keeps the *build* clean on the unpacked
 archive, but if a test genuinely reads the excluded data at runtime, that
-specific test will fail there, not merely be skipped. There is no
-first-party precedent (in the toolchain or howto submodules) for a
-perform-side "skip this test if its data is missing" idiom --
-`$src_root != $out_root` is used 19 times in this toolchain, always for
-`clean =`, never for `test =`. If the data is essential to a test's
-correctness, either keep it in the archive or gate that test's own
-`test =` on the same condition; do not invent an unverified `test =`
-pattern.
+specific test will fail there, not merely be skipped. If the data is
+essential to a test's correctness, either keep it in the archive or gate
+that test's own `test =` on the same condition.
 
 ## Bootstrap dist mode
 
@@ -178,5 +169,4 @@ variable and `dist_include()` are both unused in this mode.
 - [for-install-conflicts.md](./for-install-conflicts.md): another
   install-vs-other-operation mismatch
 - [packaging-guide-testing.md](../guides/packaging-guide-testing.md): the
-  unpacked in-source dist-test loop this HOWTO's recipes are verified
-  against
+  unpacked in-source dist-test loop to check these recipes with
