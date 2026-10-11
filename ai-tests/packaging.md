@@ -237,3 +237,33 @@ patched?
   package's maintenance burden.
 
 **Source:** `guides/packaging-guide-testing.md`, `HOWTO/buildfile-compile-options.md`, `guides/packaging-guide-antipatterns.md`
+
+## T015 -- Upgrading an existing package scaffolded with an older toolchain
+
+**Query:** I am upgrading an existing cppget.org package (scaffolded years
+ago) to a new upstream version. How do I open the new version with
+`bdep release`, and how do I find packaging structure that is outdated
+relative to the current `build2` toolchain?
+
+**Key facts** (all must appear in a correct answer):
+- Open the new version with `bdep release --open --open-base X.Y.Z`.
+  There is no `--no-push` option, `bdep release` only pushes when `--push`
+  is given.
+- Generate a throwaway scaffold outside the package repository with the
+  `bdep new` command lines that would be used today
+  (`bdep new --type empty,third-party`, then
+  `bdep new --package ... --type <type>,...,third-party`), one per package
+  type, not one per package.
+- Diff the real repository against it file by file (`manifest`,
+  `PACKAGE-README.md`, repository `README.md`, `repositories.manifest`,
+  `.gitattributes`, `.gitignore`, `build/*.build`, root and source
+  `buildfile`s, `tests/build/*`).
+- Differences that reflect a newer recommendation (for example a missing
+  `PACKAGE-README.md`, missing `type:`/`language:` manifest values, or
+  `int_libs` instead of `intf_libs`) are accumulated issues, fixed as
+  separate atomic commits or reported when out of scope.
+- In a revision, only strictly backwards compatible differences are
+  applied (no exported target or configuration variable renames, no
+  layout changes).
+
+**Source:** `guides/packaging-guide-version-management.md`, `skills/build2-package/SKILL.md`

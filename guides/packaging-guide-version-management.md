@@ -90,6 +90,14 @@ $ # test with CI
 $ bdep publish
 ```
 
+A revision is also a chance to bring a package scaffolded with an older
+toolchain closer to what the current one generates. Do the comparison
+described in
+[New version: compare against a fresh `bdep new` scaffold](#new-version-compare-against-a-fresh-bdep-new-scaffold),
+but only apply differences that are strictly backwards compatible: no
+exported target or configuration variable renames and no layout changes.
+Anything else waits for the next upstream version.
+
 
 ## New Version
 
@@ -146,8 +154,11 @@ open the new version and make the corresponding commit. For example, if the
 new upstream version is `2.2.0`:
 
 ```
-$ bdep release --open --no-push --open-base 2.2.0
+$ bdep release --open --open-base 2.2.0
 ```
+
+Nothing is pushed: `bdep release` only pushes when `--push` is given (there
+is no `--no-push` option).
 
 
 ### New version: update `upstream` submodule
@@ -254,6 +265,41 @@ similar to the "Adjust root `buildfile`" and "Adjust root `buildfile`: other
 subdirectories" initial packaging steps.
 
 
+### New version: compare against a fresh `bdep new` scaffold
+
+Reviewing upstream changes does not catch a package that is outdated with
+respect to the current `build2` toolchain. A package scaffolded with an older
+`bdep new` keeps that structure until someone changes it, even while every
+test and CI build passes. For example, a package created with `build2` 0.14
+and upgraded with 0.18 may still lack `PACKAGE-README.md`, have no `type:`,
+`language:`, `package-description-file:` or `url:` values in its `manifest`,
+depend on `build2 >= 0.14.0`, and use `int_libs`/`imp_libs` in its source
+`buildfile` where the current template uses `intf_libs`.
+
+To find such differences, generate a throwaway scaffold in a temporary
+directory outside the package repository, using the `bdep new` command lines
+that would be used if the package were created today:
+
+```
+$ bdep new --type empty,third-party foo
+$ cd foo
+$ bdep new --package --lang c++ --type lib,binless,third-party libfoo
+```
+
+One scaffold per package type in the repository is enough (one for a library,
+one for an executable, and so on), not one per package. Then compare the real
+repository against it file by file: `manifest`, `PACKAGE-README.md`, the
+repository `README.md`, `repositories.manifest`, `.gitattributes`,
+`.gitignore`, `build/*.build`, the root and source `buildfile`s, and
+`tests/build/*`.
+
+Each difference that reflects a newer recommendation (rather than a
+deliberate package-specific adjustment) is an accumulated issue (see
+[New version: review/fix accumulated issues](#new-version-reviewfix-accumulated-issues)).
+Fix each in its own commit, or note it for later if it is out of scope for
+this version.
+
+
 ### New version: review `manifest` and `PACKAGE-README.md`
 
 It makes sense to review the package `manifest` and `PACKAGE-README.md` for
@@ -276,7 +322,9 @@ simply not critical enough to warrant a release. In such cases it is
 recommended to file an issue in the package repository with the view to fix it
 when the next opportunity arises. Releasing a new upstream version is one such
 opportunity and it makes sense to review any accumulated package issues and see
-if any of them could be addressed.
+if any of them could be addressed. Differences found in
+[New version: compare against a fresh `bdep new` scaffold](#new-version-compare-against-a-fresh-bdep-new-scaffold)
+belong to the same category.
 
 
 ### New version: test locally and with CI

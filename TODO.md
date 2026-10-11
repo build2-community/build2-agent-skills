@@ -10,7 +10,11 @@ were resolved into
 [HOWTO/ad-hoc-pattern-rule.md](HOWTO/ad-hoc-pattern-rule.md), a
 correction to the install-module table in
 [guides/build2-modules-core.md](guides/build2-modules-core.md), and a new
-entry in [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md).
+entry in [HOWTO/troubleshooting.md](HOWTO/troubleshooting.md). The invalid
+`bdep release --no-push` invocation and the missing fresh `bdep new`
+scaffold comparison for new versions and revisions were resolved in
+[guides/packaging-guide-version-management.md](guides/packaging-guide-version-management.md)
+and `skills/build2-package/SKILL.md`.
 
 ## Suggested upstream build2 patches
 

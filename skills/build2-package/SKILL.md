@@ -412,23 +412,36 @@ any write. Do not use a branch named `review` (that name is reserved for
 the initial stretch).
 
 1. `git checkout -b wip-X.Y.Z`
-2. `bdep release --open --no-push --open-base X.Y.Z`
+2. `bdep release --open --open-base X.Y.Z` (it never pushes without
+   `--push`, there is no `--no-push`)
 3. Update `upstream/` to the new release tag. Commit that alone.
-4. Review the upstream diff (`gitk` or `git diff vOLD..vNEW` inside
+4. Mandatory: compare against a fresh scaffold. In a temporary directory
+   outside the repository, run `bdep new --type empty,third-party <repo>`
+   and, inside it, the `bdep new --package ... --type <type>,...,third-party`
+   command you would use today, once per package type (not per package).
+   Diff the real repository against it: `manifest`, `PACKAGE-README.md`,
+   repository `README.md`, `repositories.manifest`, `.gitattributes`,
+   `.gitignore`, `build/*.build`, root and source `buildfile`s,
+   `tests/build/*`. List every difference that reflects a newer
+   recommendation rather than a deliberate package-specific adjustment.
+   Apply each as its own atomic commit, or report it to the user if out
+   of scope. See `${ROOT}/guides/packaging-guide-version-management.md`
+   ("New version: compare against a fresh `bdep new` scaffold").
+5. Review the upstream diff (`gitk` or `git diff vOLD..vNEW` inside
    `upstream/`) for layout, dependencies, source files, and build-system
    changes.
-5. Re-apply any `.orig` / `.patch` overlays. Each overlay is its own atomic
+6. Re-apply any `.orig` / `.patch` overlays. Each overlay is its own atomic
    commit, same `Patch <filename>: <reason>` format. See antipatterns.
-6. Adjust symlinks and `buildfile`s (update `.gitattributes` for any new
+7. Adjust symlinks and `buildfile`s (update `.gitattributes` for any new
    or changed directory symlinks, see Hard rule 11). Review `manifest`
    and both READMEs.
-7. Repeat Gate I (local, installed, dist including `clean`, CI), the same
+8. Repeat Gate I (local, installed, dist including `clean`, CI), the same
    explicit-approval requirement applies to its push and `bdep ci` step.
-8. Fast-forward merge `wip-X.Y.Z` into `main` if you are the maintainer
+9. Fast-forward merge `wip-X.Y.Z` into `main` if you are the maintainer
    (local, no approval needed), or, with explicit approval, open a PR if
    you are not.
-9. Stop, get explicit approval, then `bdep release --no-open --show-push`,
-   then, with a separate explicit approval, `bdep publish`.
+10. Stop, get explicit approval, then `bdep release --no-open --show-push`,
+    then, with a separate explicit approval, `bdep publish`.
 
 A from-scratch rewrite of upstream may mean deleting the package directory
 and repeating Gate F on this branch.
@@ -442,6 +455,11 @@ Allowed changes: bug fixes in `buildfile`s / `manifest` / packaging
 infrastructure, plus critical upstream bugs backported from upstream.
 No exported-target renames, no config-variable renames, no layout
 rewrites.
+
+Mandatory: do the fresh-scaffold comparison from Mode: new-version
+step 4, but apply only differences that stay strictly backwards
+compatible under the rules above. Report the rest to the user for the
+next upstream version.
 
 The revision release is one squashed commit (`bdep release --revision`,
 with `--amend --squash N` if the work was developed as several commits).
