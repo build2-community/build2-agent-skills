@@ -115,3 +115,5 @@ See [rpath-unlinked-dependency.md](./rpath-unlinked-dependency.md).
   longer enough
 - [rpath-unlinked-dependency.md](./rpath-unlinked-dependency.md): rpath
   without linking
+- [windows-resource-file.md](./windows-resource-file.md): a recipe that
+  produces an `objs{}` from a Windows `.rc` file

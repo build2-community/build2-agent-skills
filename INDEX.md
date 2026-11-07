@@ -185,6 +185,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [HOWTO/rpath-unlinked-dependency.md](HOWTO/rpath-unlinked-dependency.md): Rpath for a dependency you never link -- include=adhoc, bin.rpath, always-absolute metadata, rule_hint does not affect the consumer.
 - [HOWTO/ad-hoc-recipe.md](HOWTO/ad-hoc-recipe.md): Ad hoc recipes -- attachment grammar, depdb hash for impure $c.lib_* / $cxx.lib_* functions, not a substitute for bin.rpath.
 - [HOWTO/ad-hoc-pattern-rule.md](HOWTO/ad-hoc-pattern-rule.md): Ad hoc pattern rules -- delimiter and flags, single-target fixed-prerequisite bug, group form requires the group written on the real declaration too.
+- [HOWTO/windows-resource-file.md](HOWTO/windows-resource-file.md): Embedding a Windows .rc resource (VERSIONINFO) -- using bin.rc on MSVC, rc and cvtres ad hoc recipe, objs{} with explicit .obj extension, attaching to libs{}, adhoc rc{} for dist.
 - [HOWTO/local-installed-import.md](HOWTO/local-installed-import.md): Local installed import! check -- two bpkg configurations, -L finds library and sibling .pc, PKG_CONFIG_PATH only when .pc is elsewhere.
 - [build2 manual: project configuration](guides/build2-project-config.md)
 - [build2 manual: targets and variables](guides/build2-targets-variables.md)

@@ -3,26 +3,6 @@
 Open documentation gaps discovered while using this reference during real
 packaging work, not yet resolved into a proper guide/HOWTO entry.
 
-## Documentation gaps
-
-### Embed a Windows `.rc` resource (VERSIONINFO and similar)
-
-**File:** new `HOWTO/windows-resource-file.md` (nothing covers this yet), and a line in `INDEX.md`. Found while packaging `libgpuopen-devdriverapi`, whose upstream CMake lists `Windows/DevDriverAPI.rc`.
-
-**Motivation:** build2 does not link `.res` files. `using cxx` only loads the `bin.rc` module for MinGW (to compile manifests with `windres`). On `win32-msvc` it loads `bin.ld` instead, so `$bin.rc.path` is unset unless the package loads the module itself. `objs{}` has no default extension, so a declaration without one does not produce a usable object name.
-
-The `winres` rule in [build2-packaging/FFmpeg](https://github.com/build2-packaging/FFmpeg/blob/f4229e0b1a6aa3dc3b335c471783fc8c1971dfa3/libavutil/build/conditional-src.build#L291-L335) only runs `rc.exe` to a `.res` via `import rc = rc%exe{rc}`, never converts that `.res` to an object, and FFmpeg leaves the consumers commented out because the PATH import cannot find `rc.exe` on CI.
-
-**Suggested fix:** Document this recipe:
-
-1. Symlink the upstream directory that contains the `.rc` (and `resource.h`, if any) and add `symlink=dir` in `.gitattributes`.
-2. `define rc: file` with `rc{*}: extension = rc`. List `rc{...}` as an `include = adhoc` prerequisite of `lib{}` so `b dist` from Linux still ships the file.
-3. Load the module on Windows: `if ($cxx.target.class == 'windows') using bin.rc`. Then `$bin.rc.path` comes from `config.bin.rc` (default `rc` on `win32-msvc`, `windres` otherwise). Do not `import rc%exe{rc}` (PATH search, fails on CI).
-4. Locate `cvtres` next to `$bin.ld.path` and pick the machine from `$cxx.target.cpu` (`X64`, `ARM64`, `X86`). `if $windows` is appropriate for locating these tools.
-5. Declare `objs{name.obj}` (the extension must be provided on declaration) from the `rc{}` plus any headers the `.rc` includes. The recipe writes an intermediate `.res` under `$~` (the ad hoc recipe temporary directory), then `cvtres` writes the object.
-6. Attach with `libs{...}: objs{name}: include = $windows`. After the `.obj` declaration, the prerequisite name is `objs{name}` without repeating the extension.
-7. Do not wrap those prerequisites in `if`. Use `: include = $windows`.
-
 ## Suggested upstream build2 patches
 
 Not documentation gaps — concrete bugs found in build2 itself while using

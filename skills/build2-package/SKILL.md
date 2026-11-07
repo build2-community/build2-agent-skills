@@ -337,6 +337,7 @@ Load on demand:
 - SONAME / output name: `${ROOT}/HOWTO/match-upstream-library-name.md`
 - compile options: `${ROOT}/HOWTO/buildfile-compile-options.md`
 - system libs: `${ROOT}/HOWTO/link-system-library.md`
+- Windows `.rc` resources: `${ROOT}/HOWTO/windows-resource-file.md`
 - pthread: `${ROOT}/HOWTO/link-pthread.md`
 - feature `require`: `${ROOT}/HOWTO/require-dependency-feature.md`
 

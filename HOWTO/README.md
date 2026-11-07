@@ -27,6 +27,7 @@ Condensed, AI-indexed versions of the
 | [match-upstream-library-name.md](./match-upstream-library-name.md) | Matching upstream target names, SONAME, and file prefix |
 | [link-pthread.md](./link-pthread.md) | Linking `pthread` |
 | [link-system-library.md](./link-system-library.md) | Linking system libraries (`-lm`, `-ldl`, `advapi32.lib`) |
+| [windows-resource-file.md](./windows-resource-file.md) | Embedding a Windows `.rc` resource (VERSIONINFO) in a DLL via `rc` and `cvtres` |
 | [link-prerequisite-order.md](./link-prerequisite-order.md) | Prerequisite order on link-rule targets (sources before `$libs`) |
 | [optional-library-components.md](./optional-library-components.md) | Making library components optional |
 | [target-metadata.md](./target-metadata.md) | Exporting metadata with executables and libraries |

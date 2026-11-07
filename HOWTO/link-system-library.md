@@ -117,6 +117,7 @@ is precedent).
 - [`troubleshooting`](./troubleshooting.md#error-static-variant-of-target-is-not-available) -- `error: static variant of <target> is not available` when the same system library is instead reached through an installed `.pc` file
 - [`link-prerequisite-order`](./link-prerequisite-order.md) -- sources before `$libs` on `exe{}` and `libs{}`
 - [`link-pthread`](./link-pthread.md) -- special case: linking pthread portably
+- [`windows-resource-file`](./windows-resource-file.md): embedding a Windows `.rc` resource in a DLL
 - [`header-only-library`](./header-only-library.md) -- binless library dependency considerations for *.libs
 - [`build2-modules-cxx`](../guides/build2-modules-cxx.md) -- cxx.libs, cxx.export.libs, and pkg-config integration
 - [`build2-projects-advanced`](../guides/build2-projects-advanced.md) -- library interface vs implementation dependencies
