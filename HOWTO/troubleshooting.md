@@ -245,11 +245,19 @@ directly in its own buildfile (see
 
 **Fix:** There is no buildfile- or manifest-side override to add a missing
 name to this allowlist, or to mark one dependency "shared-only, allow a
-fallback regardless of the consumer's static setting". For a package whose
-exported dependency isn't on the allowlist, a strict single-value static
-consumer (for example a `*-static_*` CI bot) cannot be made to pass by any
-packaging-side change today -- exclude that configuration in the manifest
-instead:
+fallback regardless of the consumer's static setting".
+
+If the system library is only needed to link the package's own objects
+(an implementation dependency), keep the name out of the `.pc` entirely.
+`*.libs` alone is not enough, because it still reaches the static `.pc`'s
+`Libs.private`. Name the library with a force-included
+`#pragma comment(lib)` header instead (see
+[link-system-library.md](./link-system-library.md#windows-import-library-missing-from-the-pkg-config-allowlist)).
+
+If the name must appear in the `.pc` (an interface dependency), a strict
+single-value static consumer (for example a `*-static_*` CI bot) cannot be
+made to pass by any packaging-side change today. Exclude that
+configuration in the manifest instead:
 ```
 builds: -static
 ```

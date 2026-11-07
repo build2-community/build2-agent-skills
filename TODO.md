@@ -5,25 +5,6 @@ packaging work, not yet resolved into a proper guide/HOWTO entry.
 
 ## Documentation gaps
 
-### Force-include `#pragma comment(lib)` when a Windows syslib cannot go through the installed `.pc`
-
-**File:** `HOWTO/troubleshooting.md` (the `error: static variant of <target> is not available` section) and `HOWTO/link-system-library.md`. Found while packaging `libgpuopen-devdriverapi`, which calls `TdhGetEventInformation` and needs `tdh.lib`.
-
-**Motivation:** The troubleshooting entry correctly explains why a bare `tdh.lib` (or `-ltdh`) in an installed `.pc` fails `test-installed` under `config.bin.exe.lib=static`: the name is not on the hardcoded pkg-config runtime allowlist in `libbuild2/cc/pkgconfig.cxx`, so `link_member()` looks for a static `lib{tdh}` and errors with `static variant of lib{tdh} is not available`. It then says there is no packaging-side fix except excluding static configurations, or waiting for an upstream allowlist addition ([build2/build2#557](https://github.com/build2/build2/issues/557)). That is incomplete.
-
-Putting `tdh.lib` in `cxx.libs` works for the in-tree build. Exporting it (`import` of a stub `lib{tdh}`, or `cxx.export.libs`) writes the name into the installed `.pc` and the next `test-installed` static consumer hits the allowlist path again.
-
-**Suggested fix:** Document the working 0.18.1 packaging workaround used when the system library is only needed to link the package's own objects:
-
-1. Do not list the name in `cxx.libs` or `cxx.export.libs`, and do not `import` it.
-2. Add a package-owned header with `#pragma comment(lib, "tdh.lib")` (the MSVC linker comment).
-3. Force-include that header when `$cxx.target.system == 'win32-msvc'`: `-include` if `$cxx.class == 'gcc'` (clang targeting the MSVC ABI), otherwise `/FI`. Passing `/FI<path>` as a single token makes clang++ try to read a file named `/FI...`.
-4. The `/FI`/`-include` is file-scope `cxx.poptions`, not exported.
-5. Attach the header with `: include = $windows` (or the more specific `win32-msvc` condition), not by wrapping the prerequisite in `if`.
-6. Name the file to match `hxx{*}: extension` (`hxx{*}: extension = h` means the file must be `tdh-libs.h`, not `tdh-libs.hxx`).
-
-Keep the upstream allowlist addition as the durable fix for names that must appear in the `.pc` (interface dependencies). Mention build2#557 as the precedent.
-
 ### Embed a Windows `.rc` resource (VERSIONINFO and similar)
 
 **File:** new `HOWTO/windows-resource-file.md` (nothing covers this yet), and a line in `INDEX.md`. Found while packaging `libgpuopen-devdriverapi`, whose upstream CMake lists `Windows/DevDriverAPI.rc`.
