@@ -42,7 +42,9 @@ file{data/fixture.txt}: dist = false
 ```
 
 The chained form leaves the file in the archive with no warning. The
-standalone form removes it.
+standalone form removes it. A variable block after `target: prereq:` is
+the same prerequisite-specific assignment and fails the same way (see the
+first entry under [Failing lookalikes](#failing-lookalikes)).
 
 ## Recipe: selected files
 
@@ -109,6 +111,32 @@ warning: multiple files are distributed as .../tests/data/buildfile
 
 ## Failing lookalikes
 
+- **A variable block after `target: prereq:`**, the spelling that looks
+  like it sets both knobs at once:
+  ```
+  ./: file{lib/**}:
+  {
+    include = false
+    dist = false
+  }
+  ```
+  `parse_dependency()` (`libbuild2/parser.cxx`) parses the block once per
+  prerequisite, and `parse_variable()` stores every assignment in it with
+  `prerequisite_->assign()`. The parser does not treat `include` and
+  `dist` differently. They differ only at lookup time. `include` is read
+  from the `./` to `file{lib/**}` edge (`include_impl()`,
+  `libbuild2/target.cxx`), so `include = false` works. `collect()` only
+  reads `dist` on the file target itself, so `dist = false` on the edge
+  is never consulted and the files still ship. There is no warning
+  either. The parser's visibility checks reject a variable assigned in a
+  context wider than its visibility (a `prereq` variable on a target, a
+  `target` variable on a scope). A prerequisite is the narrowest context,
+  so an assignment there is never rejected. Use the two-line form from
+  [Recipe: a whole directory](#recipe-a-whole-directory) instead:
+  ```
+  ./: file{lib/**}: include = false
+  file{lib/**}: dist = false
+  ```
 - **`dir{resources}/: dist = false`** (target-specific, standalone line, on
   the `dir{}` target rather than a `file{}` target) -- parses fine, has zero
   effect: the file inside still ships. `collect()` skips every

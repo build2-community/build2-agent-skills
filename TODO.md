@@ -5,29 +5,6 @@ packaging work, not yet resolved into a proper guide/HOWTO entry.
 
 ## Documentation gaps
 
-### Combined include/dist block after `target: prereq:` only affects include
-
-**File:** `HOWTO/exclude-test-data-from-dist.md` (the two-line recipe and the failing lookalikes). Found while packaging `libgpuopen-ags`, which generates a filename map from a directory symlink that must not ship.
-
-**Motivation:** The HOWTO already shows that `./: file{data/fixture.txt}: dist = false` is prerequisite-specific and silently ignored by `collect()`. It does not mention the equivalent block form, which is the spelling that looks like it should set both knobs at once:
-
-```
-./: file{lib/**}:
-{
-  include = false
-  dist = false
-}
-```
-
-`parser.cxx` (`parse_dependency()`, the "prerequisite-specific variable block" case, example `foo: bar: { x = y }`) stores both assignments with `prerequisite_->assign(var)`. That is the correct place for `include`, which is looked up on the `./` to `file{lib/**}` edge, so `include = false` works. `dist` is inserted with `variable_visibility::target` (`libbuild2/dist/init.cxx`) and `collect()` (`libbuild2/dist/operation.cxx`) only reads `ft[dist_var]` on the file target itself. The `dist = false` on the edge is never consulted, the files still ship, and there is no warning. The parser does not treat the two variables differently. They differ only at lookup time.
-
-**Suggested fix:** Add this block form to the failing lookalikes, next to the single-line chained `dist = false`. State that both assignments are stored on the prerequisite and that only `include` is read from there. Keep recommending the two-line recipe:
-
-```
-./: file{lib/**}: include = false
-file{lib/**}: dist = false
-```
-
 ### Force-include `#pragma comment(lib)` when a Windows syslib cannot go through the installed `.pc`
 
 **File:** `HOWTO/troubleshooting.md` (the `error: static variant of <target> is not available` section) and `HOWTO/link-system-library.md`. Found while packaging `libgpuopen-devdriverapi`, which calls `TdhGetEventInformation` and needs `tdh.lib`.
