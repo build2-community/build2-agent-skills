@@ -77,6 +77,15 @@ Project checks take precedence over builtin checks with the same name.
 The module warns when this occurs to help identify when a project check
 can be dropped (e.g., after an upstream fix lands in the builtin catalog).
 
+The builtin catalog consulted is the one bundled with the toolchain running
+the build. The staged toolchain carries a newer `autoconf` than the released
+one, and the builtin checks catalog linked under See Also is master. A check
+copied from master into the project (reason 2 below) therefore warns
+`check <NAME> exists in builtin catalog, overriding` on `ci.stage.build2.org`
+only, while `ci.cppget.org` and `cppget.org` build with the released
+catalog. See
+[Stage vs release CI](packaging-guide-testing.md#step-9-test-the-package).
+
 Valid reasons to keep a project check with the same name as a builtin:
 
 1. Testing a check on CI before proposing it upstream.

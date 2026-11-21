@@ -265,3 +265,25 @@ relative to the current `build2` toolchain?
   layout changes).
 
 **Source:** `guides/packaging-guide-version-management.md`, `skills/build2-package/SKILL.md`
+
+
+## T016 -- Stage vs release CI as a publish gate
+
+**Query:** `bdep ci` came back green on every configuration, but each build
+on the results page shows a `stage` toolchain. Is the package ready for
+`bdep publish`?
+
+**Key facts** (all must appear in a correct answer):
+- The run went to `ci.stage.build2.org`, which builds with the staged
+  toolchain. A `bdep` from the staged toolchain submits there by default,
+  and the `to:` line of the `submitting:` prompt shows the server.
+- `queue.cppget.org` and `cppget.org` build with the released toolchain,
+  which is what `ci.cppget.org` uses, so a stage-only green run has not
+  tested the package against the toolchain it is published to.
+- The run that gates `bdep publish` must be a green `ci.cppget.org` run on
+  the final commit, for example `bdep ci --server https://ci.cppget.org`.
+- Stage CI is still useful for catching problems with the upcoming
+  toolchain early, for example differences in pre-installed modules such
+  as the `autoconf` builtin check catalog.
+
+**Source:** `guides/packaging-guide-testing.md`, `bdep/bdep-ci.md`, `skills/build2-package/SKILL.md`

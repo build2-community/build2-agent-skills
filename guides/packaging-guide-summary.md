@@ -109,6 +109,9 @@ merging through a pull request.
 16. Write a smoke test under `tests/`.
 17. Test locally, including the installed case and source distribution.
 18. Commit and submit to the CI service with [`bdep ci`](../bdep/bdep-ci.md).
+    The run that gates publishing must be on `ci.cppget.org`, not
+    `ci.stage.build2.org` (see Step 9 in
+    [packaging-guide-testing.md](packaging-guide-testing.md#step-9-test-the-package)).
 19. Replace the smoke test with upstream tests (if applicable).
 20. Adjust the root `buildfile` and `manifest`.
 21. Adjust `PACKAGE-README.md` and the repository `README.md`.

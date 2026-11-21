@@ -49,7 +49,8 @@ steps:
 ## Using bdep ci for remote CI
 
 build2 has a built-in CI submission command that submits the project to a
-remote CI server (e.g., builds.cppget.org):
+remote CI server (`ci.cppget.org` by default, `ci.stage.build2.org` for a
+`bdep` from the staged toolchain):
 
 ```
 $ bdep ci

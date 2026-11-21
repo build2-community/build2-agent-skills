@@ -87,7 +87,7 @@ These are not optional. Violating any one is a failed run.
    patch) as its message, see packaging-guide-antipatterns.md.
 10. Do not merge `review` into `main`, do not `bdep release`, and do not
     `bdep publish` until local tests, installed-case tests, distribution
-    tests, and CI are green.
+    tests, and a `ci.cppget.org` CI run on the final commit are green.
 11. Every directory-level symlink (not a plain file symlink) needs a
     matching `symlink=dir` entry in that package's own
     `<pkg>/.gitattributes` (a new file, `bdep new --package` does not
@@ -363,7 +363,12 @@ A library needs at least one test to be publishable.
    `git push -u origin review` and before `bdep ci`, these are two
    separate external actions (a push, and a CI queue submission). Once
    approved and run, wait until no configuration is `<unbuilt>` or
-   `building`.
+   `building`. Check the `to:` line of the `bdep ci` prompt: the run that
+   gates publishing must go to `ci.cppget.org` (released toolchain). A
+   staged `bdep` defaults to `ci.stage.build2.org`, so pass
+   `--server https://ci.cppget.org` there. A stage run is an optional
+   extra, never a replacement. See packaging-guide-testing.md Step 9
+   (Stage vs release CI).
 6. Only then replace the smoke test with upstream tests (if applicable).
    Extra test-only dependencies belong in a sibling `-tests` package.
 
@@ -381,9 +386,11 @@ Adjust repository `README.md`.
 
 ### Gate K: publish-time only
 
-Do this only after Gates I and J are green. Every numbered step from 2
-onward is an external action and needs its own explicit approval, given
-right before that step, not assumed from having reached this gate.
+Do this only after Gates I and J are green, including a green
+`ci.cppget.org` run on the final `review` commit (stage runs do not
+count). Every numbered step from 2 onward is an external action and needs
+its own explicit approval, given right before that step, not assumed from
+having reached this gate.
 
 1. Fast-forward `review` into `main` (`git merge --ff-only review`). If
    that fails, stop. `main` should still be the first `bdep new` commit.
@@ -464,8 +471,8 @@ next upstream version.
 The revision release is one squashed commit (`bdep release --revision`,
 with `--amend --squash N` if the work was developed as several commits).
 Test locally first, then, with explicit approval for the push and
-`bdep ci`, test with CI, and only then, with a separate explicit
-approval, `bdep publish`.
+`bdep ci`, test with CI on `ci.cppget.org` (Gate I step 5), and only
+then, with a separate explicit approval, `bdep publish`.
 
 ## Stop and ask
 

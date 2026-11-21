@@ -32,6 +32,19 @@ Without that distinction, a page that shows one `test-installed` failure
 and otherwise only `log` links looks like the phase ran once. It ran on
 every configuration. Only the failures are called out.
 
+## Which toolchain built a configuration
+
+Each build on the results page lists a `toolchain` value in the form
+`<name>-<version>`. Builds on `ci.cppget.org` use the released toolchain,
+the same one `queue.cppget.org` and `cppget.org` build with after
+`bdep publish`. Builds on `ci.stage.build2.org` show the staged toolchain
+(a `stage` name).
+
+A `bdep` from the staged toolchain submits to `ci.stage.build2.org` by
+default, so check this value before treating a green run as a publish gate.
+See [packaging-guide-testing.md](../guides/packaging-guide-testing.md#step-9-test-the-package)
+(Stage vs release CI).
+
 ## See Also
 
 - [bdep-ci.md](../bdep/bdep-ci.md): submitting the request

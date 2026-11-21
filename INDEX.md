@@ -214,7 +214,7 @@ See [bx reference](bx/bx.md) for the full option list.
 - [packaging guide: version management workflows](guides/packaging-guide-version-management.md)
 - [packaging guide: common antipatterns and upstream patching](guides/packaging-guide-antipatterns.md)
 - [HOWTO: CI build filtering with builds:, build-include:, build-exclude:, including a worked wildcard-matching trace-through and the build-configs=all pagination caveat](HOWTO/builds-ci-filtering.md)
-- [HOWTO/ci-results.md](HOWTO/ci-results.md): cppget.org CI results -- test-installed is per configuration, passing runs fold into log, warnings get a separate link.
+- [HOWTO/ci-results.md](HOWTO/ci-results.md): cppget.org CI results -- test-installed is per configuration, passing runs fold into log, warnings get a separate link, toolchain value tells stage from released.
 - [HOWTO: requesting system-provided libraries on specific CI bots with the sys class, including sys/bindist class coexistence and the build-configs=all pagination caveat](HOWTO/sys-build-config.md)
 - [HOWTO: package config variables in `bdep init -C` (conditional dependencies)](HOWTO/conditional-dependency-config.md)
 - [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md): Require a dependency feature -- require vs reflect, require-alone sibling example, when to copy a negotiated value.

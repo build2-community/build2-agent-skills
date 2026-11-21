@@ -68,7 +68,7 @@ Condensed, AI-indexed versions of the
 | [ci-cd-setup.md](./ci-cd-setup.md) | Typical CI pipeline using bdep update/test |
 | [builds-ci-filtering.md](./builds-ci-filtering.md) | Filtering automated CI builds with `builds:`, `build-include:`, and `build-exclude:` |
 | [sys-build-config.md](./sys-build-config.md) | Requesting system-provided libraries on specific CI bots via the `sys` class |
-| [ci-results.md](./ci-results.md) | Reading cppget.org CI results: per-config `test-installed`, compact summary |
+| [ci-results.md](./ci-results.md) | Reading cppget.org CI results: per-config `test-installed`, compact summary, stage vs released `toolchain` |
 | [conditional-dependency-config.md](./conditional-dependency-config.md) | Passing package config variables via `bdep init -C` for conditional dependencies |
 
 ## Migrating to build2

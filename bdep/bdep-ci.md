@@ -36,7 +36,18 @@ archive). See
 for the `pkg` vs `git`/`dir` split and why this differs from `bdep publish`.
 
 If the CI server is not explicitly specified with the `--server` option, the
-request is submitted to `ci.cppget.org` by default.
+request is submitted to `ci.cppget.org` by default. A `bdep` built as part
+of the staged toolchain submits to `ci.stage.build2.org` by default instead.
+The `to:` line of the `submitting:` confirmation prompt shows which server
+the request goes to.
+
+The two services build with different toolchains. `ci.cppget.org` uses the
+released toolchain, the same one that builds packages in `queue.cppget.org`
+and `cppget.org` after `bdep publish`. `ci.stage.build2.org` uses the staged
+toolchain. A CI run that gates `bdep publish` must therefore be on
+`ci.cppget.org` (`bdep ci --server https://ci.cppget.org` from a staged
+`bdep`). See
+[Stage vs release CI](../guides/packaging-guide-testing.md#step-9-test-the-package).
 
 Unless the remote repository URL is specified with the `--repository` option,
 it will be automatically derived from the version control's "remote" URL. In
@@ -189,3 +200,5 @@ files:
 ## See Also
 
 - [bdep README](README.md)
+- [packaging-guide-testing.md](../guides/packaging-guide-testing.md#step-9-test-the-package): stage vs release CI, which run gates `bdep publish`
+- [ci-results.md](../HOWTO/ci-results.md): reading the results page, including the `toolchain` of each build

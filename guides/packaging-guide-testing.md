@@ -273,6 +273,41 @@ compilers are known not to be supported by upstream, exclude them using the
 `builds` field in `manifest` rather than spending time on unsupported
 combinations.
 
+**Stage vs release CI.** There are two public CI services, and they build
+with different toolchains:
+
+- `ci.cppget.org` builds with the released toolchain. This is the toolchain
+  that builds the package in `queue.cppget.org` and `cppget.org` after
+  `bdep publish`.
+- `ci.stage.build2.org` builds with the staged toolchain (the upcoming
+  release), including newer, not yet released versions of the standard
+  pre-installed build system modules such as `autoconf`.
+
+Which one `bdep ci` submits to by default depends on how `bdep` itself was
+built: a released `bdep` submits to `ci.cppget.org`, a staged `bdep` to
+`ci.stage.build2.org`. The `to:` line of the `submitting:` prompt shows the
+server, and each build on the results page shows the `toolchain` it used
+(see [ci-results.md](../HOWTO/ci-results.md#which-toolchain-built-a-configuration)).
+A staged `bdep publish` also warns
+`publishing using staged build2 toolchain` before asking to continue.
+
+A run that is green on stage has not been tested with the toolchain the
+package is published against. For example, the `autoconf` builtin check
+catalog on stage is ahead of the released one. A project check copied from
+the module's master can warn
+`check <NAME> exists in builtin catalog, overriding` on stage only, and a
+builtin check that changed since the release can produce a different
+`config.h` (see
+[build2-autoconf-project-checks.md](build2-autoconf-project-checks.md)).
+
+Stage CI is still useful for catching problems with the upcoming toolchain
+early. The run that gates `bdep publish` must be a green `ci.cppget.org` run
+on the final commit. From a staged `bdep`, name the server explicitly:
+
+```
+$ bdep ci --server https://ci.cppget.org
+```
+
 
 ## Step 10: Publish
 

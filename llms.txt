@@ -90,7 +90,7 @@
 ## Guides
 
 - [guides/packaging-guide-summary.md](guides/packaging-guide-summary.md): Third-party packaging guide -- concepts, review branch, workflow checklist, steps 1-7 (repository setup through installation), and which `repositories.manifest` a consumer consults (`pkg` vs `git`/`dir`).
-- [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md): Third-party packaging -- steps 8-10: writing tests, CI validation, merging the review branch into main, releasing and publishing to cppget.org, common pitfalls.
+- [guides/packaging-guide-testing.md](guides/packaging-guide-testing.md): Third-party packaging -- steps 8-10: writing tests, CI validation, stage vs release CI (ci.cppget.org gates publish), merging the review branch into main, releasing and publishing to cppget.org, common pitfalls.
 - [guides/packaging-guide-review.md](guides/packaging-guide-review.md): Third-party package review process -- transition policy, author review branch vs dummy review-X.Y.Z PR, initial/version/revision review procedures, authoritative checklist, outcome and email formats.
 - [guides/packaging-guide-version-management.md](guides/packaging-guide-version-management.md): Third-party packaging version management -- new revision workflow, new upstream version workflow, version bump procedures.
 - [guides/packaging-guide-antipatterns.md](guides/packaging-guide-antipatterns.md): Third-party packaging antipatterns -- common mistakes, what not to do, upstream patching guidelines.
@@ -169,7 +169,7 @@
 - [HOWTO/ci-cd-setup.md](HOWTO/ci-cd-setup.md): Typical CI pipeline using bdep update/test.
 - [HOWTO/builds-ci-filtering.md](HOWTO/builds-ci-filtering.md): CI build filtering recipes -- builds: class expressions, build-include/build-exclude patterns, common whitelist/blacklist recipes, tracing a wildcard pattern against a bot name by hand, excluding only the bindist variant of a distro, build-configs=all pagination caveat.
 - [HOWTO/sys-build-config.md](HOWTO/sys-build-config.md): Requesting system-provided libraries on specific CI bots -- sys build class, bare vs ?-prefixed sys: dependency specs in *-build-config, scope limits for OS-bundled frameworks, sys/bindist class coexistence on one bot, build-configs=all pagination caveat.
-- [HOWTO/ci-results.md](HOWTO/ci-results.md): cppget.org CI results -- test-installed is per configuration, passing runs fold into log, warnings get a separate link.
+- [HOWTO/ci-results.md](HOWTO/ci-results.md): cppget.org CI results -- test-installed is per configuration, passing runs fold into log, warnings get a separate link, toolchain value tells stage from released.
 - [HOWTO/conditional-dependency-config.md](HOWTO/conditional-dependency-config.md): Package config variables in `bdep init -C` -- cfg-args vs pkg-args, conditional dependency activation, two-separator form.
 - [HOWTO/require-dependency-feature.md](HOWTO/require-dependency-feature.md): Require a dependency feature -- require vs reflect, require-alone sibling example, when to copy a negotiated value.
 - [HOWTO/migrate-from-cmake.md](HOWTO/migrate-from-cmake.md): Porting a CMake project to build2 buildfiles.
@@ -203,7 +203,7 @@
 - [ai-tests/buildfile.md](ai-tests/buildfile.md): Queries for buildfile language and directives -- assignment operators, scope variables, wildcard patterns, include vs source, import, define.
 - [ai-tests/modules-bin.md](ai-tests/modules-bin.md): Queries for binary target types -- object file types, utility library types, C++20 BMI types, bin.lib values, shared library versioning.
 - [ai-tests/modules-cc-cxx.md](ai-tests/modules-cc-cxx.md): Queries for C/C++ compilation modules -- cc option variables, compiler family IDs, cxx/c target types and extensions, in module substitution modes.
-- [ai-tests/packaging.md](ai-tests/packaging.md): Queries for third-party packaging workflow -- repo layout, project scaffold, interface vs. implementation deps, revision workflow, publish defaults, build2-control branch.
+- [ai-tests/packaging.md](ai-tests/packaging.md): Queries for third-party packaging workflow -- repo layout, project scaffold, interface vs. implementation deps, revision workflow, publish defaults, build2-control branch, stage vs release CI gate.
 - [ai-tests/howto.md](ai-tests/howto.md): Queries for practical HOWTO recipes -- alias targets, compile option operators, system library linking, package naming, assert in tests, optional components.
 - [ai-tests/howto-libraries.md](ai-tests/howto-libraries.md): Queries for library design and linking HOWTOs -- binless system libs, library-provides-main, pthread linking, third-party private headers.
 - [ai-tests/howto-build.md](ai-tests/howto-build.md): Queries for build and configuration HOWTOs -- cross-compilation, generated headers, multiple configurations, config-independent graph, target metadata, install conflicts, update-for-test/install, runtime fixtures, source-tree test data.

@@ -150,8 +150,8 @@ command submits to a remote CI server?
 - Initialization sequence: `bdep init --empty`, `bdep config create ... @ci cc
   config.cxx=g++`, `bdep init @ci`.
 - Build and test: `bdep update @ci` followed by `bdep test @ci`.
-- `bdep ci` submits a CI request to a remote CI server (e.g.,
-  builds.cppget.org).
+- `bdep ci` submits a CI request to a remote CI server (`ci.cppget.org` by
+  default, `ci.stage.build2.org` for a `bdep` from the staged toolchain).
 
 **Source:** `HOWTO/ci-cd-setup.md`
 
